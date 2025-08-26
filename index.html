@@ -1,1 +1,292 @@
-ok
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doğuş İpeksaç — Android Developer</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Doğuş İpeksaç — Senior Android Developer. Jetpack Compose, Kotlin, Clean Architecture. YouTube'da içerikler üretiyorum." />
+  <link rel="canonical" href="https://dogusipeksac.com/" />
+  <meta name="theme-color" content="#0ea5e9" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Doğuş İpeksaç — Android Developer" />
+  <meta property="og:description" content="Jetpack Compose, Kotlin, Clean Architecture. Projelerim, videolarım ve iletişim." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dogusipeksac.com/" />
+  <meta property="og:image" content="images/og.jpg" /> <!-- TODO: kendi görselini ekle -->
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Doğuş İpeksaç — Android Developer" />
+  <meta name="twitter:description" content="Jetpack Compose, Kotlin, Clean Architecture." />
+  <meta name="twitter:image" content="images/og.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #0b1220;           /* dark bg */
+      --bg-soft: #0e1628;
+      --text: #e5e7eb;
+      --muted:#94a3b8;
+      --card:#0f172a99;
+      --primary:#0ea5e9;       /* cyan */
+      --primary-2:#22d3ee;     /* accent */
+      --ring: #38bdf8;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --maxw: 1100px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f8fafc;
+        --bg-soft:#eef2ff;
+        --text:#0f172a;
+        --muted:#475569;
+        --card:#ffffffcc;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -20%, rgba(34,211,238,.15), transparent 60%),
+        radial-gradient(1000px 500px at 110% 10%, rgba(14,165,233,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg));
+      letter-spacing:.2px;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw); margin:0 auto; padding:24px}
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;color:#000;padding:8px 12px;border-radius:8px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--card) 75%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--ring) 20%, transparent);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px;
+      font-family:"Red Hat Display", Inter, system-ui, sans-serif;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:50%;
+      display:grid; place-items:center; font-weight:800;
+      background: radial-gradient(120% 120% at 80% 20%, var(--primary-2), var(--primary));
+      color:#0b1220; box-shadow: var(--shadow);
+    }
+    nav ul{display:flex; gap:14px; list-style:none; padding:0; margin:0}
+    nav a{
+      padding:10px 12px; border-radius:12px; font-weight:600; color:var(--muted);
+    }
+    nav a:hover, nav a:focus{color:var(--text); background:color-mix(in oklab, var(--card) 70%, transparent); outline: none}
+
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:28px; align-items:center;
+      padding:64px 24px 28px;
+    }
+    @media (max-width:920px){ .hero{grid-template-columns:1fr; padding-top:40px} }
+    h1{
+      font-family:"Red Hat Display", Inter, system-ui, sans-serif;
+      font-size: clamp(34px, 6vw, 56px);
+      line-height:1.05; margin:0 0 14px;
+      letter-spacing:.3px;
+    }
+    .subtitle{font-size:clamp(16px, 2.2vw, 20px); color:var(--muted); margin-bottom:22px}
+    .chipset{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 26px}
+    .chip{
+      font-size:14px; padding:8px 12px; border-radius:999px; color:var(--text);
+      background: color-mix(in oklab, var(--primary) 18%, var(--card));
+      border:1px solid color-mix(in oklab, var(--ring) 30%, transparent);
+    }
+    .cta{display:flex; flex-wrap:wrap; gap:12px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 16px;
+      border-radius:14px; border:1px solid color-mix(in oklab, var(--ring) 35%, transparent);
+      background: color-mix(in oklab, var(--card) 80%, transparent);
+      font-weight:700; transition: transform .06s ease;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color:#0b1220; border-color: transparent;
+    }
+    .hero-card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), color-mix(in oklab, var(--card) 70%, transparent));
+      padding:22px; box-shadow: var(--shadow); border:1px solid color-mix(in oklab, var(--ring) 25%, transparent);
+    }
+    .hero-card img{width:100%; border-radius:14px}
+
+    /* Sections */
+    section{padding:36px 24px}
+    .section-title{
+      font-family:"Red Hat Display", Inter, system-ui, sans-serif;
+      font-weight:800; font-size:clamp(20px, 2.8vw, 28px); margin:0 0 18px;
+    }
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-4{grid-column: span 4}
+    .col-6{grid-column: span 6}
+    .col-12{grid-column: span 12}
+    @media (max-width:920px){
+      .col-4, .col-6 {grid-column: span 12}
+    }
+
+    .card{
+      height:100%;
+      border-radius: var(--radius);
+      background: color-mix(in oklab, var(--card) 88%, transparent);
+      border:1px solid color-mix(in oklab, var(--ring) 20%, transparent);
+      box-shadow: var(--shadow);
+      padding:18px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .card h3{margin:2px 0 4px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .card .actions{margin-top:auto; display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Footer */
+    footer{
+      border-top:1px solid color-mix(in oklab, var(--ring) 20%, transparent);
+      padding:26px 24px 40px; color:var(--muted); text-align:center;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#icerik">İçeriğe atla</a>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">Dİ</div>
+        <span>Doğuş İpeksaç</span>
+      </div>
+      <nav aria-label="Birincil">
+        <ul>
+          <li><a href="#projeler">Projeler</a></li>
+          <li><a href="#videolar">Videolar</a></li>
+          <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik" class="container">
+    <section class="hero" aria-label="Tanıtım">
+      <div>
+        <h1>Senior Android Developer</h1>
+        <p class="subtitle">Jetpack Compose, Kotlin ve Clean Architecture ile modern, ölçeklenebilir mobil deneyimler geliştiriyorum. Ayrıca YouTube’da deneyimlerimi ve üretim süreçlerimi paylaşıyorum.</p>
+
+        <div class="chipset" aria-label="Uzmanlıklar">
+          <span class="chip">Kotlin</span>
+          <span class="chip">Jetpack Compose</span>
+          <span class="chip">MVVM &amp; Clean Architecture</span>
+          <span class="chip">Room • Retrofit</span>
+          <span class="chip">Flutter (GetX)</span>
+        </div>
+
+        <div class="cta">
+          <a class="btn primary" href="mailto:ipeksac.dogus.19@gmail.com" aria-label="E-posta gönder">📩 İletişime Geç</a>
+          <a class="btn" href="https://github.com/dogusipeksac" target="_blank" rel="noopener">🐙 GitHub</a>
+          <a class="btn" href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener">▶️ YouTube</a>
+          <a class="btn" href="https://www.linkedin.com/in/dogusipeksac" target="_blank" rel="noopener">🔗 LinkedIn</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Öne çıkan görsel">
+        <!-- TODO: Kendi görselini /images/cover.jpg olarak ekle -->
+        <img src="https://picsum.photos/800/520?blur=1" alt="Android geliştirme temalı kapak görseli" />
+        <p style="margin-top:10px;color:var(--muted);font-size:14px">“Basit, hızlı ve güvenilir.”</p>
+      </aside>
+    </section>
+
+    <section id="projeler">
+      <h2 class="section-title">Öne Çıkan Projeler</h2>
+      <div class="grid">
+        <article class="card col-6">
+          <h3>MyDiary — Kişisel Günlük (Android)</h3>
+          <p>Jetpack Compose ile tasarlanmış; güncel tema, sticker/emoji, offline önbellek ve reklam/satın alma entegrasyonları.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.product.mydiary" aria-label="MyDiary indir">⬇️ Play Store</a>
+            <a class="btn" href="https://github.com/dogusipeksac" target="_blank" rel="noopener">📦 Kaynak</a>
+          </div>
+        </article>
+
+        <article class="card col-6">
+          <h3>update_checker_module</h3>
+          <p>Uygulama içi zorunlu/opsiyonel güncelleme akışları için bağımsız kitaplık. Firebase Remote Config destekli.</p>
+          <div class="actions">
+            <a class="btn" href="https://github.com/dogusipeksac" target="_blank" rel="noopener">📚 GitHub</a>
+          </div>
+        </article>
+
+        <article class="card col-6">
+          <h3>monetization_module</h3>
+          <p>AdMob banner/interstitial/rewarded, satın alma ve reklam-kaldırma akışları için Compose uyumlu bileşen seti.</p>
+          <div class="actions">
+            <a class="btn" href="https://github.com/dogusipeksac" target="_blank" rel="noopener">💼 GitHub</a>
+          </div>
+        </article>
+
+        <article class="card col-6">
+          <h3>GPS Map Camera (Flutter)</h3>
+          <p>Fotoğraflara konum/harita, tarih, hava durumu ve özel filigran ekleyen Flutter tabanlı uygulama.</p>
+          <div class="actions">
+            <a class="btn" href="https://github.com/dogusipeksac" target="_blank" rel="noopener">🧭 Repo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="videolar">
+      <h2 class="section-title">Videolar &amp; İçerikler</h2>
+      <div class="grid">
+        <article class="card col-12">
+          <p>Android geliştirme, iş/yaşam dengesi ve günlük üretim rutinlerimi YouTube’da paylaşıyorum.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener">▶️ Kanalı Ziyaret Et</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="iletisim" aria-label="İletişim">
+      <h2 class="section-title">İletişim</h2>
+      <div class="grid">
+        <div class="card col-12">
+          <p style="margin:0 0 12px">Beraber çalışmak ya da bir fikri konuşmak istersen mail atabilirsin.</p>
+          <div class="actions">
+            <a class="btn primary" href="mailto:ipeksac.dogus.19@gmail.com">📩 ipeksac.dogus.19@gmail.com</a>
+            <a class="btn" href="https://t.me/" target="_blank" rel="noopener">💬 Telegram (ekle)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="yil"></span> Doğuş İpeksaç • Made with ❤️</p>
+    <p><a href="/app-ads.txt
