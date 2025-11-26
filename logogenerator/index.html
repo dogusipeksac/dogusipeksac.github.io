@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Generator Pro - Android & iOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Upload Section */
+        .upload-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f0f4ff;
+        }
+
+        .upload-area.active {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .upload-subtext {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .btn-upload {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-upload:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+        }
+
+        .preview-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: #f0f4ff;
+            border: 1px solid #e0e7ff;
+            margin-bottom: 15px;
+        }
+
+        .image-info {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #166534;
+            margin-bottom: 15px;
+        }
+
+        /* Settings Section */
+        .settings-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .setting-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e0e7ff;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e7ff;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Output Section */
+        .output-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .output-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e7ff;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-btn:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .sizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .size-item {
+            background: white;
+            border: 1px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .size-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+
+        .size-preview {
+            width: 100%;
+            height: 120px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .size-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .size-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .size-desc {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .download-btns-container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-download {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download-png {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-download-png:hover {
+            background: #764ba2;
+        }
+
+        .btn-download-webp {
+            background: #f0f9ff;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .btn-download-webp:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-download-svg {
+            background: #e0f7fa;
+            color: #0891b2;
+            border: 1px solid #0891b2;
+        }
+
+        .btn-download-svg:hover {
+            background: #0891b2;
+            color: white;
+        }
+
+        .btn-download:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download-all {
+            background: #22c55e;
+            color: white;
+        }
+
+        .btn-download-all:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-download-all:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f0f4ff;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-left: 4px solid #f59e0b;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #92400e;
+        }
+
+        .success-message {
+            display: none;
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            border-left: 4px solid #22c55e;
+            border-radius: 8px;
+            padding: 12px;
+            color: #166534;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .no-image-msg {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            background: #f0f4ff;
+            border-radius: 12px;
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            border-top: 1px solid #e0e7ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Logo Generator Pro</h1>
+            <p>Android & iOS için profesyonel logolar otomatik olarak oluştur</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Left Side - Upload & Settings -->
+            <div>
+                <div class="upload-section">
+                    <h2>1️⃣ Resmi Yükle</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Resmi buraya sürükle veya tıkla</div>
+                        <div class="upload-subtext">PNG, JPG, SVG (Max 10MB)</div>
+                        <button class="btn-upload" onclick="document.getElementById('imageInput').click()">Dosya Seç</button>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*">
+
+                    <div class="preview-section" id="previewSection" style="display: none;">
+                        <h3>Yüklenen Resim</h3>
+                        <img id="previewImage" class="preview-image" alt="Preview">
+                        <div class="image-info" id="imageInfo"></div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>⚙️ Ayarlar</h3>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">Arka Plan Rengi</label>
+                        <input type="color" id="bgColor" class="setting-input" value="#ffffff">
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Padding (%)</label>
+                        <input type="number" id="padding" class="setting-input" value="0" min="0" max="30" step="5">
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Köşe Yuvarlama</label>
+                        <select id="borderRadius" class="setting-input">
+                            <option value="0">Kare</option>
+                            <option value="10">Hafif Yuvarlak</option>
+                            <option value="20">Orta Yuvarlak</option>
+                            <option value="50">Tam Yuvarlak</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Oluşturulacak Formatlar</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="formatPNG" checked>
+                                <label for="formatPNG">PNG</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="formatWebP" checked>
+                                <label for="formatWebP">WebP</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="formatSVG">
+                                <label for="formatSVG">SVG</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Output -->
+            <div>
+                <div class="output-section">
+                    <h3>2️⃣ Logoları Oluştur</h3>
+                    
+                    <div class="info-box">
+                        📱 Resmi yükle ve aşağıdan Android/iOS logolarını indireyebilirsin
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        ✅ Logolar başarıyla oluşturuldu!
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('android')">🤖 Android</button>
+                        <button class="tab-btn" onclick="switchTab('ios')">🍎 iOS</button>
+                        <button class="tab-btn" onclick="switchTab('web')">🌐 Web</button>
+                    </div>
+
+                    <!-- Android Tab -->
+                    <div id="android" class="tab-content active">
+                        <div id="androidContent" class="sizes-grid">
+                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
+                        </div>
+                    </div>
+
+                    <!-- iOS Tab -->
+                    <div id="ios" class="tab-content">
+                        <div id="iosContent" class="sizes-grid">
+                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
+                        </div>
+                    </div>
+
+                    <!-- Web Tab -->
+                    <div id="web" class="tab-content">
+                        <div id="webContent" class="sizes-grid">
+                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
+                        </div>
+                    </div>
+
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Logolar oluşturuluyor...</p>
+                    </div>
+
+                    <div class="action-buttons" id="actionButtons" style="display: none;">
+                        <button class="btn-action btn-download-all" onclick="downloadAllLogos()" id="downloadAllBtn">
+                            ⬇️ Tüm Logolarını İndir (ZIP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💧 Logo Generator Pro | © 2025 | Android & iOS için hızlı logo oluşturucu</p>
+        </div>
+    </div>
+
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const previewImage = document.getElementById('previewImage');
+        const previewSection = document.getElementById('previewSection');
+        const imageInfo = document.getElementById('imageInfo');
+        const loading = document.getElementById('loading');
+        const actionButtons = document.getElementById('actionButtons');
+        const successMessage = document.getElementById('successMessage');
+
+        let currentImage = null;
+        let generatedLogos = {};
+
+        // Android sizes
+        const androidSizes = [
+            { name: '192x192 (xxxhdpi)', size: 192, desc: 'Google Play Store' },
+            { name: '144x144 (xxhdpi)', size: 144, desc: 'Yüksek Res' },
+            { name: '96x96 (xhdpi)', size: 96, desc: 'Orta Res' },
+            { name: '72x72 (hdpi)', size: 72, desc: 'Standart' },
+            { name: '512x512 (Store)', size: 512, desc: 'Feature Graphic' },
+            { name: '48x48 (mdpi)', size: 48, desc: 'Düşük Res' }
+        ];
+
+        // iOS sizes
+        const iosSizes = [
+            { name: '1024x1024 (App Store)', size: 1024, desc: 'Zorunlu' },
+            { name: '180x180 (@3x)', size: 180, desc: 'iPhone' },
+            { name: '167x167 (iPad Pro)', size: 167, desc: 'iPad' },
+            { name: '152x152 (iPad)', size: 152, desc: 'iPad' },
+            { name: '120x120 (@2x)', size: 120, desc: 'iPhone' },
+            { name: '256x256', size: 256, desc: 'Web' }
+        ];
+
+        // Web sizes
+        const webSizes = [
+            { name: '512x512', size: 512, desc: 'Sosyal Medya' },
+            { name: '256x256', size: 256, desc: 'Favicon' },
+            { name: '128x128', size: 128, desc: 'Web' },
+            { name: '32x32', size: 32, desc: 'Favicon ICO' }
+        ];
+
+        // Upload event listeners
+        uploadArea.addEventListener('click', () => imageInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('active'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleImageUpload(files[0]);
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) handleImageUpload(e.target.files[0]);
+        });
+
+        // Settings listeners
+        document.getElementById('bgColor').addEventListener('change', regenerateLogos);
+        document.getElementById('padding').addEventListener('change', regenerateLogos);
+        document.getElementById('borderRadius').addEventListener('change', regenerateLogos);
+
+        function handleImageUpload(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert('Dosya boyutu 10MB\' tan fazla olamaz!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentImage = new Image();
+                currentImage.onload = () => {
+                    previewImage.src = currentImage.src;
+                    previewSection.style.display = 'block';
+                    imageInfo.textContent = `${currentImage.width}x${currentImage.height}px • ${(file.size / 1024).toFixed(2)}KB`;
+                    generateAllLogos();
+                };
+                currentImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function generateAllLogos() {
+            if (!currentImage) return;
+            
+            generatedLogos = {};
+            loading.classList.add('active');
+            successMessage.classList.remove('show');
+
+            setTimeout(() => {
+                // Generate Android logos
+                androidSizes.forEach(item => {
+                    generatedLogos[`android-${item.size}`] = {
+                        size: item.size,
+                        data: generateLogo(item.size),
+                        formats: getFormats()
+                    };
+                });
+
+                // Generate iOS logos
+                iosSizes.forEach(item => {
+                    generatedLogos[`ios-${item.size}`] = {
+                        size: item.size,
+                        data: generateLogo(item.size),
+                        formats: getFormats()
+                    };
+                });
+
+                // Generate Web logos
+                webSizes.forEach(item => {
+                    generatedLogos[`web-${item.size}`] = {
+                        size: item.size,
+                        data: generateLogo(item.size),
+                        formats: getFormats()
+                    };
+                });
+
+                loading.classList.remove('active');
+                successMessage.classList.add('show');
+                actionButtons.style.display = 'flex';
+
+                renderAndroid();
+                renderIOS();
+                renderWeb();
+            }, 100);
+        }
+
+        function generateLogo(size) {
+            const canvas = document.getElementById('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            const bgColor = document.getElementById('bgColor').value;
+            const padding = parseInt(document.getElementById('padding').value);
+            const borderRadius = parseInt(document.getElementById('borderRadius').value);
+
+            // Background
+            ctx.fillStyle = bgColor;
+            if (borderRadius > 0) {
+                ctx.beginPath();
+                ctx.moveTo(borderRadius, 0);
+                ctx.lineTo(size - borderRadius, 0);
+                ctx.quadraticCurveTo(size, 0, size, borderRadius);
+                ctx.lineTo(size, size - borderRadius);
+                ctx.quadraticCurveTo(size, size, size - borderRadius, size);
+                ctx.lineTo(borderRadius, size);
+                ctx.quadraticCurveTo(0, size, 0, size - borderRadius);
+                ctx.lineTo(0, borderRadius);
+                ctx.quadraticCurveTo(0, 0, borderRadius, 0);
+                ctx.closePath();
+                ctx.fill();
+            } else {
+                ctx.fillRect(0, 0, size, size);
+            }
+
+            // Calculate image size with padding
+            const imgSize = size - (size * padding / 100);
+            const offset = (size - imgSize) / 2;
+
+            // Draw image
+            ctx.drawImage(currentImage, offset, offset, imgSize, imgSize);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        function getFormats() {
+            const formats = [];
+            if (document.getElementById('formatPNG').checked) formats.push('png');
+            if (document.getElementById('formatWebP').checked) formats.push('webp');
+            if (document.getElementById('formatSVG').checked) formats.push('svg');
+            return formats;
+        }
+
+        function renderAndroid() {
+            const container = document.getElementById('androidContent');
+            container.innerHTML = '';
+
+            androidSizes.forEach(item => {
+                const logo = generatedLogos[`android-${item.size}`];
+                const html = createSizeCard(item, logo, `android-${item.size}`);
+                container.innerHTML += html;
+            });
+
+            attachDownloadListeners();
+        }
+
+        function renderIOS() {
+            const container = document.getElementById('iosContent');
+            container.innerHTML = '';
+
+            iosSizes.forEach(item => {
+                const logo = generatedLogos[`ios-${item.size}`];
+                const html = createSizeCard(item, logo, `ios-${item.size}`);
+                container.innerHTML += html;
+            });
+
+            attachDownloadListeners();
+        }
+
+        function renderWeb() {
+            const container = document.getElementById('webContent');
+            container.innerHTML = '';
+
+            webSizes.forEach(item => {
+                const logo = generatedLogos[`web-${item.size}`];
+                const html = createSizeCard(item, logo, `web-${item.size}`);
+                container.innerHTML += html;
+            });
+
+            attachDownloadListeners();
+        }
+
+        function createSizeCard(item, logo, key) {
+            if (!logo) return '';
+
+            const formats = getFormats();
+            let formatButtons = '';
+
+            if (formats.includes('png')) {
+                formatButtons += `<button class="btn-download btn-download-png" onclick="downloadLogo('${key}', 'png', ${item.size})">PNG</button>`;
+            }
+            if (formats.includes('webp')) {
+                formatButtons += `<button class="btn-download btn-download-webp" onclick="downloadLogo('${key}', 'webp', ${item.size})">WebP</button>`;
+            }
+            if (formats.includes('svg')) {
+                formatButtons += `<button class="btn-download btn-download-svg" onclick="downloadLogo('${key}', 'svg', ${item.size})">SVG</button>`;
+            }
+
+            return `
+                <div class="size-item">
+                    <div class="size-preview">
+                        <img src="${logo.data}" alt="${item.name}">
+                    </div>
+                    <div class="size-name">${item.name}</div>
+                    <div class="size-desc">${item.desc}</div>
+                    <div class="download-btns-container">
+                        ${formatButtons}
+                    </div>
+                </div>
+            `;
+        }
+
+        function attachDownloadListeners() {
+            // Already handled in onclick
+        }
+
+        function downloadLogo(key, format, size) {
+            const logo = generatedLogos[key];
+            if (!logo) return;
+
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.getElementById('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                let fileName = `logo-${size}x${size}.${format}`;
+
+                if (format === 'png') {
+                    canvas.toBlob(blob => {
+                        downloadBlob(blob, fileName);
+                    }, 'image/png');
+                } else if (format === 'webp') {
+                    canvas.toBlob(blob => {
+                        downloadBlob(blob, fileName);
+                    }, 'image/webp', 0.9);
+                } else if (format === 'svg') {
+                    const svgData = `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+                        <image href="${logo.data}" width="${size}" height="${size}"/>
+                    </svg>`;
+                    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+                    downloadBlob(blob, fileName);
+                }
+            };
+            img.src = logo.data;
+        }
+
+        function downloadBlob(blob, fileName) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadAllLogos() {
+            if (Object.keys(generatedLogos).length === 0) {
+                alert('Lütfen önce resim yükleyin!');
+                return;
+            }
+
+            const zip = new JSZip();
+            const formats = getFormats();
+
+            // Create folders
+            const androidFolder = zip.folder('android');
+            const iosFolder = zip.folder('ios');
+            const webFolder = zip.folder('web');
+
+            // Add Android logos
+            androidSizes.forEach(item => {
+                const key = `android-${item.size}`;
+                const logo = generatedLogos[key];
+                const base64 = logo.data.split(',')[1];
+                androidFolder.file(`ic_launcher_${item.size}.png`, base64, { base64: true });
+            });
+
+            // Add iOS logos
+            iosSizes.forEach(item => {
+                const key = `ios-${item.size}`;
+                const logo = generatedLogos[key];
+                const base64 = logo.data.split(',')[1];
+                iosFolder.file(`icon_${item.size}.png`, base64, { base64: true });
+            });
+
+            // Add Web logos
+            webSizes.forEach(item => {
+                const key = `web-${item.size}`;
+                const logo = generatedLogos[key];
+                const base64 = logo.data.split(',')[1];
+                webFolder.file(`logo_${item.size}.png`, base64, { base64: true });
+            });
+
+            zip.generateAsync({ type: 'blob' }).then(blob => {
+                downloadBlob(blob, 'all-logos.zip');
+            });
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function regenerateLogos() {
+            if (currentImage) {
+                generateAllLogos();
+            }
+        }
+    </script>
+</body>
+</html>
