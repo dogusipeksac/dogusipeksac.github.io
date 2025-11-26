@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Cleaner Pro - Logcat Temizleyici</title>
+    <style>
+        :root {
+            --bg: #0a0e27;
+            --bg-secondary: #0f1329;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b8c1;
+            --accent-cyan: #0ea5e9;
+            --accent-cyan-light: #22d3ee;
+            --border: #1e2941;
+            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(600px 400px at 20% 10%, rgba(14, 165, 233, 0.15), transparent 50%),
+                radial-gradient(800px 500px at 80% 80%, rgba(168, 85, 247, 0.1), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 36px;
+            padding: 32px 0;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: rgba(15, 19, 41, 0.8);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+        }
+
+        .panel h2 {
+            margin: 0 0 16px;
+            font-size: 18px;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            resize: none;
+            min-height: 500px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-cyan) transparent;
+        }
+
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        textarea::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--accent-cyan);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: rgba(14, 165, 233, 0.2);
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-light));
+            color: var(--bg);
+            border-color: transparent;
+        }
+
+        .btn.primary:hover {
+            box-shadow: 0 8px 16px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn.danger {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .btn.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .options {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .option-group {
+            margin-bottom: 12px;
+        }
+
+        .option-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .option-label input {
+            cursor: pointer;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--accent-cyan);
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filter-input {
+            flex: 1;
+            min-width: 150px;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .filter-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #86efac;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+        }
+
+        .message.info {
+            background: rgba(14, 165, 233, 0.2);
+            border: 1px solid rgba(14, 165, 233, 0.5);
+            color: #7dd3fc;
+        }
+
+        .examples {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .examples h3 {
+            margin: 0 0 12px;
+            color: var(--accent-cyan);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .example-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            border-left: 2px solid var(--accent-cyan);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-item:hover {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--text-primary);
+        }
+
+        .log-level {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 10px;
+            margin-right: 6px;
+        }
+
+        .log-level.V {
+            background: rgba(156, 163, 175, 0.2);
+            color: #d1d5db;
+        }
+
+        .log-level.D {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+        }
+
+        .log-level.I {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+        }
+
+        .log-level.W {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+
+        .log-level.E {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            textarea {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧹 Log Cleaner Pro</h1>
+            <p class="subtitle">Android Logcat loglarını temizle ve format et</p>
+        </header>
+
+        <div class="content">
+            <!-- Input Panel -->
+            <div class="panel">
+                <h2>📥 Ham Loglar</h2>
+                
+                <div class="message" id="inputMessage"></div>
+
+                <div class="examples">
+                    <h3>📋 Örnek Formatlar</h3>
+                    <div class="example-item" onclick="insertExample(0)">
+                        <span class="log-level D">D</span>2025-11-26 10:15:30.123  1234  5678 I/TAG: Message
+                    </div>
+                    <div class="example-item" onclick="insertExample(1)">
+                        <span class="log-level E">E</span>E/AndroidRuntime: FATAL EXCEPTION: main
+                    </div>
+                    <div class="example-item" onclick="insertExample(2)">
+                        <span class="log-level W">W</span>W/System: Warning message
+                    </div>
+                </div>
+
+                <div class="options">
+                    <div class="option-group">
+                        <label class="option-label">
+                            <input type="checkbox" id="removeTimestamp" class="checkbox" checked>
+                            Timestamp'i sil
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">
+                            <input type="checkbox" id="removePID" class="checkbox" checked>
+                            PID/TID sil
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">
+                            <input type="checkbox" id="keepLogLevel" class="checkbox" checked>
+                            Log Level'i tut (V/D/I/W/E)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">
+                            <input type="checkbox" id="keepTag" class="checkbox" checked>
+                            TAG'i tut
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">
+                            <input type="checkbox" id="colorize" class="checkbox" checked>
+                            Renk uygula
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filters">
+                    <input type="text" id="filterKeyword" class="filter-input" placeholder="Filtrele (opsiyonel)...">
+                    <input type="text" id="filterTag" class="filter-input" placeholder="TAG'e göre filtrele...">
+                </div>
+
+                <div class="controls">
+                    <button class="btn primary" onclick="processLogs()">⚡ Temizle</button>
+                    <button class="btn" onclick="clearInput()">🗑️ Input Temizle</button>
+                    <button class="btn danger" onclick="resetAll()">↺ Sıfırla</button>
+                </div>
+
+                <textarea id="inputLogs" placeholder="Logcat çıktısını buraya yapıştır..."></textarea>
+
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number" id="inputLineCount">0</span>
+                        <span class="stat-label">Satır</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="inputCharCount">0</span>
+                        <span class="stat-label">Karakter</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="panel">
+                <h2>📤 Temizlenmiş Loglar</h2>
+                
+                <div class="controls">
+                    <button class="btn primary" onclick="copyOutput()">📋 Kopyala</button>
+                    <button class="btn" onclick="downloadOutput()">⬇️ İndir (.txt)</button>
+                    <button class="btn" onclick="clearOutput()">🗑️ Temizle</button>
+                </div>
+
+                <div class="message" id="outputMessage"></div>
+
+                <textarea id="outputLogs" placeholder="Temizlenmiş loglar burada görünecek..." readonly></textarea>
+
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number" id="outputLineCount">0</span>
+                        <span class="stat-label">Satır</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="outputCharCount">0</span>
+                        <span class="stat-label">Karakter</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="reductionPercent">0%</span>
+                        <span class="stat-label">Küçülme</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>💜 Log Cleaner Pro | Android Developer'lar için yapıldı</p>
+        </footer>
+    </div>
+
+    <script>
+        const inputLogs = document.getElementById('inputLogs');
+        const outputLogs = document.getElementById('outputLogs');
+        const inputMessage = document.getElementById('inputMessage');
+        const outputMessage = document.getElementById('outputMessage');
+
+        // Examples
+        const examples = [
+            '2025-11-26 10:15:30.123  1234  5678 I/TAG: Message\n2025-11-26 10:15:31.456  1234  5678 D/TAG: Debug message\nE/AndroidRuntime: java.lang.NullPointerException',
+            'E/AndroidRuntime: FATAL EXCEPTION: main\nE/AndroidRuntime: Process: com.example.app, PID: 1234\nE/AndroidRuntime: java.lang.NullPointerException: Attempt to invoke virtual method\nE/AndroidRuntime:     at com.example.app.MainActivity.onCreate(MainActivity.kt:42)',
+            'W/System: Warning from system\nW/System: Another warning\nI/System: Info message'
+        ];
+
+        function insertExample(index) {
+            inputLogs.value = examples[index];
+            updateStats();
+            showMessage(inputMessage, 'Örnek loglar yüklendi!', 'info');
+        }
+
+        function processLogs() {
+            const input = inputLogs.value.trim();
+            
+            if (!input) {
+                showMessage(outputMessage, 'Lütfen logcat çıktısını yapıştır!', 'error');
+                return;
+            }
+
+            const lines = input.split('\n');
+            const removeTimestamp = document.getElementById('removeTimestamp').checked;
+            const removePID = document.getElementById('removePID').checked;
+            const keepLogLevel = document.getElementById('keepLogLevel').checked;
+            const keepTag = document.getElementById('keepTag').checked;
+            const colorize = document.getElementById('colorize').checked;
+            const filterKeyword = document.getElementById('filterKeyword').value.toLowerCase();
+            const filterTag = document.getElementById('filterTag').value.toLowerCase();
+
+            const cleanedLines = lines.map(line => {
+                if (!line.trim()) return '';
+
+                let cleanedLine = line;
+
+                // Timestamp'i sil: YYYY-MM-DD HH:MM:SS.mmm
+                if (removeTimestamp) {
+                    cleanedLine = cleanedLine.replace(/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d{3}\s+/, '');
+                }
+
+                // PID/TID'i sil: xxxx  xxxx (sayılar)
+                if (removePID) {
+                    cleanedLine = cleanedLine.replace(/^\s*\d+\s+\d+\s+/, '');
+                }
+
+                // Log Level'i belirle
+                const levelMatch = cleanedLine.match(/^([VDIWEF])\//);
+                const logLevel = levelMatch ? levelMatch[1] : null;
+
+                // Log Level'i kaldır veya tut
+                if (logLevel && !keepLogLevel) {
+                    cleanedLine = cleanedLine.replace(/^[VDIWEF]\//, '');
+                }
+
+                // TAG'i extract et
+                const tagMatch = cleanedLine.match(/^([VDIWEF]\/)?([^:]+):/);
+                const tag = tagMatch ? tagMatch[2] : null;
+
+                // TAG'i kaldır
+                if (tag && !keepTag) {
+                    cleanedLine = cleanedLine.replace(/^([VDIWEF]\/)?[^:]+:/, '').trim();
+                } else if (logLevel && keepLogLevel && keepTag) {
+                    cleanedLine = cleanedLine.replace(/^([VDIWEF]\/)/, '').trim();
+                }
+
+                return {
+                    original: line,
+                    cleaned: cleanedLine.trim(),
+                    logLevel: logLevel,
+                    tag: tag
+                };
+            }).filter(item => item.cleaned !== '');
+
+            // Filtreleme uygula
+            let filtered = cleanedLines;
+
+            if (filterKeyword) {
+                filtered = filtered.filter(item => 
+                    item.cleaned.toLowerCase().includes(filterKeyword) ||
+                    (item.tag && item.tag.toLowerCase().includes(filterKeyword))
+                );
+            }
+
+            if (filterTag) {
+                filtered = filtered.filter(item => 
+                    item.tag && item.tag.toLowerCase().includes(filterTag)
+                );
+            }
+
+            // Output'u oluştur
+            let output = filtered.map(item => {
+                let line = '';
+                
+                if (colorize && item.logLevel) {
+                    const levelColors = {
+                        'V': '\x1b[90m', // Gray
+                        'D': '\x1b[36m', // Cyan
+                        'I': '\x1b[32m', // Green
+                        'W': '\x1b[33m', // Yellow
+                        'E': '\x1b[31m'  // Red
+                    };
+                    line = `${levelColors[item.logLevel]}${item.logLevel}\x1b[0m`;
+                    if (item.tag) line += `/${item.tag}: `;
+                    else line += ': ';
+                    line += item.cleaned;
+                } else {
+                    line = item.cleaned;
+                }
+
+                return line;
+            }).join('\n');
+
+            outputLogs.value = output;
+            updateStats();
+            
+            showMessage(outputMessage, 
+                `${filtered.length} satır işlendi!`, 'success');
+        }
+
+        function updateStats() {
+            const inputText = inputLogs.value;
+            const outputText = outputLogs.value;
+
+            const inputLines = inputText.trim() ? inputText.split('\n').length : 0;
+            const outputLines = outputText.trim() ? outputText.split('\n').length : 0;
+
+            document.getElementById('inputLineCount').textContent = inputLines;
+            document.getElementById('inputCharCount').textContent = inputText.length.toLocaleString();
+            
+            document.getElementById('outputLineCount').textContent = outputLines;
+            document.getElementById('outputCharCount').textContent = outputText.length.toLocaleString();
+
+            const reduction = inputText.length > 0 
+                ? Math.round(((inputText.length - outputText.length) / inputText.length) * 100)
+                : 0;
+            document.getElementById('reductionPercent').textContent = reduction + '%';
+        }
+
+        function copyOutput() {
+            const text = outputLogs.value;
+            if (!text) {
+                showMessage(outputMessage, 'Kopyalanacak bir şey yok!', 'error');
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                showMessage(outputMessage, '✓ Kopyalandı!', 'success');
+            });
+        }
+
+        function downloadOutput() {
+            const text = outputLogs.value;
+            if (!text) {
+                showMessage(outputMessage, 'İndirilecek bir şey yok!', 'error');
+                return;
+            }
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `logs-${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showMessage(outputMessage, '✓ İndirildi!', 'success');
+        }
+
+        function clearInput() {
+            inputLogs.value = '';
+            updateStats();
+        }
+
+        function clearOutput() {
+            outputLogs.value = '';
+            updateStats();
+        }
+
+        function resetAll() {
+            inputLogs.value = '';
+            outputLogs.value = '';
+            document.getElementById('filterKeyword').value = '';
+            document.getElementById('filterTag').value = '';
+            updateStats();
+        }
+
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = `message show ${type}`;
+            setTimeout(() => {
+                element.classList.remove('show');
+            }, 3000);
+        }
+
+        // Otomatik stat güncellemesi
+        inputLogs.addEventListener('input', updateStats);
+        outputLogs.addEventListener('input', updateStats);
+    </script>
+</body>
+</html>
