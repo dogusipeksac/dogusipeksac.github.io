@@ -15,7 +15,7 @@
   <meta property="og:description" content="Jetpack Compose, Kotlin, Clean Architecture. Projelerim, videolarım ve iletişim." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dogusipeksac.com/" />
-  <meta property="og:image" content="images/og.jpg" /> <!-- TODO: kendi görselini ekle -->
+  <meta property="og:image" content="images/og.jpg" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -188,6 +188,7 @@
         <ul>
           <li><a href="#projeler">Projeler</a></li>
           <li><a href="#videolar">Videolar</a></li>
+          <li><a href="logogenerator/">🎯 Logo Generator</a></li>
           <li><a href="#iletisim">İletişim</a></li>
         </ul>
       </nav>
@@ -198,7 +199,7 @@
     <section class="hero" aria-label="Tanıtım">
       <div>
         <h1>Senior Android Developer</h1>
-        <p class="subtitle">Jetpack Compose, Kotlin ve Clean Architecture ile modern, ölçeklenebilir mobil deneyimler geliştiriyorum. Ayrıca YouTube’da deneyimlerimi ve üretim süreçlerimi paylaşıyorum.</p>
+        <p class="subtitle">Jetpack Compose, Kotlin ve Clean Architecture ile modern, ölçeklenebilir mobil deneyimler geliştiriyorum. Ayrıca YouTube'da deneyimlerimi ve üretim süreçlerimi paylaşıyorum.</p>
 
         <div class="chipset" aria-label="Uzmanlıklar">
           <span class="chip">Kotlin</span>
@@ -219,7 +220,7 @@
       <aside class="hero-card" aria-label="Öne çıkan görsel">
         <!-- TODO: Kendi görselini /images/cover.jpg olarak ekle -->
         <img src="https://picsum.photos/800/520?blur=1" alt="Android geliştirme temalı kapak görseli" />
-        <p style="margin-top:10px;color:var(--muted);font-size:14px">“Basit, hızlı ve güvenilir.”</p>
+        <p style="margin-top:10px;color:var(--muted);font-size:14px">"Basit, hızlı ve güvenilir."</p>
       </aside>
     </section>
 
@@ -265,7 +266,7 @@
       <h2 class="section-title">Videolar &amp; İçerikler</h2>
       <div class="grid">
         <article class="card col-12">
-          <p>Android geliştirme, iş/yaşam dengesi ve günlük üretim rutinlerimi YouTube’da paylaşıyorum.</p>
+          <p>Android geliştirme, iş/yaşam dengesi ve günlük üretim rutinlerimi YouTube'da paylaşıyorum.</p>
           <div class="actions">
             <a class="btn primary" href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener">▶️ Kanalı Ziyaret Et</a>
           </div>
@@ -288,4 +289,11 @@
 
   <footer>
     <p>© <span id="yil"></span> Doğuş İpeksaç • Made with ❤️</p>
-    <p><a href="/app-ads.txt
+    <p><a href="/app-ads.txt"></a></p>
+  </footer>
+
+  <script>
+    document.getElementById('yil').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
