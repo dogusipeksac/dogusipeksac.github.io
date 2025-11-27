@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logo Generator Pro - Android & iOS</title>
+    <title>App Icon Generator Pro - Android, iOS & Web</title>
     <style>
         * {
             margin: 0;
@@ -19,51 +19,71 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 20px;
             text-align: center;
+            color: white;
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            font-size: 36px;
+            font-size: 42px;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .header p {
-            font-size: 16px;
+            font-size: 18px;
             opacity: 0.9;
         }
 
-        .main-content {
+        .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 350px 1fr;
             gap: 30px;
-            padding: 40px;
+            margin-bottom: 30px;
         }
 
         @media (max-width: 1024px) {
-            .main-content {
+            .main-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Upload Section */
-        .upload-section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 22px;
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
+        .card h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e7ff;
+        }
+
+        .card h3:first-of-type {
+            margin-top: 0;
+            border-top: none;
+        }
+
+        /* Upload Area */
         .upload-area {
             border: 3px dashed #667eea;
             border-radius: 15px;
@@ -82,185 +102,167 @@
         .upload-area:hover {
             border-color: #764ba2;
             background: #f0f4ff;
+            transform: translateY(-5px);
         }
 
         .upload-area.active {
             border-color: #22c55e;
             background: #f0fdf4;
+            border-style: solid;
         }
 
         .upload-icon {
-            font-size: 48px;
+            font-size: 50px;
             margin-bottom: 15px;
         }
 
         .upload-text {
-            color: #666;
-            margin-bottom: 10px;
             font-size: 16px;
             font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
         }
 
         .upload-subtext {
+            font-size: 13px;
             color: #999;
-            font-size: 14px;
             margin-bottom: 20px;
         }
 
         .btn-upload {
-            display: inline-block;
             padding: 12px 30px;
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .btn-upload:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         #imageInput {
             display: none;
         }
 
-        .preview-section {
-            margin-top: 30px;
-        }
-
-        .preview-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
         .preview-image {
-            width: 100%;
-            max-width: 300px;
-            height: 300px;
-            border-radius: 12px;
-            object-fit: contain;
-            background: #f0f4ff;
-            border: 1px solid #e0e7ff;
-            margin-bottom: 15px;
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin: 15px auto;
+            border: 2px solid #e0e7ff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .image-info {
             background: #f0fdf4;
             border-left: 4px solid #22c55e;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             color: #166534;
-            margin-bottom: 15px;
+            margin-top: 15px;
+            text-align: center;
         }
 
-        /* Settings Section */
-        .settings-section {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
+        /* Settings */
+        .settings-group {
             margin-bottom: 20px;
-        }
-
-        .settings-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .setting-group {
-            margin-bottom: 15px;
         }
 
         .setting-label {
             display: block;
-            color: #555;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            color: #333;
             margin-bottom: 8px;
         }
 
-        .setting-input {
+        .setting-input,
+        .setting-select {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #e0e7ff;
+            padding: 10px;
+            border: 2px solid #e0e7ff;
             border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.2s ease;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
 
-        .setting-input:focus {
+        .setting-input:focus,
+        .setting-select:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .checkbox-item {
+        .color-picker-group {
             display: flex;
+            gap: 10px;
             align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: white;
+        }
+
+        .color-picker {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #e0e7ff;
             border-radius: 8px;
-            border: 1px solid #e0e7ff;
             cursor: pointer;
         }
 
-        .checkbox-item input[type="checkbox"] {
-            cursor: pointer;
+        .quick-colors {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 10px;
         }
 
-        .checkbox-item label {
+        .quick-color {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 2px solid transparent;
             cursor: pointer;
-            font-size: 13px;
-            color: #666;
-            margin: 0;
+            transition: all 0.2s ease;
+        }
+
+        .quick-color:hover {
+            transform: scale(1.1);
+            border-color: #667eea;
         }
 
         /* Output Section */
         .output-section {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .output-section h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 18px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 5px;
+            margin-bottom: 30px;
             border-bottom: 2px solid #e0e7ff;
             overflow-x: auto;
         }
 
         .tab-btn {
-            padding: 12px 20px;
+            padding: 14px 20px;
             background: none;
             border: none;
             border-bottom: 3px solid transparent;
-            color: #666;
+            color: #999;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             white-space: nowrap;
+            font-size: 14px;
         }
 
         .tab-btn.active {
@@ -280,59 +282,80 @@
             display: block;
         }
 
+        .platform-info {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+        }
+
         .sizes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .size-item {
-            background: white;
-            border: 1px solid #e0e7ff;
-            border-radius: 12px;
+            background: #f8fafc;
+            border: 2px solid #e0e7ff;
+            border-radius: 15px;
             padding: 15px;
             text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .size-item:hover {
             border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+            transform: translateY(-5px);
         }
 
         .size-preview {
             width: 100%;
-            height: 120px;
-            background: #f0f4ff;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            height: 110px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            border: 1px solid #e0e7ff;
         }
 
         .size-preview img {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 95%;
+            max-height: 95%;
             object-fit: contain;
         }
 
         .size-name {
-            font-weight: 600;
+            font-weight: 700;
             color: #333;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 3px;
+            font-size: 12px;
+        }
+
+        .size-dimensions {
+            font-size: 11px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .size-desc {
-            font-size: 12px;
+            font-size: 10px;
             color: #999;
             margin-bottom: 10px;
+            min-height: 18px;
         }
 
-        .download-btns-container {
+        .download-btns {
             display: flex;
             gap: 5px;
             flex-wrap: wrap;
@@ -340,92 +363,83 @@
         }
 
         .btn-download {
-            padding: 6px 12px;
+            padding: 6px 10px;
             border: none;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            flex: 1;
+            min-width: 45px;
         }
 
-        .btn-download-png {
+        .btn-png {
             background: #667eea;
             color: white;
         }
 
-        .btn-download-png:hover {
+        .btn-png:hover {
             background: #764ba2;
         }
 
-        .btn-download-webp {
+        .btn-webp {
             background: #f0f9ff;
-            color: #667eea;
-            border: 1px solid #667eea;
-        }
-
-        .btn-download-webp:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-download-svg {
-            background: #e0f7fa;
             color: #0891b2;
             border: 1px solid #0891b2;
         }
 
-        .btn-download-svg:hover {
+        .btn-webp:hover {
             background: #0891b2;
             color: white;
         }
 
-        .btn-download:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Action Buttons */
         .action-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e7ff;
             flex-wrap: wrap;
         }
 
         .btn-action {
-            flex: 1;
-            min-width: 150px;
-            padding: 12px;
+            padding: 14px 35px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .btn-download-all {
-            background: #22c55e;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
         }
 
         .btn-download-all:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
         }
 
-        .btn-download-all:disabled {
-            background: #ccc;
-            cursor: not-allowed;
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        canvas {
+            display: none;
         }
 
         .loading {
-            display: none;
             text-align: center;
-            padding: 20px;
-            color: #667eea;
+            padding: 40px;
+            display: none;
         }
 
         .loading.active {
@@ -436,10 +450,10 @@
             border: 4px solid #f0f4ff;
             border-top: 4px solid #667eea;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
@@ -447,15 +461,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        .info-box {
-            background: #fef3c7;
-            border: 1px solid #fcd34d;
-            border-left: 4px solid #f59e0b;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #92400e;
+        .loading p {
+            color: #667eea;
+            font-weight: 600;
         }
 
         .success-message {
@@ -463,11 +471,11 @@
             background: #f0fdf4;
             border: 1px solid #dcfce7;
             border-left: 4px solid #22c55e;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 10px;
+            padding: 15px;
             color: #166534;
-            font-size: 13px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .success-message.show {
@@ -485,162 +493,140 @@
                 transform: translateY(0);
             }
         }
-
-        .no-image-msg {
-            text-align: center;
-            color: #999;
-            padding: 40px 20px;
-            background: #f0f4ff;
-            border-radius: 12px;
-        }
-
-        .footer {
-            background: #f8fafc;
-            padding: 20px;
-            text-align: center;
-            color: #999;
-            font-size: 12px;
-            border-top: 1px solid #e0e7ff;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Logo Generator Pro</h1>
-            <p>Android & iOS için profesyonel logolar otomatik olarak oluştur</p>
+            <h1>🎯 App Icon Generator Pro</h1>
+            <p>Android, iOS, Web ve Play Store için tüm ikon boyutlarını otomatik oluştur</p>
         </div>
 
-        <div class="main-content">
-            <!-- Left Side - Upload & Settings -->
+        <div class="main-grid">
+            <!-- Left Sidebar -->
             <div>
-                <div class="upload-section">
-                    <h2>1️⃣ Resmi Yükle</h2>
+                <div class="card">
+                    <h2>📤 Resmi Yükle</h2>
                     <div class="upload-area" id="uploadArea">
                         <div class="upload-icon">📷</div>
-                        <div class="upload-text">Resmi buraya sürükle veya tıkla</div>
+                        <div class="upload-text">Sürükle veya tıkla</div>
                         <div class="upload-subtext">PNG, JPG, SVG (Max 10MB)</div>
                         <button class="btn-upload" onclick="document.getElementById('imageInput').click()">Dosya Seç</button>
                     </div>
                     <input type="file" id="imageInput" accept="image/*">
 
-                    <div class="preview-section" id="previewSection" style="display: none;">
-                        <h3>Yüklenen Resim</h3>
+                    <div id="previewContainer" style="display: none; margin-top: 20px;">
                         <img id="previewImage" class="preview-image" alt="Preview">
                         <div class="image-info" id="imageInfo"></div>
                     </div>
-                </div>
 
-                <div class="settings-section">
                     <h3>⚙️ Ayarlar</h3>
                     
-                    <div class="setting-group">
+                    <div class="settings-group">
                         <label class="setting-label">Arka Plan Rengi</label>
-                        <input type="color" id="bgColor" class="setting-input" value="#ffffff">
+                        <div class="color-picker-group">
+                            <input type="color" id="bgColor" class="color-picker" value="#ffffff">
+                            <input type="text" id="bgColorText" class="setting-input" value="#ffffff" style="flex: 1; cursor: pointer;">
+                        </div>
+                        <div class="quick-colors">
+                            <div class="quick-color" style="background: #ffffff; border: 2px solid #ddd;" onclick="setColor('#ffffff')" title="Beyaz"></div>
+                            <div class="quick-color" style="background: #000000;" onclick="setColor('#000000')" title="Siyah"></div>
+                            <div class="quick-color" style="background: #667eea;" onclick="setColor('#667eea')" title="Mavi"></div>
+                            <div class="quick-color" style="background: #22c55e;" onclick="setColor('#22c55e')" title="Yeşil"></div>
+                            <div class="quick-color" style="background: #f59e0b;" onclick="setColor('#f59e0b')" title="Turuncu"></div>
+                        </div>
                     </div>
 
-                    <div class="setting-group">
+                    <div class="settings-group">
                         <label class="setting-label">Padding (%)</label>
                         <input type="number" id="padding" class="setting-input" value="0" min="0" max="30" step="5">
                     </div>
 
-                    <div class="setting-group">
+                    <div class="settings-group">
                         <label class="setting-label">Köşe Yuvarlama</label>
-                        <select id="borderRadius" class="setting-input">
+                        <select id="borderRadius" class="setting-select">
                             <option value="0">Kare</option>
                             <option value="10">Hafif Yuvarlak</option>
                             <option value="20">Orta Yuvarlak</option>
                             <option value="50">Tam Yuvarlak</option>
                         </select>
                     </div>
-
-                    <div class="setting-group">
-                        <label class="setting-label">Oluşturulacak Formatlar</label>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="formatPNG" checked>
-                                <label for="formatPNG">PNG</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="formatWebP" checked>
-                                <label for="formatWebP">WebP</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="formatSVG">
-                                <label for="formatSVG">SVG</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Right Side - Output -->
-            <div>
-                <div class="output-section">
-                    <h3>2️⃣ Logoları Oluştur</h3>
-                    
-                    <div class="info-box">
-                        📱 Resmi yükle ve aşağıdan Android/iOS logolarını indireyebilirsin
-                    </div>
+            <!-- Right Content -->
+            <div class="output-section">
+                <h2>📥 İkon Çıktıları</h2>
 
-                    <div class="success-message" id="successMessage">
-                        ✅ Logolar başarıyla oluşturuldu!
-                    </div>
+                <div class="success-message" id="successMessage">
+                    ✅ İkonlar başarıyla oluşturuldu!
+                </div>
 
-                    <div class="tabs">
-                        <button class="tab-btn active" onclick="switchTab('android')">🤖 Android</button>
-                        <button class="tab-btn" onclick="switchTab('ios')">🍎 iOS</button>
-                        <button class="tab-btn" onclick="switchTab('web')">🌐 Web</button>
-                    </div>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('android')">🤖 Android</button>
+                    <button class="tab-btn" onclick="switchTab('ios')">🍎 iOS</button>
+                    <button class="tab-btn" onclick="switchTab('web')">🌐 Web</button>
+                    <button class="tab-btn" onclick="switchTab('playstore')">📱 Play Store</button>
+                </div>
 
-                    <!-- Android Tab -->
-                    <div id="android" class="tab-content active">
-                        <div id="androidContent" class="sizes-grid">
-                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
-                        </div>
+                <!-- Android Tab -->
+                <div id="android" class="tab-content active">
+                    <div class="platform-info">
+                        📌 <strong>Android Uygulaması</strong> - Google Play Store ve Android cihazlar için standart ikon boyutları
                     </div>
+                    <div id="androidContent" class="sizes-grid"></div>
+                </div>
 
-                    <!-- iOS Tab -->
-                    <div id="ios" class="tab-content">
-                        <div id="iosContent" class="sizes-grid">
-                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
-                        </div>
+                <!-- iOS Tab -->
+                <div id="ios" class="tab-content">
+                    <div class="platform-info">
+                        📌 <strong>iOS Uygulaması</strong> - Apple App Store ve iPhone/iPad cihazlar için ikon boyutları
                     </div>
+                    <div id="iosContent" class="sizes-grid"></div>
+                </div>
 
-                    <!-- Web Tab -->
-                    <div id="web" class="tab-content">
-                        <div id="webContent" class="sizes-grid">
-                            <div class="no-image-msg">Resim yükleme işlemini başlatmak için sol taraftan bir resim seç</div>
-                        </div>
+                <!-- Web Tab -->
+                <div id="web" class="tab-content">
+                    <div class="platform-info">
+                        📌 <strong>Web & Sosyal Medya</strong> - Web siteleri, PWA, favicon ve sosyal medya için boyutlar
                     </div>
+                    <div id="webContent" class="sizes-grid"></div>
+                </div>
 
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
-                        <p>Logolar oluşturuluyor...</p>
+                <!-- Play Store Tab -->
+                <div id="playstore" class="tab-content">
+                    <div class="platform-info">
+                        📌 <strong>Google Play Store</strong> - Play Store listing ve promosyon görselleri için özel boyutlar
                     </div>
+                    <div id="playstoreContent" class="sizes-grid"></div>
+                </div>
 
-                    <div class="action-buttons" id="actionButtons" style="display: none;">
-                        <button class="btn-action btn-download-all" onclick="downloadAllLogos()" id="downloadAllBtn">
-                            ⬇️ Tüm Logolarını İndir (ZIP)
-                        </button>
-                    </div>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>İkonlar oluşturuluyor...</p>
+                </div>
+
+                <div class="action-buttons" id="actionButtons">
+                    <button class="btn-action btn-download-all" onclick="downloadAllLogos()">
+                        ⬇️ Tüm İkonları İndir (ZIP)
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <p>💧 Logo Generator Pro | © 2025 | Android & iOS için hızlı logo oluşturucu</p>
+            <p>💧 App Icon Generator Pro | © 2025 | Android, iOS, Web & Play Store için ikon oluşturucu</p>
         </div>
     </div>
 
-    <canvas id="canvas" style="display: none;"></canvas>
+    <canvas id="canvas"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
         const uploadArea = document.getElementById('uploadArea');
         const imageInput = document.getElementById('imageInput');
         const previewImage = document.getElementById('previewImage');
-        const previewSection = document.getElementById('previewSection');
+        const previewContainer = document.getElementById('previewContainer');
         const imageInfo = document.getElementById('imageInfo');
         const loading = document.getElementById('loading');
         const actionButtons = document.getElementById('actionButtons');
@@ -651,33 +637,42 @@
 
         // Android sizes
         const androidSizes = [
-            { name: '192x192 (xxxhdpi)', size: 192, desc: 'Google Play Store' },
-            { name: '144x144 (xxhdpi)', size: 144, desc: 'Yüksek Res' },
-            { name: '96x96 (xhdpi)', size: 96, desc: 'Orta Res' },
-            { name: '72x72 (hdpi)', size: 72, desc: 'Standart' },
-            { name: '512x512 (Store)', size: 512, desc: 'Feature Graphic' },
-            { name: '48x48 (mdpi)', size: 48, desc: 'Düşük Res' }
+            { name: 'Play Store', size: 512, desc: 'Feature Graphic' },
+            { name: 'xxxhdpi', size: 192, desc: 'Yüksek' },
+            { name: 'xxhdpi', size: 144, desc: 'Yüksek' },
+            { name: 'xhdpi', size: 96, desc: 'Orta' },
+            { name: 'hdpi', size: 72, desc: 'Standart' },
+            { name: 'mdpi', size: 48, desc: 'Düşük' }
         ];
 
         // iOS sizes
         const iosSizes = [
-            { name: '1024x1024 (App Store)', size: 1024, desc: 'Zorunlu' },
-            { name: '180x180 (@3x)', size: 180, desc: 'iPhone' },
-            { name: '167x167 (iPad Pro)', size: 167, desc: 'iPad' },
-            { name: '152x152 (iPad)', size: 152, desc: 'iPad' },
-            { name: '120x120 (@2x)', size: 120, desc: 'iPhone' },
-            { name: '256x256', size: 256, desc: 'Web' }
+            { name: 'App Store', size: 1024, desc: 'Gerekli' },
+            { name: 'iPhone 14/15', size: 180, desc: '@3x' },
+            { name: 'iPad Pro', size: 167, desc: 'iPad' },
+            { name: 'iPad', size: 152, desc: 'iPad' },
+            { name: 'iPhone', size: 120, desc: '@2x' },
+            { name: 'iPad Mini', size: 76, desc: 'Küçük' }
         ];
 
         // Web sizes
         const webSizes = [
-            { name: '512x512', size: 512, desc: 'Sosyal Medya' },
-            { name: '256x256', size: 256, desc: 'Favicon' },
-            { name: '128x128', size: 128, desc: 'Web' },
-            { name: '32x32', size: 32, desc: 'Favicon ICO' }
+            { name: 'Web Icon', size: 512, desc: 'Sosyal' },
+            { name: 'Large', size: 256, desc: 'Büyük' },
+            { name: 'Favicon 96', size: 96, desc: 'Browser' },
+            { name: 'Favicon 64', size: 64, desc: 'Tab' },
+            { name: 'Favicon 32', size: 32, desc: 'Çok Küçük' }
         ];
 
-        // Upload event listeners
+        // Play Store sizes
+        const playStoreSizes = [
+            { name: 'App Icon', size: 512, width: 512, height: 512, desc: '512x512' },
+            { name: 'Feature 1', size: 1024, width: 1024, height: 500, desc: '1024x500' },
+            { name: 'Feature 2', size: 1024, width: 1024, height: 500, desc: '1024x500' },
+            { name: 'Screenshot', size: 1080, width: 1080, height: 1920, desc: '1080x1920' }
+        ];
+
+        // Event Listeners
         uploadArea.addEventListener('click', () => imageInput.click());
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -687,22 +682,72 @@
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('active');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) handleImageUpload(files[0]);
+            if (e.dataTransfer.files.length > 0) handleImageUpload(e.dataTransfer.files[0]);
         });
 
         imageInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) handleImageUpload(e.target.files[0]);
         });
 
-        // Settings listeners
-        document.getElementById('bgColor').addEventListener('change', regenerateLogos);
+        document.getElementById('bgColor').addEventListener('change', (e) => {
+            document.getElementById('bgColorText').value = e.target.value;
+            regenerateLogos();
+        });
+
+        document.getElementById('bgColorText').addEventListener('change', (e) => {
+            document.getElementById('bgColor').value = e.target.value;
+            regenerateLogos();
+        });
+
         document.getElementById('padding').addEventListener('change', regenerateLogos);
         document.getElementById('borderRadius').addEventListener('change', regenerateLogos);
 
+        function setColor(color) {
+            document.getElementById('bgColor').value = color;
+            document.getElementById('bgColorText').value = color;
+            regenerateLogos();
+        }
+
+        // Create dummy image on load
+        function createDummyImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 512, 512);
+
+            // Circle
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(256, 256, 150, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Icon
+            ctx.fillStyle = '#667eea';
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🎯', 256, 256);
+
+            currentImage = new Image();
+            currentImage.onload = () => {
+                previewImage.src = currentImage.src;
+                previewContainer.style.display = 'block';
+                imageInfo.textContent = '512x512px • Dummy Icon';
+                generateAllLogos();
+            };
+            currentImage.src = canvas.toDataURL();
+        }
+
         function handleImageUpload(file) {
             if (file.size > 10 * 1024 * 1024) {
-                alert('Dosya boyutu 10MB\' tan fazla olamaz!');
+                alert('Dosya boyutu 10MB\'tan fazla olamaz!');
                 return;
             }
 
@@ -711,7 +756,7 @@
                 currentImage = new Image();
                 currentImage.onload = () => {
                     previewImage.src = currentImage.src;
-                    previewSection.style.display = 'block';
+                    previewContainer.style.display = 'block';
                     imageInfo.textContent = `${currentImage.width}x${currentImage.height}px • ${(file.size / 1024).toFixed(2)}KB`;
                     generateAllLogos();
                 };
@@ -728,47 +773,53 @@
             successMessage.classList.remove('show');
 
             setTimeout(() => {
-                // Generate Android logos
+                // Android
                 androidSizes.forEach(item => {
                     generatedLogos[`android-${item.size}`] = {
                         size: item.size,
-                        data: generateLogo(item.size),
-                        formats: getFormats()
+                        data: generateLogo(item.size, item.size)
                     };
                 });
 
-                // Generate iOS logos
+                // iOS
                 iosSizes.forEach(item => {
                     generatedLogos[`ios-${item.size}`] = {
                         size: item.size,
-                        data: generateLogo(item.size),
-                        formats: getFormats()
+                        data: generateLogo(item.size, item.size)
                     };
                 });
 
-                // Generate Web logos
+                // Web
                 webSizes.forEach(item => {
                     generatedLogos[`web-${item.size}`] = {
                         size: item.size,
-                        data: generateLogo(item.size),
-                        formats: getFormats()
+                        data: generateLogo(item.size, item.size)
+                    };
+                });
+
+                // Play Store
+                playStoreSizes.forEach(item => {
+                    generatedLogos[`playstore-${item.name}`] = {
+                        width: item.width,
+                        height: item.height,
+                        data: generateLogo(item.width, item.height)
                     };
                 });
 
                 loading.classList.remove('active');
                 successMessage.classList.add('show');
-                actionButtons.style.display = 'flex';
 
                 renderAndroid();
                 renderIOS();
                 renderWeb();
+                renderPlayStore();
             }, 100);
         }
 
-        function generateLogo(size) {
+        function generateLogo(width, height) {
             const canvas = document.getElementById('canvas');
-            canvas.width = size;
-            canvas.height = size;
+            canvas.width = width;
+            canvas.height = height;
             const ctx = canvas.getContext('2d');
 
             const bgColor = document.getElementById('bgColor').value;
@@ -777,95 +828,75 @@
 
             // Background
             ctx.fillStyle = bgColor;
-            if (borderRadius > 0) {
+            if (borderRadius > 0 && width === height) {
                 ctx.beginPath();
                 ctx.moveTo(borderRadius, 0);
-                ctx.lineTo(size - borderRadius, 0);
-                ctx.quadraticCurveTo(size, 0, size, borderRadius);
-                ctx.lineTo(size, size - borderRadius);
-                ctx.quadraticCurveTo(size, size, size - borderRadius, size);
-                ctx.lineTo(borderRadius, size);
-                ctx.quadraticCurveTo(0, size, 0, size - borderRadius);
+                ctx.lineTo(width - borderRadius, 0);
+                ctx.quadraticCurveTo(width, 0, width, borderRadius);
+                ctx.lineTo(width, height - borderRadius);
+                ctx.quadraticCurveTo(width, height, width - borderRadius, height);
+                ctx.lineTo(borderRadius, height);
+                ctx.quadraticCurveTo(0, height, 0, height - borderRadius);
                 ctx.lineTo(0, borderRadius);
                 ctx.quadraticCurveTo(0, 0, borderRadius, 0);
                 ctx.closePath();
                 ctx.fill();
             } else {
-                ctx.fillRect(0, 0, size, size);
+                ctx.fillRect(0, 0, width, height);
             }
 
             // Calculate image size with padding
-            const imgSize = size - (size * padding / 100);
-            const offset = (size - imgSize) / 2;
+            const minDim = Math.min(width, height);
+            const imgSize = minDim - (minDim * padding / 100);
+            const offsetX = (width - imgSize) / 2;
+            const offsetY = (height - imgSize) / 2;
 
             // Draw image
-            ctx.drawImage(currentImage, offset, offset, imgSize, imgSize);
+            ctx.drawImage(currentImage, offsetX, offsetY, imgSize, imgSize);
 
             return canvas.toDataURL('image/png');
-        }
-
-        function getFormats() {
-            const formats = [];
-            if (document.getElementById('formatPNG').checked) formats.push('png');
-            if (document.getElementById('formatWebP').checked) formats.push('webp');
-            if (document.getElementById('formatSVG').checked) formats.push('svg');
-            return formats;
         }
 
         function renderAndroid() {
             const container = document.getElementById('androidContent');
             container.innerHTML = '';
-
             androidSizes.forEach(item => {
                 const logo = generatedLogos[`android-${item.size}`];
-                const html = createSizeCard(item, logo, `android-${item.size}`);
-                container.innerHTML += html;
+                container.innerHTML += createSizeCard(item, logo, `android-${item.size}`, item.size, item.size);
             });
-
-            attachDownloadListeners();
         }
 
         function renderIOS() {
             const container = document.getElementById('iosContent');
             container.innerHTML = '';
-
             iosSizes.forEach(item => {
                 const logo = generatedLogos[`ios-${item.size}`];
-                const html = createSizeCard(item, logo, `ios-${item.size}`);
-                container.innerHTML += html;
+                container.innerHTML += createSizeCard(item, logo, `ios-${item.size}`, item.size, item.size);
             });
-
-            attachDownloadListeners();
         }
 
         function renderWeb() {
             const container = document.getElementById('webContent');
             container.innerHTML = '';
-
             webSizes.forEach(item => {
                 const logo = generatedLogos[`web-${item.size}`];
-                const html = createSizeCard(item, logo, `web-${item.size}`);
-                container.innerHTML += html;
+                container.innerHTML += createSizeCard(item, logo, `web-${item.size}`, item.size, item.size);
             });
-
-            attachDownloadListeners();
         }
 
-        function createSizeCard(item, logo, key) {
+        function renderPlayStore() {
+            const container = document.getElementById('playstoreContent');
+            container.innerHTML = '';
+            playStoreSizes.forEach(item => {
+                const logo = generatedLogos[`playstore-${item.name}`];
+                container.innerHTML += createSizeCard(item, logo, `playstore-${item.name}`, item.width, item.height);
+            });
+        }
+
+        function createSizeCard(item, logo, key, width, height) {
             if (!logo) return '';
 
-            const formats = getFormats();
-            let formatButtons = '';
-
-            if (formats.includes('png')) {
-                formatButtons += `<button class="btn-download btn-download-png" onclick="downloadLogo('${key}', 'png', ${item.size})">PNG</button>`;
-            }
-            if (formats.includes('webp')) {
-                formatButtons += `<button class="btn-download btn-download-webp" onclick="downloadLogo('${key}', 'webp', ${item.size})">WebP</button>`;
-            }
-            if (formats.includes('svg')) {
-                formatButtons += `<button class="btn-download btn-download-svg" onclick="downloadLogo('${key}', 'svg', ${item.size})">SVG</button>`;
-            }
+            const dimText = `${width}x${height}`;
 
             return `
                 <div class="size-item">
@@ -873,46 +904,34 @@
                         <img src="${logo.data}" alt="${item.name}">
                     </div>
                     <div class="size-name">${item.name}</div>
+                    <div class="size-dimensions">${dimText}</div>
                     <div class="size-desc">${item.desc}</div>
-                    <div class="download-btns-container">
-                        ${formatButtons}
+                    <div class="download-btns">
+                        <button class="btn-download btn-png" onclick="downloadLogo('${key}', 'png', ${width}, ${height})">PNG</button>
+                        <button class="btn-download btn-webp" onclick="downloadLogo('${key}', 'webp', ${width}, ${height})">WebP</button>
                     </div>
                 </div>
             `;
         }
 
-        function attachDownloadListeners() {
-            // Already handled in onclick
-        }
-
-        function downloadLogo(key, format, size) {
+        function downloadLogo(key, format, width, height) {
             const logo = generatedLogos[key];
             if (!logo) return;
 
             const img = new Image();
             img.onload = () => {
                 const canvas = document.getElementById('canvas');
-                canvas.width = size;
-                canvas.height = size;
+                canvas.width = width;
+                canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
 
-                let fileName = `logo-${size}x${size}.${format}`;
+                const fileName = `icon-${width}x${height}.${format}`;
 
                 if (format === 'png') {
-                    canvas.toBlob(blob => {
-                        downloadBlob(blob, fileName);
-                    }, 'image/png');
+                    canvas.toBlob(blob => downloadBlob(blob, fileName), 'image/png');
                 } else if (format === 'webp') {
-                    canvas.toBlob(blob => {
-                        downloadBlob(blob, fileName);
-                    }, 'image/webp', 0.9);
-                } else if (format === 'svg') {
-                    const svgData = `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
-                        <image href="${logo.data}" width="${size}" height="${size}"/>
-                    </svg>`;
-                    const blob = new Blob([svgData], { type: 'image/svg+xml' });
-                    downloadBlob(blob, fileName);
+                    canvas.toBlob(blob => downloadBlob(blob, fileName), 'image/webp', 0.9);
                 }
             };
             img.src = logo.data;
@@ -936,39 +955,46 @@
             }
 
             const zip = new JSZip();
-            const formats = getFormats();
 
-            // Create folders
-            const androidFolder = zip.folder('android');
-            const iosFolder = zip.folder('ios');
-            const webFolder = zip.folder('web');
-
-            // Add Android logos
+            // Android
+            const androidFolder = zip.folder('Android');
             androidSizes.forEach(item => {
                 const key = `android-${item.size}`;
                 const logo = generatedLogos[key];
                 const base64 = logo.data.split(',')[1];
-                androidFolder.file(`ic_launcher_${item.size}.png`, base64, { base64: true });
+                androidFolder.file(`ic_launcher_${item.size}x${item.size}.png`, base64, { base64: true });
             });
 
-            // Add iOS logos
+            // iOS
+            const iosFolder = zip.folder('iOS');
             iosSizes.forEach(item => {
                 const key = `ios-${item.size}`;
                 const logo = generatedLogos[key];
                 const base64 = logo.data.split(',')[1];
-                iosFolder.file(`icon_${item.size}.png`, base64, { base64: true });
+                iosFolder.file(`Icon_${item.size}x${item.size}.png`, base64, { base64: true });
             });
 
-            // Add Web logos
+            // Web
+            const webFolder = zip.folder('Web');
             webSizes.forEach(item => {
                 const key = `web-${item.size}`;
                 const logo = generatedLogos[key];
                 const base64 = logo.data.split(',')[1];
-                webFolder.file(`logo_${item.size}.png`, base64, { base64: true });
+                webFolder.file(`favicon_${item.size}x${item.size}.png`, base64, { base64: true });
+            });
+
+            // Play Store
+            const playstoreFolder = zip.folder('PlayStore');
+            playStoreSizes.forEach(item => {
+                const key = `playstore-${item.name}`;
+                const logo = generatedLogos[key];
+                const base64 = logo.data.split(',')[1];
+                const safeName = item.name.replace(/\s+/g, '_');
+                playstoreFolder.file(`${safeName}_${item.width}x${item.height}.png`, base64, { base64: true });
             });
 
             zip.generateAsync({ type: 'blob' }).then(blob => {
-                downloadBlob(blob, 'all-logos.zip');
+                downloadBlob(blob, 'app-icons.zip');
             });
         }
 
@@ -985,6 +1011,11 @@
                 generateAllLogos();
             }
         }
+
+        // Initialize with dummy image
+        window.addEventListener('load', () => {
+            createDummyImage();
+        });
     </script>
 </body>
 </html>
