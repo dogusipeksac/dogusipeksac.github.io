@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metin Karşılaştırması</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .input-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .text-input-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-input-box label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        textarea {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            resize: vertical;
+            min-height: 200px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .compare-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .compare-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .clear-btn {
+            background: #f5f5f5;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .clear-btn:hover {
+            background: #efefef;
+        }
+
+        .results {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .comparison-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .comparison-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .difference-list {
+            list-style: none;
+        }
+
+        .difference-list li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .highlight-added {
+            background: #c8e6c9;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .highlight-removed {
+            background: #ffcdd2;
+            padding: 2px 4px;
+            border-radius: 3px;
+            text-decoration: line-through;
+        }
+
+        .text-display {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .text-display.text1 {
+            border-left: 4px solid #667eea;
+        }
+
+        .text-display.text2 {
+            border-left: 4px solid #764ba2;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .input-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Metin Karşılaştırması</h1>
+        <p class="subtitle">İki metni karşılaştır ve farklılıkları bul</p>
+
+        <div class="input-wrapper">
+            <div class="text-input-box">
+                <label for="text1">Metin 1</label>
+                <textarea id="text1" placeholder="Birinci metni buraya yapıştır..."></textarea>
+            </div>
+            <div class="text-input-box">
+                <label for="text2">Metin 2</label>
+                <textarea id="text2" placeholder="İkinci metni buraya yapıştır..."></textarea>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="compare-btn" onclick="compareTexts()">🔍 Karşılaştır</button>
+            <button class="clear-btn" onclick="clearAll()">🗑️ Temizle</button>
+        </div>
+
+        <div id="results" class="results">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Metin 1 Karakter</div>
+                    <div class="stat-value" id="char1">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Metin 2 Karakter</div>
+                    <div class="stat-value" id="char2">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Metin 1 Kelime</div>
+                    <div class="stat-value" id="word1">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Metin 2 Kelime</div>
+                    <div class="stat-value" id="word2">0</div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>📊 İstatistikler</h3>
+                <div id="statistics"></div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>🔄 Ortak Kelimeler</h3>
+                <div id="commonWords"></div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>➕ Metin 1'de Var, Metin 2'de Yok</h3>
+                <div id="onlyText1"></div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>➖ Metin 2'de Var, Metin 1'de Yok</h3>
+                <div id="onlyText2"></div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>📄 Metin 1 Önizlemesi</h3>
+                <div class="text-display text1" id="preview1"></div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>📄 Metin 2 Önizlemesi</h3>
+                <div class="text-display text2" id="preview2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function compareTexts() {
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+
+            if (!text1.trim() || !text2.trim()) {
+                alert('Lütfen her iki alana da metin yazın!');
+                return;
+            }
+
+            // Karakter sayıları
+            const char1 = text1.length;
+            const char2 = text2.length;
+
+            // Kelime sayıları
+            const words1 = text1.trim().split(/\s+/).filter(w => w.length > 0);
+            const words2 = text2.trim().split(/\s+/).filter(w => w.length > 0);
+
+            // Sonuçları göster
+            document.getElementById('char1').textContent = char1;
+            document.getElementById('char2').textContent = char2;
+            document.getElementById('word1').textContent = words1.length;
+            document.getElementById('word2').textContent = words2.length;
+
+            // İstatistikler
+            const charDiff = char2 - char1;
+            const wordDiff = words2.length - words1.length;
+            const similarity = calculateSimilarity(text1, text2);
+
+            let statsHtml = `
+                <ul class="difference-list">
+                    <li><strong>Karakter Farkı:</strong> ${charDiff > 0 ? '+' : ''}${charDiff}</li>
+                    <li><strong>Kelime Farkı:</strong> ${wordDiff > 0 ? '+' : ''}${wordDiff}</li>
+                    <li><strong>Benzerlik Oranı:</strong> %${similarity.toFixed(2)}</li>
+                </ul>
+            `;
+            document.getElementById('statistics').innerHTML = statsHtml;
+
+            // Ortak kelimeler
+            const commonWords = findCommonWords(words1, words2);
+            if (commonWords.length > 0) {
+                document.getElementById('commonWords').innerHTML = 
+                    `<p>Toplam ${commonWords.length} ortak kelime bulundu:</p><p>${commonWords.slice(0, 20).join(', ')}</p>`;
+            } else {
+                document.getElementById('commonWords').innerHTML = '<p class="no-results">Ortak kelime bulunamadı</p>';
+            }
+
+            // Sadece text1'de olan
+            const onlyInText1 = findUnique(words1, words2);
+            if (onlyInText1.length > 0) {
+                document.getElementById('onlyText1').innerHTML = 
+                    `<p>${onlyInText1.slice(0, 20).join(', ')}</p>`;
+            } else {
+                document.getElementById('onlyText1').innerHTML = '<p class="no-results">Benzersiz kelime yok</p>';
+            }
+
+            // Sadece text2'de olan
+            const onlyInText2 = findUnique(words2, words1);
+            if (onlyInText2.length > 0) {
+                document.getElementById('onlyText2').innerHTML = 
+                    `<p>${onlyInText2.slice(0, 20).join(', ')}</p>`;
+            } else {
+                document.getElementById('onlyText2').innerHTML = '<p class="no-results">Benzersiz kelime yok</p>';
+            }
+
+            // Önizlemeler
+            document.getElementById('preview1').textContent = text1.substring(0, 500) + (text1.length > 500 ? '...' : '');
+            document.getElementById('preview2').textContent = text2.substring(0, 500) + (text2.length > 500 ? '...' : '');
+
+            document.getElementById('results').classList.add('show');
+        }
+
+        function calculateSimilarity(str1, str2) {
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+
+            if (longer.length === 0) return 100;
+
+            const editDistance = getEditDistance(longer, shorter);
+            return ((longer.length - editDistance) / longer.length) * 100;
+        }
+
+        function getEditDistance(s1, s2) {
+            const costs = [];
+            for (let i = 0; i <= s1.length; i++) {
+                let lastValue = i;
+                for (let j = 0; j <= s2.length; j++) {
+                    if (i === 0) {
+                        costs[j] = j;
+                    } else if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+                if (i > 0) costs[s2.length] = lastValue;
+            }
+            return costs[s2.length];
+        }
+
+        function findCommonWords(arr1, arr2) {
+            const set2 = new Set(arr2.map(w => w.toLowerCase()));
+            const common = [...new Set(arr1
+                .filter(w => set2.has(w.toLowerCase()))
+                .map(w => w.toLowerCase()))];
+            return common.sort();
+        }
+
+        function findUnique(arr1, arr2) {
+            const set2 = new Set(arr2.map(w => w.toLowerCase()));
+            const unique = [...new Set(arr1
+                .filter(w => !set2.has(w.toLowerCase()))
+                .map(w => w.toLowerCase()))];
+            return unique.sort();
+        }
+
+        function clearAll() {
+            document.getElementById('text1').value = '';
+            document.getElementById('text2').value = '';
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('text1').focus();
+        }
+    </script>
+</body>
+</html>
