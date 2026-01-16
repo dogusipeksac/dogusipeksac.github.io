@@ -5,22 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Doğuş İpeksaç — Senior Android Developer</title>
 
-  <meta name="description" content="Doğuş İpeksaç — Senior Android Developer. Jetpack Compose, Kotlin, Clean Architecture." />
+  <meta name="description" content="Doğuş İpeksaç — Senior Android Developer. Jetpack Compose, Kotlin, Clean Architecture ile modern uygulamalar geliştiriyorum." />
   <link rel="canonical" href="https://dogusipeksac.com/" />
   <meta name="theme-color" content="#06b6d4" />
+  <meta name="author" content="Doğuş İpeksaç" />
+  <meta name="keywords" content="Android Developer, Jetpack Compose, Kotlin, Mobile Development, Clean Architecture, MVVM, Firebase, Flutter" />
+  <meta name="robots" content="index, follow" />
+  <link rel="alternate" hreflang="tr" href="https://dogusipeksac.com/" />
+  <link rel="alternate" hreflang="en" href="https://dogusipeksac.com/en" />
 
   <meta property="og:title" content="Doğuş İpeksaç — Senior Android Developer" />
-  <meta property="og:description" content="Jetpack Compose, Kotlin, Clean Architecture ile modern uygulamalar." />
+  <meta property="og:description" content="Jetpack Compose, Kotlin, Clean Architecture ile modern mobil uygulamalar geliştiriyorum. 5+ yıl deneyim, 20+ proje." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dogusipeksac.com/" />
+  <meta property="og:image" content="https://dogusipeksac.com/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="tr_TR" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Doğuş İpeksaç — Senior Android Developer" />
-  <meta name="twitter:description" content="Android Developer | Jetpack Compose | Kotlin" />
+  <meta name="twitter:description" content="Android Developer | Jetpack Compose | Kotlin | 5+ yıl deneyim" />
+  <meta name="twitter:image" content="https://dogusipeksac.com/images/twitter-image.jpg" />
+  <meta name="twitter:creator" content="@dogusipeksac" />
+  <meta name="twitter:site" content="@dogusipeksac" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Doğuş İpeksaç",
+    "jobTitle": "Senior Android Developer",
+    "description": "Jetpack Compose, Kotlin, Clean Architecture ile modern mobil uygulamalar geliştiriyorum",
+    "url": "https://dogusipeksac.com",
+    "sameAs": [
+      "https://github.com/dogusipeksac",
+      "https://www.linkedin.com/in/dogusipeksac",
+      "https://www.youtube.com/@dogusipeksac",
+      "https://twitter.com/dogusipeksac"
+    ],
+    "knowsAbout": [
+      "Android Development",
+      "Jetpack Compose",
+      "Kotlin",
+      "Clean Architecture",
+      "MVVM Pattern",
+      "Firebase",
+      "Flutter"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -54,6 +99,9 @@
       --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
       --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
       --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.3);
+      --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.4);
+      --glow-primary: 0 0 40px rgba(6, 182, 212, 0.4);
+      --glow-accent: 0 0 40px rgba(236, 72, 153, 0.3);
       
       --radius: 16px;
       --maxw: 1200px;
@@ -94,9 +142,17 @@
       bottom: 0;
       background: 
         radial-gradient(800px 600px at 20% 0%, rgba(6, 182, 212, 0.15), transparent 50%),
-        radial-gradient(600px 500px at 80% 100%, rgba(236, 72, 153, 0.12), transparent 50%);
+        radial-gradient(600px 500px at 80% 100%, rgba(236, 72, 153, 0.12), transparent 50%),
+        radial-gradient(400px 300px at 50% 50%, rgba(168, 85, 247, 0.08), transparent 50%);
       pointer-events: none;
       z-index: 0;
+      animation: gradientShift 15s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(-20px, -20px) rotate(120deg); }
+      66% { transform: translate(20px, -10px) rotate(240deg); }
     }
 
     .container {
@@ -122,6 +178,12 @@
       background: rgba(10, 15, 31, 0.8);
       border-bottom: 1px solid var(--border);
       padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(10, 15, 31, 0.95);
+      box-shadow: var(--shadow-md);
     }
 
     @media (prefers-color-scheme: light) {
@@ -159,6 +221,13 @@
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: var(--glow-primary);
     }
 
     nav ul {
@@ -174,6 +243,24 @@
       font-size: 14px;
       color: var(--text-muted);
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    nav a:hover::before {
+      left: 100%;
     }
 
     nav a:hover {
@@ -218,10 +305,17 @@
       line-height: 1.1;
       margin-bottom: 20px;
       letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--text-light) 0%, var(--primary) 100%);
+      background: linear-gradient(135deg, var(--text-light) 0%, var(--primary) 50%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      background-size: 200% auto;
+      animation: gradientText 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientText {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .subtitle {
@@ -251,6 +345,25 @@
       border: 1px solid rgba(6, 182, 212, 0.3);
       color: var(--primary);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-badge::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent);
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .skill-badge:hover::before {
+      width: 100%;
+      height: 100%;
     }
 
     .skill-badge:hover {
@@ -280,6 +393,26 @@
       cursor: pointer;
       transition: all 0.3s ease;
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .btn.primary {
@@ -290,7 +423,7 @@
 
     .btn.primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(6, 182, 212, 0.4);
+      box-shadow: 0 12px 28px rgba(6, 182, 212, 0.4), var(--glow-primary);
     }
 
     .btn.secondary {
@@ -323,6 +456,14 @@
       font-weight: 800;
       color: var(--primary);
       font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-number i {
+      font-size: 20px;
+      opacity: 0.7;
     }
 
     .stat-label {
@@ -344,6 +485,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .hero-visual:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-xl), var(--glow-primary);
     }
 
     .hero-visual img {
@@ -414,6 +561,7 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .card::before {
@@ -430,8 +578,8 @@
 
     .card:hover {
       border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg), var(--glow-primary);
+      transform: translateY(-8px) scale(1.02);
     }
 
     .card:hover::before {
@@ -482,18 +630,42 @@
       padding: 52px 32px;
       text-align: center;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%); }
+      100% { transform: translateX(100%) translateY(100%); }
     }
 
     .video-card:hover {
       border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg), var(--glow-primary);
+      transform: translateY(-6px) scale(1.02);
     }
 
     .video-icon {
       font-size: 72px;
       margin-bottom: 20px;
       display: block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
     }
 
     .video-card h3 {
@@ -518,6 +690,24 @@
       padding: 56px 40px;
       text-align: center;
       box-shadow: 0 12px 32px rgba(6, 182, 212, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-card:hover::before {
+      opacity: 1;
     }
 
     .contact-card h3 {
@@ -546,11 +736,31 @@
       font-weight: 700;
       box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .email-link::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .email-link:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .email-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
+      box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4), var(--glow-primary);
     }
 
     /* ==================== FOOTER ==================== */
@@ -591,8 +801,57 @@
       }
     }
 
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+      }
+      40%, 43% {
+        transform: translate3d(0, -30px, 0);
+      }
+      70% {
+        transform: translate3d(0, -15px, 0);
+      }
+      90% {
+        transform: translate3d(0, -4px, 0);
+      }
+    }
+
     .fade-in {
       animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .slide-left {
+      animation: slideInLeft 0.6s ease-out forwards;
+    }
+
+    .slide-right {
+      animation: slideInRight 0.6s ease-out forwards;
+    }
+
+    .bounce {
+      animation: bounce 1s ease-out;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -632,18 +891,18 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="logo">DI</div>
+        <div class="logo" role="button" tabindex="0" aria-label="Ana sayfaya git">DI</div>
         <span>Doğuş İpeksaç</span>
       </div>
-      <nav aria-label="Birincil">
+      <nav aria-label="Birincil navigasyon">
         <ul>
-          <li><a href="#projeler">Projeler</a></li>
-          <li><a href="#videolar">Videolar</a></li>
-          <li><a href="logogenerator/">🎯 Generator</a></li>
-          <li><a href="logcleaner/">🧹 Logcleaner</a></li>
-           <li><a href="txtconverter/">Converter</a></li>
-          <li><a href="textdiff/">Text Diff</a></li>
-          <li><a href="#iletisim">İletişim</a></li>
+          <li><a href="#projeler" aria-label="Projeler bölümüne git">Projeler</a></li>
+          <li><a href="#videolar" aria-label="Videolar bölümüne git">Videolar</a></li>
+          <li><a href="logogenerator/" aria-label="Logo generator aracını aç">🎯 Generator</a></li>
+          <li><a href="logcleaner/" aria-label="Log cleaner aracını aç">🧹 Logcleaner</a></li>
+           <li><a href="txtconverter/" aria-label="Text converter aracını aç">Converter</a></li>
+          <li><a href="textdiff/" aria-label="Text diff aracını aç">Text Diff</a></li>
+          <li><a href="#iletisim" aria-label="İletişim bölümüne git">İletişim</a></li>
         </ul>
       </nav>
     </div>
@@ -651,57 +910,57 @@
 
   <main>
     <!-- ==================== HERO ==================== -->
-    <div class="hero container">
+    <section class="hero container" aria-labelledby="hero-title">
       <div>
-        <h1>Senior Android Developer</h1>
+        <h1 id="hero-title">Senior Android Developer</h1>
         <p class="subtitle">Jetpack Compose ve Kotlin ile yüksek performanslı, ölçeklenebilir mobil deneyimler geliştiriyorum. Clean Architecture ve modern tasarım prensiplerini her projede uygularım.</p>
 
-        <div class="skills">
-          <span class="skill-badge">✦ Kotlin</span>
-          <span class="skill-badge">✦ Jetpack Compose</span>
-          <span class="skill-badge">✦ Clean Architecture</span>
-          <span class="skill-badge">✦ MVVM Pattern</span>
-          <span class="skill-badge">✦ Firebase</span>
-          <span class="skill-badge">✦ Flutter</span>
+        <div class="skills" role="list" aria-label="Teknik beceriler">
+          <span class="skill-badge" role="listitem">✦ Kotlin</span>
+          <span class="skill-badge" role="listitem">✦ Jetpack Compose</span>
+          <span class="skill-badge" role="listitem">✦ Clean Architecture</span>
+          <span class="skill-badge" role="listitem">✦ MVVM Pattern</span>
+          <span class="skill-badge" role="listitem">✦ Firebase</span>
+          <span class="skill-badge" role="listitem">✦ Flutter</span>
         </div>
 
-        <div class="cta-group">
-          <a href="mailto:ipeksac.dogus.19@gmail.com" class="btn primary">📩 İletişime Geç</a>
-          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener" class="btn secondary">🐙 GitHub</a>
-          <a href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener" class="btn secondary">▶️ YouTube</a>
-          <a href="https://www.linkedin.com/in/dogusipeksac" target="_blank" rel="noopener" class="btn secondary">🔗 LinkedIn</a>
+        <div class="cta-group" role="group" aria-label="Hızlı eylem butonları">
+          <a href="mailto:ipeksac.dogus.19@gmail.com" class="btn primary" aria-label="E-posta ile iletişime geç">📩 İletişime Geç</a>
+          <a href="https://github.com/dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="GitHub profilini ziyaret et">🐙 GitHub</a>
+          <a href="https://www.youtube.com/@dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="YouTube kanalını ziyaret et">▶️ YouTube</a>
+          <a href="https://www.linkedin.com/in/dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="LinkedIn profilini ziyaret et">🔗 LinkedIn</a>
         </div>
 
-        <div class="stats">
-          <div class="stat-item">
-            <div class="stat-number">5+</div>
+        <div class="stats" role="list" aria-label="İstatistikler">
+          <div class="stat-item" role="listitem">
+            <div class="stat-number"><i class="fas fa-briefcase" aria-hidden="true"></i>5+</div>
             <div class="stat-label">Yıl Deneyim</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">20+</div>
+          <div class="stat-item" role="listitem">
+            <div class="stat-number"><i class="fas fa-project-diagram" aria-hidden="true"></i>20+</div>
             <div class="stat-label">Proje</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">100K+</div>
+          <div class="stat-item" role="listitem">
+            <div class="stat-number"><i class="fas fa-users" aria-hidden="true"></i>100K+</div>
             <div class="stat-label">Takipçi</div>
           </div>
         </div>
       </div>
 
       <div class="hero-visual">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=420&fit=crop" alt="Android Geliştirme" />
+        <img class="lazy" data-src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=420&fit=crop" alt="Android Geliştirme çalışma alanı" loading="lazy" />
       </div>
-    </div>
+    </section>
 
     <!-- ==================== PROJELER ==================== -->
-    <section id="projeler" class="container">
+    <section id="projeler" class="container" aria-labelledby="projects-title">
       <div class="section-header">
-        <h2 class="section-title">Öne Çıkan Projeler</h2>
+        <h2 id="projects-title" class="section-title">Öne Çıkan Projeler</h2>
         <p class="section-subtitle">Üretim ortamında çalışan yüksek kaliteli uygulamalar</p>
       </div>
 
-      <div class="grid">
-        <article class="card fade-in">
+      <div class="grid" role="list" aria-label="Proje listesi">
+        <article class="card fade-in" role="listitem">
           <h3>MyDiary — Kişisel Günlük</h3>
           <p>Jetpack Compose ile tasarlanmış modern günlük uygulaması. Tema desteği, sticker/emoji, offline senkronizasyon ve AdMob entegrasyonu.</p>
           <div class="card-footer">
@@ -709,10 +968,10 @@
             <span class="tag">Kotlin</span>
             <span class="tag">Room</span>
           </div>
-          <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener" class="btn primary">⬇️ Play Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="blank" rel="noopener" class="btn primary" aria-label="MyDiary uygulamasını Google Play'den indir">⬇️ Play Store</a>
         </article>
 
-        <article class="card fade-in">
+        <article class="card fade-in" role="listitem">
           <h3>Update Checker Module</h3>
           <p>Zorunlu ve opsiyonel uygulama güncelleme akışları için bağımsız Kotlin kütüphanesi. Firebase Remote Config desteği.</p>
           <div class="card-footer">
@@ -720,10 +979,10 @@
             <span class="tag">Firebase</span>
             <span class="tag">Modular</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener" class="btn secondary">📚 GitHub</a>
+          <a href="https://github.com/dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="Update Checker GitHub reposunu ziyaret et">📚 GitHub</a>
         </article>
 
-        <article class="card fade-in">
+        <article class="card fade-in" role="listitem">
           <h3>Monetization Module</h3>
           <p>AdMob (banner, interstitial, rewarded), satın alma ve reklam-kaldırma akışları için Compose uyumlu kütüphane.</p>
           <div class="card-footer">
@@ -731,10 +990,10 @@
             <span class="tag">AdMob</span>
             <span class="tag">IAP</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener" class="btn secondary">💼 GitHub</a>
+          <a href="https://github.com/dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="Monetization Module GitHub reposunu ziyaret et">💼 GitHub</a>
         </article>
 
-        <article class="card fade-in">
+        <article class="card fade-in" role="listitem">
           <h3>GPS Map Camera</h3>
           <p>Fotoğraflara GPS konum, harita, tarih ve hava durumu ekleyen Flutter uygulaması. GetX state management kullanıyor.</p>
           <div class="card-footer">
@@ -742,37 +1001,37 @@
             <span class="tag">GetX</span>
             <span class="tag">GPS</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener" class="btn secondary">🧭 Repo</a>
+          <a href="https://github.com/dogusipeksac" target="blank" rel="noopener" class="btn secondary" aria-label="GPS Map Camera GitHub reposunu ziyaret et">🧭 Repo</a>
         </article>
       </div>
     </section>
 
     <!-- ==================== VIDEOLAR ==================== -->
-    <section id="videolar" class="container">
+    <section id="videolar" class="container" aria-labelledby="videos-title">
       <div class="section-header">
-        <h2 class="section-title">YouTube İçerikleri</h2>
+        <h2 id="videos-title" class="section-title">YouTube İçerikleri</h2>
         <p class="section-subtitle">Android geliştirme, üretim süreci ve teknoloji hakkında kapsamlı videolar</p>
       </div>
 
-      <div class="video-card fade-in">
-        <span class="video-icon">▶️</span>
+      <div class="video-card fade-in" role="article">
+        <span class="video-icon" aria-hidden="true">▶️</span>
         <h3>Android Geliştirme Eğitimleri</h3>
         <p>Jetpack Compose, Kotlin, Firebase ve clean architecture hakkında derinlemesine içerikler. Başlangıçtan ileri seviye konulara kadar rehberim sizi adım adım götürür.</p>
-        <a href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener" class="btn primary">Kanalı Ziyaret Et</a>
+        <a href="https://www.youtube.com/@dogusipeksac" target="blank" rel="noopener" class="btn primary" aria-label="YouTube kanalını ziyaret et">Kanalı Ziyaret Et</a>
       </div>
     </section>
 
     <!-- ==================== İLETİŞİM ==================== -->
-    <section id="iletisim" class="container">
+    <section id="iletisim" class="container" aria-labelledby="contact-title">
       <div class="section-header">
-        <h2 class="section-title">Hadi Birlikte Çalışalım</h2>
+        <h2 id="contact-title" class="section-title">Hadi Birlikte Çalışalım</h2>
         <p class="section-subtitle">Proje danışmanlığı veya işbirliği fırsatları için bana ulaş</p>
       </div>
 
-      <div class="contact-card fade-in">
+      <div class="contact-card fade-in" role="article">
         <h3>Merhaba 👋</h3>
         <p>Yeni projeler, startuplar ve danışmanlık fırsatlarına açığım. Bir fikriniz varsa veya konuşmak isterseniz, aşağıdaki e-posta adresinden bana ulaşabilirsiniz.</p>
-        <a href="mailto:ipeksac.dogus.19@gmail.com" class="email-link">
+        <a href="mailto:ipeksac.dogus.19@gmail.com" class="email-link" aria-label="E-posta gönder">
           📧 ipeksac.dogus.19@gmail.com
         </a>
       </div>
@@ -789,22 +1048,82 @@
     <p>© <span id="yil"></span> Doğuş İpeksaç • Made with ❤️</p>
   </footer>
 
-  <script>
-    document.getElementById('yil').textContent = new Date().getFullYear();
+    <script>
+      document.getElementById('yil').textContent = new Date().getFullYear();
 
-    // Fade in animation on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-          observer.unobserve(entry.target);
+      // Header scroll effect
+      window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
         }
       });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.card, .video-card, .contact-card').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
+      // Fade in animation on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const animations = ['fade-in', 'slide-left', 'slide-right', 'bounce'];
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            entry.target.classList.add(randomAnimation);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.card, .video-card, .contact-card').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Logo click effect
+      document.querySelector('.logo').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Add typing effect to hero title
+      const heroTitle = document.querySelector('h1');
+      const originalText = heroTitle.textContent;
+      heroTitle.textContent = '';
+      let charIndex = 0;
+      
+      function typeWriter() {
+        if (charIndex < originalText.length) {
+          heroTitle.textContent += originalText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+      
+      setTimeout(typeWriter, 500);
+
+      // Performance optimization: Lazy load images
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    </script>
 </body>
 </html>

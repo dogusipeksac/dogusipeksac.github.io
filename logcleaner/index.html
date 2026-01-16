@@ -12,8 +12,13 @@
             --text-secondary: #b0b8c1;
             --accent-cyan: #0ea5e9;
             --accent-cyan-light: #22d3ee;
+            --accent-purple: #a855f7;
             --border: #1e2941;
             --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.4);
+            --glow-cyan: 0 0 40px rgba(14, 165, 233, 0.3);
+            --glow-purple: 0 0 40px rgba(168, 85, 247, 0.3);
             --radius: 16px;
         }
 
@@ -39,9 +44,17 @@
             bottom: 0;
             background: 
                 radial-gradient(600px 400px at 20% 10%, rgba(14, 165, 233, 0.15), transparent 50%),
-                radial-gradient(800px 500px at 80% 80%, rgba(168, 85, 247, 0.1), transparent 50%);
+                radial-gradient(800px 500px at 80% 80%, rgba(168, 85, 247, 0.1), transparent 50%),
+                radial-gradient(400px 300px at 50% 50%, rgba(34, 211, 238, 0.08), transparent 50%);
             pointer-events: none;
             z-index: -1;
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-20px, -15px) rotate(120deg); }
+            66% { transform: translate(15px, -20px) rotate(240deg); }
         }
 
         .container {
@@ -54,16 +67,42 @@
             text-align: center;
             margin-bottom: 36px;
             padding: 32px 0;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-cyan-light));
+            border-radius: 2px;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-50%) scaleX(0.8); opacity: 0.7; }
+            50% { transform: translateX(-50%) scaleX(1.2); opacity: 1; }
         }
 
         h1 {
             margin: 0 0 8px;
             font-size: 36px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan-light));
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan-light), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% auto;
+            animation: gradientText 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .subtitle {
@@ -93,6 +132,30 @@
             display: flex;
             flex-direction: column;
             box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg), var(--glow-cyan);
+        }
+
+        .panel:hover::before {
+            opacity: 1;
         }
 
         .panel h2 {
@@ -118,6 +181,13 @@
             min-height: 500px;
             scrollbar-width: thin;
             scrollbar-color: var(--accent-cyan) transparent;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan-light);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
         }
 
         textarea::-webkit-scrollbar {
