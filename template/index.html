@@ -39,6 +39,7 @@
     width: 390px;
     height: 692px;
     position: relative;
+    
     overflow: hidden;
     box-shadow: 0 30px 80px rgba(0,0,0,0.7);
   }
@@ -52,8 +53,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 28px 24px 48px;
-    gap: 14px;
+    padding: 20px 24px 44px;
+    gap: 12px;
   }
 
   .bottom {
@@ -65,18 +66,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px 28px;
-    gap: 14px;
+    padding: 44px 24px 20px;
+    gap: 12px;
   }
 
+  /* BIGGER + NO CORNER RADIUS */
   .thumb {
-    width: 96px;
-    height: 96px;
-    border-radius: 14px;
+    width: 140px;
+    height: 140px;
+    border-radius: 0;
     border: 4px solid white;
     background: rgba(255,255,255,0.2);
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,14 +87,14 @@
     transition: transform 0.15s;
   }
 
-  .thumb:hover { transform: scale(1.05); }
+  .thumb:hover { transform: scale(1.04); }
 
   .thumb .ph {
-    font-size: 10px;
+    font-size: 11px;
     color: rgba(255,255,255,0.8);
     text-align: center;
-    padding: 6px;
-    line-height: 1.5;
+    padding: 8px;
+    line-height: 1.6;
     font-weight: 900;
     pointer-events: none;
   }
@@ -105,7 +107,7 @@
 
   .option-text {
     color: white;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 900;
     text-align: center;
     line-height: 1.25;
@@ -117,7 +119,7 @@
     transition: background 0.2s;
     cursor: text;
     word-break: break-word;
-    min-height: 30px;
+    min-height: 28px;
   }
 
   .option-text:hover { background: rgba(255,255,255,0.15); }
@@ -166,7 +168,6 @@
   .username:hover { background: rgba(255,255,255,0.15); }
   .username:focus { background: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px white; }
 
-  /* CONTROLS */
   .controls {
     width: 390px;
     background: #1e1e1e;
@@ -246,22 +247,18 @@
   <div class="card" id="card">
     <div class="top" id="topHalf">
       <div class="thumb" onclick="uploadImg('top')">
-        <div class="ph">📷<br>Fotoğraf<br>ekle</div>
+        <div class="ph">📷<br>Fotoğraf ekle</div>
         <img id="imgTop" src="" alt="">
       </div>
-      <div class="option-text" contenteditable="true" spellcheck="false" id="textTop">
-        1 hafta boyunca saçlarını hiç tarama
-      </div>
+      <div class="option-text" contenteditable="true" spellcheck="false" id="textTop">1 hafta boyunca saçlarını hiç tarama</div>
     </div>
 
     <div class="badge">YA DA</div>
 
     <div class="bottom" id="bottomHalf">
-      <div class="option-text" contenteditable="true" spellcheck="false" id="textBottom">
-        Videoyu beğen ve abone ol
-      </div>
+      <div class="option-text" contenteditable="true" spellcheck="false" id="textBottom">Videoyu beğen ve abone ol</div>
       <div class="thumb" onclick="uploadImg('bot')">
-        <div class="ph">📷<br>Fotoğraf<br>ekle</div>
+        <div class="ph">📷<br>Fotoğraf ekle</div>
         <img id="imgBot" src="" alt="">
       </div>
     </div>
@@ -281,16 +278,12 @@
         <input type="color" id="colorBot" value="#29B6F6" oninput="updateColors()">
       </div>
     </div>
-
-    <button class="download-btn" id="dlBtn" onclick="downloadCard()">
-      ⬇ PNG olarak indir
-    </button>
+    <button class="download-btn" id="dlBtn" onclick="downloadCard()">⬇ PNG olarak indir</button>
   </div>
 
 </div>
 
 <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(event)">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
   let currentTarget = null;
@@ -321,9 +314,7 @@
   }
 
   async function downloadCard() {
-    // Blur active element & disable contenteditable temporarily
     document.activeElement.blur();
-
     const editables = document.querySelectorAll('[contenteditable="true"]');
     editables.forEach(el => el.setAttribute('contenteditable', 'false'));
 
@@ -331,7 +322,7 @@
     btn.disabled = true;
     btn.textContent = '⏳ Hazırlanıyor...';
 
-    await new Promise(r => setTimeout(r, 100)); // let DOM settle
+    await new Promise(r => setTimeout(r, 100));
 
     try {
       const card = document.getElementById('card');
@@ -343,7 +334,6 @@
         logging: false,
         foreignObjectRendering: false
       });
-
       const link = document.createElement('a');
       link.download = 'yada_template.png';
       link.href = canvas.toDataURL('image/png');
@@ -358,7 +348,6 @@
     btn.textContent = '⬇ PNG olarak indir';
   }
 
-  // Prevent Enter from adding <br> in username
   document.getElementById('usernameEl').addEventListener('keydown', e => {
     if (e.key === 'Enter') e.preventDefault();
   });
