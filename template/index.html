@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YA DA Template</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,8 +14,8 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #111;
-    font-family: 'Nunito', sans-serif;
+    background: #0d0d0d;
+    font-family: 'Lilita One', cursive;
   }
 
   .wrapper {
@@ -29,19 +29,31 @@
   .hint {
     color: rgba(255,255,255,0.35);
     font-size: 12px;
-    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-align: center;
   }
 
+  /* ===== CARD ===== */
   .card {
     width: 390px;
     height: 692px;
     position: relative;
-    
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    box-shadow: 0 0 0 6px #FFD600, 0 0 0 10px #FF2E2E, 0 20px 60px rgba(0,0,0,0.8);
+  }
+
+  /* Polka dot texture overlay */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .top {
@@ -53,8 +65,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 24px 44px;
-    gap: 12px;
+    padding: 16px 20px 48px;
+    gap: 10px;
+    z-index: 2;
   }
 
   .bottom {
@@ -66,32 +79,48 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 44px 24px 20px;
-    gap: 12px;
+    padding: 48px 20px 16px;
+    gap: 10px;
+    z-index: 2;
   }
 
-  /* BIGGER + NO CORNER RADIUS */
-  .thumb {
-    width: 140px;
-    height: 140px;
-    border-radius: 0;
-    border: 4px solid white;
-    background: rgba(255,255,255,0.2);
+  /* Zigzag divider */
+  .zigzag {
+    position: absolute;
+    top: calc(50% - 12px);
+    left: 0; right: 0;
+    height: 24px;
+    z-index: 3;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    pointer-events: none;
+  }
+
+  .zigzag svg { display: block; }
+
+  /* ===== IMAGE BOX ===== */
+  .thumb {
+    width: 150px;
+    height: 150px;
+    border-radius: 0;
+    border: 5px solid #FFD600;
+    background: rgba(255,255,255,0.15);
+    overflow: hidden;
+    box-shadow: 6px 6px 0px rgba(0,0,0,0.35);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
     transition: transform 0.15s;
+    position: relative;
   }
 
-  .thumb:hover { transform: scale(1.04); }
+  .thumb:hover { transform: scale(1.05) rotate(-1deg); }
 
   .thumb .ph {
-    font-size: 11px;
-    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    font-family: 'Nunito', sans-serif;
+    color: rgba(255,255,255,0.85);
     text-align: center;
     padding: 8px;
     line-height: 1.6;
@@ -105,29 +134,36 @@
     display: none;
   }
 
+  /* ===== TEXT ===== */
   .option-text {
     color: white;
-    font-size: 19px;
-    font-weight: 900;
+    font-family: 'Lilita One', cursive;
+    font-size: 22px;
     text-align: center;
-    line-height: 1.25;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    max-width: 300px;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    max-width: 310px;
     outline: none;
-    border-radius: 8px;
     padding: 4px 8px;
+    border-radius: 6px;
     transition: background 0.2s;
     cursor: text;
     word-break: break-word;
     min-height: 28px;
+    /* Bold stroke effect */
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.3);
+    text-shadow:
+      3px 3px 0 rgba(0,0,0,0.25),
+      -1px -1px 0 rgba(0,0,0,0.1);
   }
 
   .option-text:hover { background: rgba(255,255,255,0.15); }
   .option-text:focus {
     background: rgba(255,255,255,0.2);
-    box-shadow: 0 0 0 2px white;
+    box-shadow: 0 0 0 3px #FFD600;
   }
 
+  /* ===== YA DA BADGE ===== */
   .badge {
     position: absolute;
     top: 50%;
@@ -135,122 +171,171 @@
     transform: translate(-50%, -50%);
     z-index: 10;
     background: #111;
-    color: white;
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 2.5px;
-    padding: 13px 32px;
+    color: #FFD600;
+    font-family: 'Lilita One', cursive;
+    font-size: 24px;
+    letter-spacing: 3px;
+    padding: 14px 36px;
     border-radius: 50px;
-    border: 4px solid white;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    border: 5px solid #FFD600;
+    box-shadow:
+      0 0 0 3px #111,
+      0 6px 24px rgba(0,0,0,0.6),
+      0 0 30px rgba(255,214,0,0.3);
     text-transform: uppercase;
     white-space: nowrap;
     user-select: none;
+    animation: pulse 2s ease-in-out infinite;
   }
 
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px #111, 0 6px 24px rgba(0,0,0,0.6), 0 0 20px rgba(255,214,0,0.2); }
+    50% { box-shadow: 0 0 0 3px #111, 0 6px 24px rgba(0,0,0,0.6), 0 0 40px rgba(255,214,0,0.5); }
+  }
+
+  /* ===== STARS decoration ===== */
+  .star {
+    position: absolute;
+    font-size: 22px;
+    z-index: 4;
+    pointer-events: none;
+    animation: spin 4s linear infinite;
+    opacity: 0.9;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  .s1 { top: 18px; left: 16px; animation-duration: 3s; }
+  .s2 { top: 18px; right: 16px; animation-duration: 5s; animation-direction: reverse; }
+  .s3 { top: 55px; left: 50px; font-size: 14px; animation-duration: 4s; }
+  .s4 { bottom: 18px; left: 16px; animation-duration: 3.5s; animation-direction: reverse; }
+  .s5 { bottom: 18px; right: 16px; animation-duration: 4.5s; }
+  .s6 { bottom: 55px; right: 50px; font-size: 14px; animation-duration: 2.5s; }
+
+  /* ===== USERNAME ===== */
   .username {
     position: absolute;
     bottom: 14px;
-    right: 18px;
-    color: rgba(255,255,255,0.9);
-    font-size: 12px;
+    right: 16px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
     font-weight: 900;
     letter-spacing: 1px;
-    z-index: 5;
+    z-index: 6;
     outline: none;
     border-radius: 6px;
     padding: 2px 6px;
     transition: background 0.2s;
     cursor: text;
     min-width: 20px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.25);
   }
 
-  .username:hover { background: rgba(255,255,255,0.15); }
-  .username:focus { background: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px white; }
+  .username:hover { background: rgba(0,0,0,0.4); }
+  .username:focus { background: rgba(0,0,0,0.4); box-shadow: 0 0 0 2px #FFD600; }
 
+  /* ===== CONTROLS ===== */
   .controls {
     width: 390px;
-    background: #1e1e1e;
+    background: #1a1a1a;
     border-radius: 20px;
     padding: 18px 18px 20px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    border: 2px solid #2a2a2a;
   }
 
   .controls-title {
     color: rgba(255,255,255,0.4);
+    font-family: 'Nunito', sans-serif;
     font-size: 11px;
     font-weight: 900;
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
-  .color-row {
-    display: flex;
-    gap: 10px;
-  }
+  .color-row { display: flex; gap: 10px; }
 
   .color-item {
     display: flex;
     align-items: center;
     gap: 8px;
     flex: 1;
-    background: #2a2a2a;
+    background: #252525;
     border-radius: 12px;
     padding: 8px 12px;
   }
 
   .color-item label {
     color: #aaa;
+    font-family: 'Nunito', sans-serif;
     font-size: 12px;
     font-weight: 700;
     flex: 1;
   }
 
   input[type="color"] {
-    width: 36px;
-    height: 32px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: none;
-    padding: 2px;
+    width: 36px; height: 32px;
+    border: none; border-radius: 8px;
+    cursor: pointer; background: none; padding: 2px;
   }
 
   .download-btn {
     width: 100%;
-    background: linear-gradient(135deg, #FF2E2E 0%, #FF6B35 100%);
-    color: white;
+    background: linear-gradient(135deg, #FFD600 0%, #FF8C00 100%);
+    color: #111;
     border: none;
     border-radius: 14px;
     padding: 16px;
-    font-size: 15px;
-    font-weight: 900;
+    font-size: 16px;
+    font-family: 'Lilita One', cursive;
     letter-spacing: 1px;
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
     transition: opacity 0.2s, transform 0.1s;
     text-transform: uppercase;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
   }
 
-  .download-btn:hover { opacity: 0.88; transform: scale(1.01); }
-  .download-btn:active { transform: scale(0.98); }
-  .download-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  .download-btn:active { transform: translateY(2px); box-shadow: none; }
+  .download-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <div class="hint">✏️ Karta tıklayarak metni doğrudan düzenleyebilirsin</div>
+  <div class="hint">✏️ Karta tıklayarak metni düzenleyebilirsin</div>
 
   <div class="card" id="card">
+
+    <!-- Stars -->
+    <div class="star s1">⭐</div>
+    <div class="star s2">🌟</div>
+    <div class="star s3">✨</div>
+    <div class="star s4">🌟</div>
+    <div class="star s5">⭐</div>
+    <div class="star s6">✨</div>
+
     <div class="top" id="topHalf">
       <div class="thumb" onclick="uploadImg('top')">
         <div class="ph">📷<br>Fotoğraf ekle</div>
         <img id="imgTop" src="" alt="">
       </div>
       <div class="option-text" contenteditable="true" spellcheck="false" id="textTop">1 hafta boyunca saçlarını hiç tarama</div>
+    </div>
+
+    <!-- Zigzag line -->
+    <div class="zigzag">
+      <svg viewBox="0 0 390 24" width="390" height="24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <polyline points="0,0 20,24 40,0 60,24 80,0 100,24 120,0 140,24 160,0 180,24 200,0 220,24 240,0 260,24 280,0 300,24 320,0 340,24 360,0 380,24 390,12" fill="none" stroke="#FFD600" stroke-width="4"/>
+      </svg>
     </div>
 
     <div class="badge">YA DA</div>
@@ -315,6 +400,9 @@
 
   async function downloadCard() {
     document.activeElement.blur();
+
+    // Hide animated stars for clean export
+    document.querySelectorAll('.star').forEach(s => s.style.display = 'none');
     const editables = document.querySelectorAll('[contenteditable="true"]');
     editables.forEach(el => el.setAttribute('contenteditable', 'false'));
 
@@ -322,7 +410,7 @@
     btn.disabled = true;
     btn.textContent = '⏳ Hazırlanıyor...';
 
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 120));
 
     try {
       const card = document.getElementById('card');
@@ -343,6 +431,7 @@
       alert('İndirme sırasında bir hata oluştu.');
     }
 
+    document.querySelectorAll('.star').forEach(s => s.style.display = '');
     editables.forEach(el => el.setAttribute('contenteditable', 'true'));
     btn.disabled = false;
     btn.textContent = '⬇ PNG olarak indir';
