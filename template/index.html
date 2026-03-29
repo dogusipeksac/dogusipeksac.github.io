@@ -63,8 +63,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 12px 20px 44px;
-    gap: 8px;
+    padding: 16px 20px 48px;
+    gap: 10px;
     z-index: 2;
   }
 
@@ -77,8 +77,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 44px 20px 12px;
-    gap: 8px;
+    padding: 48px 20px 16px;
+    gap: 10px;
     z-index: 2;
   }
 
@@ -92,10 +92,10 @@
   }
   .zigzag svg { display: block; }
 
-  /* IMAGE — büyütüldü: 150→190px */
+  /* IMAGE */
   .thumb {
-    width: 190px;
-    height: 190px;
+    width: 150px;
+    height: 150px;
     border: 5px solid #FFD600;
     background: rgba(255,255,255,0.15);
     overflow: hidden;
@@ -119,14 +119,14 @@
   }
   .thumb img { width: 100%; height: 100%; object-fit: cover; display: none; }
 
-  /* TEXT — büyütüldü: 22→27px */
+  /* TEXT */
   .option-text {
     color: white;
     font-family: 'Baloo 2', cursive;
-    font-size: 27px;
+    font-size: 22px;
     text-align: center;
     line-height: 1.2;
-    max-width: 320px;
+    max-width: 310px;
     outline: none;
     padding: 4px 8px;
     border-radius: 6px;
@@ -596,13 +596,15 @@
     const editables = document.querySelectorAll('[contenteditable="true"]');
     editables.forEach(el => el.setAttribute('contenteditable', 'false'));
 
+    // --- GIF settings ---
     const FPS       = 10;
     const FRAMES    = 40;
     const DELAY_MS  = Math.round(1000 / FPS);
-    const SCALE     = 1.5;
+    const SCALE     = 1.5;    // lower scale = smaller file, still looks good on mobile
 
     const card = document.getElementById('card');
 
+    // Load worker as blob to avoid CORS issues
     let workerUrl;
     try {
       const res  = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
@@ -616,13 +618,14 @@
 
     const gif = new GIF({
       workers: 2,
-      quality: 8,
+      quality: 8,          // 1=best, 20=worst; 8 is a nice balance
       width:  390 * SCALE,
       height: 692 * SCALE,
       workerScript: workerUrl,
-      repeat: 0
+      repeat: 0            // loop forever
     });
 
+    // --- Capture frames ---
     for (let i = 0; i < FRAMES; i++) {
       const pct = Math.round((i / FRAMES) * 80);
       fill.style.width  = pct + '%';
@@ -647,6 +650,7 @@
 
       gif.addFrame(canvas, { delay: DELAY_MS, copy: true });
 
+      // Wait remainder of the frame interval so animation actually advances
       const elapsed = performance.now() - start;
       const wait    = Math.max(0, DELAY_MS - elapsed);
       await new Promise(r => setTimeout(r, wait));
@@ -674,6 +678,7 @@
 
     gif.render();
 
+    // Restore editables now (GIF encoding is async, cards already captured)
     editables.forEach(el => el.setAttribute('contenteditable', 'true'));
   }
 
@@ -685,6 +690,7 @@
     document.getElementById('progressFill').style.width = '0%';
   }
 
+  // Prevent newline in username field
   document.getElementById('usernameEl').addEventListener('keydown', e => {
     if (e.key === 'Enter') e.preventDefault();
   });
