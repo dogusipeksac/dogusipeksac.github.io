@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YA DA Template</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,8 +14,25 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #1a1a1a;
+    background: #111;
     font-family: 'Nunito', sans-serif;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+    gap: 20px;
+  }
+
+  .hint {
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
   }
 
   .card {
@@ -27,7 +44,6 @@
     box-shadow: 0 30px 80px rgba(0,0,0,0.7);
   }
 
-  /* TOP HALF */
   .top {
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -37,11 +53,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 28px 24px 40px;
-    gap: 16px;
+    padding: 28px 24px 48px;
+    gap: 14px;
   }
 
-  /* BOTTOM HALF */
   .bottom {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -51,59 +66,67 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 24px 28px;
-    gap: 16px;
+    padding: 48px 24px 28px;
+    gap: 14px;
   }
 
-  /* THUMBNAIL IMAGE BOX */
   .thumb {
-    width: 100px;
-    height: 100px;
-    border-radius: 16px;
+    width: 96px;
+    height: 96px;
+    border-radius: 14px;
     border: 4px solid white;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.2);
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255,255,255,0.6);
-    font-size: 11px;
-    text-align: center;
-    font-weight: 900;
-    letter-spacing: 0.5px;
     cursor: pointer;
-    position: relative;
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+
+  .thumb:hover { transform: scale(1.05); }
+
+  .thumb .ph {
+    font-size: 10px;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 6px;
+    line-height: 1.5;
+    font-weight: 900;
+    pointer-events: none;
   }
 
   .thumb img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     display: none;
   }
 
-  .thumb .placeholder-text {
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    text-align: center;
-    padding: 8px;
-    line-height: 1.4;
-  }
-
-  /* OPTION TEXT */
   .option-text {
     color: white;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 900;
     text-align: center;
     line-height: 1.25;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    letter-spacing: -0.3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
     max-width: 300px;
+    outline: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    transition: background 0.2s;
+    cursor: text;
+    word-break: break-word;
+    min-height: 30px;
   }
 
-  /* YA DA BADGE */
+  .option-text:hover { background: rgba(255,255,255,0.15); }
+  .option-text:focus {
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 0 2px white;
+  }
+
   .badge {
     position: absolute;
     top: 50%;
@@ -114,8 +137,8 @@
     color: white;
     font-size: 20px;
     font-weight: 900;
-    letter-spacing: 2px;
-    padding: 14px 34px;
+    letter-spacing: 2.5px;
+    padding: 13px 32px;
     border-radius: 50px;
     border: 4px solid white;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -124,76 +147,70 @@
     user-select: none;
   }
 
-  /* USERNAME */
   .username {
     position: absolute;
     bottom: 14px;
     right: 18px;
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.9);
     font-size: 12px;
     font-weight: 900;
     letter-spacing: 1px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     z-index: 5;
+    outline: none;
+    border-radius: 6px;
+    padding: 2px 6px;
+    transition: background 0.2s;
+    cursor: text;
+    min-width: 20px;
   }
 
-  /* EDITABLE CONTROLS */
+  .username:hover { background: rgba(255,255,255,0.15); }
+  .username:focus { background: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px white; }
+
+  /* CONTROLS */
   .controls {
-    margin-top: 28px;
     width: 390px;
-    background: #2a2a2a;
+    background: #1e1e1e;
     border-radius: 20px;
-    padding: 20px;
+    padding: 18px 18px 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
-  .controls h3 {
-    color: #fff;
-    font-size: 14px;
+  .controls-title {
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
     font-weight: 900;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin-bottom: 4px;
-    opacity: 0.6;
   }
 
-  .ctrl-row {
+  .color-row {
     display: flex;
     gap: 10px;
-    align-items: center;
   }
 
-  .ctrl-row label {
+  .color-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 8px 12px;
+  }
+
+  .color-item label {
     color: #aaa;
     font-size: 12px;
     font-weight: 700;
-    width: 70px;
-    flex-shrink: 0;
-  }
-
-  .ctrl-row input[type="text"] {
     flex: 1;
-    background: #3a3a3a;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    padding: 9px 12px;
-    font-size: 13px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    outline: none;
   }
 
-  .ctrl-row input[type="text"]:focus {
-    background: #444;
-    box-shadow: 0 0 0 2px #FF2E2E;
-  }
-
-  .ctrl-row input[type="color"] {
-    width: 40px;
-    height: 36px;
+  input[type="color"] {
+    width: 36px;
+    height: 32px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -202,104 +219,82 @@
   }
 
   .download-btn {
-    margin-top: 6px;
     width: 100%;
-    background: linear-gradient(135deg, #FF2E2E, #FF7043);
+    background: linear-gradient(135deg, #FF2E2E 0%, #FF6B35 100%);
     color: white;
     border: none;
     border-radius: 14px;
-    padding: 14px;
+    padding: 16px;
     font-size: 15px;
     font-weight: 900;
     letter-spacing: 1px;
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.1s;
     text-transform: uppercase;
   }
 
-  .download-btn:hover { opacity: 0.85; }
-
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: rgba(255,255,255,0.08);
-    margin: 4px 0;
-  }
+  .download-btn:hover { opacity: 0.88; transform: scale(1.01); }
+  .download-btn:active { transform: scale(0.98); }
+  .download-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 </style>
 </head>
 <body>
+<div class="wrapper">
 
-<div style="display:flex; flex-direction:column; align-items:center; padding: 32px 16px;">
+  <div class="hint">✏️ Karta tıklayarak metni doğrudan düzenleyebilirsin</div>
 
-  <!-- CARD -->
   <div class="card" id="card">
     <div class="top" id="topHalf">
-      <div class="thumb" id="thumbTop" onclick="uploadImg('top')">
-        <div class="placeholder-text">📷<br>Fotoğraf<br>ekle</div>
+      <div class="thumb" onclick="uploadImg('top')">
+        <div class="ph">📷<br>Fotoğraf<br>ekle</div>
         <img id="imgTop" src="" alt="">
       </div>
-      <div class="option-text" id="textTop">1 hafta boyunca saçlarını hiç tarama</div>
+      <div class="option-text" contenteditable="true" spellcheck="false" id="textTop">
+        1 hafta boyunca saçlarını hiç tarama
+      </div>
     </div>
 
     <div class="badge">YA DA</div>
 
     <div class="bottom" id="bottomHalf">
-      <div class="option-text" id="textBottom">Videoyu beğen ve abone ol</div>
-      <div class="thumb" id="thumbBot" onclick="uploadImg('bot')">
-        <div class="placeholder-text">📷<br>Fotoğraf<br>ekle</div>
+      <div class="option-text" contenteditable="true" spellcheck="false" id="textBottom">
+        Videoyu beğen ve abone ol
+      </div>
+      <div class="thumb" onclick="uploadImg('bot')">
+        <div class="ph">📷<br>Fotoğraf<br>ekle</div>
         <img id="imgBot" src="" alt="">
       </div>
     </div>
 
-    <div class="username" id="usernameEl">@kullaniciadi</div>
+    <div class="username" contenteditable="true" spellcheck="false" id="usernameEl">@kullaniciadi</div>
   </div>
 
-  <!-- CONTROLS -->
   <div class="controls">
-    <h3>✏️ Düzenle</h3>
-
-    <div class="ctrl-row">
-      <label>Üst metin</label>
-      <input type="text" id="inTop" value="1 hafta boyunca saçlarını hiç tarama" oninput="updateText()">
-    </div>
-    <div class="ctrl-row">
-      <label>Alt metin</label>
-      <input type="text" id="inBot" value="Videoyu beğen ve abone ol" oninput="updateText()">
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="ctrl-row">
-      <label>Kullanıcı adı</label>
-      <input type="text" id="inUser" value="@kullaniciadi" oninput="updateText()">
+    <div class="controls-title">🎨 Renk seç</div>
+    <div class="color-row">
+      <div class="color-item">
+        <label>Üst renk</label>
+        <input type="color" id="colorTop" value="#FF2E2E" oninput="updateColors()">
+      </div>
+      <div class="color-item">
+        <label>Alt renk</label>
+        <input type="color" id="colorBot" value="#29B6F6" oninput="updateColors()">
+      </div>
     </div>
 
-    <div class="divider"></div>
-
-    <div class="ctrl-row">
-      <label>Üst renk</label>
-      <input type="color" id="colorTop" value="#FF2E2E" oninput="updateColors()">
-      <label style="width:auto; margin-left:16px;">Alt renk</label>
-      <input type="color" id="colorBot" value="#29B6F6" oninput="updateColors()">
-    </div>
-
-    <button class="download-btn" onclick="downloadCard()">⬇ PNG olarak indir</button>
+    <button class="download-btn" id="dlBtn" onclick="downloadCard()">
+      ⬇ PNG olarak indir
+    </button>
   </div>
+
 </div>
 
-<!-- Hidden file input -->
 <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(event)">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
   let currentTarget = null;
-
-  function updateText() {
-    document.getElementById('textTop').textContent = document.getElementById('inTop').value;
-    document.getElementById('textBottom').textContent = document.getElementById('inBot').value;
-    document.getElementById('usernameEl').textContent = document.getElementById('inUser').value;
-  }
 
   function updateColors() {
     document.getElementById('topHalf').style.background = document.getElementById('colorTop').value;
@@ -316,36 +311,58 @@
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (ev) => {
-      const imgEl = currentTarget === 'top' ? document.getElementById('imgTop') : document.getElementById('imgBot');
-      const placeholder = imgEl.previousElementSibling;
+      const imgEl = document.getElementById(currentTarget === 'top' ? 'imgTop' : 'imgBot');
+      const ph = imgEl.previousElementSibling;
       imgEl.src = ev.target.result;
       imgEl.style.display = 'block';
-      if (placeholder) placeholder.style.display = 'none';
+      if (ph) ph.style.display = 'none';
     };
     reader.readAsDataURL(file);
     e.target.value = '';
   }
 
   async function downloadCard() {
-    const card = document.getElementById('card');
-    const btn = document.querySelector('.download-btn');
+    // Blur active element & disable contenteditable temporarily
+    document.activeElement.blur();
+
+    const editables = document.querySelectorAll('[contenteditable="true"]');
+    editables.forEach(el => el.setAttribute('contenteditable', 'false'));
+
+    const btn = document.getElementById('dlBtn');
+    btn.disabled = true;
     btn.textContent = '⏳ Hazırlanıyor...';
+
+    await new Promise(r => setTimeout(r, 100)); // let DOM settle
+
     try {
+      const card = document.getElementById('card');
       const canvas = await html2canvas(card, {
         scale: 3,
         useCORS: true,
+        allowTaint: true,
         backgroundColor: null,
-        logging: false
+        logging: false,
+        foreignObjectRendering: false
       });
+
       const link = document.createElement('a');
       link.download = 'yada_template.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
-    } catch(err) {
-      alert('İndirme sırasında hata oluştu.');
+    } catch (err) {
+      console.error(err);
+      alert('İndirme sırasında bir hata oluştu.');
     }
+
+    editables.forEach(el => el.setAttribute('contenteditable', 'true'));
+    btn.disabled = false;
     btn.textContent = '⬇ PNG olarak indir';
   }
+
+  // Prevent Enter from adding <br> in username
+  document.getElementById('usernameEl').addEventListener('keydown', e => {
+    if (e.key === 'Enter') e.preventDefault();
+  });
 </script>
 </body>
 </html>
