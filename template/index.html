@@ -412,7 +412,7 @@
       </div>
     </div>
 
-    <div class="username" contenteditable="true" spellcheck="false" id="usernameEl">@kullaniciadi</div>
+    <div class="username" id="usernameEl">@dodoylaeglence</div>
   </div>
 
   <!-- CONTROLS -->
@@ -473,6 +473,10 @@
         <input type="color" id="colorBot" value="#29B6F6" oninput="updateColors()">
       </div>
     </div>
+    
+    <button class="font-btn" style="font-family:'Poppins',sans-serif; margin-top: 10px; width: 100%;" onclick="setRandomComplementaryColors()">
+      🎲 Rastgele Karşıt Renkler
+    </button>
 
     <div class="btn-row">
       <button class="download-btn" id="dlBtn" onclick="downloadCard()">
@@ -518,6 +522,41 @@
   function updateColors() {
     document.getElementById('topHalf').style.background = document.getElementById('colorTop').value;
     document.getElementById('bottomHalf').style.background = document.getElementById('colorBot').value;
+  }
+
+  function getRandomColor() {
+    return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+  }
+
+  function getComplementaryColor(hexColor) {
+    // Remove # if present
+    hexColor = hexColor.replace('#', '');
+    
+    // Convert to RGB
+    const r = parseInt(hexColor.substr(0, 2), 16);
+    const g = parseInt(hexColor.substr(2, 2), 16);
+    const b = parseInt(hexColor.substr(4, 2), 16);
+    
+    // Get complementary color
+    const compR = 255 - r;
+    const compG = 255 - g;
+    const compB = 255 - b;
+    
+    // Convert back to hex
+    return '#' + [compR, compG, compB].map(x => {
+      const hex = x.toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    }).join('');
+  }
+
+  function setRandomComplementaryColors() {
+    const randomColor = getRandomColor();
+    const complementaryColor = getComplementaryColor(randomColor);
+    
+    document.getElementById('colorTop').value = randomColor;
+    document.getElementById('colorBot').value = complementaryColor;
+    
+    updateColors();
   }
 
   function uploadImg(target) {
@@ -691,10 +730,10 @@
     document.getElementById('progressFill').style.width = '0%';
   }
 
-  // Prevent newline in username field
-  document.getElementById('usernameEl').addEventListener('keydown', e => {
-    if (e.key === 'Enter') e.preventDefault();
-  });
+  // Prevent newline in username field (no longer needed but kept for reference)
+  // document.getElementById('usernameEl').addEventListener('keydown', e => {
+  //   if (e.key === 'Enter') e.preventDefault();
+  // });
 </script>
 </body>
 </html>
