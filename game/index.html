@@ -225,100 +225,207 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s;
+    transition: opacity 0.25s;
+    gap: 0;
   }
   #overlay.show { opacity: 1; pointer-events: all; }
 
-  /* shake BG */
   #overlay.eliminated {
-    background: radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(0,0,0,0.95) 70%);
-    animation: bgPulse 0.4s ease;
+    background: #000;
   }
   #overlay.correct-overlay {
-    background: radial-gradient(ellipse at center, rgba(0,230,118,0.2) 0%, rgba(0,0,0,0.95) 70%);
-  }
-  @keyframes bgPulse {
-    0%,100% { filter: brightness(1); }
-    25% { filter: brightness(2); }
-    50% { filter: brightness(0.8); }
-    75% { filter: brightness(1.5); }
+    background: #000;
   }
 
-  .overlay-icon {
-    font-size: 72px;
-    animation: popIn 0.4s cubic-bezier(.36,.07,.19,.97) both;
-    margin-bottom: 12px;
+  /* scanline noise for eliminated */
+  #overlay.eliminated::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255,23,68,0.04) 3px,
+      rgba(255,23,68,0.04) 4px
+    );
+    pointer-events: none;
+    animation: scanMove 0.3s linear infinite;
+    z-index: 0;
   }
-  @keyframes popIn {
-    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-    60% { transform: scale(1.2) rotate(5deg); }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-  }
-
-  .overlay-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 12vw, 60px);
-    letter-spacing: 4px;
-    text-align: center;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .overlay-title.red { color: var(--red); }
-  .overlay-title.green { color: var(--green); }
-
-  .overlay-task {
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-    padding: 14px 24px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 16px;
-    margin: 12px 0;
-    border: 1px solid rgba(255,255,255,0.1);
-    max-width: 320px;
+  @keyframes scanMove {
+    from { background-position: 0 0; }
+    to   { background-position: 0 40px; }
   }
 
-  .countdown-ring {
+  /* red vignette flash */
+  #overlay.eliminated::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(255,23,68,0.55) 100%);
+    pointer-events: none;
+    animation: vignetteFlash 0.5s ease both;
+    z-index: 0;
+  }
+  #overlay.correct-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,230,118,0.3) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes vignetteFlash {
+    0%   { opacity: 0; }
+    20%  { opacity: 1; }
+    60%  { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* overlay content sits above pseudo-elements */
+  .ov-content {
     position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 16px 0 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 24px;
   }
-  .countdown-ring svg {
+
+  /* big X stamp */
+  .ov-stamp {
+    font-size: 100px;
+    line-height: 1;
+    animation: stampIn 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    filter: drop-shadow(0 0 30px var(--red));
+    margin-bottom: 4px;
+  }
+  .ov-stamp.good {
+    filter: drop-shadow(0 0 30px var(--green));
+  }
+  @keyframes stampIn {
+    0%   { transform: scale(2.5) rotate(-15deg); opacity: 0; }
+    60%  { transform: scale(0.9) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* glitch title */
+  .ov-main-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 18vw, 88px);
+    letter-spacing: 6px;
+    line-height: 1;
+    text-align: center;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .ov-main-title.red {
+    color: var(--red);
+    text-shadow: 0 0 40px rgba(255,23,68,0.8), 0 0 80px rgba(255,23,68,0.4);
+    animation: glitchText 0.6s steps(1) both;
+  }
+  .ov-main-title.green {
+    color: var(--green);
+    text-shadow: 0 0 40px rgba(0,230,118,0.8), 0 0 80px rgba(0,230,118,0.4);
+    animation: zoomFadeIn 0.4s ease both;
+  }
+  @keyframes glitchText {
+    0%   { clip-path: inset(0 0 100% 0); transform: translateX(-6px); }
+    10%  { clip-path: inset(0 0 60% 0);  transform: translateX(6px); }
+    20%  { clip-path: inset(20% 0 40% 0); transform: translateX(-4px); }
+    30%  { clip-path: inset(0 0 20% 0);  transform: translateX(4px); }
+    40%  { clip-path: inset(0 0 0 0);    transform: translateX(-2px); }
+    50%  { clip-path: inset(40% 0 0 0);  transform: translateX(2px); }
+    60%  { clip-path: inset(0 0 0 0);    transform: translateX(0); }
+    100% { clip-path: inset(0 0 0 0);    transform: translateX(0); }
+  }
+  @keyframes zoomFadeIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ceza kutusu */
+  .ov-task-box {
+    background: rgba(255,23,68,0.12);
+    border: 2px solid rgba(255,23,68,0.5);
+    border-radius: 18px;
+    padding: 16px 28px;
+    margin: 14px 0 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 340px;
+    animation: slideUp 0.4s 0.15s ease both;
+  }
+  .ov-task-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--red);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .ov-task-text {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* big countdown */
+  .ov-countdown-wrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    animation: slideUp 0.4s 0.25s ease both;
+  }
+  .ov-countdown-wrap svg {
     position: absolute;
     inset: 0;
     transform: rotate(-90deg);
   }
-  .countdown-ring .track { stroke: rgba(255,255,255,0.1); }
-  .countdown-ring .fill {
-    stroke: var(--red);
-    stroke-dasharray: 220;
+  .ov-ring-track { stroke: rgba(255,255,255,0.08); }
+  .ov-ring-fill {
+    stroke-dasharray: 346;
     stroke-dashoffset: 0;
+    stroke-linecap: round;
     transition: stroke-dashoffset 1s linear;
   }
-  .countdown-ring .fill.green { stroke: var(--green); }
-  .countdown-num {
+  .ov-ring-fill.red-fill  { stroke: var(--red); }
+  .ov-ring-fill.green-fill { stroke: var(--green); }
+  .ov-big-num {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
+    font-size: 62px;
     letter-spacing: 2px;
+    animation: numPop 0.25s ease;
+  }
+  @keyframes numPop {
+    0%   { transform: scale(1.6); opacity: 0.5; }
+    100% { transform: scale(1);   opacity: 1; }
   }
 
-  /* continue msg */
-  .continue-msg {
+  /* continue */
+  .ov-continue {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 3px;
+    font-size: 36px;
+    letter-spacing: 4px;
     color: var(--green);
-    animation: fadeZoom 0.4s ease both;
+    text-shadow: 0 0 30px rgba(0,230,118,0.8);
+    animation: stamIn2 0.4s cubic-bezier(.36,.07,.19,.97) both;
   }
-  @keyframes fadeZoom {
-    from { opacity: 0; transform: scale(0.8); }
-    to   { opacity: 1; transform: none; }
+  @keyframes stamIn2 {
+    0%   { transform: scale(0); opacity: 0; }
+    70%  { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
   }
 
   /* screen shake */
@@ -408,17 +515,22 @@
 
 <!-- Overlay (eliminated / continue) -->
 <div id="overlay">
-  <div class="overlay-icon" id="ov-icon"></div>
-  <div class="overlay-title" id="ov-title"></div>
-  <div class="overlay-task" id="ov-task" style="display:none"></div>
-  <div class="countdown-ring" id="ov-ring">
-    <svg viewBox="0 0 80 80">
-      <circle class="track" cx="40" cy="40" r="35" fill="none" stroke-width="5"/>
-      <circle class="fill" id="ring-fill" cx="40" cy="40" r="35" fill="none" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-    <div class="countdown-num" id="ov-count"></div>
+  <div class="ov-content">
+    <div class="ov-stamp" id="ov-stamp"></div>
+    <div class="ov-main-title red" id="ov-title"></div>
+    <div class="ov-task-box" id="ov-task" style="display:none">
+      <div class="ov-task-label">⚠️ Ceza</div>
+      <div class="ov-task-text" id="ov-task-text"></div>
+    </div>
+    <div class="ov-countdown-wrap" id="ov-ring">
+      <svg viewBox="0 0 130 130">
+        <circle class="ov-ring-track" cx="65" cy="65" r="55" fill="none" stroke-width="7"/>
+        <circle class="ov-ring-fill red-fill" id="ring-fill" cx="65" cy="65" r="55" fill="none" stroke-width="7"/>
+      </svg>
+      <div class="ov-big-num" id="ov-count"></div>
+    </div>
+    <div class="ov-continue" id="ov-continue" style="display:none">✔ DEVAM ET!</div>
   </div>
-  <div class="continue-msg" id="ov-continue" style="display:none">✔ DEVAM ET!</div>
 </div>
 
 <!-- Win Screen -->
@@ -534,40 +646,50 @@ function showEliminated() {
   const ov = document.getElementById("overlay");
   ov.className = "show eliminated";
 
-  document.getElementById("ov-icon").textContent = "❌";
+  document.getElementById("ov-stamp").textContent = "❌";
+  document.getElementById("ov-stamp").className = "ov-stamp";
   document.getElementById("ov-title").textContent = "ELENDİN!";
-  document.getElementById("ov-title").className = "overlay-title red";
+  document.getElementById("ov-title").className = "ov-main-title red";
   document.getElementById("ov-task").style.display = "block";
-  document.getElementById("ov-task").textContent = `Ceza: ${task}`;
+  document.getElementById("ov-task-text").textContent = task;
   document.getElementById("ov-continue").style.display = "none";
 
   const fill = document.getElementById("ring-fill");
-  fill.className = "fill";
+  fill.className = "ov-ring-fill red-fill";
+  fill.style.transition = "none";
   fill.style.strokeDashoffset = "0";
   document.getElementById("ov-ring").style.display = "block";
 
   let count = 3;
   document.getElementById("ov-count").textContent = count;
+  // trigger animation restart
+  void document.getElementById("ov-big-num");
 
-  setTimeout(() => { fill.style.strokeDashoffset = "220"; }, 50);
+  setTimeout(() => {
+    fill.style.transition = "stroke-dashoffset 3s linear";
+    fill.style.strokeDashoffset = "346";
+  }, 50);
 
   const iv = setInterval(() => {
     count--;
-    document.getElementById("ov-count").textContent = count;
-    fill.style.transition = "stroke-dashoffset 1s linear";
+    const numEl = document.getElementById("ov-count");
+    numEl.style.animation = "none";
+    requestAnimationFrame(() => { numEl.style.animation = ""; });
+    numEl.textContent = count > 0 ? count : "";
+
     if (count <= 0) {
       clearInterval(iv);
       document.getElementById("ov-ring").style.display = "none";
       document.getElementById("ov-task").style.display = "none";
-      document.getElementById("ov-icon").textContent = "✅";
+      document.getElementById("ov-stamp").textContent = "✅";
+      document.getElementById("ov-stamp").className = "ov-stamp good";
       document.getElementById("ov-title").textContent = "";
       document.getElementById("ov-continue").style.display = "block";
 
       setTimeout(() => {
         ov.className = "";
-        // reset to this question (eliminated = restart from this question)
         render();
-      }, 1200);
+      }, 1100);
     }
   }, 1000);
 }
@@ -577,24 +699,34 @@ function showCorrect() {
   const ov = document.getElementById("overlay");
   ov.className = "show correct-overlay";
 
-  document.getElementById("ov-icon").textContent = "✅";
+  document.getElementById("ov-stamp").textContent = "✅";
+  document.getElementById("ov-stamp").className = "ov-stamp good";
   document.getElementById("ov-title").textContent = "DOĞRU!";
-  document.getElementById("ov-title").className = "overlay-title green";
+  document.getElementById("ov-title").className = "ov-main-title green";
   document.getElementById("ov-task").style.display = "none";
   document.getElementById("ov-continue").style.display = "none";
 
   const fill = document.getElementById("ring-fill");
-  fill.className = "fill green";
+  fill.className = "ov-ring-fill green-fill";
+  fill.style.transition = "none";
   fill.style.strokeDashoffset = "0";
   document.getElementById("ov-ring").style.display = "block";
 
   let count = 2;
   document.getElementById("ov-count").textContent = count;
-  setTimeout(() => { fill.style.strokeDashoffset = "220"; }, 50);
+
+  setTimeout(() => {
+    fill.style.transition = "stroke-dashoffset 2s linear";
+    fill.style.strokeDashoffset = "346";
+  }, 50);
 
   const iv = setInterval(() => {
     count--;
-    document.getElementById("ov-count").textContent = count;
+    const numEl = document.getElementById("ov-count");
+    numEl.style.animation = "none";
+    requestAnimationFrame(() => { numEl.style.animation = ""; });
+    numEl.textContent = count > 0 ? count : "";
+
     if (count <= 0) {
       clearInterval(iv);
       ov.className = "";
@@ -602,10 +734,6 @@ function showCorrect() {
       if (current >= questions.length) {
         showWin();
       } else {
-        // re-render card animation
-        const ci = document.querySelector('.card-inner');
-        if (ci) ci.style.animation = 'none';
-        requestAnimationFrame(() => { if (ci) ci.style.animation = ''; });
         render();
       }
     }
