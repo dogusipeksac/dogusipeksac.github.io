@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yanlışı Seçersen Elendin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #ff1744;
+    --green: #00e676;
+    --yellow: #ffea00;
+    --bg1: #0d0d0d;
+    --bg2: #1a0a0a;
+    --text: #ffffff;
+    --card-bg: rgba(255,255,255,0.04);
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* animated bg particles */
+  .bg-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bg-particles span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0;
+    animation: floatUp var(--dur, 6s) ease-in var(--delay, 0s) infinite;
+    left: var(--x, 50%);
+    bottom: -20px;
+  }
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(0) scale(1); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-110vh) scale(0.3); }
+  }
+
+  /* main wrapper */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 92%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* progress bar */
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--yellow));
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* header */
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .header .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 8vw, 40px);
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 30%, var(--red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+  }
+  .step-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* card */
+  .card {
+    width: 100%;
+    perspective: 1000px;
+  }
+  .card-inner {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 24px 20px;
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.5s cubic-bezier(.4,0,.2,1) both;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* question text */
+  .question-text {
+    font-size: 15px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+  }
+
+  /* options */
+  .option {
+    position: relative;
+    padding: 18px 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 700;
+    transition: transform 0.15s, box-shadow 0.15s;
+    overflow: hidden;
+    user-select: none;
+    border: 2px solid transparent;
+  }
+  .option:hover { transform: scale(1.025); }
+  .option:active { transform: scale(0.97); }
+
+  .option.wrong {
+    background: linear-gradient(135deg, #3d0000, #1a0000);
+    border-color: rgba(255,23,68,0.3);
+  }
+  .option.wrong::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,23,68,0.15), transparent);
+    border-radius: 14px;
+  }
+  .option.right {
+    background: linear-gradient(135deg, #003d1a, #001a0a);
+    border-color: rgba(0,230,118,0.3);
+  }
+  .option.right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,230,118,0.1), transparent);
+    border-radius: 14px;
+  }
+
+  .option-emoji { margin-right: 8px; font-size: 20px; }
+
+  /* pulse ring on hover */
+  .option::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    opacity: 0;
+    border: 2px solid currentColor;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .option:hover::after { opacity: 0.3; transform: scale(1.02); }
+
+  /* OR divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 3px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* ===== OVERLAY ===== */
+  #overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #overlay.show { opacity: 1; pointer-events: all; }
+
+  /* shake BG */
+  #overlay.eliminated {
+    background: radial-gradient(ellipse at center, rgba(255,23,68,0.3) 0%, rgba(0,0,0,0.95) 70%);
+    animation: bgPulse 0.4s ease;
+  }
+  #overlay.correct-overlay {
+    background: radial-gradient(ellipse at center, rgba(0,230,118,0.2) 0%, rgba(0,0,0,0.95) 70%);
+  }
+  @keyframes bgPulse {
+    0%,100% { filter: brightness(1); }
+    25% { filter: brightness(2); }
+    50% { filter: brightness(0.8); }
+    75% { filter: brightness(1.5); }
+  }
+
+  .overlay-icon {
+    font-size: 72px;
+    animation: popIn 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    margin-bottom: 12px;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+
+  .overlay-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 12vw, 60px);
+    letter-spacing: 4px;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .overlay-title.red { color: var(--red); }
+  .overlay-title.green { color: var(--green); }
+
+  .overlay-task {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding: 14px 24px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    margin: 12px 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    max-width: 320px;
+  }
+
+  .countdown-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 16px 0 0;
+  }
+  .countdown-ring svg {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+  .countdown-ring .track { stroke: rgba(255,255,255,0.1); }
+  .countdown-ring .fill {
+    stroke: var(--red);
+    stroke-dasharray: 220;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+  }
+  .countdown-ring .fill.green { stroke: var(--green); }
+  .countdown-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+
+  /* continue msg */
+  .continue-msg {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--green);
+    animation: fadeZoom 0.4s ease both;
+  }
+  @keyframes fadeZoom {
+    from { opacity: 0; transform: scale(0.8); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* screen shake */
+  @keyframes shake {
+    0%,100%{ transform: none; }
+    15%{ transform: translate(-8px, 4px) rotate(-1deg); }
+    30%{ transform: translate(8px, -4px) rotate(1deg); }
+    45%{ transform: translate(-6px, 2px) rotate(-0.5deg); }
+    60%{ transform: translate(6px, -2px) rotate(0.5deg); }
+    75%{ transform: translate(-3px, 1px); }
+    90%{ transform: translate(3px, -1px); }
+  }
+  .shake { animation: shake 0.5s ease both; }
+
+  /* confetti pieces */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 200;
+    animation: confettiFall var(--cdur) ease var(--cdelay) both;
+    left: var(--cx);
+    top: -20px;
+    background: var(--cc);
+    border-radius: var(--cr, 2px);
+    transform: rotate(var(--crot));
+  }
+  @keyframes confettiFall {
+    0%   { opacity: 1; transform: translateY(0) rotate(var(--crot)) scale(1); }
+    100% { opacity: 0; transform: translateY(110vh) rotate(calc(var(--crot) + 720deg)) scale(0.5); }
+  }
+
+  /* win screen */
+  #win-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  #win-screen.show { opacity: 1; pointer-events: all; }
+  .win-emoji { font-size: 80px; animation: popIn 0.6s ease both; }
+  .win-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 12vw, 72px);
+    background: linear-gradient(135deg, var(--yellow), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 4px;
+    text-align: center;
+    animation: slideIn 0.5s 0.2s ease both;
+  }
+  .win-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    animation: slideIn 0.5s 0.35s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- Background particles -->
+<div class="bg-particles" id="particles"></div>
+
+<!-- Main UI -->
+<div class="wrapper" id="main">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div class="header">
+    <div class="brand">🎬 Hayatta Kal</div>
+    <h1>Yanlışı Seçersen<br>ELENDİN</h1>
+    <div class="step-label" id="stepLabel">Soru 1 / 5</div>
+  </div>
+  <div class="card" id="card">
+    <div class="card-inner" id="game"></div>
+  </div>
+</div>
+
+<!-- Overlay (eliminated / continue) -->
+<div id="overlay">
+  <div class="overlay-icon" id="ov-icon"></div>
+  <div class="overlay-title" id="ov-title"></div>
+  <div class="overlay-task" id="ov-task" style="display:none"></div>
+  <div class="countdown-ring" id="ov-ring">
+    <svg viewBox="0 0 80 80">
+      <circle class="track" cx="40" cy="40" r="35" fill="none" stroke-width="5"/>
+      <circle class="fill" id="ring-fill" cx="40" cy="40" r="35" fill="none" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <div class="countdown-num" id="ov-count"></div>
+  </div>
+  <div class="continue-msg" id="ov-continue" style="display:none">✔ DEVAM ET!</div>
+</div>
+
+<!-- Win Screen -->
+<div id="win-screen">
+  <div class="win-emoji">🔥</div>
+  <div class="win-title">KAZANDIN!</div>
+  <div class="win-sub">Tüm soruları geçtin. Efsanesin.</div>
+</div>
+
+<script>
+const questions = [
+  {
+    wrong: { text: "1 hafta duş alma 😬", emoji: "🚿" },
+    right: { text: "Videoyu beğen 👍", emoji: "👍" }
+  },
+  {
+    wrong: { text: "24 saat telefon kapat 📵", emoji: "📵" },
+    right: { text: "Abone ol 🔔", emoji: "🔔" }
+  },
+  {
+    wrong: { text: "3 gün uyuma 😵", emoji: "😵" },
+    right: { text: "Yoruma emoji bırak 😎", emoji: "😎" }
+  },
+  {
+    wrong: { text: "1 hafta sosyal medya yok 🤐", emoji: "🤐" },
+    right: { text: "Videoyu paylaş 📲", emoji: "📲" }
+  },
+  {
+    wrong: { text: "Arkadaşına rezil ol 😳", emoji: "😳" },
+    right: { text: "Kanala gel her gün 🎯", emoji: "🎯" }
+  }
+];
+
+const punishments = [
+  "Videoyu beğen 👍",
+  "Abone ol 🔔",
+  "Videoyu paylaş 📲",
+  "Yoruma emoji bırak 😎",
+  "Bildirim zilini aç 🔔"
+];
+
+let current = 0;
+let locked = false;
+
+// --- particles ---
+const pc = document.getElementById("particles");
+for (let i = 0; i < 22; i++) {
+  const s = document.createElement("span");
+  const colors = ["#ff1744","#ff6d00","#ffea00","#00e676","#2979ff","#d500f9"];
+  s.style.cssText = `
+    --x:${Math.random()*100}%;
+    --dur:${5+Math.random()*8}s;
+    --delay:${Math.random()*10}s;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    width:${4+Math.random()*6}px;
+    height:${4+Math.random()*6}px;
+    opacity:0;
+  `;
+  pc.appendChild(s);
+}
+
+// --- render ---
+function render() {
+  locked = false;
+  const q = questions[current];
+  const game = document.getElementById("game");
+
+  // shuffle so right isn't always bottom
+  const opts = Math.random() > 0.5
+    ? [{ ...q.wrong, correct: false }, { ...q.right, correct: true }]
+    : [{ ...q.right, correct: true }, { ...q.wrong, correct: false }];
+
+  game.innerHTML = `
+    <div class="question-text">Birini seç — yanlış olan seni eler!</div>
+    ${opts.map((o, i) => `
+      <div class="option ${o.correct ? 'right' : 'wrong'}" onclick="choose(${o.correct})">
+        <span class="option-emoji">${o.emoji}</span>${o.text}
+      </div>
+      ${i === 0 ? '<div class="divider">YA DA</div>' : ''}
+    `).join("")}
+  `;
+
+  // animate card in
+  const cardInner = document.getElementById("game");
+  cardInner.closest('.card-inner') && cardInner.closest('.card-inner').style.setProperty('animation','none');
+  requestAnimationFrame(() => {
+    const ci = document.getElementById("game").closest('.card-inner');
+    if (ci) { ci.style.animation = ''; }
+  });
+
+  // step label & progress
+  document.getElementById("stepLabel").textContent = `Soru ${current+1} / ${questions.length}`;
+  document.getElementById("progress").style.width = `${(current / questions.length) * 100}%`;
+}
+
+// --- choose ---
+function choose(correct) {
+  if (locked) return;
+  locked = true;
+  if (correct) {
+    showCorrect();
+  } else {
+    showEliminated();
+  }
+}
+
+// --- eliminated ---
+function showEliminated() {
+  document.getElementById("main").classList.add("shake");
+  setTimeout(() => document.getElementById("main").classList.remove("shake"), 500);
+
+  const task = punishments[Math.floor(Math.random() * punishments.length)];
+  const ov = document.getElementById("overlay");
+  ov.className = "show eliminated";
+
+  document.getElementById("ov-icon").textContent = "❌";
+  document.getElementById("ov-title").textContent = "ELENDİN!";
+  document.getElementById("ov-title").className = "overlay-title red";
+  document.getElementById("ov-task").style.display = "block";
+  document.getElementById("ov-task").textContent = `Ceza: ${task}`;
+  document.getElementById("ov-continue").style.display = "none";
+
+  const fill = document.getElementById("ring-fill");
+  fill.className = "fill";
+  fill.style.strokeDashoffset = "0";
+  document.getElementById("ov-ring").style.display = "block";
+
+  let count = 3;
+  document.getElementById("ov-count").textContent = count;
+
+  setTimeout(() => { fill.style.strokeDashoffset = "220"; }, 50);
+
+  const iv = setInterval(() => {
+    count--;
+    document.getElementById("ov-count").textContent = count;
+    fill.style.transition = "stroke-dashoffset 1s linear";
+    if (count <= 0) {
+      clearInterval(iv);
+      document.getElementById("ov-ring").style.display = "none";
+      document.getElementById("ov-task").style.display = "none";
+      document.getElementById("ov-icon").textContent = "✅";
+      document.getElementById("ov-title").textContent = "";
+      document.getElementById("ov-continue").style.display = "block";
+
+      setTimeout(() => {
+        ov.className = "";
+        // reset to this question (eliminated = restart from this question)
+        render();
+      }, 1200);
+    }
+  }, 1000);
+}
+
+// --- correct ---
+function showCorrect() {
+  const ov = document.getElementById("overlay");
+  ov.className = "show correct-overlay";
+
+  document.getElementById("ov-icon").textContent = "✅";
+  document.getElementById("ov-title").textContent = "DOĞRU!";
+  document.getElementById("ov-title").className = "overlay-title green";
+  document.getElementById("ov-task").style.display = "none";
+  document.getElementById("ov-continue").style.display = "none";
+
+  const fill = document.getElementById("ring-fill");
+  fill.className = "fill green";
+  fill.style.strokeDashoffset = "0";
+  document.getElementById("ov-ring").style.display = "block";
+
+  let count = 2;
+  document.getElementById("ov-count").textContent = count;
+  setTimeout(() => { fill.style.strokeDashoffset = "220"; }, 50);
+
+  const iv = setInterval(() => {
+    count--;
+    document.getElementById("ov-count").textContent = count;
+    if (count <= 0) {
+      clearInterval(iv);
+      ov.className = "";
+      current++;
+      if (current >= questions.length) {
+        showWin();
+      } else {
+        // re-render card animation
+        const ci = document.querySelector('.card-inner');
+        if (ci) ci.style.animation = 'none';
+        requestAnimationFrame(() => { if (ci) ci.style.animation = ''; });
+        render();
+      }
+    }
+  }, 1000);
+}
+
+// --- win ---
+function showWin() {
+  spawnConfetti();
+  document.getElementById("win-screen").classList.add("show");
+  document.getElementById("progress").style.width = "100%";
+}
+
+function spawnConfetti() {
+  const colors = ["#ff1744","#ffea00","#00e676","#2979ff","#d500f9","#ff6d00","#ffffff"];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement("div");
+    el.className = "confetti-piece";
+    el.style.cssText = `
+      --cx:${Math.random()*100}%;
+      --cdur:${1.5+Math.random()*2}s;
+      --cdelay:${Math.random()*1}s;
+      --cc:${colors[Math.floor(Math.random()*colors.length)]};
+      --crot:${Math.random()*360}deg;
+      --cr:${Math.random()>0.5?'50%':'2px'};
+    `;
+    document.body.appendChild(el);
+    el.addEventListener("animationend", () => el.remove());
+  }
+}
+
+render();
+</script>
+</body>
+</html>
