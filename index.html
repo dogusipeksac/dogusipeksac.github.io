@@ -4,407 +4,418 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Doğuş İpeksaç — Senior Android Developer</title>
-  
-  <meta name="description" content="Doğuş İpeksaç — Senior Android Developer. Kotlin ve Jetpack Compose ile modern mobil uygulamalar geliştiriyorum." />
+
+  <meta name="description" content="Doğuş İpeksaç — Senior Android Developer. Kotlin ve Jetpack Compose ile mobil uygulamalar; web araçları ve projeler." />
   <link rel="canonical" href="https://dogusipeksac.com/" />
-  <meta name="theme-color" content="#06b6d4" />
-  
+  <meta name="theme-color" content="#0c0c0d" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #06b6d4;
-      --bg-dark: #0f172a;
-      --bg-card: #1e293b;
-      --text-light: #ffffff;
-      --text-muted: #94a3b8;
-      --border: #334155;
+      --bg: #0c0c0d;
+      --surface: #141414;
+      --border: #262626;
+      --text: #fafafa;
+      --muted: #a3a3a3;
+      --accent: #0891b2;
+      --radius: 10px;
+      --font: 'Inter', system-ui, sans-serif;
+      --max: 1040px;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-light);
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 20px;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     /* Header */
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(10px);
+      z-index: 50;
+      background: rgba(12, 12, 13, 0.92);
       border-bottom: 1px solid var(--border);
-      padding: 16px 0;
+      backdrop-filter: blur(8px);
     }
 
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
+      gap: 16px;
+      padding: 14px 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 18px;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 15px;
     }
 
     .logo {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--primary);
-      color: white;
-      font-weight: 700;
       cursor: pointer;
+      border: none;
+      font-family: inherit;
     }
+
+    .logo:hover { filter: brightness(1.08); }
 
     nav ul {
       display: flex;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 4px 12px;
       list-style: none;
+      justify-content: flex-end;
     }
 
     nav a {
-      padding: 8px 16px;
-      border-radius: 6px;
       font-size: 14px;
-      color: var(--text-muted);
-      transition: all 0.2s;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 0;
     }
 
-    nav a:hover {
-      color: var(--primary);
-      background: rgba(6, 182, 212, 0.1);
-    }
+    nav a:hover { color: var(--text); }
 
     /* Hero */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 40px;
       align-items: center;
-      padding: 80px 0;
+      padding: 56px 0 64px;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 48px;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
       font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text-light);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
     }
 
-    .subtitle {
-      font-size: 18px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      line-height: 1.7;
+    .lead {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      margin-bottom: 20px;
+      max-width: 38ch;
     }
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .skill-badge {
-      padding: 6px 12px;
-      border-radius: 6px;
+    .skills-line {
       font-size: 13px;
-      font-weight: 600;
-      background: rgba(6, 182, 212, 0.1);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      color: var(--primary);
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
     }
 
-    .cta-group {
+    .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 28px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: var(--radius);
       font-size: 14px;
-      transition: all 0.2s;
+      font-weight: 600;
+      font-family: inherit;
+      border: 1px solid transparent;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .btn.primary {
-      background: var(--primary);
-      color: white;
+    .btn-solid {
+      background: var(--accent);
+      color: #fff;
     }
 
-    .btn.primary:hover {
-      background: #0891b2;
-      transform: translateY(-2px);
+    .btn-solid:hover { filter: brightness(1.06); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
     }
 
-    .btn.secondary {
-      background: rgba(6, 182, 212, 0.1);
-      color: var(--primary);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-    }
-
-    .btn.secondary:hover {
-      background: rgba(6, 182, 212, 0.2);
+    .btn-ghost:hover {
+      border-color: #404040;
+      background: var(--surface);
     }
 
     .stats {
       display: flex;
-      gap: 32px;
-      padding-top: 24px;
+      gap: 28px;
+      padding-top: 22px;
       border-top: 1px solid var(--border);
     }
 
-    .stat-number {
-      font-size: 28px;
+    .stat-num {
+      font-size: 22px;
       font-weight: 700;
-      color: var(--primary);
+      letter-spacing: -0.02em;
     }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
+    .stat-lab {
+      font-size: 11px;
+      color: var(--muted);
       text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .hero-visual {
-      height: 400px;
-      border-radius: 12px;
+    .hero-photo {
+      border-radius: var(--radius);
       overflow: hidden;
-      background: rgba(6, 182, 212, 0.1);
       border: 1px solid var(--border);
+      aspect-ratio: 4 / 3;
+      max-height: 320px;
     }
 
-    .hero-visual img {
+    .hero-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     /* Sections */
     section {
-      padding: 80px 0;
+      padding: 56px 0;
       border-top: 1px solid var(--border);
     }
 
-    .section-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .section-title {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .section-subtitle {
-      font-size: 16px;
-      color: var(--text-muted);
-    }
-
-    .grid {
-      display: grid;
-      gap: 24px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Cards */
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      transition: all 0.2s;
-    }
-
-    .card:hover {
-      border-color: var(--primary);
-      transform: translateY(-4px);
-    }
-
-    .card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-
-    .card-footer {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .tag {
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: rgba(6, 182, 212, 0.1);
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    /* Video Card */
-    .video-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 48px 32px;
-      text-align: center;
-    }
-
-    .video-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .video-card h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .video-card p {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.7;
-    }
-
-    /* Contact */
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--primary);
-      border-radius: 12px;
-      padding: 48px 32px;
-      text-align: center;
-    }
-
-    .contact-card h3 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .contact-card p {
-      font-size: 16px;
-      color: var(--text-muted);
+    .section-head {
       margin-bottom: 28px;
     }
 
-    .email-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      background: var(--primary);
-      color: white;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: all 0.2s;
+    .section-head h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
     }
 
-    .email-link:hover {
-      background: #0891b2;
-      transform: translateY(-2px);
+    .section-head p {
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    /* Footer */
+    .section-head.center {
+      text-align: center;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 32px;
+    }
+
+    /* Tools grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      padding: 18px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.15s;
+    }
+
+    .tool-card:hover {
+      border-color: #404040;
+    }
+
+    .tool-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tool-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+      margin-bottom: 10px;
+    }
+
+    .tool-card .url {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .tool-card .arrow {
+      margin-left: 4px;
+    }
+
+    /* Project cards */
+    .grid-2 {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      padding: 22px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card > p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Video + contact */
+    .box {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .box h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .box > p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+
+    .email {
+      display: inline-block;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    .email:hover { text-decoration: underline; }
+
     footer {
       border-top: 1px solid var(--border);
-      padding: 32px 0;
+      padding: 28px 0 36px;
       text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 16px;
       flex-wrap: wrap;
+      gap: 16px 22px;
+      margin-bottom: 14px;
     }
 
-    .footer-link:hover {
-      color: var(--primary);
+    .footer-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
+    .footer-links a:hover { color: var(--text); }
+
+    footer > .container > p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 820px) {
       .hero {
         grid-template-columns: 1fr;
-        padding: 60px 0;
       }
-
-      h1 {
-        font-size: 36px;
+      .hero-photo {
+        max-height: 240px;
+        order: -1;
       }
-
-      .grid {
+      .grid-2 {
         grid-template-columns: 1fr;
       }
+    }
 
+    @media (max-width: 520px) {
       nav ul {
-        gap: 4px;
+        width: 100%;
+        justify-content: flex-start;
       }
-
-      nav a {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      .brand span {
-        display: none;
-      }
-
-      section {
-        padding: 50px 0;
-      }
+      .brand span { font-size: 14px; }
     }
   </style>
 </head>
@@ -412,17 +423,14 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="logo">DI</div>
+        <button type="button" class="logo" aria-label="Sayfa başına">DI</button>
         <span>Doğuş İpeksaç</span>
       </div>
-      <nav>
+      <nav aria-label="Ana menü">
         <ul>
+          <li><a href="#araclar">Araçlar</a></li>
           <li><a href="#projeler">Projeler</a></li>
           <li><a href="#videolar">Videolar</a></li>
-          <li><a href="logogenerator/">Generator</a></li>
-          <li><a href="logcleaner/">Logcleaner</a></li>
-          <li><a href="txtconverter/">Converter</a></li>
-          <li><a href="textdiff/">Text Diff</a></li>
           <li><a href="#iletisim">İletişim</a></li>
         </ul>
       </nav>
@@ -430,162 +438,207 @@
   </header>
 
   <main>
-    <!-- Hero -->
     <section class="hero container">
       <div>
+        <p class="hero-kicker">Kotlin · Jetpack Compose · Mobil</p>
         <h1>Senior Android Developer</h1>
-        <p class="subtitle">Jetpack Compose ve Kotlin ile yüksek performanslı, ölçeklenebilir mobil deneyimler geliştiriyorum.</p>
-
-        <div class="skills">
-          <span class="skill-badge">Kotlin</span>
-          <span class="skill-badge">Jetpack Compose</span>
-          <span class="skill-badge">Clean Architecture</span>
-          <span class="skill-badge">MVVM</span>
-          <span class="skill-badge">Firebase</span>
-          <span class="skill-badge">Flutter</span>
+        <p class="lead">Jetpack Compose ve Kotlin ile performanslı, ölçeklenebilir mobil ürünler geliştiriyorum.</p>
+        <p class="skills-line">Kotlin · Compose · Clean Architecture · MVVM · Firebase · Flutter</p>
+        <div class="cta-row">
+          <a href="mailto:ipeksac.dogus.19@gmail.com" class="btn btn-solid">İletişime geç</a>
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
+          <a href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">YouTube</a>
+          <a href="https://www.linkedin.com/in/dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">LinkedIn</a>
         </div>
-
-        <div class="cta-group">
-          <a href="mailto:ipeksac.dogus.19@gmail.com" class="btn primary">📩 İletişime Geç</a>
-          <a href="https://github.com/dogusipeksac" target="_blank" class="btn secondary">GitHub</a>
-          <a href="https://www.youtube.com/@dogusipeksac" target="_blank" class="btn secondary">YouTube</a>
-          <a href="https://www.linkedin.com/in/dogusipeksac" target="_blank" class="btn secondary">LinkedIn</a>
-        </div>
-
         <div class="stats">
-          <div class="stat-item">
-            <div class="stat-number">5+</div>
-            <div class="stat-label">Yıl Deneyim</div>
+          <div>
+            <div class="stat-num">5+</div>
+            <div class="stat-lab">Yıl</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">20+</div>
-            <div class="stat-label">Proje</div>
+          <div>
+            <div class="stat-num">20+</div>
+            <div class="stat-lab">Proje</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-number">100K+</div>
-            <div class="stat-label">Takipçi</div>
+          <div>
+            <div class="stat-num">100K+</div>
+            <div class="stat-lab">Takipçi</div>
           </div>
         </div>
       </div>
-
-      <div class="hero-visual">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=420&fit=crop" alt="Android Development" loading="lazy" />
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=420&fit=crop" alt="Geliştirme ortamı" width="600" height="420" loading="lazy" decoding="async" />
       </div>
     </section>
 
-    <!-- Projeler -->
-    <section id="projeler" class="container">
-      <div class="section-header">
-        <h2 class="section-title">Öne Çıkan Projeler</h2>
-        <p class="section-subtitle">Üretim ortamında çalışan yüksek kaliteli uygulamalar</p>
+    <section id="araclar" class="container">
+      <div class="section-head">
+        <h2>Web araçları</h2>
+        <p>Tüm uygulamalar ana alan adından açılır: <strong style="color: var(--text); font-weight: 600;">dogusipeksac.com</strong> altındaki sayfalar.</p>
       </div>
+      <div class="tools-grid">
+        <a class="tool-card" data-site-path="/logogenerator/" href="#">
+          <h3>Logo Generator</h3>
+          <p>App ikonları ve mağaza görselleri üretimi.</p>
+          <span class="url">dogusipeksac.com/logogenerator<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/app-logo-generator/" href="#">
+          <h3>App Logo Generator</h3>
+          <p>Logo odaklı ikon ve varyant üretimi.</p>
+          <span class="url">dogusipeksac.com/app-logo-generator<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/logcleaner/" href="#">
+          <h3>Logcleaner</h3>
+          <p>Log metinlerini temizleme ve düzenleme.</p>
+          <span class="url">dogusipeksac.com/logcleaner<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/txtconverter/" href="#">
+          <h3>TXT Converter</h3>
+          <p>Metin dönüşümü ve dışa aktarma.</p>
+          <span class="url">dogusipeksac.com/txtconverter<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/textdiff/" href="#">
+          <h3>Text Diff</h3>
+          <p>İki metin arasında farkları görüntüleme.</p>
+          <span class="url">dogusipeksac.com/textdiff<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/template/" href="#">
+          <h3>YA DA şablonu</h3>
+          <p>İki seçenekli kart görseli oluşturma.</p>
+          <span class="url">dogusipeksac.com/template<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/game/" href="#">
+          <h3>Oyun</h3>
+          <p>Tarayıcıda oynanabilir mini oyun.</p>
+          <span class="url">dogusipeksac.com/game<span class="arrow">→</span></span>
+        </a>
+        <a class="tool-card" data-site-path="/appplaka.html" href="#">
+          <h3>App Plaka</h3>
+          <p>App Plaka uygulaması tanıtım sayfası.</p>
+          <span class="url">dogusipeksac.com/appplaka.html<span class="arrow">→</span></span>
+        </a>
+      </div>
+    </section>
 
-      <div class="grid">
+    <section id="projeler" class="container">
+      <div class="section-head">
+        <h2>Öne çıkan projeler</h2>
+        <p>Üretimde kullanılan uygulamalar ve modüller.</p>
+      </div>
+      <div class="grid-2">
         <article class="card">
-          <h3>MyDiary — Kişisel Günlük</h3>
-          <p>Jetpack Compose ile tasarlanmış modern günlük uygulaması. Tema desteği, sticker/emoji, offline senkronizasyon ve AdMob entegrasyonu.</p>
-          <div class="card-footer">
-            <span class="tag">Jetpack Compose</span>
+          <h3>MyDiary — Kişisel günlük</h3>
+          <p>Jetpack Compose ile günlük uygulaması; tema, sticker, offline senkron ve AdMob.</p>
+          <div class="tags">
+            <span class="tag">Compose</span>
             <span class="tag">Kotlin</span>
             <span class="tag">Room</span>
           </div>
-          <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" class="btn primary">Play Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Play Store</a>
         </article>
-
         <article class="card">
           <h3>Update Checker Module</h3>
-          <p>Zorunlu ve opsiyonel uygulama güncelleme akışları için bağımsız Kotlin kütüphanesi. Firebase Remote Config desteği.</p>
-          <div class="card-footer">
+          <p>Zorunlu / opsiyonel güncelleme akışları; Firebase Remote Config.</p>
+          <div class="tags">
             <span class="tag">Kotlin</span>
             <span class="tag">Firebase</span>
-            <span class="tag">Modular</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" class="btn secondary">GitHub</a>
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
         </article>
-
         <article class="card">
           <h3>Monetization Module</h3>
-          <p>AdMob (banner, interstitial, rewarded), satın alma ve reklam-kaldırma akışları için Compose uyumlu kütüphane.</p>
-          <div class="card-footer">
-            <span class="tag">Jetpack Compose</span>
+          <p>AdMob, satın alma ve reklam kaldırma; Compose uyumlu.</p>
+          <div class="tags">
+            <span class="tag">Compose</span>
             <span class="tag">AdMob</span>
-            <span class="tag">IAP</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" class="btn secondary">GitHub</a>
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
         </article>
-
         <article class="card">
           <h3>GPS Map Camera</h3>
-          <p>Fotoğraflara GPS konum, harita, tarih ve hava durumu ekleyen Flutter uygulaması. GetX state management kullanıyor.</p>
-          <div class="card-footer">
+          <p>Fotoğrafa konum, harita ve meta veri; Flutter, GetX.</p>
+          <div class="tags">
             <span class="tag">Flutter</span>
             <span class="tag">GetX</span>
-            <span class="tag">GPS</span>
           </div>
-          <a href="https://github.com/dogusipeksac" target="_blank" class="btn secondary">Repo</a>
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Repo</a>
         </article>
       </div>
     </section>
 
-    <!-- Videolar -->
     <section id="videolar" class="container">
-      <div class="section-header">
-        <h2 class="section-title">YouTube İçerikleri</h2>
-        <p class="section-subtitle">Android geliştirme ve teknoloji hakkında videolar</p>
+      <div class="section-head center">
+        <h2>YouTube</h2>
+        <p>Compose, Kotlin, Firebase ve mimari içerikleri.</p>
       </div>
-
-      <div class="video-card">
-        <span class="video-icon">▶️</span>
-        <h3>Android Geliştirme Eğitimleri</h3>
-        <p>Jetpack Compose, Kotlin, Firebase ve clean architecture hakkında derinlemesine içerikler.</p>
-        <a href="https://www.youtube.com/@dogusipeksac" target="_blank" class="btn primary">Kanalı Ziyaret Et</a>
+      <div class="box">
+        <h3>Kanal</h3>
+        <p>Eğitim ve teknik videolar için kanalı ziyaret edebilirsin.</p>
+        <a href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer" class="btn btn-solid">YouTube’a git</a>
       </div>
     </section>
 
-    <!-- İletişim -->
     <section id="iletisim" class="container">
-      <div class="section-header">
-        <h2 class="section-title">Hadi Birlikte Çalışalım</h2>
-        <p class="section-subtitle">Proje danışmanlığı veya işbirliği için bana ulaş</p>
+      <div class="section-head center">
+        <h2>İletişim</h2>
+        <p>Danışmanlık ve iş birliği için.</p>
       </div>
-
-      <div class="contact-card">
-        <h3>Merhaba 👋</h3>
-        <p>Yeni projeler ve danışmanlık fırsatlarına açığım. Bir fikriniz varsa bana ulaşabilirsiniz.</p>
-        <a href="mailto:ipeksac.dogus.19@gmail.com" class="email-link">
-          📧 ipeksac.dogus.19@gmail.com
-        </a>
+      <div class="box">
+        <h3>Merhaba</h3>
+        <p>Yeni projelere açığım; kısa bir e-posta yeterli.</p>
+        <a class="email" href="mailto:ipeksac.dogus.19@gmail.com">ipeksac.dogus.19@gmail.com</a>
       </div>
     </section>
   </main>
 
-  <footer class="container">
-    <div class="footer-links">
-      <a href="https://github.com/dogusipeksac" target="_blank" class="footer-link">GitHub</a>
-      <a href="https://www.youtube.com/@dogusipeksac" target="_blank" class="footer-link">YouTube</a>
-      <a href="https://www.linkedin.com/in/dogusipeksac" target="_blank" class="footer-link">LinkedIn</a>
-      <a href="https://twitter.com/dogusipeksac" target="_blank" class="footer-link">Twitter</a>
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://www.linkedin.com/in/dogusipeksac" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://twitter.com/dogusipeksac" target="_blank" rel="noopener noreferrer">Twitter</a>
+      </div>
+      <p>© <span id="year"></span> Doğuş İpeksaç</p>
     </div>
-    <p>© <span id="year"></span> Doğuş İpeksaç</p>
   </footer>
 
   <script>
+    (function () {
+      var h = window.location.hostname;
+      var base =
+        h === 'dogusipeksac.com' || h === 'www.dogusipeksac.com'
+          ? 'https://dogusipeksac.com'
+          : window.location.origin.replace(/\/$/, '');
+      document.querySelectorAll('a[data-site-path]').forEach(function (el) {
+        var path = el.getAttribute('data-site-path');
+        if (path) el.href = base + path;
+      });
+    })();
+
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        var id = anchor.getAttribute('href');
+        if (!id || id.length < 2) return;
+        var target = document.querySelector(id);
         if (target) {
+          e.preventDefault();
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
 
-    // Logo click
-    document.querySelector('.logo').addEventListener('click', () => {
+    var logo = document.querySelector('.logo');
+    function goTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    logo.addEventListener('click', goTop);
+    logo.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        goTop();
+      }
     });
   </script>
 </body>
