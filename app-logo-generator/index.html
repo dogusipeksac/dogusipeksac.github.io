@@ -3,278 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IconForge — App Icon Paketi Üretici</title>
+<title>IconForge — App Icon Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
   :root {
-    --bg: #0E0F12;
-    --bg-2: #14161B;
-    --bg-3: #1B1E25;
-    --border: #262A33;
-    --border-2: #353B47;
-    --text: #F2F2EC;
-    --text-2: #9CA3AE;
-    --text-3: #5C6471;
-    --accent: #6BE6B8;
-    --accent-dim: #2C8A6B;
-    --warn: #FFB547;
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Manrope', system-ui, sans-serif;
+    --bg: #F0F4F8;
+    --bg-2: #E6EEF7;
+    --card: #FFFFFF;
+    --border: #E2E8F0;
+    --border-2: #CBD5E1;
+    --text: #0F172A;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --accent: #2563EB;
+    --accent-hover: #1D4ED8;
+    --accent-light: #DBEAFE;
+    --accent-soft: #EFF6FF;
+    --success: #10B981;
+    --success-light: #D1FAE5;
+    --danger: #EF4444;
+    --sans: 'Inter', system-ui, -apple-system, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --shadow-lg: 0 10px 32px rgba(15, 23, 42, 0.08);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-  body {
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 56px 56px;
-    background-position: -1px -1px;
-    background-attachment: fixed;
+  html, body {
+    background: linear-gradient(180deg, #F0F4F8 0%, #E6EEF7 100%);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background: radial-gradient(ellipse at top, rgba(107,230,184,0.06), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
+
   /* Header */
   header {
-    position: relative; z-index: 2;
-    border-bottom: 1px solid var(--border);
-    padding: 22px 40px;
-    display: flex; align-items: baseline; justify-content: space-between;
-    background: rgba(14,15,18,0.7);
-    backdrop-filter: blur(8px);
+    padding: 24px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1480px;
+    margin: 0 auto;
   }
   .logo {
-    display: flex; align-items: baseline; gap: 12px;
+    display: flex; align-items: center; gap: 12px;
   }
   .logo-mark {
-    width: 26px; height: 26px;
+    width: 40px; height: 40px;
     background: var(--accent);
-    border-radius: 6px;
-    display: inline-block;
-    align-self: center;
-    position: relative;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    color: white;
   }
-  .logo-mark::after {
-    content: '';
-    position: absolute; inset: 6px;
-    background: var(--bg);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  }
-  .logo h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 22px;
+  .logo-mark svg { width: 22px; height: 22px; }
+  .logo-text h1 {
+    font-size: 18px;
+    font-weight: 700;
     letter-spacing: -0.01em;
   }
-  .logo h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-  .logo .tag {
+  .logo-text .tag {
     font-family: var(--mono);
     font-size: 11px;
     color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
-  .header-meta {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-3);
-    letter-spacing: 0.05em;
+  .header-actions {
+    display: flex; gap: 8px; align-items: center;
   }
-  /* Main */
+  .header-link {
+    font-size: 13px;
+    color: var(--text-2);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 150ms;
+  }
+  .header-link:hover { color: var(--text); background: rgba(15, 23, 42, 0.04); }
+
+  /* Main layout */
   main {
-    position: relative; z-index: 2;
-    max-width: 1400px;
+    max-width: 1480px;
     margin: 0 auto;
-    padding: 40px;
+    padding: 0 40px 60px;
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 32px;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
     align-items: start;
   }
-  @media (max-width: 1000px) {
+  @media (max-width: 1100px) {
     main { grid-template-columns: 1fr; }
   }
 
-  .panel {
-    background: var(--bg-2);
+  .card {
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
   }
-  .panel-head {
-    padding: 14px 20px;
+  .card-head {
+    padding: 16px 22px;
     border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .card-head svg { width: 18px; height: 18px; color: var(--text-2); }
+  .card-body { padding: 22px; }
+
+  /* Left panel - controls */
+  .label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 8px;
+  }
+  .label-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .label-val {
     font-family: var(--mono);
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-2);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .panel-head .num {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 16px;
     color: var(--accent);
-    text-transform: none;
-    letter-spacing: 0;
+    font-weight: 500;
   }
-  .panel-body { padding: 20px; }
 
   /* Drop zone */
   .drop {
-    border: 1.5px dashed var(--border-2);
-    border-radius: 10px;
-    padding: 32px 20px;
-    text-align: center;
+    position: relative;
+    display: block;
+    border: 2px dashed var(--border-2);
+    border-radius: 12px;
+    background: var(--bg);
     cursor: pointer;
     transition: all 180ms ease;
-    background: var(--bg);
+    overflow: hidden;
   }
-  .drop:hover, .drop.drag {
+  .drop.empty {
+    padding: 28px 18px;
+    text-align: center;
+  }
+  .drop.empty:hover {
     border-color: var(--accent);
-    background: rgba(107,230,184,0.04);
+    background: var(--accent-soft);
   }
-  .drop.has-file { padding: 16px; text-align: left; }
-  .drop-icon {
-    width: 40px; height: 40px;
-    margin: 0 auto 12px;
-    border: 1px solid var(--border-2);
+  .drop.drag {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    border-style: solid;
+  }
+  .drop.has-file {
+    border-style: solid;
+    border-color: var(--success);
+    background: var(--success-light);
+    padding: 10px;
+  }
+  .drop input[type=file] { display: none; }
+
+  .drop-empty-icon {
+    width: 44px; height: 44px;
+    margin: 0 auto 10px;
     border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text-2);
+    background: white;
+    border: 1px solid var(--border);
+    display: grid; place-items: center;
+    color: var(--text-3);
   }
-  .drop-icon svg { width: 18px; height: 18px; }
-  .drop-title {
-    font-family: var(--serif);
-    font-size: 17px;
-    font-weight: 400;
+  .drop-empty-icon svg { width: 20px; height: 20px; }
+  .drop-empty-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
     margin-bottom: 4px;
   }
-  .drop-title em { font-style: italic; color: var(--accent); }
-  .drop-sub {
-    font-family: var(--mono);
-    font-size: 11px;
+  .drop-empty-sub {
+    font-size: 12px;
     color: var(--text-3);
-    letter-spacing: 0.04em;
   }
-  .drop input { display: none; }
-  .file-info {
-    display: flex; align-items: center; gap: 12px;
+
+  .file-row {
+    display: flex; align-items: center; gap: 10px;
   }
   .file-thumb {
-    width: 56px; height: 56px;
-    border-radius: 10px;
-    background: var(--bg-3);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    background: white;
     flex-shrink: 0;
+    display: grid; place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--border);
   }
   .file-thumb img { width: 100%; height: 100%; object-fit: contain; }
   .file-meta { flex: 1; min-width: 0; }
   .file-name {
-    font-family: var(--mono);
     font-size: 13px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .file-size {
+  .file-info {
     font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-3);
-    margin-top: 4px;
+    font-size: 10px;
+    color: var(--text-2);
+    margin-top: 2px;
+    display: flex; gap: 6px;
+  }
+  .file-info .ok-tag {
+    color: var(--success);
+    display: inline-flex; align-items: center; gap: 3px;
+    font-weight: 500;
   }
   .replace-btn {
-    background: none;
-    border: 1px solid var(--border-2);
-    color: var(--text-2);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-family: var(--mono);
-    font-size: 11px;
-    cursor: pointer;
-    transition: all 150ms;
-  }
-  .replace-btn:hover { color: var(--text); border-color: var(--text-2); }
-
-  /* Controls */
-  .control { margin-top: 20px; }
-  .control-label {
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-  .control-value {
-    font-family: var(--mono);
-    color: var(--accent);
-    text-transform: none;
-    letter-spacing: 0;
-  }
-  .swatch-row {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-  .swatch {
-    aspect-ratio: 1;
-    border-radius: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 150ms;
-    position: relative;
-  }
-  .swatch:hover { transform: scale(1.06); }
-  .swatch.active {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--bg-2), 0 0 0 3px var(--accent);
-  }
-  .color-input-row {
-    display: flex; gap: 8px; align-items: center;
-  }
-  .color-picker-wrap {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border-2);
-    cursor: pointer;
-    position: relative;
-  }
-  .color-picker-wrap input[type=color] {
-    width: 200%; height: 200%;
-    transform: translate(-25%,-25%);
-    border: none;
-    cursor: pointer;
-    background: none;
-  }
-  .text-input {
-    flex: 1;
-    background: var(--bg);
+    background: white;
     border: 1px solid var(--border-2);
     color: var(--text);
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-family: var(--mono);
-    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 150ms;
+    flex-shrink: 0;
   }
-  .text-input:focus { outline: none; border-color: var(--accent); }
+  .replace-btn:hover { background: var(--bg); border-color: var(--text-3); }
+
+  .control { margin-top: 18px; }
+  .control:first-child { margin-top: 0; }
 
   input[type=range] {
     width: 100%;
@@ -282,6 +241,7 @@
     appearance: none;
     background: transparent;
     cursor: pointer;
+    height: 20px;
   }
   input[type=range]::-webkit-slider-runnable-track {
     height: 4px;
@@ -300,191 +260,297 @@
     background: var(--accent);
     border-radius: 50%;
     margin-top: -6px;
-    border: 2px solid var(--bg);
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
   }
   input[type=range]::-moz-range-thumb {
     width: 16px; height: 16px;
     background: var(--accent);
     border-radius: 50%;
-    border: 2px solid var(--bg);
+    border: 2px solid white;
+  }
+
+  .slider-labels {
+    display: flex; justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-3);
+    margin-top: 4px;
+  }
+
+  .text-input {
+    width: 100%;
+    background: white;
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    transition: border-color 150ms;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+
+  .color-row {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .color-swatch-wrap {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-2);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .color-swatch-wrap input[type=color] {
+    width: 200%; height: 200%;
+    transform: translate(-25%,-25%);
+    border: none;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+  }
+  .swatch-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .swatch {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 120ms;
+    box-shadow: var(--shadow-sm);
+  }
+  .swatch:hover { transform: scale(1.06); }
+  .swatch.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px white, 0 0 0 3px var(--accent);
   }
 
   .toggle-row {
-    display: flex; gap: 8px; flex-wrap: wrap;
+    display: flex; gap: 6px; flex-wrap: wrap;
+    background: var(--bg);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
   }
   .toggle {
-    background: var(--bg);
-    border: 1px solid var(--border-2);
+    flex: 1;
+    background: transparent;
+    border: none;
     color: var(--text-2);
-    padding: 7px 12px;
-    border-radius: 7px;
-    font-family: var(--mono);
-    font-size: 11px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 150ms;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
-  .toggle:hover { color: var(--text); border-color: var(--text-3); }
+  .toggle:hover { color: var(--text); }
   .toggle.active {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-  }
-
-  /* Preview area */
-  .preview-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  @media (max-width: 720px) {
-    .preview-grid { grid-template-columns: 1fr; }
-  }
-  .device-card {
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .device-card-head {
-    width: 100%;
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 24px;
-  }
-  .device-card-title {
-    font-family: var(--serif);
-    text-transform: none;
-    letter-spacing: 0;
-    font-style: italic;
-    font-size: 16px;
+    background: white;
     color: var(--text);
+    box-shadow: var(--shadow-sm);
   }
-  .phone {
-    position: relative;
-    margin: 0 auto;
-  }
-  .phone svg { display: block; }
 
-  /* Bottom strip - file outputs */
-  .outputs {
-    margin-top: 32px;
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-  }
-  .outputs-head {
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .outputs-title {
-    font-family: var(--serif);
-    font-size: 18px;
-  }
-  .outputs-title em { font-style: italic; color: var(--accent); }
-  .outputs-count {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-2);
-  }
-  .outputs-body {
-    padding: 20px 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 8px 24px;
-    max-height: 240px;
-    overflow-y: auto;
-  }
-  .out-row {
-    display: flex; justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-2);
-    padding: 3px 0;
-  }
-  .out-row .out-name {
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    margin-right: 8px;
-  }
-  .out-row .out-size { color: var(--text-3); flex-shrink: 0; }
+  /* Right panel - preview */
+  .right-card { padding: 0; }
 
-  .download-bar {
+  .right-head {
     padding: 18px 24px;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .download-msg {
+  .right-head-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .right-head-actions {
+    display: flex; gap: 12px; align-items: center;
+  }
+  .format-toggle {
+    display: flex;
+    background: var(--bg);
+    padding: 3px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+  }
+  .format-btn {
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 11px;
     font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-3);
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 150ms;
+  }
+  .format-btn.active {
+    background: white;
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
   }
   .btn-primary {
     background: var(--accent);
-    color: var(--bg);
+    color: white;
     border: none;
-    padding: 12px 22px;
+    padding: 9px 18px;
     border-radius: 8px;
-    font-family: var(--sans);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 150ms;
+    display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.3);
+  }
+  .btn-primary svg { width: 14px; height: 14px; }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Mini icon previews */
+  .mini-previews {
+    padding: 32px 24px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mini-card {
+    text-align: center;
+  }
+  .mini-icon {
+    width: 96px; height: 96px;
+    margin: 0 auto 12px;
+    background: var(--bg);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    display: grid; place-items: center;
+  }
+  .mini-icon.empty {
+    border: 1px dashed var(--border-2);
+    background: white;
+  }
+  .mini-icon img { width: 100%; height: 100%; display: block; }
+  .mini-label {
+    font-size: 12px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+
+  /* Phone mockups */
+  .phones-area {
+    padding: 36px 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 800px) {
+    .phones-area { grid-template-columns: 1fr; }
+  }
+  .phone-wrap {
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .phone-svg-wrap {
+    filter: drop-shadow(0 16px 32px rgba(15, 23, 42, 0.15));
+  }
+  .phone-label {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-2);
+    background: white;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 500;
+  }
+
+  /* Files preview */
+  .files-section {
+    margin-top: 24px;
+  }
+  .files-head {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .files-title {
+    font-size: 14px;
+    font-weight: 600;
     display: flex; align-items: center; gap: 8px;
   }
-  .btn-primary:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(107,230,184,0.25);
-  }
-  .btn-primary:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-  .btn-primary svg { width: 16px; height: 16px; }
-
-  /* Empty state */
-  .empty-preview {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 380px;
-    color: var(--text-3);
+  .files-count {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 11px;
+    color: var(--text-2);
+    background: var(--bg);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .files-body {
+    padding: 16px 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 4px 24px;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .file-line {
+    display: flex; justify-content: space-between; gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-2);
+    padding: 3px 0;
+  }
+  .file-line .fname {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .file-line .fsize { color: var(--text-3); flex-shrink: 0; }
+  .file-line .grp {
+    color: var(--accent);
+    font-weight: 500;
+    grid-column: 1 / -1;
+    margin-top: 8px; margin-bottom: 2px;
+    font-size: 10px;
+    text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .empty-preview .pulse {
-    width: 8px; height: 8px;
-    background: var(--accent-dim);
-    border-radius: 50%;
-    margin-bottom: 12px;
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
-  }
+  .file-line .grp:first-child { margin-top: 0; }
 
-  /* Spec sheet decoration */
-  .spec-line {
-    font-family: var(--mono);
-    font-size: 10px;
+  /* Empty preview state */
+  .empty-state {
+    padding: 60px 24px;
+    text-align: center;
     color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    display: flex; align-items: center; gap: 10px;
-    margin: 12px 0 4px;
   }
-  .spec-line::before, .spec-line::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+  .empty-state-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 16px;
+    background: var(--bg);
+    border-radius: 12px;
+    display: grid; place-items: center;
+    color: var(--text-3);
+  }
+  .empty-state-icon svg { width: 22px; height: 22px; }
+  .empty-state-title {
+    font-size: 14px;
+    color: var(--text-2);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .empty-state-sub {
+    font-size: 12px;
+    color: var(--text-3);
   }
 
   /* Toast */
@@ -492,275 +558,353 @@
     position: fixed;
     bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
-    border-radius: 8px;
+    background: var(--text);
+    color: white;
+    border-radius: 10px;
     padding: 12px 18px;
-    font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 500;
     opacity: 0;
     pointer-events: none;
     transition: all 250ms ease;
     z-index: 100;
+    box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; gap: 8px;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .toast.error { border-color: #FF6B6B; color: #FFB0B0; }
-  .toast.success { border-color: var(--accent); color: var(--accent); }
+  .toast.error { background: var(--danger); }
+  .toast.success { background: var(--success); }
+  .toast svg { width: 16px; height: 16px; }
 
   footer {
-    position: relative; z-index: 2;
-    padding: 24px 40px 40px;
+    padding: 0 40px 32px;
     text-align: center;
-    font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-3);
-    letter-spacing: 0.05em;
+    max-width: 1480px;
+    margin: 0 auto;
   }
-  footer em { color: var(--accent); font-style: italic; font-family: var(--serif); }
+  footer a { color: var(--accent); text-decoration: none; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">
-    <span class="logo-mark"></span>
-    <h1>Icon<em>Forge</em></h1>
-    <span class="tag">v1.0 · App Icon Builder</span>
+    <div class="logo-mark">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7l4 2.5v5L12 17l-4-2.5v-5L12 7z"/></svg>
+    </div>
+    <div class="logo-text">
+      <h1>IconForge</h1>
+      <div class="tag">App icon paketi üretici</div>
+    </div>
   </div>
-  <div class="header-meta">PNG · SVG  →  iOS · Android · PlayStore</div>
+  <div class="header-actions">
+    <span class="header-link" style="color: var(--text-3); font-family: var(--mono); font-size: 11px;">v1.1 · tarayıcıda çalışır</span>
+  </div>
 </header>
 
 <main>
   <!-- LEFT: Controls -->
   <aside>
-    <div class="panel">
-      <div class="panel-head"><span class="num">01</span> Kaynak görüntü</div>
-      <div class="panel-body">
-        <label class="drop" id="drop">
-          <input type="file" id="fileInput" accept="image/png,image/svg+xml,image/jpeg,image/webp">
-          <div id="dropDefault">
-            <div class="drop-icon">
-              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-            </div>
-            <div class="drop-title">Logonu <em>buraya bırak</em></div>
-            <div class="drop-sub">PNG · SVG · JPG · WEBP — min 512×512</div>
-          </div>
-          <div id="dropFilled" class="file-info" style="display:none;">
-            <div class="file-thumb"><img id="thumbImg" alt=""></div>
-            <div class="file-meta">
-              <div class="file-name" id="fileName">—</div>
-              <div class="file-size" id="fileSize">—</div>
-            </div>
-            <button class="replace-btn" id="replaceBtn" type="button">Değiştir</button>
-          </div>
-        </label>
-
-        <div class="spec-line">parametreler</div>
+    <div class="card">
+      <div class="card-head">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+        Yükle &amp; Özelleştir
+      </div>
+      <div class="card-body">
 
         <div class="control">
-          <div class="control-label">App adı <span class="control-value" id="appNameVal">My App</span></div>
-          <input type="text" class="text-input" id="appName" value="My App" placeholder="App adı">
+          <span class="label">Foreground görüntü</span>
+          <label class="drop empty" id="drop">
+            <input type="file" id="fileInput" accept="image/png,image/svg+xml,image/jpeg,image/webp">
+            <div id="dropDefault">
+              <div class="drop-empty-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+              </div>
+              <div class="drop-empty-title">PNG, SVG sürükle veya seç</div>
+              <div class="drop-empty-sub">Önerilen: 1024×1024, transparent</div>
+            </div>
+            <div id="dropFilled" class="file-row" style="display:none;">
+              <div class="file-thumb"><img id="thumbImg" alt=""></div>
+              <div class="file-meta">
+                <div class="file-name" id="fileName">—</div>
+                <div class="file-info">
+                  <span id="fileDim">—</span>
+                  <span class="ok-tag">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="10" height="10"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    yüklendi
+                  </span>
+                </div>
+              </div>
+              <button class="replace-btn" id="replaceBtn" type="button">Değiştir</button>
+            </div>
+          </label>
         </div>
 
         <div class="control">
-          <div class="control-label">Arka plan rengi <span class="control-value" id="bgColorVal">#0E3D5C</span></div>
+          <div class="label-row">
+            <span class="label" style="margin-bottom:0;">Boyut</span>
+            <span class="label-val" id="paddingVal">Normal</span>
+          </div>
+          <input type="range" id="padding" min="0" max="40" value="10" style="margin-top:6px;">
+          <div class="slider-labels">
+            <span>Zoom</span>
+            <span>Normal</span>
+            <span>Padding</span>
+          </div>
+        </div>
+
+        <div class="control">
+          <span class="label">Arka plan rengi</span>
           <div class="swatch-row" id="swatches"></div>
-          <div class="color-input-row">
-            <div class="color-picker-wrap">
-              <input type="color" id="bgColor" value="#0E3D5C">
+          <div class="color-row">
+            <div class="color-swatch-wrap">
+              <input type="color" id="bgColor" value="#145078">
             </div>
-            <input type="text" class="text-input" id="bgColorText" value="#0E3D5C" maxlength="7">
+            <input type="text" class="text-input" id="bgColorText" value="#145078" maxlength="7">
           </div>
         </div>
 
         <div class="control">
-          <div class="control-label">İç boşluk <span class="control-value" id="paddingVal">10%</span></div>
-          <input type="range" id="padding" min="0" max="30" value="10">
-        </div>
-
-        <div class="control">
-          <div class="control-label">Arka plan stili</div>
+          <span class="label">Arka plan stili</span>
           <div class="toggle-row" id="bgStyle">
-            <button class="toggle active" data-style="solid">Düz renk</button>
+            <button class="toggle active" data-style="solid">Düz</button>
             <button class="toggle" data-style="gradient">Gradient</button>
-            <button class="toggle" data-style="none">Yok (transparent)</button>
+            <button class="toggle" data-style="none">Yok</button>
           </div>
         </div>
+
+        <div class="control">
+          <span class="label">Android dosya adı</span>
+          <input type="text" class="text-input" id="androidName" value="ic_launcher" placeholder="ic_launcher">
+        </div>
+
+        <div class="control">
+          <span class="label">App adı (mockup için)</span>
+          <input type="text" class="text-input" id="appName" value="My App" placeholder="My App">
+        </div>
+
       </div>
     </div>
   </aside>
 
-  <!-- RIGHT: Previews -->
+  <!-- RIGHT: Preview -->
   <section>
-    <div class="preview-grid">
-      <!-- iOS -->
-      <div class="device-card">
-        <div class="device-card-head">
-          <span class="device-card-title">iOS · iPhone</span>
-          <span>22.37% radius</span>
+    <div class="card right-card">
+      <div class="right-head">
+        <div class="right-head-title">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
+          Live Preview
         </div>
-        <div class="phone" id="iosPhone">
-          <svg width="240" height="490" viewBox="0 0 240 490" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="iosWp" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#FFA8B8"/>
-                <stop offset="50%" stop-color="#A893E8"/>
-                <stop offset="100%" stop-color="#5B9CE8"/>
-              </linearGradient>
-              <clipPath id="iosScreen">
-                <rect x="8" y="8" width="224" height="474" rx="42"/>
-              </clipPath>
-            </defs>
-            <!-- Outer frame -->
-            <rect x="0" y="0" width="240" height="490" rx="50" fill="#1B1E25" stroke="#353B47" stroke-width="1"/>
-            <!-- Screen -->
-            <rect x="8" y="8" width="224" height="474" rx="42" fill="url(#iosWp)"/>
-            <g clip-path="url(#iosScreen)">
-              <!-- Notch -->
-              <rect x="86" y="14" width="68" height="22" rx="11" fill="#0E0F12"/>
-              <!-- Time -->
-              <text x="32" y="32" font-family="-apple-system, sans-serif" font-size="13" font-weight="600" fill="white">9:41</text>
-              <!-- App grid (4 cols, icons drawn dynamically) -->
-              <g id="iosGrid"></g>
-              <!-- Dock -->
-              <rect x="20" y="404" width="200" height="68" rx="32" fill="rgba(255,255,255,0.18)"/>
-              <g id="iosDock"></g>
-              <!-- Home indicator -->
-              <rect x="84" y="476" width="72" height="3" rx="1.5" fill="rgba(255,255,255,0.7)"/>
-            </g>
-          </svg>
+        <div class="right-head-actions">
+          <span style="font-size: 12px; color: var(--text-2);">Format:</span>
+          <div class="format-toggle" id="formatToggle">
+            <button class="format-btn active" data-format="png">PNG</button>
+            <button class="format-btn" data-format="webp">WebP</button>
+          </div>
+          <button class="btn-primary" id="downloadBtn" disabled>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            <span id="downloadBtnText">Download</span>
+          </button>
         </div>
       </div>
 
-      <!-- Android -->
-      <div class="device-card">
-        <div class="device-card-head">
-          <span class="device-card-title">Android · Pixel</span>
-          <span id="androidMaskLabel">circle mask</span>
+      <!-- 3 mini preview icons -->
+      <div class="mini-previews" id="miniPreviews">
+        <div class="mini-card">
+          <div class="mini-icon empty" id="miniRound" style="border-radius: 50%;"></div>
+          <div class="mini-label">Round Icon</div>
         </div>
-        <div class="phone" id="androidPhone">
-          <svg width="240" height="490" viewBox="0 0 240 490" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="andWp" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#1F2937"/>
-                <stop offset="100%" stop-color="#0E3D5C"/>
-              </linearGradient>
-              <clipPath id="andScreen">
-                <rect x="8" y="8" width="224" height="474" rx="32"/>
-              </clipPath>
-            </defs>
-            <rect x="0" y="0" width="240" height="490" rx="38" fill="#1B1E25" stroke="#353B47" stroke-width="1"/>
-            <rect x="8" y="8" width="224" height="474" rx="32" fill="url(#andWp)"/>
-            <g clip-path="url(#andScreen)">
-              <!-- Camera -->
-              <circle cx="120" cy="22" r="6" fill="#0E0F12"/>
-              <text x="22" y="42" font-family="Roboto, sans-serif" font-size="12" font-weight="500" fill="white">9:41</text>
-              <!-- Date -->
-              <text x="120" y="100" text-anchor="middle" font-family="Roboto, sans-serif" font-size="36" font-weight="300" fill="white">9:41</text>
-              <text x="120" y="124" text-anchor="middle" font-family="Roboto, sans-serif" font-size="12" font-weight="400" fill="rgba(255,255,255,0.85)">Pazar, 3 Mayıs</text>
-              <!-- App grid -->
-              <g id="andGrid"></g>
-              <!-- Dock -->
-              <rect x="22" y="406" width="196" height="60" rx="24" fill="rgba(0,0,0,0.25)"/>
-              <g id="andDock"></g>
-              <!-- Nav bar -->
-              <rect x="100" y="478" width="40" height="3" rx="1.5" fill="rgba(255,255,255,0.6)"/>
-            </g>
-          </svg>
+        <div class="mini-card">
+          <div class="mini-icon empty" id="miniSquircle" style="border-radius: 22px;"></div>
+          <div class="mini-label">Squircle</div>
         </div>
-        <div class="toggle-row" style="margin-top:18px; justify-content:center;">
-          <button class="toggle active" data-mask="circle">Yuvarlak</button>
-          <button class="toggle" data-mask="squircle">Squircle</button>
-          <button class="toggle" data-mask="rounded">Yumuşak kare</button>
-          <button class="toggle" data-mask="teardrop">Teardrop</button>
+        <div class="mini-card">
+          <div class="mini-icon empty" id="miniLegacy" style="border-radius: 18px;"></div>
+          <div class="mini-label">Legacy Icon</div>
         </div>
       </div>
+
+      <!-- Phone mockups -->
+      <div class="phones-area">
+        <!-- iPhone -->
+        <div class="phone-wrap">
+          <div class="phone-svg-wrap">
+            <svg width="220" height="448" viewBox="0 0 220 448" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="iosWp" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3B5BA8"/>
+                  <stop offset="35%" stop-color="#7A6CB5"/>
+                  <stop offset="70%" stop-color="#D9836F"/>
+                  <stop offset="100%" stop-color="#3D2D44"/>
+                </linearGradient>
+                <radialGradient id="iosWpGlow" cx="0.3" cy="0.4" r="0.6">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+                <clipPath id="iosScreen">
+                  <rect x="6" y="6" width="208" height="436" rx="38"/>
+                </clipPath>
+                <clipPath id="iosIconClip">
+                  <rect id="iosIconRect" x="0" y="0" width="100" height="100" rx="22.37"/>
+                </clipPath>
+              </defs>
+              <!-- Outer body -->
+              <rect x="0" y="0" width="220" height="448" rx="44" fill="#1A1A1F"/>
+              <rect x="2" y="2" width="216" height="444" rx="42" fill="#0A0A0E"/>
+              <!-- Side buttons -->
+              <rect x="-1" y="80" width="2" height="32" rx="1" fill="#2A2A30"/>
+              <rect x="-1" y="124" width="2" height="32" rx="1" fill="#2A2A30"/>
+              <rect x="219" y="100" width="2" height="48" rx="1" fill="#2A2A30"/>
+              <!-- Screen -->
+              <rect x="6" y="6" width="208" height="436" rx="38" fill="url(#iosWp)"/>
+              <g clip-path="url(#iosScreen)">
+                <rect x="6" y="6" width="208" height="436" fill="url(#iosWpGlow)"/>
+                <!-- Dynamic island -->
+                <rect x="78" y="14" width="64" height="22" rx="11" fill="#0A0A0E"/>
+                <!-- Status bar text -->
+                <text x="22" y="32" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="white">9:41</text>
+                <g transform="translate(184, 22)" fill="white">
+                  <path d="M 0 6 L 1 6 L 1 8 L 0 8 Z M 2 4 L 3 4 L 3 8 L 2 8 Z M 4 2 L 5 2 L 5 8 L 4 8 Z M 6 0 L 7 0 L 7 8 L 6 8 Z" />
+                </g>
+                <!-- Date/Time large (lock-screen-ish) -->
+                <text x="110" y="80" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="500" fill="white" opacity="0.9">3 Mayıs Pazar</text>
+                <text x="110" y="138" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="64" font-weight="200" fill="white">9:41</text>
+
+                <!-- App icon -->
+                <g id="iosAppIcon" transform="translate(60, 240)">
+                  <rect x="0" y="0" width="40" height="40" rx="8.95" fill="rgba(255,255,255,0.2)" id="iosIconBg"/>
+                  <image id="iosIconImg" x="0" y="0" width="40" height="40" href="" style="display:none;"/>
+                </g>
+                <text x="80" y="296" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="500" fill="white" id="iosAppLabel">[App name]</text>
+
+                <!-- Home indicator -->
+                <rect x="80" y="430" width="60" height="3" rx="1.5" fill="rgba(255,255,255,0.7)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="phone-label">
+            <svg fill="currentColor" viewBox="0 0 24 24" width="12" height="12"><path d="M17.5 12.5c0-2.4 1.95-3.55 2.04-3.6-1.12-1.62-2.85-1.85-3.46-1.87-1.46-.16-2.86.86-3.6.86-.76 0-1.9-.84-3.13-.82-1.6.02-3.1.93-3.93 2.36-1.69 2.92-.43 7.23 1.2 9.6.81 1.16 1.77 2.46 3.02 2.41 1.22-.05 1.68-.78 3.16-.78s1.89.78 3.18.76c1.31-.02 2.14-1.18 2.94-2.34.93-1.34 1.31-2.66 1.34-2.73-.03-.01-2.56-.98-2.59-3.85zM15.05 5.4c.66-.81 1.11-1.93.99-3.05-.96.04-2.12.64-2.81 1.45-.61.71-1.16 1.85-1.01 2.95 1.07.08 2.17-.54 2.83-1.35z"/></svg>
+            iPhone Preview
+          </div>
+        </div>
+
+        <!-- Android -->
+        <div class="phone-wrap">
+          <div class="phone-svg-wrap">
+            <svg width="220" height="448" viewBox="0 0 220 448" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="andWp" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7DD3C0"/>
+                  <stop offset="50%" stop-color="#5BBDB0"/>
+                  <stop offset="100%" stop-color="#4A9FA0"/>
+                </linearGradient>
+                <radialGradient id="andWpGlow" cx="0.7" cy="0.3" r="0.5">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+                <clipPath id="andScreen">
+                  <rect x="6" y="6" width="208" height="436" rx="32"/>
+                </clipPath>
+              </defs>
+              <!-- Outer body -->
+              <rect x="0" y="0" width="220" height="448" rx="36" fill="#1A1A1F"/>
+              <rect x="2" y="2" width="216" height="444" rx="34" fill="#0A0A0E"/>
+              <!-- Side buttons -->
+              <rect x="219" y="90" width="2" height="40" rx="1" fill="#2A2A30"/>
+              <rect x="219" y="140" width="2" height="56" rx="1" fill="#2A2A30"/>
+              <!-- Screen -->
+              <rect x="6" y="6" width="208" height="436" rx="32" fill="url(#andWp)"/>
+              <g clip-path="url(#andScreen)">
+                <rect x="6" y="6" width="208" height="436" fill="url(#andWpGlow)"/>
+                <!-- Punch-hole camera -->
+                <circle cx="110" cy="20" r="5" fill="#0A0A0E"/>
+                <!-- Status bar -->
+                <text x="22" y="38" font-family="Roboto, sans-serif" font-size="11" font-weight="500" fill="white">9:41</text>
+                <g transform="translate(186, 30)" fill="white">
+                  <rect x="0" y="2" width="8" height="6" rx="1"/>
+                  <rect x="9" y="0" width="2" height="8" rx="0.5"/>
+                </g>
+                <!-- Date -->
+                <text x="110" y="80" text-anchor="middle" font-family="Roboto, sans-serif" font-size="38" font-weight="300" fill="white">9:41</text>
+                <text x="110" y="100" text-anchor="middle" font-family="Roboto, sans-serif" font-size="11" font-weight="400" fill="rgba(255,255,255,0.95)">Pazar, 3 Mayıs</text>
+
+                <!-- App icon -->
+                <g id="andAppIcon" transform="translate(60, 240)">
+                  <rect x="0" y="0" width="40" height="40" rx="20" fill="rgba(255,255,255,0.2)" id="andIconBg"/>
+                  <image id="andIconImg" x="0" y="0" width="40" height="40" href="" style="display:none;"/>
+                </g>
+                <text x="80" y="296" text-anchor="middle" font-family="Roboto, sans-serif" font-size="9" font-weight="400" fill="white" id="andAppLabel">[App name]</text>
+
+                <!-- Home pill -->
+                <rect x="92" y="430" width="36" height="4" rx="2" fill="rgba(255,255,255,0.6)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="phone-label">
+            <svg fill="currentColor" viewBox="0 0 24 24" width="12" height="12"><path d="M17.523 15.341c-.395 0-.717-.319-.717-.713s.322-.713.717-.713c.394 0 .716.319.716.713s-.322.713-.716.713m-11.046 0c-.395 0-.717-.319-.717-.713s.322-.713.717-.713c.394 0 .716.319.716.713s-.322.713-.716.713m11.302-6.234l1.432-2.479a.298.298 0 00-.109-.408.299.299 0 00-.408.108l-1.45 2.51c-1.107-.504-2.354-.785-3.671-.785s-2.564.281-3.671.785l-1.45-2.51a.299.299 0 00-.408-.108.299.299 0 00-.108.408l1.432 2.479c-2.461 1.337-4.144 3.832-4.395 6.793h17.198c-.252-2.961-1.934-5.456-4.395-6.793"/></svg>
+            Android Preview
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files preview -->
+    <div class="card files-section">
+      <div class="files-head">
+        <div class="files-title">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776"/></svg>
+          Üretilecek dosyalar
+        </div>
+        <div class="files-count" id="filesCount">— dosya</div>
+      </div>
+      <div class="files-body" id="filesBody"></div>
     </div>
   </section>
 </main>
 
-<!-- Outputs -->
-<div style="max-width:1400px; margin: 0 auto; padding: 0 40px 40px;">
-  <div class="outputs">
-    <div class="outputs-head">
-      <div class="outputs-title">Üretilecek <em>dosyalar</em></div>
-      <div class="outputs-count" id="outCount">— dosya hazır</div>
-    </div>
-    <div class="outputs-body" id="outputsBody">
-      <div class="empty-preview" style="grid-column: 1/-1; min-height:120px;">
-        <div class="pulse"></div>
-        Logonu yükle, dosyalar burada listelenecek
-      </div>
-    </div>
-    <div class="download-bar">
-      <div class="download-msg" id="downloadMsg">Logonu yükledikten sonra ZIP olarak indir</div>
-      <button class="btn-primary" id="downloadBtn" disabled>
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-        ZIP olarak indir
-      </button>
-    </div>
-  </div>
-</div>
-
 <footer>
-  Tarayıcıda çalışır · sunucuya yüklenmez · <em>tek dosya</em>, kaydet ve offline kullan
+  Tarayıcıda çalışır · sunucuya yüklenmez · tek HTML dosyası, indirip offline kullanabilirsin
 </footer>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// =============================================================================
-// State
-// =============================================================================
+// ==================================================================
+// State & constants
+// ==================================================================
 const state = {
-  sourceImg: null,        // HTMLImageElement of uploaded logo
+  sourceImg: null,
   fileName: null,
   appName: 'My App',
-  bgColor: '#0E3D5C',
-  bgStyle: 'solid',       // solid | gradient | none
+  bgColor: '#145078',
+  bgStyle: 'solid',
   padding: 0.10,
-  androidMask: 'circle',
+  format: 'png',
+  androidFileName: 'ic_launcher',
 };
 
-// Color presets
 const PRESETS = [
-  '#0E3D5C', '#1F6FA0', '#2C8A6B', '#0E3D3E',
-  '#1B1E25', '#FFFFFF', '#FFB547'
+  '#145078', '#0E3D5C', '#2563EB', '#10B981',
+  '#1B1E25', '#FFFFFF', '#F59E0B'
 ];
 
-// File specs to generate
 const IOS_SIZES = [
-  [1024, 'Icon-1024.png'],
-  [180,  'Icon-60@3x.png'],
-  [120,  'Icon-60@2x.png'],
-  [167,  'Icon-83.5@2x.png'],
-  [152,  'Icon-76@2x.png'],
-  [76,   'Icon-76.png'],
-  [87,   'Icon-29@3x.png'],
-  [58,   'Icon-29@2x.png'],
-  [29,   'Icon-29.png'],
-  [80,   'Icon-40@2x.png'],
-  [40,   'Icon-40.png'],
-  [60,   'Icon-20@3x.png'],
-  [40,   'Icon-20@2x.png'],
-  [20,   'Icon-20.png'],
+  [1024, 'Icon-1024'], [180, 'Icon-60@3x'], [120, 'Icon-60@2x'],
+  [167, 'Icon-83.5@2x'], [152, 'Icon-76@2x'], [76, 'Icon-76'],
+  [87, 'Icon-29@3x'], [58, 'Icon-29@2x'], [29, 'Icon-29'],
+  [80, 'Icon-40@2x'], [40, 'Icon-40'],
+  [60, 'Icon-20@3x'], [40, 'Icon-20@2x'], [20, 'Icon-20'],
 ];
-const ANDROID_LEGACY = [
-  ['mdpi', 48], ['hdpi', 72], ['xhdpi', 96],
-  ['xxhdpi', 144], ['xxxhdpi', 192]
-];
-const ANDROID_ADAPTIVE = [
-  ['mdpi', 108], ['hdpi', 162], ['xhdpi', 216],
-  ['xxhdpi', 324], ['xxxhdpi', 432]
-];
-const ANDROID_NOTIF = [
-  ['mdpi', 24], ['hdpi', 36], ['xhdpi', 48],
-  ['xxhdpi', 72], ['xxxhdpi', 96]
-];
+const ANDROID_LEGACY = [['mdpi',48],['hdpi',72],['xhdpi',96],['xxhdpi',144],['xxxhdpi',192]];
+const ANDROID_ADAPTIVE = [['mdpi',108],['hdpi',162],['xhdpi',216],['xxhdpi',324],['xxxhdpi',432]];
+const ANDROID_NOTIF = [['mdpi',24],['hdpi',36],['xhdpi',48],['xxhdpi',72],['xxxhdpi',96]];
+const LAUNCH_IMAGE = [['1x', 512], ['2x', 1024], ['3x', 1536]];
 
-// =============================================================================
-// DOM refs
-// =============================================================================
+// ==================================================================
+// DOM
+// ==================================================================
 const $ = id => document.getElementById(id);
 const drop = $('drop');
 const fileInput = $('fileInput');
@@ -768,7 +912,7 @@ const dropDefault = $('dropDefault');
 const dropFilled = $('dropFilled');
 const thumbImg = $('thumbImg');
 const fileName = $('fileName');
-const fileSize = $('fileSize');
+const fileDim = $('fileDim');
 const replaceBtn = $('replaceBtn');
 const appNameInput = $('appName');
 const bgColorInput = $('bgColor');
@@ -776,17 +920,18 @@ const bgColorText = $('bgColorText');
 const paddingInput = $('padding');
 const swatches = $('swatches');
 const downloadBtn = $('downloadBtn');
-const downloadMsg = $('downloadMsg');
-const outputsBody = $('outputsBody');
-const outCount = $('outCount');
+const downloadBtnText = $('downloadBtnText');
+const filesBody = $('filesBody');
+const filesCount = $('filesCount');
 const toast = $('toast');
+const androidNameInput = $('androidName');
 
-// =============================================================================
+// ==================================================================
 // Init swatches
-// =============================================================================
+// ==================================================================
 PRESETS.forEach(c => {
   const s = document.createElement('div');
-  s.className = 'swatch' + (c === state.bgColor ? ' active' : '');
+  s.className = 'swatch' + (c.toUpperCase() === state.bgColor.toUpperCase() ? ' active' : '');
   s.style.background = c;
   s.dataset.color = c;
   s.addEventListener('click', () => setBgColor(c));
@@ -794,36 +939,35 @@ PRESETS.forEach(c => {
 });
 
 function setBgColor(c) {
-  state.bgColor = c;
-  bgColorInput.value = c;
-  bgColorText.value = c;
-  $('bgColorVal').textContent = c;
+  state.bgColor = c.toUpperCase();
+  bgColorInput.value = state.bgColor;
+  bgColorText.value = state.bgColor;
   document.querySelectorAll('.swatch').forEach(s => {
-    s.classList.toggle('active', s.dataset.color === c);
+    s.classList.toggle('active', s.dataset.color.toUpperCase() === state.bgColor);
   });
   scheduleUpdate();
 }
 
-// =============================================================================
+// ==================================================================
 // File handling
-// =============================================================================
-['dragenter','dragover'].forEach(e => {
-  drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add('drag'); });
-});
-['dragleave','drop'].forEach(e => {
-  drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove('drag'); });
-});
+// ==================================================================
+['dragenter','dragover'].forEach(e =>
+  drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add('drag'); }));
+['dragleave','drop'].forEach(e =>
+  drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove('drag'); }));
 drop.addEventListener('drop', ev => {
   if (ev.dataTransfer.files.length) handleFile(ev.dataTransfer.files[0]);
 });
 fileInput.addEventListener('change', ev => {
   if (ev.target.files.length) handleFile(ev.target.files[0]);
 });
-replaceBtn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); fileInput.click(); });
+replaceBtn.addEventListener('click', e => {
+  e.preventDefault(); e.stopPropagation(); fileInput.click();
+});
 
 function handleFile(file) {
   if (!file.type.match(/^image\//)) {
-    showToast('Lütfen bir resim dosyası yükle (PNG, SVG, JPG, WEBP)', 'error');
+    showToast('Lütfen bir resim dosyası yükle', 'error');
     return;
   }
   const reader = new FileReader();
@@ -834,12 +978,12 @@ function handleFile(file) {
       state.fileName = file.name;
       thumbImg.src = reader.result;
       fileName.textContent = file.name;
-      fileSize.textContent = `${img.naturalWidth} × ${img.naturalHeight} · ${formatBytes(file.size)}`;
+      fileDim.textContent = `${img.naturalWidth}×${img.naturalHeight} · ${formatBytes(file.size)}`;
       dropDefault.style.display = 'none';
       dropFilled.style.display = 'flex';
+      drop.classList.remove('empty');
       drop.classList.add('has-file');
       downloadBtn.disabled = false;
-      downloadMsg.textContent = 'Hazır — tıkla ve tüm paketi indir';
       scheduleUpdate();
     };
     img.onerror = () => showToast('Resim yüklenemedi', 'error');
@@ -854,13 +998,17 @@ function formatBytes(b) {
   return (b/1024/1024).toFixed(1) + ' MB';
 }
 
-// =============================================================================
+// ==================================================================
 // Controls wiring
-// =============================================================================
+// ==================================================================
 appNameInput.addEventListener('input', e => {
   state.appName = e.target.value || 'My App';
-  $('appNameVal').textContent = state.appName.slice(0, 18);
   scheduleUpdate();
+});
+androidNameInput.addEventListener('input', e => {
+  state.androidFileName = (e.target.value || 'ic_launcher').replace(/[^a-z0-9_]/gi, '_').toLowerCase();
+  if (state.androidFileName !== e.target.value) e.target.value = state.androidFileName;
+  buildFilesList();
 });
 bgColorInput.addEventListener('input', e => setBgColor(e.target.value.toUpperCase()));
 bgColorText.addEventListener('input', e => {
@@ -868,8 +1016,9 @@ bgColorText.addEventListener('input', e => {
   if (/^#[0-9A-Fa-f]{6}$/.test(v)) setBgColor(v.toUpperCase());
 });
 paddingInput.addEventListener('input', e => {
-  state.padding = parseInt(e.target.value) / 100;
-  $('paddingVal').textContent = e.target.value + '%';
+  const v = parseInt(e.target.value);
+  state.padding = v / 100;
+  $('paddingVal').textContent = v < 8 ? 'Zoom' : v < 18 ? 'Normal' : v < 28 ? 'Az padding' : 'Padding';
   scheduleUpdate();
 });
 document.querySelectorAll('#bgStyle .toggle').forEach(btn => {
@@ -880,73 +1029,64 @@ document.querySelectorAll('#bgStyle .toggle').forEach(btn => {
     scheduleUpdate();
   });
 });
-document.querySelectorAll('[data-mask]').forEach(btn => {
+document.querySelectorAll('#formatToggle .format-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-mask]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#formatToggle .format-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    state.androidMask = btn.dataset.mask;
-    $('androidMaskLabel').textContent = btn.textContent.toLowerCase() + ' mask';
-    updateMockups();
+    state.format = btn.dataset.format;
   });
 });
 
-// =============================================================================
+// ==================================================================
 // Color helpers
-// =============================================================================
+// ==================================================================
 function lighten(hex, amount) {
   const n = parseInt(hex.slice(1), 16);
-  let r = (n >> 16) + amount * 255;
-  let g = ((n >> 8) & 0xff) + amount * 255;
-  let b = (n & 0xff) + amount * 255;
-  r = Math.max(0, Math.min(255, r));
-  g = Math.max(0, Math.min(255, g));
-  b = Math.max(0, Math.min(255, b));
-  return '#' + [r,g,b].map(v => Math.round(v).toString(16).padStart(2,'0')).join('');
+  let r = Math.min(255, (n >> 16) + amount * 255);
+  let g = Math.min(255, ((n >> 8) & 0xff) + amount * 255);
+  let b = Math.min(255, (n & 0xff) + amount * 255);
+  return '#' + [r,g,b].map(v => Math.max(0, Math.round(v)).toString(16).padStart(2,'0')).join('');
 }
 
-// =============================================================================
+// ==================================================================
 // Canvas rendering core
-// =============================================================================
+// ==================================================================
+function drawBackground(ctx, size) {
+  if (state.bgStyle === 'none') return;
+  if (state.bgStyle === 'gradient') {
+    const grad = ctx.createLinearGradient(0, 0, size, size);
+    grad.addColorStop(0, state.bgColor);
+    grad.addColorStop(1, lighten(state.bgColor, 0.20));
+    ctx.fillStyle = grad;
+  } else {
+    ctx.fillStyle = state.bgColor;
+  }
+  ctx.fillRect(0, 0, size, size);
+}
+
+function drawForeground(ctx, size) {
+  if (!state.sourceImg) return;
+  const pad = size * state.padding;
+  const inner = size - pad * 2;
+  const srcW = state.sourceImg.naturalWidth;
+  const srcH = state.sourceImg.naturalHeight;
+  const ratio = Math.min(inner / srcW, inner / srcH);
+  const drawW = srcW * ratio;
+  const drawH = srcH * ratio;
+  ctx.drawImage(state.sourceImg, (size - drawW)/2, (size - drawH)/2, drawW, drawH);
+}
+
 function renderIcon(size, opts = {}) {
   const { withBg = true, mask = null } = opts;
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
-
-  // Mask (clip)
   if (mask) {
     ctx.save();
     applyMask(ctx, size, mask);
   }
-
-  // Background
-  if (withBg && state.bgStyle !== 'none') {
-    if (state.bgStyle === 'gradient') {
-      const grad = ctx.createLinearGradient(0, 0, size, size);
-      grad.addColorStop(0, state.bgColor);
-      grad.addColorStop(1, lighten(state.bgColor, 0.18));
-      ctx.fillStyle = grad;
-    } else {
-      ctx.fillStyle = state.bgColor;
-    }
-    ctx.fillRect(0, 0, size, size);
-  }
-
-  // Source image, centered with padding
-  if (state.sourceImg) {
-    const pad = size * state.padding;
-    const inner = size - pad * 2;
-    // Maintain aspect ratio
-    const srcW = state.sourceImg.naturalWidth;
-    const srcH = state.sourceImg.naturalHeight;
-    const ratio = Math.min(inner / srcW, inner / srcH);
-    const drawW = srcW * ratio;
-    const drawH = srcH * ratio;
-    const dx = (size - drawW) / 2;
-    const dy = (size - drawH) / 2;
-    ctx.drawImage(state.sourceImg, dx, dy, drawW, drawH);
-  }
-
+  if (withBg) drawBackground(ctx, size);
+  drawForeground(ctx, size);
   if (mask) ctx.restore();
   return c;
 }
@@ -960,30 +1100,21 @@ function applyMask(ctx, size, mask) {
     roundRectPath(ctx, 0, 0, size, size, r);
   } else if (mask === 'squircle') {
     superellipsePath(ctx, size, 4);
-  } else if (mask === 'teardrop') {
-    teardropPath(ctx, size);
   } else if (mask === 'ios') {
     const r = size * 0.2237;
     roundRectPath(ctx, 0, 0, size, size, r);
   }
   ctx.clip();
 }
-
 function roundRectPath(ctx, x, y, w, h, r) {
   ctx.moveTo(x+r, y);
-  ctx.lineTo(x+w-r, y);
-  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
-  ctx.lineTo(x+w, y+h-r);
-  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-  ctx.lineTo(x+r, y+h);
-  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-  ctx.lineTo(x, y+r);
-  ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y);
   ctx.closePath();
 }
-
 function superellipsePath(ctx, size, n) {
-  // x^n + y^n = r^n
   const cx = size/2, cy = size/2, r = size/2;
   const steps = 96;
   for (let i = 0; i <= steps; i++) {
@@ -996,356 +1127,33 @@ function superellipsePath(ctx, size, n) {
   ctx.closePath();
 }
 
-function teardropPath(ctx, size) {
-  // Mostly circle with one corner pointed
-  const r = size/2, cx = size/2, cy = size/2;
-  const sharp = size * 0.15;
-  ctx.moveTo(cx, cy - r);
-  ctx.arc(cx, cy, r, -Math.PI/2, 0, false);
-  ctx.lineTo(cx + r, cy + r - sharp);
-  ctx.lineTo(cx + r - sharp, cy + r);
-  ctx.lineTo(cx, cy + r);
-  ctx.arc(cx, cy, r, Math.PI/2, -Math.PI/2, false);
-}
-
 function renderNotification(size) {
-  // White silhouette of the source
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
   if (!state.sourceImg) return c;
-  // Render source first (with padding so silhouette has breathing room)
   const pad = size * 0.08;
   const inner = size - pad * 2;
   const srcW = state.sourceImg.naturalWidth, srcH = state.sourceImg.naturalHeight;
   const ratio = Math.min(inner / srcW, inner / srcH);
   const drawW = srcW * ratio, drawH = srcH * ratio;
-  const dx = (size - drawW) / 2, dy = (size - drawH) / 2;
-  ctx.drawImage(state.sourceImg, dx, dy, drawW, drawH);
-  // Convert non-transparent pixels to white
+  ctx.drawImage(state.sourceImg, (size - drawW)/2, (size - drawH)/2, drawW, drawH);
   const imgData = ctx.getImageData(0, 0, size, size);
   const d = imgData.data;
   for (let i = 0; i < d.length; i += 4) {
-    if (d[i+3] > 30) {
-      d[i] = 255; d[i+1] = 255; d[i+2] = 255; d[i+3] = 255;
-    } else {
-      d[i+3] = 0;
-    }
+    if (d[i+3] > 30) { d[i]=255; d[i+1]=255; d[i+2]=255; d[i+3]=255; }
+    else { d[i+3] = 0; }
   }
   ctx.putImageData(imgData, 0, 0);
   return c;
 }
 
-function canvasToBlob(canvas) {
-  return new Promise(res => canvas.toBlob(res, 'image/png'));
-}
-
-// =============================================================================
-// Mockup rendering (live preview)
-// =============================================================================
-let updateTimer = null;
-function scheduleUpdate() {
-  clearTimeout(updateTimer);
-  updateTimer = setTimeout(() => {
-    updateMockups();
-    updateOutputsList();
-  }, 60);
-}
-
-function updateMockups() {
-  if (!state.sourceImg) return;
-
-  // Cache 256px master
-  const master = renderIcon(256, { withBg: true });
-  const dataUrl = master.toDataURL('image/png');
-
-  // iOS grid: 4 cols × 4 rows + 4 dock
-  const iosGrid = $('iosGrid');
-  const iosDock = $('iosDock');
-  iosGrid.innerHTML = '';
-  iosDock.innerHTML = '';
-  const iosIconSize = 38;
-  const iosRadius = iosIconSize * 0.2237;
-  const iosCols = 4;
-  const iosStartX = 24, iosStartY = 60;
-  const iosGapX = 50, iosGapY = 56;
-
-  // Place user's app at first position
-  for (let i = 0; i < 12; i++) {
-    const col = i % iosCols;
-    const row = Math.floor(i / iosCols);
-    const x = iosStartX + col * iosGapX;
-    const y = iosStartY + row * iosGapY;
-    if (i === 0) {
-      iosGrid.appendChild(svgIcon(x, y, iosIconSize, iosRadius, dataUrl, state.appName));
-    } else {
-      iosGrid.appendChild(svgPlaceholder(x, y, iosIconSize, iosRadius, i));
-    }
-  }
-  // iOS Dock - 4 placeholders
-  for (let i = 0; i < 4; i++) {
-    const x = 32 + i * 48;
-    iosDock.appendChild(svgPlaceholder(x, 416, iosIconSize, iosRadius, 100 + i));
-  }
-
-  // Android grid
-  const andGrid = $('andGrid');
-  const andDock = $('andDock');
-  andGrid.innerHTML = '';
-  andDock.innerHTML = '';
-
-  // Render Android with mask
-  const androidMaster = renderIcon(256, { withBg: true, mask: state.androidMask });
-  const andDataUrl = androidMaster.toDataURL('image/png');
-
-  const andCols = 4;
-  const andStartX = 22, andStartY = 160;
-  const andGapX = 50, andGapY = 56;
-  // Place user app at position 0
-  const userPos = 0;
-  for (let i = 0; i < 12; i++) {
-    const col = i % andCols;
-    const row = Math.floor(i / andCols);
-    const x = andStartX + col * andGapX;
-    const y = andStartY + row * andGapY;
-    if (i === userPos) {
-      andGrid.appendChild(svgIconImage(x, y, 38, andDataUrl, state.appName));
-    } else {
-      andGrid.appendChild(svgAndPlaceholder(x, y, 38, i));
-    }
-  }
-  // Android dock
-  for (let i = 0; i < 4; i++) {
-    const x = 32 + i * 48;
-    andDock.appendChild(svgAndPlaceholder(x, 412, 38, 200 + i));
-  }
-}
-
-function svgIcon(x, y, size, radius, dataUrl, label) {
-  const ns = 'http://www.w3.org/2000/svg';
-  const g = document.createElementNS(ns, 'g');
-  const img = document.createElementNS(ns, 'image');
-  img.setAttribute('x', x);
-  img.setAttribute('y', y);
-  img.setAttribute('width', size);
-  img.setAttribute('height', size);
-  img.setAttribute('href', dataUrl);
-  // Mask via clipPath
-  const clipId = 'clip-ios-' + Math.random().toString(36).slice(2,8);
-  const defs = document.createElementNS(ns, 'defs');
-  const clip = document.createElementNS(ns, 'clipPath');
-  clip.setAttribute('id', clipId);
-  const rect = document.createElementNS(ns, 'rect');
-  rect.setAttribute('x', x); rect.setAttribute('y', y);
-  rect.setAttribute('width', size); rect.setAttribute('height', size);
-  rect.setAttribute('rx', radius);
-  clip.appendChild(rect);
-  defs.appendChild(clip);
-  img.setAttribute('clip-path', `url(#${clipId})`);
-  g.appendChild(defs);
-  g.appendChild(img);
-  if (label) {
-    const text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', x + size/2);
-    text.setAttribute('y', y + size + 12);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-family', '-apple-system, sans-serif');
-    text.setAttribute('font-size', '8');
-    text.setAttribute('font-weight', '500');
-    text.setAttribute('fill', 'white');
-    text.textContent = label.slice(0, 11);
-    g.appendChild(text);
-  }
-  return g;
-}
-
-function svgIconImage(x, y, size, dataUrl, label) {
-  const ns = 'http://www.w3.org/2000/svg';
-  const g = document.createElementNS(ns, 'g');
-  const img = document.createElementNS(ns, 'image');
-  img.setAttribute('x', x);
-  img.setAttribute('y', y);
-  img.setAttribute('width', size);
-  img.setAttribute('height', size);
-  img.setAttribute('href', dataUrl);
-  g.appendChild(img);
-  if (label) {
-    const text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', x + size/2);
-    text.setAttribute('y', y + size + 12);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-family', 'Roboto, sans-serif');
-    text.setAttribute('font-size', '8');
-    text.setAttribute('font-weight', '400');
-    text.setAttribute('fill', 'white');
-    text.textContent = label.slice(0, 11);
-    g.appendChild(text);
-  }
-  return g;
-}
-
-function svgPlaceholder(x, y, size, radius, seed) {
-  const ns = 'http://www.w3.org/2000/svg';
-  const colors = ['#FF6B6B','#FFA94D','#FFD93D','#6BCB77','#4D96FF','#9F7AEA','#F687B3','#48BB78','#4FD1C5','#F6AD55'];
-  const color = colors[seed % colors.length];
-  const r = document.createElementNS(ns, 'rect');
-  r.setAttribute('x', x); r.setAttribute('y', y);
-  r.setAttribute('width', size); r.setAttribute('height', size);
-  r.setAttribute('rx', radius);
-  r.setAttribute('fill', color);
-  r.setAttribute('opacity', '0.7');
-  return r;
-}
-
-function svgAndPlaceholder(x, y, size, seed) {
-  const ns = 'http://www.w3.org/2000/svg';
-  const colors = ['#FF6B6B','#FFA94D','#FFD93D','#6BCB77','#4D96FF','#9F7AEA','#F687B3','#48BB78','#4FD1C5','#F6AD55'];
-  const color = colors[seed % colors.length];
-  if (state.androidMask === 'circle') {
-    const c = document.createElementNS(ns, 'circle');
-    c.setAttribute('cx', x + size/2);
-    c.setAttribute('cy', y + size/2);
-    c.setAttribute('r', size/2);
-    c.setAttribute('fill', color);
-    c.setAttribute('opacity', '0.7');
-    return c;
-  } else {
-    const r = document.createElementNS(ns, 'rect');
-    r.setAttribute('x', x); r.setAttribute('y', y);
-    r.setAttribute('width', size); r.setAttribute('height', size);
-    const radius = state.androidMask === 'rounded' ? size*0.22 :
-                   state.androidMask === 'squircle' ? size*0.32 : size*0.5;
-    r.setAttribute('rx', radius);
-    r.setAttribute('fill', color);
-    r.setAttribute('opacity', '0.7');
-    return r;
-  }
-}
-
-// =============================================================================
-// Outputs list
-// =============================================================================
-function buildOutputsList() {
-  const items = [];
-  IOS_SIZES.forEach(([s, n]) => items.push({path: `ios/AppIcon.appiconset/${n}`, size: `${s}×${s}`}));
-  items.push({path: 'ios/AppIcon.appiconset/Contents.json', size: 'json'});
-  ANDROID_LEGACY.forEach(([d, s]) => {
-    items.push({path: `android/res/mipmap-${d}/ic_launcher.png`, size: `${s}×${s}`});
-    items.push({path: `android/res/mipmap-${d}/ic_launcher_round.png`, size: `${s}×${s}`});
-  });
-  ANDROID_ADAPTIVE.forEach(([d, s]) => {
-    items.push({path: `android/res/mipmap-${d}/ic_launcher_foreground.png`, size: `${s}×${s}`});
-    items.push({path: `android/res/mipmap-${d}/ic_launcher_background.png`, size: `${s}×${s}`});
-  });
-  items.push({path: 'android/res/mipmap-anydpi-v26/ic_launcher.xml', size: 'xml'});
-  items.push({path: 'android/res/mipmap-anydpi-v26/ic_launcher_round.xml', size: 'xml'});
-  ANDROID_NOTIF.forEach(([d, s]) => {
-    items.push({path: `android/res/drawable-${d}/ic_stat_notification.png`, size: `${s}×${s}`});
-  });
-  items.push({path: 'AppStore_1024x1024.png', size: '1024×1024'});
-  items.push({path: 'PlayStore_512x512.png', size: '512×512'});
-  items.push({path: 'README.md', size: 'md'});
-  return items;
-}
-
-function updateOutputsList() {
-  const items = buildOutputsList();
-  outCount.textContent = `${items.length} dosya hazır`;
-  outputsBody.innerHTML = '';
-  items.forEach(it => {
-    const row = document.createElement('div');
-    row.className = 'out-row';
-    row.innerHTML = `<span class="out-name">${it.path}</span><span class="out-size">${it.size}</span>`;
-    outputsBody.appendChild(row);
-  });
-}
-
-// =============================================================================
-// ZIP download
-// =============================================================================
-downloadBtn.addEventListener('click', async () => {
-  if (!state.sourceImg) return;
-  downloadBtn.disabled = true;
-  downloadBtn.textContent = 'Üretiliyor...';
-  try {
-    await generateZip();
-    showToast('İndirildi ✓', 'success');
-  } catch (e) {
-    console.error(e);
-    showToast('Bir hata oluştu: ' + e.message, 'error');
-  }
-  downloadBtn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg> ZIP olarak indir';
-  downloadBtn.disabled = false;
-});
-
-async function generateZip() {
-  const zip = new JSZip();
-  const slug = state.appName.replace(/[^a-zA-Z0-9]/g, '_') || 'AppIcon';
-  const root = zip.folder(slug + '_Logos');
-
-  // iOS
-  const iosFolder = root.folder('ios').folder('AppIcon.appiconset');
-  for (const [size, name] of IOS_SIZES) {
-    const c = renderIcon(size, { withBg: true });
-    const blob = await canvasToBlob(c);
-    iosFolder.file(name, blob);
-  }
-  iosFolder.file('Contents.json', IOS_CONTENTS_JSON);
-
-  // Android legacy
-  for (const [dpi, size] of ANDROID_LEGACY) {
-    const folder = root.folder('android/res/mipmap-' + dpi);
-    const c = renderIcon(size, { withBg: true });
-    folder.file('ic_launcher.png', await canvasToBlob(c));
-    const cr = renderIcon(size, { withBg: true, mask: 'circle' });
-    folder.file('ic_launcher_round.png', await canvasToBlob(cr));
-  }
-
-  // Android adaptive
-  for (const [dpi, size] of ANDROID_ADAPTIVE) {
-    const folder = root.folder('android/res/mipmap-' + dpi);
-    // Foreground = no bg, just source (centered, with extra safe-zone padding)
-    const safeC = renderForegroundAdaptive(size);
-    folder.file('ic_launcher_foreground.png', await canvasToBlob(safeC));
-    // Background = solid color or gradient
-    const bgC = renderBackgroundOnly(size);
-    folder.file('ic_launcher_background.png', await canvasToBlob(bgC));
-  }
-  const adaptiveXml = `<?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@mipmap/ic_launcher_background"/>
-    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
-</adaptive-icon>
-`;
-  root.file('android/res/mipmap-anydpi-v26/ic_launcher.xml', adaptiveXml);
-  root.file('android/res/mipmap-anydpi-v26/ic_launcher_round.xml', adaptiveXml);
-
-  // Notification
-  for (const [dpi, size] of ANDROID_NOTIF) {
-    const folder = root.folder('android/res/drawable-' + dpi);
-    const c = renderNotification(size);
-    folder.file('ic_stat_notification.png', await canvasToBlob(c));
-  }
-
-  // Standalone
-  root.file('AppStore_1024x1024.png', await canvasToBlob(renderIcon(1024, { withBg: true })));
-  root.file('PlayStore_512x512.png', await canvasToBlob(renderIcon(512, { withBg: true })));
-
-  // README
-  root.file('README.md', renderReadme(slug));
-
-  const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
-  triggerDownload(blob, slug + '_Logos.zip');
-}
-
 function renderForegroundAdaptive(size) {
-  // Adaptive icon foreground gets extra safe zone padding (the image lives
-  // inside a 66dp circle within a 108dp square, so visible content is ~61%)
+  // Adaptive icon foreground: 25% safe-zone padding (66dp / 108dp)
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
   if (!state.sourceImg) return c;
-  // Use ~25% padding on each side to keep content in the safe zone
   const pad = size * 0.25;
   const inner = size - pad * 2;
   const srcW = state.sourceImg.naturalWidth, srcH = state.sourceImg.naturalHeight;
@@ -1359,58 +1167,314 @@ function renderBackgroundOnly(size) {
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
-  if (state.bgStyle === 'none') return c;
-  if (state.bgStyle === 'gradient') {
-    const grad = ctx.createLinearGradient(0, 0, size, size);
-    grad.addColorStop(0, state.bgColor);
-    grad.addColorStop(1, lighten(state.bgColor, 0.18));
-    ctx.fillStyle = grad;
-  } else {
-    ctx.fillStyle = state.bgColor;
-  }
-  ctx.fillRect(0, 0, size, size);
+  drawBackground(ctx, size);
   return c;
 }
 
-function triggerDownload(blob, name) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+function canvasToBlob(canvas, format = 'png') {
+  const mime = format === 'webp' ? 'image/webp' : 'image/png';
+  return new Promise(res => canvas.toBlob(res, mime));
 }
 
-function renderReadme(slug) {
+// ==================================================================
+// Live preview update
+// ==================================================================
+let updateTimer = null;
+function scheduleUpdate() {
+  clearTimeout(updateTimer);
+  updateTimer = setTimeout(updatePreviews, 50);
+}
+
+function updatePreviews() {
+  if (!state.sourceImg) return;
+
+  // Generate one master 256 with bg, reuse for mockups
+  const master = renderIcon(256, { withBg: true });
+  const masterUrl = master.toDataURL('image/png');
+
+  // Three mini previews (different masks)
+  ['miniRound:circle', 'miniSquircle:squircle', 'miniLegacy:ios'].forEach(spec => {
+    const [id, mask] = spec.split(':');
+    const el = $(id);
+    el.classList.remove('empty');
+    el.style.borderRadius = mask === 'circle' ? '50%' :
+                            mask === 'squircle' ? '24%' : '22.37%';
+    el.innerHTML = `<img src="${masterUrl}" alt="">`;
+  });
+
+  // iOS app icon (rounded square 22.37%)
+  $('iosIconBg').setAttribute('fill', 'transparent');
+  const iosImg = $('iosIconImg');
+  iosImg.setAttribute('href', masterUrl);
+  iosImg.style.display = '';
+  // Apply iOS rounded mask via clipPath
+  ensureIosMask();
+  iosImg.setAttribute('clip-path', 'url(#iosIconClip)');
+  $('iosAppLabel').textContent = state.appName.slice(0, 12);
+
+  // Android app icon (circle by default)
+  $('andIconBg').setAttribute('fill', 'transparent');
+  const andImg = $('andIconImg');
+  andImg.setAttribute('href', masterUrl);
+  andImg.style.display = '';
+  ensureAndroidMask();
+  andImg.setAttribute('clip-path', 'url(#andIconClip)');
+  $('andAppLabel').textContent = state.appName.slice(0, 12);
+
+  buildFilesList();
+}
+
+function ensureIosMask() {
+  // The clipPath in defs has a fixed rect; we set it once
+  const rect = document.getElementById('iosIconRect');
+  if (rect) {
+    rect.setAttribute('width', 40);
+    rect.setAttribute('height', 40);
+    rect.setAttribute('rx', 40 * 0.2237);
+  }
+}
+function ensureAndroidMask() {
+  // Make a circle clip for android
+  const svg = $('andAppIcon').ownerSVGElement;
+  const defs = svg.querySelector('defs');
+  let clip = defs.querySelector('#andIconClip');
+  if (!clip) {
+    clip = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+    clip.setAttribute('id', 'andIconClip');
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', '20'); c.setAttribute('cy', '20'); c.setAttribute('r', '20');
+    clip.appendChild(c);
+    defs.appendChild(clip);
+  }
+}
+
+// ==================================================================
+// Files list (generated dynamically, reflects androidFileName)
+// ==================================================================
+function buildFilesList() {
+  const fname = state.androidFileName || 'ic_launcher';
+  const items = [];
+
+  items.push({grp: 'iOS / AppIcon.appiconset'});
+  IOS_SIZES.forEach(([s, n]) => items.push({path: `${n}.png`, size: `${s}×${s}`}));
+  items.push({path: 'Contents.json', size: 'json'});
+
+  items.push({grp: 'iOS / LaunchImage.imageset'});
+  LAUNCH_IMAGE.forEach(([scale, s]) =>
+    items.push({path: `iTunesArtwork@${scale}.png`, size: `${s}×${s}`}));
+  items.push({path: 'Contents.json', size: 'json'});
+  items.push({path: 'README.md', size: 'md'});
+
+  items.push({grp: 'Android / mipmap (legacy)'});
+  ANDROID_LEGACY.forEach(([d, s]) => {
+    items.push({path: `mipmap-${d}/${fname}.png`, size: `${s}×${s}`});
+    items.push({path: `mipmap-${d}/${fname}_round.png`, size: `${s}×${s}`});
+  });
+
+  items.push({grp: 'Android / mipmap (adaptive)'});
+  ANDROID_ADAPTIVE.forEach(([d, s]) => {
+    items.push({path: `mipmap-${d}/${fname}_foreground.png`, size: `${s}×${s}`});
+    items.push({path: `mipmap-${d}/${fname}_background.png`, size: `${s}×${s}`});
+  });
+  items.push({path: `mipmap-anydpi-v26/${fname}.xml`, size: 'xml'});
+  items.push({path: `mipmap-anydpi-v26/${fname}_round.xml`, size: 'xml'});
+
+  items.push({grp: 'Android / drawable (notification)'});
+  ANDROID_NOTIF.forEach(([d, s]) =>
+    items.push({path: `drawable-${d}/ic_stat_notification.png`, size: `${s}×${s}`}));
+
+  items.push({grp: 'Marketing'});
+  items.push({path: 'AppStore_1024x1024.png', size: '1024×1024'});
+  items.push({path: 'PlayStore_512x512.png', size: '512×512'});
+  items.push({path: 'README.md', size: 'md'});
+
+  filesCount.textContent = `${items.filter(i => !i.grp).length} dosya`;
+  filesBody.innerHTML = '';
+  items.forEach(it => {
+    const row = document.createElement('div');
+    if (it.grp) {
+      row.className = 'file-line';
+      row.innerHTML = `<span class="grp">${it.grp}</span>`;
+    } else {
+      row.className = 'file-line';
+      row.innerHTML = `<span class="fname">${it.path}</span><span class="fsize">${it.size}</span>`;
+    }
+    filesBody.appendChild(row);
+  });
+}
+
+// ==================================================================
+// ZIP generation
+// ==================================================================
+downloadBtn.addEventListener('click', async () => {
+  if (!state.sourceImg) return;
+  const oldText = downloadBtnText.textContent;
+  downloadBtn.disabled = true;
+  downloadBtnText.textContent = 'Üretiliyor...';
+  try {
+    await generateZip();
+    showToast('İndirildi', 'success');
+  } catch (e) {
+    console.error(e);
+    showToast('Hata: ' + e.message, 'error');
+  }
+  downloadBtnText.textContent = oldText;
+  downloadBtn.disabled = false;
+});
+
+async function generateZip() {
+  const fmt = state.format;
+  const ext = fmt === 'webp' ? 'webp' : 'png';
+  const zip = new JSZip();
+  const slug = (state.appName || 'AppIcon').replace(/[^a-zA-Z0-9]/g, '_') || 'AppIcon';
+  const root = zip.folder(slug + '_Icons');
+  const fname = state.androidFileName || 'ic_launcher';
+
+  // ----- iOS AppIcon -----
+  const iosFolder = root.folder('ios').folder('Assets.xcassets').folder('AppIcon.appiconset');
+  for (const [size, name] of IOS_SIZES) {
+    const c = renderIcon(size, { withBg: true });
+    iosFolder.file(`${name}.${ext}`, await canvasToBlob(c, fmt));
+  }
+  iosFolder.file('Contents.json', buildIosContentsJson(ext));
+
+  // ----- iOS LaunchImage.imageset -----
+  const launchFolder = root.folder('ios').folder('Assets.xcassets').folder('LaunchImage.imageset');
+  for (const [scale, size] of LAUNCH_IMAGE) {
+    const c = renderIcon(size, { withBg: true });
+    launchFolder.file(`iTunesArtwork@${scale}.png`, await canvasToBlob(c, 'png'));
+  }
+  launchFolder.file('Contents.json', LAUNCH_CONTENTS_JSON);
+  launchFolder.file('README.md',
+`# Launch Image
+
+iOS launch screen için kullanılan görüntüler.
+Flutter projesinde \`ios/Runner/Assets.xcassets/LaunchImage.imageset/\` altına kopyala.
+
+- iTunesArtwork@1x.png · 512×512
+- iTunesArtwork@2x.png · 1024×1024
+- iTunesArtwork@3x.png · 1536×1536
+`);
+
+  // ----- Android Legacy -----
+  for (const [dpi, size] of ANDROID_LEGACY) {
+    const folder = root.folder(`android/res/mipmap-${dpi}`);
+    folder.file(`${fname}.${ext}`, await canvasToBlob(renderIcon(size, { withBg: true }), fmt));
+    folder.file(`${fname}_round.${ext}`, await canvasToBlob(renderIcon(size, { withBg: true, mask: 'circle' }), fmt));
+  }
+
+  // ----- Android Adaptive -----
+  for (const [dpi, size] of ANDROID_ADAPTIVE) {
+    const folder = root.folder(`android/res/mipmap-${dpi}`);
+    folder.file(`${fname}_foreground.${ext}`, await canvasToBlob(renderForegroundAdaptive(size), fmt));
+    folder.file(`${fname}_background.${ext}`, await canvasToBlob(renderBackgroundOnly(size), fmt));
+  }
+  const adaptiveXml = `<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@mipmap/${fname}_background"/>
+    <foreground android:drawable="@mipmap/${fname}_foreground"/>
+</adaptive-icon>
+`;
+  root.file(`android/res/mipmap-anydpi-v26/${fname}.xml`, adaptiveXml);
+  root.file(`android/res/mipmap-anydpi-v26/${fname}_round.xml`, adaptiveXml);
+
+  // ----- Notification icons -----
+  for (const [dpi, size] of ANDROID_NOTIF) {
+    const folder = root.folder(`android/res/drawable-${dpi}`);
+    folder.file('ic_stat_notification.png', await canvasToBlob(renderNotification(size), 'png'));
+  }
+
+  // ----- Marketing -----
+  root.file('AppStore_1024x1024.png', await canvasToBlob(renderIcon(1024, { withBg: true }), 'png'));
+  root.file('PlayStore_512x512.png', await canvasToBlob(renderIcon(512, { withBg: true }), 'png'));
+  root.file('README.md', renderReadme(slug, fname));
+
+  const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+  triggerDownload(blob, slug + '_Icons.zip');
+}
+
+function buildIosContentsJson(ext) {
+  // Names follow IOS_SIZES with given extension
+  const e = ext;
+  return `{
+  "images" : [
+    { "size" : "20x20", "idiom" : "iphone", "filename" : "Icon-20@2x.${e}", "scale" : "2x" },
+    { "size" : "20x20", "idiom" : "iphone", "filename" : "Icon-20@3x.${e}", "scale" : "3x" },
+    { "size" : "29x29", "idiom" : "iphone", "filename" : "Icon-29@2x.${e}", "scale" : "2x" },
+    { "size" : "29x29", "idiom" : "iphone", "filename" : "Icon-29@3x.${e}", "scale" : "3x" },
+    { "size" : "40x40", "idiom" : "iphone", "filename" : "Icon-40@2x.${e}", "scale" : "2x" },
+    { "size" : "40x40", "idiom" : "iphone", "filename" : "Icon-40@3x.${e}", "scale" : "3x" },
+    { "size" : "60x60", "idiom" : "iphone", "filename" : "Icon-60@2x.${e}", "scale" : "2x" },
+    { "size" : "60x60", "idiom" : "iphone", "filename" : "Icon-60@3x.${e}", "scale" : "3x" },
+    { "size" : "20x20", "idiom" : "ipad", "filename" : "Icon-20.${e}", "scale" : "1x" },
+    { "size" : "20x20", "idiom" : "ipad", "filename" : "Icon-20@2x.${e}", "scale" : "2x" },
+    { "size" : "29x29", "idiom" : "ipad", "filename" : "Icon-29.${e}", "scale" : "1x" },
+    { "size" : "29x29", "idiom" : "ipad", "filename" : "Icon-29@2x.${e}", "scale" : "2x" },
+    { "size" : "40x40", "idiom" : "ipad", "filename" : "Icon-40.${e}", "scale" : "1x" },
+    { "size" : "40x40", "idiom" : "ipad", "filename" : "Icon-40@2x.${e}", "scale" : "2x" },
+    { "size" : "76x76", "idiom" : "ipad", "filename" : "Icon-76.${e}", "scale" : "1x" },
+    { "size" : "76x76", "idiom" : "ipad", "filename" : "Icon-76@2x.${e}", "scale" : "2x" },
+    { "size" : "83.5x83.5", "idiom" : "ipad", "filename" : "Icon-83.5@2x.${e}", "scale" : "2x" },
+    { "size" : "1024x1024", "idiom" : "ios-marketing", "filename" : "Icon-1024.${e}", "scale" : "1x" }
+  ],
+  "info" : { "version" : 1, "author" : "xcode" }
+}`;
+}
+
+const LAUNCH_CONTENTS_JSON = `{
+  "images" : [
+    { "idiom" : "universal", "filename" : "iTunesArtwork@1x.png", "scale" : "1x" },
+    { "idiom" : "universal", "filename" : "iTunesArtwork@2x.png", "scale" : "2x" },
+    { "idiom" : "universal", "filename" : "iTunesArtwork@3x.png", "scale" : "3x" }
+  ],
+  "info" : { "version" : 1, "author" : "xcode" }
+}`;
+
+function renderReadme(slug, fname) {
   return `# ${state.appName} — App Icon Paketi
 
-IconForge ile üretilmiştir. Tüm dosyalar tek bir kaynak görüntüden render edildi.
+IconForge ile üretilmiştir.
 
 ## Klasör yapısı
 
-- \`AppStore_1024x1024.png\` — App Store Connect'e yükle
-- \`PlayStore_512x512.png\` — Play Console "Yüksek çözünürlüklü simge"
-- \`ios/AppIcon.appiconset/\` — Xcode Assets.xcassets'e sürükle-bırak
-- \`android/res/\` — Projendeki app/src/main/res/ ile birleştir
+\`\`\`
+${slug}_Icons/
+├── AppStore_1024x1024.png       ← App Store Connect
+├── PlayStore_512x512.png        ← Play Console "Yüksek çözünürlüklü simge"
+├── ios/
+│   └── Assets.xcassets/
+│       ├── AppIcon.appiconset/  ← Xcode AppIcon (Contents.json dahil)
+│       └── LaunchImage.imageset/← Launch screen görüntüleri
+└── android/
+    └── res/
+        ├── mipmap-{m,h,x,xx,xxx}hdpi/   ${fname}, ${fname}_round, _foreground, _background
+        ├── mipmap-anydpi-v26/           ${fname}.xml + ${fname}_round.xml (adaptive icon)
+        └── drawable-{m,h,x,xx,xxx}hdpi/ ic_stat_notification.png
+\`\`\`
 
 ## iOS
 
-1. Xcode'da \`Assets.xcassets\` aç
-2. Mevcut \`AppIcon\` set'ini sil
-3. \`ios/AppIcon.appiconset\` klasörünü olduğu gibi sürükle
+1. Xcode projende \`ios/Runner/Assets.xcassets\` klasörünü aç.
+2. Mevcut \`AppIcon.appiconset\` ve \`LaunchImage.imageset\` klasörlerini sil.
+3. Bu paketteki \`ios/Assets.xcassets/AppIcon.appiconset\` ve \`LaunchImage.imageset\` klasörlerini olduğu gibi sürükle-bırak.
+4. Build → archive → App Store Connect.
 
 ## Android
 
-1. \`android/res/\` içeriğini \`app/src/main/res/\` ile birleştir
-2. AndroidManifest.xml'de standart \`android:icon\`/\`android:roundIcon\` zaten doğru
-3. Bildirimler için:
-\`\`\`kotlin
-NotificationCompat.Builder(context, channelId)
-    .setSmallIcon(R.drawable.ic_stat_notification)
-    .setColor(ContextCompat.getColor(context, R.color.brand_primary))
-\`\`\`
+1. \`android/res/\` içeriğini, projendeki \`app/src/main/res/\` ile birleştir.
+2. AndroidManifest.xml'de:
+   \`\`\`xml
+   <application
+       android:icon="@mipmap/${fname}"
+       android:roundIcon="@mipmap/${fname}_round"
+       ...>
+   \`\`\`
+3. Bildirimler (FCM/WorkManager):
+   \`\`\`kotlin
+   NotificationCompat.Builder(context, channelId)
+       .setSmallIcon(R.drawable.ic_stat_notification)
+       .setColor(ContextCompat.getColor(context, R.color.brand_primary))
+   \`\`\`
 
 ## Renk paleti
 
@@ -1420,41 +1484,32 @@ NotificationCompat.Builder(context, channelId)
 `;
 }
 
-const IOS_CONTENTS_JSON = `{
-  "images" : [
-    { "size" : "20x20", "idiom" : "iphone", "filename" : "Icon-20@2x.png", "scale" : "2x" },
-    { "size" : "20x20", "idiom" : "iphone", "filename" : "Icon-20@3x.png", "scale" : "3x" },
-    { "size" : "29x29", "idiom" : "iphone", "filename" : "Icon-29@2x.png", "scale" : "2x" },
-    { "size" : "29x29", "idiom" : "iphone", "filename" : "Icon-29@3x.png", "scale" : "3x" },
-    { "size" : "40x40", "idiom" : "iphone", "filename" : "Icon-40@2x.png", "scale" : "2x" },
-    { "size" : "40x40", "idiom" : "iphone", "filename" : "Icon-40@3x.png", "scale" : "3x" },
-    { "size" : "60x60", "idiom" : "iphone", "filename" : "Icon-60@2x.png", "scale" : "2x" },
-    { "size" : "60x60", "idiom" : "iphone", "filename" : "Icon-60@3x.png", "scale" : "3x" },
-    { "size" : "20x20", "idiom" : "ipad", "filename" : "Icon-20.png", "scale" : "1x" },
-    { "size" : "20x20", "idiom" : "ipad", "filename" : "Icon-20@2x.png", "scale" : "2x" },
-    { "size" : "29x29", "idiom" : "ipad", "filename" : "Icon-29.png", "scale" : "1x" },
-    { "size" : "29x29", "idiom" : "ipad", "filename" : "Icon-29@2x.png", "scale" : "2x" },
-    { "size" : "40x40", "idiom" : "ipad", "filename" : "Icon-40.png", "scale" : "1x" },
-    { "size" : "40x40", "idiom" : "ipad", "filename" : "Icon-40@2x.png", "scale" : "2x" },
-    { "size" : "76x76", "idiom" : "ipad", "filename" : "Icon-76.png", "scale" : "1x" },
-    { "size" : "76x76", "idiom" : "ipad", "filename" : "Icon-76@2x.png", "scale" : "2x" },
-    { "size" : "83.5x83.5", "idiom" : "ipad", "filename" : "Icon-83.5@2x.png", "scale" : "2x" },
-    { "size" : "1024x1024", "idiom" : "ios-marketing", "filename" : "Icon-1024.png", "scale" : "1x" }
-  ],
-  "info" : { "version" : 1, "author" : "xcode" }
-}`;
+function triggerDownload(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
-// =============================================================================
-// Toast
-// =============================================================================
 function showToast(msg, type = '') {
-  toast.textContent = msg;
+  toast.innerHTML = '';
+  const ic = document.createElement('span');
+  if (type === 'success') ic.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+  if (type === 'error') ic.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+  if (ic.innerHTML) toast.appendChild(ic);
+  const txt = document.createElement('span');
+  txt.textContent = msg;
+  toast.appendChild(txt);
   toast.className = 'toast show ' + type;
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 // Init
-updateOutputsList();
+buildFilesList();
+$('paddingVal').textContent = 'Normal';
 </script>
 </body>
 </html>
