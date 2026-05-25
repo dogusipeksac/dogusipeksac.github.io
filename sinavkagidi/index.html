@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -564,20 +565,9 @@
     }
 
     @media print {
-      @page { size: A4; margin: 12mm; }
-      body * { visibility: hidden; }
-      .exam-paper, .exam-paper * { visibility: visible; }
-      .exam-paper {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 210mm;
-        max-width: 210mm;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      .topbar, .editor-panel, .preview-toolbar, .paper-wrap, .toast { display: none !important; }
+      .layout, .preview-panel { display: block !important; padding: 0 !important; margin: 0 !important; max-height: none !important; overflow: visible !important; }
+      .exam-paper { box-shadow: none; width: 100%; max-width: none; margin: 0; }
     }
 
     .toast {
@@ -689,6 +679,7 @@
 
       <p class="hint">
         Sorular yazdıkça otomatik kaydedilir. Her sorunun üstüne kazanım/ipucu yazabilirsiniz.
+        <strong>Yazdır</strong> yalnızca sınav kağıdını açar; yazdır penceresinde üstbilgi/altbilgiyi kapatın.
         Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
 
@@ -1113,95 +1104,211 @@
       document.getElementById('exam-paper').innerHTML = buildPaperHtml();
     }
 
-    function getExportStyles() {
+    const PRINT_PAGE_WIDTH_PX = 794; /* A4 @ 96dpi */
+
+    function getPrintStyles() {
       return `
-        @page { size: A4; margin: 14mm; }
-        body { font-family: 'Libre Baskerville', Georgia, serif; font-size: 11pt; color: #1a1a1a; margin: 0; padding: 0; max-width: 180mm; }
-        .paper-school { text-align: center; font-size: 10pt; text-transform: uppercase; color: #444; margin-bottom: 4px; }
-        .paper-title { text-align: center; font-size: 16pt; font-weight: bold; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; margin: 0 0 8px; }
-        .paper-subtitle { text-align: center; font-size: 11pt; margin-bottom: 14px; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        @page { size: A4; margin: 12mm; }
+        html, body {
+          background: #fff;
+          color: #1a1a1a;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .print-hint {
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 13px;
+          color: #92400e;
+          text-align: center;
+          padding: 10px 16px;
+          background: #fffbeb;
+          border-bottom: 1px solid #fcd34d;
+          margin-bottom: 0;
+        }
+        @media print { .print-hint { display: none !important; } }
+        .print-sheet {
+          width: ${PRINT_PAGE_WIDTH_PX}px;
+          max-width: 100%;
+          margin: 0 auto;
+          padding: 28px 36px 36px;
+          background: #fffef9;
+          font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+          font-size: 11.5pt;
+          line-height: 1.5;
+        }
+        .paper-school { text-align: center; font-size: 10pt; letter-spacing: 0.04em; text-transform: uppercase; color: #444; margin-bottom: 4px; }
+        .paper-title { text-align: center; font-size: 16pt; font-weight: 700; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; margin-bottom: 6px; }
+        .paper-subtitle { text-align: center; font-size: 11pt; margin-bottom: 14px; color: #333; }
         .paper-meta-row { font-size: 10pt; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
-        .paper-student-fields { display: table; width: 100%; margin-bottom: 16px; }
-        .paper-field-line { margin-bottom: 10px; }
-        .paper-field-line .label { font-weight: bold; }
-        .paper-field-line .line { border-bottom: 1px solid #333; display: inline-block; min-width: 200px; }
-        .paper-instructions { font-style: italic; margin-bottom: 18px; padding: 8px 12px; background: #f5f4ef; border-left: 3px solid #333; }
-        .paper-kazanim { font-size: 9.5pt; margin-bottom: 8px; padding: 6px 10px; background: #f0fdfa; border-left: 3px solid #0d9488; }
-        .paper-kazanim-label { font-weight: bold; color: #0f766e; font-size: 8.5pt; text-transform: uppercase; margin-right: 6px; }
-        .paper-question { margin-bottom: 18px; page-break-inside: avoid; }
-        .paper-question-head { margin-bottom: 6px; }
-        .paper-question-num { font-weight: bold; }
-        .paper-question-text { white-space: pre-wrap; }
-        .answer-line { border-bottom: 1px dotted #999; height: 1.6em; margin-bottom: 4px; margin-left: 24px; }
-        .paper-footer { margin-top: 24px; text-align: center; font-size: 9pt; color: #888; border-top: 1px solid #ddd; padding-top: 12px; }
+        .paper-student-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-bottom: 16px; font-size: 11pt; }
+        .paper-field-line { display: flex; align-items: baseline; gap: 6px; }
+        .paper-field-line .label { font-weight: 700; white-space: nowrap; }
+        .paper-field-line .line { flex: 1; border-bottom: 1px solid #333; min-height: 1.2em; }
+        .paper-instructions { font-size: 10pt; font-style: italic; margin-bottom: 18px; padding: 8px 12px; background: #f5f4ef; border-left: 3px solid #333; }
+        .paper-kazanim { font-size: 9.5pt; color: #444; margin-bottom: 8px; padding: 6px 10px; background: #f0fdfa; border-left: 3px solid #0d9488; }
+        .paper-kazanim-label { font-weight: 700; color: #0f766e; font-size: 8.5pt; text-transform: uppercase; margin-right: 6px; }
+        .paper-question { margin-bottom: 18px; page-break-inside: avoid; break-inside: avoid; }
+        .paper-question-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+        .paper-question-num { font-weight: 700; min-width: 1.5em; }
+        .paper-question-text { flex: 1; white-space: pre-wrap; word-break: break-word; }
+        .paper-question-points { font-size: 10pt; color: #555; white-space: nowrap; }
+        .answer-lines { margin-left: 1.8em; margin-top: 8px; }
+        .answer-line { border-bottom: 1px dotted #999; height: 1.6em; margin-bottom: 4px; }
+        .paper-footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; text-align: center; color: #888; }
       `;
     }
 
-    /** PDF için A4'e tam oturan klon (ekran ölçeğinden bağımsız) */
-    function createPdfExportNode() {
-      const source = document.getElementById('exam-paper');
-      const host = document.createElement('div');
-      host.setAttribute('aria-hidden', 'true');
-      host.style.cssText = [
-        'position: fixed',
-        'left: 0',
-        'top: 0',
-        'z-index: -9999',
-        'opacity: 0',
-        'pointer-events: none',
-        'overflow: visible'
-      ].join(';');
+    function getExportStyles() {
+      return getPrintStyles();
+    }
 
-      const paper = document.createElement('article');
-      paper.className = 'exam-paper pdf-export';
-      paper.innerHTML = source.innerHTML;
-      paper.style.width = '210mm';
-      paper.style.maxWidth = '210mm';
-      paper.style.minHeight = 'auto';
-      paper.style.padding = '14mm 14mm 16mm';
-      paper.style.margin = '0';
-      paper.style.boxSizing = 'border-box';
-      paper.style.fontSize = '11pt';
-      paper.style.lineHeight = '1.45';
-      paper.style.background = '#fffef9';
-      paper.style.boxShadow = 'none';
+    function getDocTitle() {
+      return (state.meta.title || 'Sinav Kagidi').trim().slice(0, 80) || 'Sinav Kagidi';
+    }
 
-      host.appendChild(paper);
-      document.body.appendChild(host);
-      return { host, paper };
+    function getFileSlug() {
+      return (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
+    }
+
+    function buildPrintDocumentHtml(autoPrint) {
+      const title = escapeHtml(getDocTitle());
+      const content = buildPaperHtml();
+      const hint = autoPrint
+        ? '<p class="print-hint">Yazdır penceresinde <strong>Üstbilgi ve altbilgi</strong> kapalı olsun (URL ve site adı görünmez).</p>'
+        : '';
+      const printScript = autoPrint ? `
+<script>
+(function() {
+  function run() {
+    window.focus();
+    window.print();
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() { setTimeout(run, 350); });
+  } else {
+    setTimeout(run, 500);
+  }
+  window.onafterprint = function() { window.close(); };
+})();
+<\/script>` : '';
+      return `<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>${title}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>${getPrintStyles()}</style>
+</head>
+<body>
+${hint}
+<main class="print-sheet">${content}</main>
+${printScript}
+</body>
+</html>`;
+    }
+
+    async function waitForFrameReady(frameDoc) {
+      await new Promise(r => setTimeout(r, 200));
+      if (frameDoc.fonts && frameDoc.fonts.ready) {
+        try { await frameDoc.fonts.ready; } catch (_) { /* ignore */ }
+      }
+      await new Promise(r => setTimeout(r, 150));
+    }
+
+    let printFrame = null;
+
+    async function mountPrintFrame() {
+      syncQuestionsFromDom();
+      renderPreview();
+      if (!printFrame) {
+        printFrame = document.createElement('iframe');
+        printFrame.id = 'sinav-print-frame';
+        printFrame.setAttribute('aria-hidden', 'true');
+        printFrame.style.cssText = `position:fixed;left:0;top:0;width:${PRINT_PAGE_WIDTH_PX}px;height:1123px;border:0;z-index:-9999;opacity:0;pointer-events:none`;
+        document.body.appendChild(printFrame);
+      }
+      const doc = printFrame.contentDocument;
+      doc.open();
+      doc.write(buildPrintDocumentHtml(false));
+      doc.close();
+      await waitForFrameReady(doc);
+      return printFrame;
+    }
+
+    function openPrintWindow() {
+      syncQuestionsFromDom();
+      renderPreview();
+      const win = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
+      if (!win) {
+        showToast('Açılır pencere engellendi — izin verin');
+        return;
+      }
+      win.document.open();
+      win.document.write(buildPrintDocumentHtml(true));
+      win.document.close();
     }
 
     async function exportPdf() {
-      const title = (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
+      if (!window.html2canvas || !window.jspdf) {
+        showToast('PDF kütüphanesi yüklenemedi');
+        return;
+      }
+
+      const filename = `${getFileSlug()}.pdf`;
       showToast('PDF hazırlanıyor…');
 
-      const { host, paper } = createPdfExportNode();
-      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-      const pxWidth = paper.offsetWidth || 794;
-
       try {
-        await html2pdf().set({
-          margin: [8, 8, 8, 8],
-          filename: `${title}.pdf`,
-          image: { type: 'jpeg', quality: 0.96 },
-          html2canvas: {
-            scale: 2,
-            useCORS: true,
-            letterRendering: true,
-            scrollX: 0,
-            scrollY: 0,
-            width: pxWidth,
-            windowWidth: pxWidth
-          },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['css', 'legacy'], avoid: '.paper-question' }
-        }).from(paper).save();
+        const frame = await mountPrintFrame();
+        const el = frame.contentDocument.querySelector('.print-sheet');
+        if (!el) throw new Error('İçerik bulunamadı');
+
+        const canvas = await html2canvas(el, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#fffef9',
+          width: PRINT_PAGE_WIDTH_PX,
+          windowWidth: PRINT_PAGE_WIDTH_PX,
+          scrollX: 0,
+          scrollY: 0
+        });
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        const margin = 12;
+        const contentW = 210 - margin * 2;
+        const contentH = 297 - margin * 2;
+        const pxPerMm = canvas.width / contentW;
+        const pageHeightPx = Math.floor(contentH * pxPerMm);
+
+        let offsetY = 0;
+        let pageIndex = 0;
+
+        while (offsetY < canvas.height) {
+          if (pageIndex > 0) pdf.addPage();
+          const slicePx = Math.min(pageHeightPx, canvas.height - offsetY);
+          const pageCanvas = document.createElement('canvas');
+          pageCanvas.width = canvas.width;
+          pageCanvas.height = slicePx;
+          const ctx = pageCanvas.getContext('2d');
+          ctx.fillStyle = '#fffef9';
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          ctx.drawImage(canvas, 0, offsetY, canvas.width, slicePx, 0, 0, canvas.width, slicePx);
+          const img = pageCanvas.toDataURL('image/jpeg', 0.94);
+          const sliceHmm = slicePx / pxPerMm;
+          pdf.addImage(img, 'JPEG', margin, margin, contentW, sliceHmm);
+          offsetY += slicePx;
+          pageIndex++;
+        }
+
+        pdf.save(filename);
         showToast('PDF indirildi');
       } catch (e) {
-        showToast('PDF oluşturulamadı — Yazdır ile deneyin');
-      } finally {
-        host.remove();
+        console.error(e);
+        showToast('PDF oluşturulamadı — Yazdır → PDF olarak kaydet deneyin');
+        openPrintWindow();
       }
     }
 
@@ -1249,7 +1356,7 @@
     document.getElementById('add-question').addEventListener('click', () => addQuestion());
     document.getElementById('btn-pdf').addEventListener('click', exportPdf);
     document.getElementById('btn-word').addEventListener('click', exportWord);
-    document.getElementById('btn-print').addEventListener('click', () => window.print());
+    document.getElementById('btn-print').addEventListener('click', openPrintWindow);
     document.getElementById('btn-clear').addEventListener('click', clearDraft);
 
     loadState();
