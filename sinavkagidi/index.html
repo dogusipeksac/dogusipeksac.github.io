@@ -601,8 +601,46 @@
       margin-right: 6px;
     }
 
+    .paper-questions {
+      width: 100%;
+    }
+
+    .paper-questions.layout-single {
+      display: block;
+    }
+
+    .paper-questions.layout-double {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
+      align-items: start;
+    }
+
+    .paper-questions.layout-double .paper-question {
+      margin-bottom: 0;
+      min-width: 0;
+    }
+
+    .paper-questions.layout-double .paper-question-image img {
+      max-height: 150px;
+    }
+
+    .paper-questions.layout-double .paper-question-text {
+      font-size: 10.5pt;
+    }
+
+    .paper-questions.layout-double .paper-kazanim {
+      font-size: 8.5pt;
+      padding: 5px 8px;
+    }
+
     .paper-question {
       margin-bottom: 18px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .paper-questions.layout-double .paper-question {
       page-break-inside: avoid;
       break-inside: avoid;
     }
@@ -764,6 +802,13 @@
         <input type="checkbox" id="showPoints" />
         Soru puanlarını göster
       </label>
+      <div class="field">
+        <label for="questionLayout">Soru düzeni</label>
+        <select id="questionLayout">
+          <option value="single">Alt alta (tek sütun)</option>
+          <option value="double">2'li (yan yana)</option>
+        </select>
+      </div>
       <div class="field-row">
         <div class="field">
           <label for="defaultAnswerLines">Varsayılan satır sayısı</label>
@@ -799,7 +844,8 @@
       <button type="button" class="add-question-btn" id="add-question">+ Yeni soru ekle</button>
 
       <p class="hint">
-        Sorular yazdıkça otomatik kaydedilir. Kazanım, <strong>resim</strong> ve cevap alanı ekleyebilirsiniz.
+        Sorular yazdıkça otomatik kaydedilir. <strong>Soru düzeni:</strong> alt alta veya 2'li yan yana.
+        Kazanım, resim ve cevap alanı ekleyebilirsiniz.
         <strong>PDF İndir</strong> doğrudan dosya indirir. <strong>Yazdır</strong> PDF önizlemesi açar (site adresi yok).
         Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
@@ -842,7 +888,8 @@
         showStudentFields: true,
         showPoints: false,
         defaultAnswerLines: 3,
-        defaultAnswerStyle: 'lined'
+        defaultAnswerStyle: 'lined',
+        questionLayout: 'single'
       },
       questions: [
         { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3, answerStyle: 'lined', image: '' }
@@ -899,15 +946,25 @@
       return `<div class="paper-question-image"><img src="${src}" alt="Soru görseli" /></div>`;
     }
 
-    function buildQuestionImagePdf(q) {
+    function buildQuestionImagePdf(q, isDouble) {
       const src = sanitizeImageSrc(q.image);
       if (!src) return null;
       return {
         image: src,
-        fit: [480, 260],
+        fit: isDouble ? [220, 130] : [480, 260],
         margin: [0, 8, 0, 10],
         alignment: 'center'
       };
+    }
+
+    function normalizeQuestionLayout(layout) {
+      return layout === 'double' ? 'double' : 'single';
+    }
+
+    function getQuestionsLayoutClass() {
+      return normalizeQuestionLayout(state.options.questionLayout) === 'double'
+        ? 'layout-double'
+        : 'layout-single';
     }
 
     function formatDate(iso) {
@@ -998,7 +1055,10 @@
         if (!raw) return;
         const parsed = JSON.parse(raw);
         if (parsed.meta) state.meta = { ...defaultState().meta, ...parsed.meta };
-        if (parsed.options) state.options = { ...defaultState().options, ...parsed.options };
+        if (parsed.options) {
+          state.options = { ...defaultState().options, ...parsed.options };
+          state.options.questionLayout = normalizeQuestionLayout(state.options.questionLayout);
+        }
         if (Array.isArray(parsed.questions) && parsed.questions.length) {
           state.questions = parsed.questions.map(q => ({
             ...q,
@@ -1037,6 +1097,8 @@
       document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
       document.getElementById('defaultAnswerStyle').value =
         state.options.defaultAnswerStyle === 'blank' ? 'blank' : 'lined';
+      document.getElementById('questionLayout').value =
+        normalizeQuestionLayout(state.options.questionLayout);
 
       document.getElementById('showStudentFields').addEventListener('change', e => {
         state.options.showStudentFields = e.target.checked;
@@ -1056,6 +1118,11 @@
         state.options.defaultAnswerStyle = e.target.value === 'blank' ? 'blank' : 'lined';
         scheduleSave();
       });
+      document.getElementById('questionLayout').addEventListener('change', e => {
+        state.options.questionLayout = normalizeQuestionLayout(e.target.value);
+        renderPreview();
+        scheduleSave();
+      });
     }
 
     function normalizeAnswerStyle(style) {
@@ -1072,11 +1139,94 @@
       return `<div class="answer-lines">${Array(lines).fill('<div class="answer-line"></div>').join('')}</div>`;
     }
 
-    function pushAnswerBlocksToPdf(content, q) {
+    function answerLineForLayout(isDouble) {
+      return {
+        canvas: [{
+          type: 'line',
+          x1: isDouble ? 4 : PDF_LINE_X1,
+          y1: 0,
+          x2: isDouble ? 248 : PDF_LINE_X2,
+          y2: 0,
+          lineWidth: 0.5,
+          dash: { length: 3, space: 4 }
+        }],
+        margin: [0, isDouble ? 14 : 20, 0, 0]
+      };
+    }
+
+    function pushAnswerBlocksToPdf(content, q, isDouble = false) {
       const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
       const isBlank = normalizeAnswerStyle(q.answerStyle) === 'blank';
       for (let j = 0; j < lines; j++) {
-        content.push(isBlank ? { text: ' ', margin: [0, 22, 0, 0] } : answerLine());
+        content.push(isBlank
+          ? { text: ' ', margin: [0, isDouble ? 16 : 22, 0, 0] }
+          : answerLineForLayout(isDouble));
+      }
+    }
+
+    function buildQuestionPdfStack(q, i, opt, isDouble) {
+      const stack = [];
+
+      if ((q.kazanim || '').trim()) {
+        stack.push({
+          table: {
+            widths: ['*'],
+            body: [[{
+              text: [
+                { text: 'Kazanım: ', bold: true, color: '#0f766e', fontSize: 8 },
+                { text: q.kazanim.trim(), fontSize: 8 }
+              ],
+              margin: [6, 5, 6, 5]
+            }]]
+          },
+          layout: {
+            hLineWidth: () => 0,
+            vLineWidth: () => 0,
+            paddingLeft: () => 0,
+            paddingRight: () => 0,
+            fillColor: () => '#f0fdfa'
+          },
+          margin: [0, 0, 0, 4]
+        });
+      }
+
+      const qParts = [{ text: `${i + 1}. `, bold: true }, { text: q.text.trim() || '…', fontSize: isDouble ? 10 : 11 }];
+      if (opt.showPoints && q.points !== '') {
+        qParts.push({ text: ` (${q.points} p)`, fontSize: 9, color: '#555555' });
+      }
+      stack.push({ text: qParts, margin: [0, 2, 0, 2] });
+
+      const imgPdf = buildQuestionImagePdf(q, isDouble);
+      if (imgPdf) stack.push(imgPdf);
+
+      pushAnswerBlocksToPdf(stack, q, isDouble);
+      stack.push({ text: ' ', margin: [0, 6, 0, 0] });
+      return stack;
+    }
+
+    function appendQuestionsToPdfContent(content, opt) {
+      const isDouble = normalizeQuestionLayout(opt.questionLayout) === 'double';
+
+      if (!isDouble) {
+        state.questions.forEach((q, i) => {
+          content.push(...buildQuestionPdfStack(q, i, opt, false));
+        });
+        return;
+      }
+
+      for (let i = 0; i < state.questions.length; i += 2) {
+        const left = buildQuestionPdfStack(state.questions[i], i, opt, true);
+        const right = i + 1 < state.questions.length
+          ? buildQuestionPdfStack(state.questions[i + 1], i + 1, opt, true)
+          : [{ text: ' ' }];
+        content.push({
+          columns: [
+            { width: '*', stack: left },
+            { width: '*', stack: right }
+          ],
+          columnGap: 12,
+          margin: [0, 0, 0, 4]
+        });
       }
     }
 
@@ -1396,7 +1546,7 @@
         ${metaParts.length ? `<div class="paper-meta-row">${metaParts.join(' &nbsp;|&nbsp; ')}</div>` : ''}
         ${studentBlock}
         ${instructions}
-        <div class="paper-questions">${questionsHtml}</div>
+        <div class="paper-questions ${getQuestionsLayoutClass()}">${questionsHtml}</div>
         <div class="paper-footer">Başarılar dileriz.</div>
       `;
     }
@@ -1435,6 +1585,12 @@
         .paper-instructions { font-size: 10pt; font-style: italic; margin-bottom: 18px; padding: 8px 12px; background: #f5f4ef; border-left: 3px solid #333; }
         .paper-kazanim { font-size: 9.5pt; color: #444; margin-bottom: 8px; padding: 6px 10px; background: #f0fdfa; border-left: 3px solid #0d9488; }
         .paper-kazanim-label { font-weight: 700; color: #0f766e; font-size: 8.5pt; text-transform: uppercase; margin-right: 6px; }
+        .paper-questions.layout-double {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px 18px;
+        }
+        .paper-questions.layout-double .paper-question { margin-bottom: 0; }
         .paper-question { margin-bottom: 18px; page-break-inside: avoid; break-inside: avoid; }
         .paper-question-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
         .paper-question-num { font-weight: 700; min-width: 1.5em; }
@@ -1485,21 +1641,6 @@
 
     const PDF_LINE_X1 = 8;
     const PDF_LINE_X2 = 532;
-
-    function answerLine() {
-      return {
-        canvas: [{
-          type: 'line',
-          x1: PDF_LINE_X1,
-          y1: 0,
-          x2: PDF_LINE_X2,
-          y2: 0,
-          lineWidth: 0.5,
-          dash: { length: 3, space: 4 }
-        }],
-        margin: [0, 20, 0, 0]
-      };
-    }
 
     function buildPdfMakeDoc() {
       syncQuestionsFromDom();
@@ -1583,42 +1724,7 @@
         });
       }
 
-      state.questions.forEach((q, i) => {
-        if ((q.kazanim || '').trim()) {
-          content.push({
-            table: {
-              widths: ['*'],
-              body: [[{
-                text: [
-                  { text: 'Kazanım: ', bold: true, color: '#0f766e', fontSize: 9 },
-                  { text: q.kazanim.trim(), fontSize: 9 }
-                ],
-                margin: [8, 6, 8, 6]
-              }]]
-            },
-            layout: {
-              hLineWidth: () => 0,
-              vLineWidth: () => 0,
-              paddingLeft: () => 0,
-              paddingRight: () => 0,
-              fillColor: () => '#f0fdfa'
-            },
-            margin: [0, 12, 0, 6]
-          });
-        }
-
-        const qParts = [{ text: `${i + 1}. `, bold: true }, { text: q.text.trim() || '…' }];
-        if (opt.showPoints && q.points !== '') {
-          qParts.push({ text: ` (${q.points} puan)`, fontSize: 10, color: '#555555' });
-        }
-        content.push({ text: qParts, margin: [0, 4, 0, 2] });
-
-        const imgPdf = buildQuestionImagePdf(q);
-        if (imgPdf) content.push(imgPdf);
-
-        pushAnswerBlocksToPdf(content, q);
-        content.push({ text: ' ', margin: [0, 4, 0, 0] });
-      });
+      appendQuestionsToPdfContent(content, opt);
 
       content.push({
         text: 'Başarılar dileriz.',
@@ -1714,6 +1820,8 @@
       document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
       document.getElementById('defaultAnswerStyle').value =
         state.options.defaultAnswerStyle === 'blank' ? 'blank' : 'lined';
+      document.getElementById('questionLayout').value =
+        normalizeQuestionLayout(state.options.questionLayout);
     }
 
     function clearDraft() {
