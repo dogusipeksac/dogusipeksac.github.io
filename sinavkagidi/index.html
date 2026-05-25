@@ -324,9 +324,10 @@
 
     .question-meta {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin-top: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .question-meta label {
@@ -335,16 +336,35 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     .question-meta input,
     .question-meta select {
-      width: 56px;
-      padding: 4px 8px;
       font-size: 0.8rem;
       border: 1px solid var(--border);
       border-radius: 6px;
       background: var(--surface);
+      font-family: inherit;
+    }
+
+    .question-meta select[data-field="answerLines"] {
+      width: 52px;
+      min-width: 52px;
+      padding: 5px 6px;
+    }
+
+    .question-meta select[data-field="answerStyle"] {
+      width: auto;
+      min-width: 6.5rem;
+      padding: 5px 1.85rem 5px 8px;
+    }
+
+    .question-meta input[data-field="points"] {
+      width: 52px;
+      min-width: 52px;
+      padding: 5px 8px;
     }
 
     .add-question-btn {
