@@ -564,10 +564,31 @@
       font-style: italic;
     }
 
-    @media print {
-      .topbar, .editor-panel, .preview-toolbar, .paper-wrap, .toast { display: none !important; }
-      .layout, .preview-panel { display: block !important; padding: 0 !important; margin: 0 !important; max-height: none !important; overflow: visible !important; }
-      .exam-paper { box-shadow: none; width: 100%; max-width: none; margin: 0; }
+    #sinav-print-frame {
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      width: 794px;
+      height: 1123px;
+      border: 0;
+    }
+
+    #pdf-capture-host {
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      width: 794px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    #pdf-capture-host .exam-paper {
+      width: 794px !important;
+      max-width: 794px !important;
+      min-height: auto !important;
+      box-shadow: none !important;
+      padding: 28px 36px 36px !important;
+      margin: 0 !important;
     }
 
     .toast {
@@ -679,7 +700,7 @@
 
       <p class="hint">
         Sorular yazdıkça otomatik kaydedilir. Her sorunun üstüne kazanım/ipucu yazabilirsiniz.
-        <strong>Yazdır</strong> yalnızca sınav kağıdını açar; yazdır penceresinde üstbilgi/altbilgiyi kapatın.
+        <strong>Yazdır</strong> sınav kağıdını yazdırır; pencerede üstbilgi/altbilgiyi kapatın (URL görünmesin).
         Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
 
@@ -1209,64 +1230,96 @@ ${printScript}
 </html>`;
     }
 
+    function getJsPDF() {
+      if (window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
+      if (typeof window.jsPDF === 'function') return window.jsPDF;
+      return null;
+    }
+
+    function getOrCreatePrintFrame() {
+      let frame = document.getElementById('sinav-print-frame');
+      if (!frame) {
+        frame = document.createElement('iframe');
+        frame.id = 'sinav-print-frame';
+        frame.setAttribute('title', 'Yazdırma önizlemesi');
+        document.body.appendChild(frame);
+      }
+      return frame;
+    }
+
     async function waitForFrameReady(frameDoc) {
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 250));
       if (frameDoc.fonts && frameDoc.fonts.ready) {
         try { await frameDoc.fonts.ready; } catch (_) { /* ignore */ }
       }
-      await new Promise(r => setTimeout(r, 150));
+      await new Promise(r => setTimeout(r, 200));
     }
 
-    let printFrame = null;
-
-    async function mountPrintFrame() {
+    /** Açılır pencere yok — gizli iframe ile yazdır */
+    async function printPaper() {
       syncQuestionsFromDom();
       renderPreview();
-      if (!printFrame) {
-        printFrame = document.createElement('iframe');
-        printFrame.id = 'sinav-print-frame';
-        printFrame.setAttribute('aria-hidden', 'true');
-        printFrame.style.cssText = `position:fixed;left:0;top:0;width:${PRINT_PAGE_WIDTH_PX}px;height:1123px;border:0;z-index:-9999;opacity:0;pointer-events:none`;
-        document.body.appendChild(printFrame);
-      }
-      const doc = printFrame.contentDocument;
+      showToast('Yazdır: Üstbilgi ve altbilgiyi kapatın');
+
+      const frame = getOrCreatePrintFrame();
+      const doc = frame.contentDocument;
       doc.open();
       doc.write(buildPrintDocumentHtml(false));
       doc.close();
       await waitForFrameReady(doc);
-      return printFrame;
+
+      try {
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+      } catch (e) {
+        console.error(e);
+        showToast('Yazdırma başlatılamadı');
+      }
     }
 
-    function openPrintWindow() {
+    /** PDF için görünür klon (opacity:0 iframe canvas boş üretiyordu) */
+    function createPdfCaptureElement() {
       syncQuestionsFromDom();
       renderPreview();
-      const win = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
-      if (!win) {
-        showToast('Açılır pencere engellendi — izin verin');
-        return;
-      }
-      win.document.open();
-      win.document.write(buildPrintDocumentHtml(true));
-      win.document.close();
+
+      let host = document.getElementById('pdf-capture-host');
+      if (host) host.remove();
+
+      host = document.createElement('div');
+      host.id = 'pdf-capture-host';
+      const clone = document.getElementById('exam-paper').cloneNode(true);
+      clone.removeAttribute('id');
+      host.appendChild(clone);
+      document.body.appendChild(host);
+      return clone;
+    }
+
+    function removePdfCapture() {
+      document.getElementById('pdf-capture-host')?.remove();
     }
 
     async function exportPdf() {
-      if (!window.html2canvas || !window.jspdf) {
-        showToast('PDF kütüphanesi yüklenemedi');
+      const JsPDF = getJsPDF();
+      if (!window.html2canvas || !JsPDF) {
+        showToast('PDF kütüphanesi yüklenemedi — sayfayı yenileyin veya internet bağlantısını kontrol edin');
         return;
       }
 
       const filename = `${getFileSlug()}.pdf`;
       showToast('PDF hazırlanıyor…');
 
+      let el = null;
       try {
-        const frame = await mountPrintFrame();
-        const el = frame.contentDocument.querySelector('.print-sheet');
-        if (!el) throw new Error('İçerik bulunamadı');
+        el = createPdfCaptureElement();
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+        await new Promise(r => setTimeout(r, 300));
 
         const canvas = await html2canvas(el, {
           scale: 2,
           useCORS: true,
+          allowTaint: true,
           logging: false,
           backgroundColor: '#fffef9',
           width: PRINT_PAGE_WIDTH_PX,
@@ -1275,8 +1328,11 @@ ${printScript}
           scrollY: 0
         });
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        if (!canvas.width || !canvas.height) {
+          throw new Error('Boş görüntü');
+        }
+
+        const pdf = new JsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
         const margin = 12;
         const contentW = 210 - margin * 2;
         const contentH = 297 - margin * 2;
@@ -1308,7 +1364,8 @@ ${printScript}
       } catch (e) {
         console.error(e);
         showToast('PDF oluşturulamadı — Yazdır → PDF olarak kaydet deneyin');
-        openPrintWindow();
+      } finally {
+        removePdfCapture();
       }
     }
 
@@ -1356,7 +1413,7 @@ ${printScript}
     document.getElementById('add-question').addEventListener('click', () => addQuestion());
     document.getElementById('btn-pdf').addEventListener('click', exportPdf);
     document.getElementById('btn-word').addEventListener('click', exportWord);
-    document.getElementById('btn-print').addEventListener('click', openPrintWindow);
+    document.getElementById('btn-print').addEventListener('click', () => { printPaper(); });
     document.getElementById('btn-clear').addEventListener('click', clearDraft);
 
     loadState();
