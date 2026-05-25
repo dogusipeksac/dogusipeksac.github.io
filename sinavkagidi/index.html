@@ -367,6 +367,81 @@
       padding: 5px 8px;
     }
 
+    .question-image-section {
+      margin-top: 10px;
+    }
+
+    .question-image-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-image,
+    .btn-image-remove {
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .btn-image:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-image-remove {
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .btn-image-remove:hover {
+      background: #fef2f2;
+    }
+
+    .btn-image-remove[hidden] {
+      display: none;
+    }
+
+    .question-image-preview {
+      margin-top: 8px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .question-image-preview[hidden] {
+      display: none;
+    }
+
+    .question-image-preview img {
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .paper-question-image {
+      margin: 10px 0 12px;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .paper-question-image img {
+      max-width: 100%;
+      max-height: 240px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
     .add-question-btn {
       width: 100%;
       margin-top: 12px;
@@ -724,7 +799,7 @@
       <button type="button" class="add-question-btn" id="add-question">+ Yeni soru ekle</button>
 
       <p class="hint">
-        Sorular yazdıkça otomatik kaydedilir. Her sorunun üstüne kazanım/ipucu yazabilirsiniz.
+        Sorular yazdıkça otomatik kaydedilir. Kazanım, <strong>resim</strong> ve cevap alanı ekleyebilirsiniz.
         <strong>PDF İndir</strong> doğrudan dosya indirir. <strong>Yazdır</strong> PDF önizlemesi açar (site adresi yok).
         Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
@@ -770,7 +845,7 @@
         defaultAnswerStyle: 'lined'
       },
       questions: [
-        { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3, answerStyle: 'lined' }
+        { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3, answerStyle: 'lined', image: '' }
       ]
     });
 
@@ -780,6 +855,59 @@
       const d = document.createElement('div');
       d.textContent = str ?? '';
       return d.innerHTML;
+    }
+
+    const MAX_IMAGE_WIDTH = 520;
+    const MAX_IMAGE_FILE_MB = 5;
+
+    function sanitizeImageSrc(src) {
+      if (!src || typeof src !== 'string') return '';
+      if (!/^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(src)) return '';
+      return src;
+    }
+
+    function processImageFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, MAX_IMAGE_WIDTH / img.width);
+            const w = Math.max(1, Math.round(img.width * scale));
+            const h = Math.max(1, Math.round(img.height * scale));
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+            const usePng = file.type === 'image/png' && file.size < 400000;
+            resolve(canvas.toDataURL(usePng ? 'image/png' : 'image/jpeg', 0.88));
+          };
+          img.onerror = () => reject(new Error('Görsel okunamadı'));
+          img.src = e.target.result;
+        };
+        reader.onerror = () => reject(new Error('Dosya okunamadı'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function buildQuestionImageHtml(q) {
+      const src = sanitizeImageSrc(q.image);
+      if (!src) return '';
+      return `<div class="paper-question-image"><img src="${src}" alt="Soru görseli" /></div>`;
+    }
+
+    function buildQuestionImagePdf(q) {
+      const src = sanitizeImageSrc(q.image);
+      if (!src) return null;
+      return {
+        image: src,
+        fit: [480, 260],
+        margin: [0, 8, 0, 10],
+        alignment: 'center'
+      };
     }
 
     function formatDate(iso) {
@@ -820,7 +948,13 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
           setSaveStatus(false);
         } catch (e) {
-          document.getElementById('save-text').textContent = 'Kayıt hatası';
+          setSaveStatus(false);
+          if (e && e.name === 'QuotaExceededError') {
+            document.getElementById('save-text').textContent = 'Depo dolu';
+            showToast('Kayıt dolu — bazı resimleri kaldırın veya küçültün');
+          } else {
+            document.getElementById('save-text').textContent = 'Kayıt hatası';
+          }
         }
       }, 400);
     }
@@ -869,7 +1003,8 @@
           state.questions = parsed.questions.map(q => ({
             ...q,
             kazanim: q.kazanim ?? '',
-            answerStyle: q.answerStyle === 'blank' ? 'blank' : 'lined'
+            answerStyle: q.answerStyle === 'blank' ? 'blank' : 'lined',
+            image: sanitizeImageSrc(q.image) || ''
           }));
         }
         ensureUniqueQuestionIds();
@@ -955,7 +1090,8 @@
         kazanim: '',
         points: '',
         answerLines: lines,
-        answerStyle
+        answerStyle,
+        image: ''
       });
       renderQuestions();
       renderPreview();
@@ -1021,6 +1157,22 @@
             placeholder="Soruyu buraya yazın…"
             rows="3"
           ></textarea>
+          <div class="question-image-section">
+            <div class="question-image-actions">
+              <input
+                type="file"
+                class="question-image-file"
+                data-id="${q.id}"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+                hidden
+              />
+              <button type="button" class="btn-image" data-action="pick-image" data-id="${q.id}">📷 Resim ekle</button>
+              <button type="button" class="btn-image-remove" data-action="remove-image" data-id="${q.id}" ${q.image ? '' : 'hidden'}>Resmi kaldır</button>
+            </div>
+            <div class="question-image-preview" data-preview-for="${q.id}" ${q.image ? '' : 'hidden'}>
+              <img alt="Soru görseli önizleme" />
+            </div>
+          </div>
           <div class="question-meta">
             <label>Satır
               <select data-field="answerLines" data-id="${q.id}">
@@ -1049,7 +1201,21 @@
         const ta = card.querySelector('[data-field="text"]');
         if (kIn) kIn.value = q.kazanim ?? '';
         if (ta) ta.value = q.text ?? '';
+        const prevWrap = card.querySelector('.question-image-preview');
+        const prevImg = prevWrap?.querySelector('img');
+        const removeBtn = card.querySelector('[data-action="remove-image"]');
+        if (q.image && prevImg) {
+          prevImg.src = q.image;
+          prevWrap.hidden = false;
+          if (removeBtn) removeBtn.hidden = false;
+        } else {
+          if (prevWrap) prevWrap.hidden = true;
+          if (removeBtn) removeBtn.hidden = true;
+          if (prevImg) prevImg.removeAttribute('src');
+        }
       });
+
+      bindQuestionImageHandlers();
 
       list.querySelectorAll('[data-field="kazanim"]').forEach(inp => {
         inp.addEventListener('input', () => {
@@ -1111,6 +1277,55 @@
       });
     }
 
+    function bindQuestionImageHandlers() {
+      document.querySelectorAll('[data-action="pick-image"]').forEach(btn => {
+        btn.onclick = () => {
+          const card = btn.closest('.question-card');
+          card?.querySelector('.question-image-file')?.click();
+        };
+      });
+
+      document.querySelectorAll('.question-image-file').forEach(input => {
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          input.value = '';
+          if (!file) return;
+          if (!file.type.startsWith('image/')) {
+            showToast('Lütfen bir resim seçin (PNG, JPG…)');
+            return;
+          }
+          if (file.size > MAX_IMAGE_FILE_MB * 1024 * 1024) {
+            showToast(`Resim en fazla ${MAX_IMAGE_FILE_MB} MB olabilir`);
+            return;
+          }
+          const q = state.questions.find(x => x.id === input.dataset.id);
+          if (!q) return;
+          try {
+            q.image = await processImageFile(file);
+            renderQuestions();
+            renderPreview();
+            scheduleSave();
+            showToast('Resim eklendi');
+          } catch (err) {
+            console.error(err);
+            showToast('Resim yüklenemedi');
+          }
+        };
+      });
+
+      document.querySelectorAll('[data-action="remove-image"]').forEach(btn => {
+        btn.onclick = () => {
+          const q = state.questions.find(x => x.id === btn.dataset.id);
+          if (!q) return;
+          q.image = '';
+          renderQuestions();
+          renderPreview();
+          scheduleSave();
+          showToast('Resim kaldırıldı');
+        };
+      });
+    }
+
     function buildPaperHtml() {
       const m = state.meta;
       const opt = state.options;
@@ -1158,6 +1373,7 @@
         const pts = opt.showPoints && q.points !== ''
           ? `<span class="paper-question-points">(${escapeHtml(String(q.points))} puan)</span>`
           : '';
+        const imageBlock = buildQuestionImageHtml(q);
         const answerBlock = buildAnswerBlockHtml(q);
         return `
           <div class="paper-question">
@@ -1167,6 +1383,7 @@
               <span class="paper-question-text">${escapeHtml(displayText)}</span>
               ${pts}
             </div>
+            ${imageBlock}
             ${answerBlock}
           </div>
         `;
@@ -1226,6 +1443,8 @@
         .answer-lines, .answer-space { width: 100%; margin-top: 10px; }
         .answer-line { width: 100%; border-bottom: 1px dotted #888; height: 2em; margin-bottom: 6px; }
         .answer-space-block { width: 100%; height: 2em; margin-bottom: 6px; }
+        .paper-question-image { margin: 10px 0 12px; text-align: center; }
+        .paper-question-image img { max-width: 100%; max-height: 240px; object-fit: contain; }
         .paper-footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; text-align: center; color: #888; }
       `;
     }
@@ -1393,6 +1612,9 @@
           qParts.push({ text: ` (${q.points} puan)`, fontSize: 10, color: '#555555' });
         }
         content.push({ text: qParts, margin: [0, 4, 0, 2] });
+
+        const imgPdf = buildQuestionImagePdf(q);
+        if (imgPdf) content.push(imgPdf);
 
         pushAnswerBlocksToPdf(content, q);
         content.push({ text: ' ', margin: [0, 4, 0, 0] });
