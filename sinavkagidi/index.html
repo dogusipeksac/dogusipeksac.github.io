@@ -396,14 +396,13 @@
       max-width: 210mm;
       min-height: 297mm;
       background: var(--paper);
-      padding: 15mm 16mm 18mm;
+      padding: 14mm 12mm 16mm;
       font-family: var(--serif);
       font-size: 11.5pt;
       line-height: 1.5;
       color: #1a1a1a;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
       box-sizing: border-box;
-      overflow: hidden;
     }
 
     .exam-paper.pdf-export {
@@ -539,19 +538,29 @@
 
     .answer-lines,
     .answer-space {
-      margin-left: 1.8em;
-      margin-top: 8px;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 10px;
+      padding-left: 0;
+      padding-right: 0;
+      box-sizing: border-box;
     }
 
     .answer-line {
-      border-bottom: 1px dotted #999;
-      height: 1.6em;
-      margin-bottom: 4px;
+      display: block;
+      width: 100%;
+      border-bottom: 1px dotted #888;
+      height: 2em;
+      margin-bottom: 6px;
+      box-sizing: border-box;
     }
 
     .answer-space-block {
-      height: 1.6em;
-      margin-bottom: 4px;
+      display: block;
+      width: 100%;
+      height: 2em;
+      margin-bottom: 6px;
+      box-sizing: border-box;
     }
 
     .paper-footer {
@@ -912,7 +921,7 @@
       const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
       const isBlank = normalizeAnswerStyle(q.answerStyle) === 'blank';
       for (let j = 0; j < lines; j++) {
-        content.push(isBlank ? { text: ' ', margin: [0, 18, 0, 0] } : answerLine());
+        content.push(isBlank ? { text: ' ', margin: [0, 22, 0, 0] } : answerLine());
       }
     }
 
@@ -1194,9 +1203,9 @@
         .paper-question-num { font-weight: 700; min-width: 1.5em; }
         .paper-question-text { flex: 1; white-space: pre-wrap; word-break: break-word; }
         .paper-question-points { font-size: 10pt; color: #555; white-space: nowrap; }
-        .answer-lines, .answer-space { margin-left: 1.8em; margin-top: 8px; }
-        .answer-line { border-bottom: 1px dotted #999; height: 1.6em; margin-bottom: 4px; }
-        .answer-space-block { height: 1.6em; margin-bottom: 4px; }
+        .answer-lines, .answer-space { width: 100%; margin-top: 10px; }
+        .answer-line { width: 100%; border-bottom: 1px dotted #888; height: 2em; margin-bottom: 6px; }
+        .answer-space-block { width: 100%; height: 2em; margin-bottom: 6px; }
         .paper-footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; text-align: center; color: #888; }
       `;
     }
@@ -1235,10 +1244,21 @@
       };
     }
 
+    const PDF_LINE_X1 = 8;
+    const PDF_LINE_X2 = 532;
+
     function answerLine() {
       return {
-        canvas: [{ type: 'line', x1: 28, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, dash: { length: 2, space: 3 } }],
-        margin: [0, 16, 0, 0]
+        canvas: [{
+          type: 'line',
+          x1: PDF_LINE_X1,
+          y1: 0,
+          x2: PDF_LINE_X2,
+          y2: 0,
+          lineWidth: 0.5,
+          dash: { length: 3, space: 4 }
+        }],
+        margin: [0, 20, 0, 0]
       };
     }
 
