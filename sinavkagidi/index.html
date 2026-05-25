@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -568,27 +568,10 @@
       position: fixed;
       left: -9999px;
       top: 0;
-      width: 794px;
-      height: 1123px;
+      width: 1px;
+      height: 1px;
       border: 0;
-    }
-
-    #pdf-capture-host {
-      position: fixed;
-      left: -9999px;
-      top: 0;
-      width: 794px;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    #pdf-capture-host .exam-paper {
-      width: 794px !important;
-      max-width: 794px !important;
-      min-height: auto !important;
-      box-shadow: none !important;
-      padding: 28px 36px 36px !important;
-      margin: 0 !important;
+      opacity: 0;
     }
 
     .toast {
@@ -1125,36 +1108,22 @@
       document.getElementById('exam-paper').innerHTML = buildPaperHtml();
     }
 
-    const PRINT_PAGE_WIDTH_PX = 794; /* A4 @ 96dpi */
-
     function getPrintStyles() {
       return `
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        @page { size: A4; margin: 12mm; }
+        @page { size: A4; margin: 14mm; }
         html, body {
-          background: #fff;
+          background: #fffef9;
           color: #1a1a1a;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-        .print-hint {
-          font-family: system-ui, -apple-system, sans-serif;
-          font-size: 13px;
-          color: #92400e;
-          text-align: center;
-          padding: 10px 16px;
-          background: #fffbeb;
-          border-bottom: 1px solid #fcd34d;
-          margin-bottom: 0;
-        }
-        @media print { .print-hint { display: none !important; } }
         .print-sheet {
-          width: ${PRINT_PAGE_WIDTH_PX}px;
-          max-width: 100%;
+          width: 100%;
+          max-width: 180mm;
           margin: 0 auto;
-          padding: 28px 36px 36px;
-          background: #fffef9;
-          font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+          padding: 0;
+          font-family: Georgia, 'Times New Roman', serif;
           font-size: 11.5pt;
           line-height: 1.5;
         }
