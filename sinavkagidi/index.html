@@ -286,6 +286,24 @@
     .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .icon-btn.danger:hover { background: #fef2f2; color: var(--danger); }
 
+    .kazanim-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 8px 10px;
+      border: 1px dashed #99d5cf;
+      border-radius: 8px;
+      background: #f0fdfa;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .kazanim-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+    .kazanim-input::placeholder { color: #94a3b8; }
+
     .question-card textarea {
       width: 100%;
       min-height: 72px;
@@ -374,14 +392,23 @@
 
     .exam-paper {
       width: 210mm;
+      max-width: 210mm;
       min-height: 297mm;
       background: var(--paper);
-      padding: 18mm 20mm 22mm;
+      padding: 15mm 16mm 18mm;
       font-family: var(--serif);
-      font-size: 12pt;
-      line-height: 1.55;
+      font-size: 11.5pt;
+      line-height: 1.5;
       color: #1a1a1a;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .exam-paper.pdf-export {
+      box-shadow: none;
+      min-height: auto;
+      margin: 0;
     }
 
     @media (max-width: 960px) {
@@ -459,9 +486,30 @@
       border-left: 3px solid #333;
     }
 
+    .paper-kazanim {
+      font-size: 9.5pt;
+      color: #444;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      background: #f0fdfa;
+      border-left: 3px solid #0d9488;
+      border-radius: 0 4px 4px 0;
+      line-height: 1.4;
+    }
+
+    .paper-kazanim-label {
+      font-weight: 700;
+      color: #0f766e;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-right: 6px;
+    }
+
     .paper-question {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       page-break-inside: avoid;
+      break-inside: avoid;
     }
 
     .paper-question-head {
@@ -516,16 +564,19 @@
     }
 
     @media print {
+      @page { size: A4; margin: 12mm; }
       body * { visibility: hidden; }
       .exam-paper, .exam-paper * { visibility: visible; }
       .exam-paper {
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 210mm;
+        max-width: 210mm;
         box-shadow: none;
         margin: 0;
-        padding: 15mm 18mm;
+        padding: 0;
+        box-sizing: border-box;
       }
     }
 
@@ -637,8 +688,8 @@
       <button type="button" class="add-question-btn" id="add-question">+ Yeni soru ekle</button>
 
       <p class="hint">
-        Sorular yazdıkça otomatik kaydedilir. Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
-        PDF ve Word çıktısı sağdaki önizlemeyle aynıdır.
+        Sorular yazdıkça otomatik kaydedilir. Her sorunun üstüne kazanım/ipucu yazabilirsiniz.
+        Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
 
       <button type="button" class="btn btn-ghost" id="btn-clear" style="margin-top: 16px; width: 100%;">
@@ -681,7 +732,7 @@
         defaultAnswerLines: 3
       },
       questions: [
-        { id: 'q1', text: '', points: '', answerLines: 3 }
+        { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3 }
       ]
     });
 
@@ -755,7 +806,9 @@
       document.querySelectorAll('#questions-list .question-card').forEach(card => {
         const q = state.questions.find(x => x.id === card.dataset.id);
         if (!q) return;
-        const ta = card.querySelector('textarea');
+        const kazanim = card.querySelector('[data-field="kazanim"]');
+        if (kazanim) q.kazanim = kazanim.value;
+        const ta = card.querySelector('[data-field="text"]');
         if (ta) q.text = ta.value;
         const pts = card.querySelector('[data-field="points"]');
         if (pts) q.points = pts.value;
@@ -773,7 +826,10 @@
         if (parsed.meta) state.meta = { ...defaultState().meta, ...parsed.meta };
         if (parsed.options) state.options = { ...defaultState().options, ...parsed.options };
         if (Array.isArray(parsed.questions) && parsed.questions.length) {
-          state.questions = parsed.questions;
+          state.questions = parsed.questions.map(q => ({
+            ...q,
+            kazanim: q.kazanim ?? ''
+          }));
         }
         ensureUniqueQuestionIds();
       } catch (_) { /* ignore */ }
@@ -826,6 +882,7 @@
       state.questions.push({
         id: `q${nextId++}`,
         text,
+        kazanim: '',
         points: '',
         answerLines: lines
       });
@@ -879,7 +936,16 @@
               <button type="button" class="icon-btn danger" data-action="delete" data-id="${q.id}" title="Sil">✕</button>
             </div>
           </div>
+          <input
+            type="text"
+            class="kazanim-input"
+            data-field="kazanim"
+            data-id="${q.id}"
+            placeholder="Kazanım / ipucu (isteğe bağlı)…"
+            value=""
+          />
           <textarea
+            data-field="text"
             data-id="${q.id}"
             placeholder="Soruyu buraya yazın…"
             rows="3"
@@ -901,11 +967,23 @@
 
       list.querySelectorAll('.question-card').forEach((card, index) => {
         const q = state.questions[index];
-        const ta = card.querySelector('textarea');
-        if (ta && q) ta.value = q.text ?? '';
+        if (!q) return;
+        const kIn = card.querySelector('[data-field="kazanim"]');
+        const ta = card.querySelector('[data-field="text"]');
+        if (kIn) kIn.value = q.kazanim ?? '';
+        if (ta) ta.value = q.text ?? '';
       });
 
-      list.querySelectorAll('textarea').forEach(ta => {
+      list.querySelectorAll('[data-field="kazanim"]').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const q = state.questions.find(x => x.id === inp.dataset.id);
+          if (q) q.kazanim = inp.value;
+          renderPreview();
+          scheduleSave();
+        });
+      });
+
+      list.querySelectorAll('[data-field="text"]').forEach(ta => {
         ta.addEventListener('input', () => {
           const q = state.questions.find(x => x.id === ta.dataset.id);
           if (q) q.text = ta.value;
@@ -925,15 +1003,17 @@
       });
 
       list.querySelectorAll('[data-field]').forEach(el => {
+        const field = el.dataset.field;
+        if (field === 'kazanim' || field === 'text') return;
         el.addEventListener('change', () => {
           const q = state.questions.find(x => x.id === el.dataset.id);
           if (!q) return;
-          if (el.dataset.field === 'answerLines') q.answerLines = parseInt(el.value, 10);
-          if (el.dataset.field === 'points') q.points = el.value;
+          if (field === 'answerLines') q.answerLines = parseInt(el.value, 10);
+          if (field === 'points') q.points = el.value;
           renderPreview();
           scheduleSave();
         });
-        if (el.dataset.field === 'points') {
+        if (field === 'points') {
           el.addEventListener('input', () => {
             const q = state.questions.find(x => x.id === el.dataset.id);
             if (q) q.points = el.value;
@@ -994,6 +1074,9 @@
 
       const questionsHtml = state.questions.map((q, i) => {
         const displayText = q.text.trim() || '…';
+        const kazanimBlock = (q.kazanim || '').trim()
+          ? `<div class="paper-kazanim"><span class="paper-kazanim-label">Kazanım:</span> ${escapeHtml(q.kazanim.trim())}</div>`
+          : '';
         const pts = opt.showPoints && q.points !== ''
           ? `<span class="paper-question-points">(${escapeHtml(String(q.points))} puan)</span>`
           : '';
@@ -1003,6 +1086,7 @@
           : '';
         return `
           <div class="paper-question">
+            ${kazanimBlock}
             <div class="paper-question-head">
               <span class="paper-question-num">${i + 1}.</span>
               <span class="paper-question-text">${escapeHtml(displayText)}</span>
@@ -1031,7 +1115,8 @@
 
     function getExportStyles() {
       return `
-        body { font-family: 'Libre Baskerville', Georgia, serif; font-size: 12pt; color: #1a1a1a; margin: 0; padding: 18mm 20mm; }
+        @page { size: A4; margin: 14mm; }
+        body { font-family: 'Libre Baskerville', Georgia, serif; font-size: 11pt; color: #1a1a1a; margin: 0; padding: 0; max-width: 180mm; }
         .paper-school { text-align: center; font-size: 10pt; text-transform: uppercase; color: #444; margin-bottom: 4px; }
         .paper-title { text-align: center; font-size: 16pt; font-weight: bold; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; margin: 0 0 8px; }
         .paper-subtitle { text-align: center; font-size: 11pt; margin-bottom: 14px; }
@@ -1041,7 +1126,9 @@
         .paper-field-line .label { font-weight: bold; }
         .paper-field-line .line { border-bottom: 1px solid #333; display: inline-block; min-width: 200px; }
         .paper-instructions { font-style: italic; margin-bottom: 18px; padding: 8px 12px; background: #f5f4ef; border-left: 3px solid #333; }
-        .paper-question { margin-bottom: 20px; }
+        .paper-kazanim { font-size: 9.5pt; margin-bottom: 8px; padding: 6px 10px; background: #f0fdfa; border-left: 3px solid #0d9488; }
+        .paper-kazanim-label { font-weight: bold; color: #0f766e; font-size: 8.5pt; text-transform: uppercase; margin-right: 6px; }
+        .paper-question { margin-bottom: 18px; page-break-inside: avoid; }
         .paper-question-head { margin-bottom: 6px; }
         .paper-question-num { font-weight: bold; }
         .paper-question-text { white-space: pre-wrap; }
@@ -1050,21 +1137,71 @@
       `;
     }
 
+    /** PDF için A4'e tam oturan klon (ekran ölçeğinden bağımsız) */
+    function createPdfExportNode() {
+      const source = document.getElementById('exam-paper');
+      const host = document.createElement('div');
+      host.setAttribute('aria-hidden', 'true');
+      host.style.cssText = [
+        'position: fixed',
+        'left: 0',
+        'top: 0',
+        'z-index: -9999',
+        'opacity: 0',
+        'pointer-events: none',
+        'overflow: visible'
+      ].join(';');
+
+      const paper = document.createElement('article');
+      paper.className = 'exam-paper pdf-export';
+      paper.innerHTML = source.innerHTML;
+      paper.style.width = '210mm';
+      paper.style.maxWidth = '210mm';
+      paper.style.minHeight = 'auto';
+      paper.style.padding = '14mm 14mm 16mm';
+      paper.style.margin = '0';
+      paper.style.boxSizing = 'border-box';
+      paper.style.fontSize = '11pt';
+      paper.style.lineHeight = '1.45';
+      paper.style.background = '#fffef9';
+      paper.style.boxShadow = 'none';
+
+      host.appendChild(paper);
+      document.body.appendChild(host);
+      return { host, paper };
+    }
+
     async function exportPdf() {
-      const el = document.getElementById('exam-paper');
       const title = (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
       showToast('PDF hazırlanıyor…');
+
+      const { host, paper } = createPdfExportNode();
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      const pxWidth = paper.offsetWidth || 794;
+
       try {
         await html2pdf().set({
-          margin: [10, 10, 10, 10],
+          margin: [8, 8, 8, 8],
           filename: `${title}.pdf`,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(el).save();
+          image: { type: 'jpeg', quality: 0.96 },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            scrollX: 0,
+            scrollY: 0,
+            width: pxWidth,
+            windowWidth: pxWidth
+          },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css', 'legacy'], avoid: '.paper-question' }
+        }).from(paper).save();
         showToast('PDF indirildi');
       } catch (e) {
         showToast('PDF oluşturulamadı — Yazdır ile deneyin');
+      } finally {
+        host.remove();
       }
     }
 
