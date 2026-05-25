@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sınav Kağıdı Oluşturucu — PDF & Word</title>
+  <meta name="description" content="Soruları yazın, otomatik kaydedilsin; numaralı sınav kağıdını PDF veya Word olarak indirin." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f4f1eb;
+      --surface: #fff;
+      --border: #e2ddd4;
+      --text: #1c1917;
+      --muted: #78716c;
+      --accent: #0d9488;
+      --accent-hover: #0f766e;
+      --danger: #dc2626;
+      --paper: #fffef9;
+      --shadow: 0 4px 24px rgba(28, 25, 23, 0.08);
+      --radius: 12px;
+      --ui: 'DM Sans', system-ui, sans-serif;
+      --serif: 'Libre Baskerville', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ui);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+
+    .topbar h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar h1 span { color: var(--accent); }
+
+    .save-status {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .save-status.saved { color: var(--accent); }
+    .save-status .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .save-status.saved .dot { background: var(--accent); }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .btn-ghost:hover { color: var(--danger); border-color: #fecaca; background: #fef2f2; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 420px) 1fr;
+      gap: 0;
+      min-height: calc(100vh - 57px);
+    }
+
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .editor-panel { border-right: none; border-bottom: 1px solid var(--border); max-height: none; }
+    }
+
+    .editor-panel {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      max-height: calc(100vh - 57px);
+      padding: 20px;
+    }
+
+    .preview-panel {
+      padding: 24px;
+      overflow-y: auto;
+      max-height: calc(100vh - 57px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .toggle-row input { width: auto; accent-color: var(--accent); }
+
+    .questions-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .questions-header .section-label { margin: 0; }
+
+    .question-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    #questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      position: relative;
+    }
+
+    .question-card:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.12);
+    }
+
+    .question-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .q-num {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--accent);
+      min-width: 28px;
+    }
+
+    .question-tools {
+      display: flex;
+      gap: 4px;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: var(--surface);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    .icon-btn:hover:not(:disabled) { background: var(--border); color: var(--text); }
+    .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .icon-btn.danger:hover { background: #fef2f2; color: var(--danger); }
+
+    .question-card textarea {
+      width: 100%;
+      min-height: 72px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      line-height: 1.45;
+    }
+    .question-card textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .question-meta label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .question-meta input,
+    .question-meta select {
+      width: 56px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+    }
+
+    .add-question-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--accent);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .add-question-btn:hover {
+      border-color: var(--accent);
+      background: rgba(13, 148, 136, 0.06);
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    /* —— Exam paper preview —— */
+    .preview-toolbar {
+      width: 100%;
+      max-width: 210mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .paper-wrap {
+      background: #d6d3d1;
+      padding: 24px;
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+    }
+
+    .exam-paper {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--paper);
+      padding: 18mm 20mm 22mm;
+      font-family: var(--serif);
+      font-size: 12pt;
+      line-height: 1.55;
+      color: #1a1a1a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 960px) {
+      .exam-paper {
+        width: 100%;
+        min-height: auto;
+        padding: 16px;
+      }
+      .paper-wrap { padding: 12px; width: 100%; }
+    }
+
+    .paper-school {
+      text-align: center;
+      font-size: 10pt;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .paper-title {
+      text-align: center;
+      font-size: 16pt;
+      font-weight: 700;
+      margin-bottom: 2px;
+      border-bottom: 2px solid #1a1a1a;
+      padding-bottom: 8px;
+    }
+
+    .paper-subtitle {
+      text-align: center;
+      font-size: 11pt;
+      margin-bottom: 14px;
+      color: #333;
+    }
+
+    .paper-meta-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 10pt;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .paper-student-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      margin-bottom: 16px;
+      font-size: 11pt;
+    }
+
+    .paper-field-line {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .paper-field-line .label { white-space: nowrap; font-weight: 700; }
+    .paper-field-line .line {
+      flex: 1;
+      border-bottom: 1px solid #333;
+      min-height: 1.2em;
+    }
+
+    .paper-instructions {
+      font-size: 10pt;
+      font-style: italic;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      background: #f5f4ef;
+      border-left: 3px solid #333;
+    }
+
+    .paper-question {
+      margin-bottom: 20px;
+      page-break-inside: avoid;
+    }
+
+    .paper-question-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .paper-question-num {
+      font-weight: 700;
+      min-width: 1.5em;
+    }
+
+    .paper-question-text {
+      flex: 1;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .paper-question-points {
+      font-size: 10pt;
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .answer-lines {
+      margin-left: 1.8em;
+      margin-top: 8px;
+    }
+
+    .answer-line {
+      border-bottom: 1px dotted #999;
+      height: 1.6em;
+      margin-bottom: 4px;
+    }
+
+    .paper-footer {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #ddd;
+      font-size: 9pt;
+      text-align: center;
+      color: #888;
+    }
+
+    .empty-preview {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      .exam-paper, .exam-paper * { visibility: visible; }
+      .exam-paper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        margin: 0;
+        padding: 15mm 18mm;
+      }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 200;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1>📄 <span>Sınav Kağıdı</span> Oluşturucu</h1>
+    <div class="save-status" id="save-status" aria-live="polite">
+      <span class="dot"></span>
+      <span id="save-text">Kaydediliyor…</span>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn btn-secondary" id="btn-print" title="Yazdır">🖨️ Yazdır</button>
+      <button type="button" class="btn btn-secondary" id="btn-word">📘 Word</button>
+      <button type="button" class="btn btn-primary" id="btn-pdf">📕 PDF İndir</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="editor-panel">
+      <p class="section-label">Kağıt bilgileri</p>
+      <div class="field">
+        <label for="school">Okul / Kurum</label>
+        <input type="text" id="school" placeholder="Örn: Atatürk İlkokulu" />
+      </div>
+      <div class="field">
+        <label for="title">Sınav başlığı</label>
+        <input type="text" id="title" placeholder="Örn: 2. Dönem 1. Yazılı" />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="subject">Ders</label>
+          <input type="text" id="subject" placeholder="Matematik" />
+        </div>
+        <div class="field">
+          <label for="classLevel">Sınıf</label>
+          <input type="text" id="classLevel" placeholder="3-A" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="duration">Süre</label>
+          <input type="text" id="duration" placeholder="40 dk" />
+        </div>
+        <div class="field">
+          <label for="examDate">Tarih</label>
+          <input type="date" id="examDate" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="instructions">Yönergeler (isteğe bağlı)</label>
+        <textarea id="instructions" rows="2" placeholder="Her soruyu dikkatlice okuyunuz…"></textarea>
+      </div>
+
+      <p class="section-label">Görünüm</p>
+      <label class="toggle-row">
+        <input type="checkbox" id="showStudentFields" checked />
+        Ad, sınıf ve numara alanlarını göster
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="showPoints" />
+        Soru puanlarını göster
+      </label>
+      <div class="field-row">
+        <div class="field">
+          <label for="defaultAnswerLines">Varsayılan cevap satırı</label>
+          <select id="defaultAnswerLines">
+            <option value="0">Yok (sadece soru)</option>
+            <option value="2">2 satır</option>
+            <option value="3" selected>3 satır</option>
+            <option value="4">4 satır</option>
+            <option value="5">5 satır</option>
+            <option value="8">8 satır (uzun cevap)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="totalPoints">Toplam puan</label>
+          <input type="number" id="totalPoints" min="0" placeholder="100" />
+        </div>
+      </div>
+
+      <div class="questions-header">
+        <p class="section-label">Sorular</p>
+        <span class="question-count" id="question-count">0 soru</span>
+      </div>
+
+      <div id="questions-list"></div>
+
+      <button type="button" class="add-question-btn" id="add-question">+ Yeni soru ekle</button>
+
+      <p class="hint">
+        Sorular yazdıkça otomatik kaydedilir. Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
+        PDF ve Word çıktısı sağdaki önizlemeyle aynıdır.
+      </p>
+
+      <button type="button" class="btn btn-ghost" id="btn-clear" style="margin-top: 16px; width: 100%;">
+        Taslağı sıfırla
+      </button>
+    </aside>
+
+    <main class="preview-panel">
+      <div class="preview-toolbar">
+        <span>Canlı önizleme (A4)</span>
+        <span id="total-pts-display"></span>
+      </div>
+      <div class="paper-wrap">
+        <article class="exam-paper" id="exam-paper" aria-label="Sınav kağıdı önizlemesi"></article>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const STORAGE_KEY = 'sinavkagidi-draft-v1';
+    let saveTimer = null;
+    let nextId = 1;
+
+    const defaultState = () => ({
+      meta: {
+        school: '',
+        title: 'SINAV KAĞIDI',
+        subject: '',
+        classLevel: '',
+        duration: '',
+        examDate: new Date().toISOString().slice(0, 10),
+        instructions: '',
+        totalPoints: ''
+      },
+      options: {
+        showStudentFields: true,
+        showPoints: false,
+        defaultAnswerLines: 3
+      },
+      questions: [
+        { id: 'q1', text: '', points: '', answerLines: 3 }
+      ]
+    });
+
+    let state = defaultState();
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str ?? '';
+      return d.innerHTML;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      try {
+        const [y, m, d] = iso.split('-');
+        return `${d}.${m}.${y}`;
+      } catch {
+        return iso;
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function setSaveStatus(saving) {
+      const el = document.getElementById('save-status');
+      const text = document.getElementById('save-text');
+      if (saving) {
+        el.classList.remove('saved');
+        text.textContent = 'Kaydediliyor…';
+      } else {
+        el.classList.add('saved');
+        text.textContent = 'Otomatik kaydedildi';
+      }
+    }
+
+    function scheduleSave() {
+      setSaveStatus(true);
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          setSaveStatus(false);
+        } catch (e) {
+          document.getElementById('save-text').textContent = 'Kayıt hatası';
+        }
+      }, 400);
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.meta) state.meta = { ...defaultState().meta, ...parsed.meta };
+        if (parsed.options) state.options = { ...defaultState().options, ...parsed.options };
+        if (Array.isArray(parsed.questions) && parsed.questions.length) {
+          state.questions = parsed.questions;
+          const ids = state.questions.map(q => parseInt(String(q.id).replace(/\D/g, ''), 10)).filter(Boolean);
+          nextId = Math.max(1, ...ids) + 1;
+        }
+      } catch (_) { /* ignore */ }
+    }
+
+    function bindMetaFields() {
+      const map = {
+        school: 'school',
+        title: 'title',
+        subject: 'subject',
+        classLevel: 'classLevel',
+        duration: 'duration',
+        examDate: 'examDate',
+        instructions: 'instructions',
+        totalPoints: 'totalPoints'
+      };
+      for (const [id, key] of Object.entries(map)) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        el.value = state.meta[key] ?? '';
+        el.addEventListener('input', () => {
+          state.meta[key] = el.value;
+          renderPreview();
+          scheduleSave();
+        });
+      }
+      document.getElementById('showStudentFields').checked = state.options.showStudentFields;
+      document.getElementById('showPoints').checked = state.options.showPoints;
+      document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
+
+      document.getElementById('showStudentFields').addEventListener('change', e => {
+        state.options.showStudentFields = e.target.checked;
+        renderPreview();
+        scheduleSave();
+      });
+      document.getElementById('showPoints').addEventListener('change', e => {
+        state.options.showPoints = e.target.checked;
+        renderPreview();
+        scheduleSave();
+      });
+      document.getElementById('defaultAnswerLines').addEventListener('change', e => {
+        state.options.defaultAnswerLines = parseInt(e.target.value, 10);
+        scheduleSave();
+      });
+    }
+
+    function addQuestion(text = '') {
+      const lines = state.options.defaultAnswerLines;
+      state.questions.push({
+        id: `q${nextId++}`,
+        text,
+        points: '',
+        answerLines: lines
+      });
+      renderQuestions();
+      renderPreview();
+      scheduleSave();
+      const cards = document.querySelectorAll('.question-card textarea');
+      cards[cards.length - 1]?.focus();
+    }
+
+    function removeQuestion(id) {
+      if (state.questions.length <= 1) {
+        showToast('En az bir soru kalmalı');
+        return;
+      }
+      state.questions = state.questions.filter(q => q.id !== id);
+      renderQuestions();
+      renderPreview();
+      scheduleSave();
+    }
+
+    function moveQuestion(id, dir) {
+      const i = state.questions.findIndex(q => q.id === id);
+      const j = i + dir;
+      if (j < 0 || j >= state.questions.length) return;
+      const tmp = state.questions[i];
+      state.questions[i] = state.questions[j];
+      state.questions[j] = tmp;
+      renderQuestions();
+      renderPreview();
+      scheduleSave();
+    }
+
+    function renderQuestions() {
+      const list = document.getElementById('questions-list');
+      const count = state.questions.length;
+      document.getElementById('question-count').textContent =
+        count === 1 ? '1 soru' : `${count} soru`;
+
+      list.innerHTML = state.questions.map((q, index) => `
+        <div class="question-card" data-id="${q.id}">
+          <div class="question-card-header">
+            <span class="q-num">${index + 1}.</span>
+            <div class="question-tools">
+              <button type="button" class="icon-btn" data-action="up" data-id="${q.id}" title="Yukarı" ${index === 0 ? 'disabled' : ''}>↑</button>
+              <button type="button" class="icon-btn" data-action="down" data-id="${q.id}" title="Aşağı" ${index === count - 1 ? 'disabled' : ''}>↓</button>
+              <button type="button" class="icon-btn danger" data-action="delete" data-id="${q.id}" title="Sil">✕</button>
+            </div>
+          </div>
+          <textarea
+            data-id="${q.id}"
+            placeholder="Soruyu buraya yazın…"
+            rows="3"
+          >${escapeHtml(q.text)}</textarea>
+          <div class="question-meta">
+            <label>Cevap satırı
+              <select data-field="answerLines" data-id="${q.id}">
+                ${[0,2,3,4,5,8].map(n =>
+                  `<option value="${n}" ${Number(q.answerLines) === n ? 'selected' : ''}>${n === 0 ? 'Yok' : n}</option>`
+                ).join('')}
+              </select>
+            </label>
+            <label>Puan
+              <input type="number" min="0" data-field="points" data-id="${q.id}" value="${q.points}" placeholder="—" />
+            </label>
+          </div>
+        </div>
+      `).join('');
+
+      list.querySelectorAll('textarea').forEach(ta => {
+        ta.addEventListener('input', () => {
+          const q = state.questions.find(x => x.id === ta.dataset.id);
+          if (q) q.text = ta.value;
+          renderPreview();
+          scheduleSave();
+        });
+        ta.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            const q = state.questions.find(x => x.id === ta.dataset.id);
+            const isLast = state.questions[state.questions.length - 1]?.id === ta.dataset.id;
+            if (isLast && q && q.text.trim()) {
+              e.preventDefault();
+              addQuestion();
+            }
+          }
+        });
+      });
+
+      list.querySelectorAll('[data-field]').forEach(el => {
+        el.addEventListener('change', () => {
+          const q = state.questions.find(x => x.id === el.dataset.id);
+          if (!q) return;
+          if (el.dataset.field === 'answerLines') q.answerLines = parseInt(el.value, 10);
+          if (el.dataset.field === 'points') q.points = el.value;
+          renderPreview();
+          scheduleSave();
+        });
+        if (el.dataset.field === 'points') {
+          el.addEventListener('input', () => {
+            const q = state.questions.find(x => x.id === el.dataset.id);
+            if (q) q.points = el.value;
+            renderPreview();
+            scheduleSave();
+          });
+        }
+      });
+
+      list.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const { action, id } = btn.dataset;
+          if (action === 'delete') removeQuestion(id);
+          if (action === 'up') moveQuestion(id, -1);
+          if (action === 'down') moveQuestion(id, 1);
+        });
+      });
+    }
+
+    function buildPaperHtml() {
+      const m = state.meta;
+      const opt = state.options;
+      let sumPoints = 0;
+      let hasAnyPoints = false;
+      state.questions.forEach(q => {
+        const p = parseFloat(q.points);
+        if (!isNaN(p) && q.points !== '') {
+          hasAnyPoints = true;
+          sumPoints += p;
+        }
+      });
+
+      const totalLabel = m.totalPoints
+        ? `Toplam: ${escapeHtml(m.totalPoints)} puan`
+        : (hasAnyPoints && opt.showPoints ? `Toplam: ${sumPoints} puan` : '');
+
+      document.getElementById('total-pts-display').textContent = totalLabel;
+
+      const metaParts = [];
+      if (m.subject) metaParts.push(`<strong>Ders:</strong> ${escapeHtml(m.subject)}`);
+      if (m.classLevel) metaParts.push(`<strong>Sınıf:</strong> ${escapeHtml(m.classLevel)}`);
+      if (m.duration) metaParts.push(`<strong>Süre:</strong> ${escapeHtml(m.duration)}`);
+      if (m.examDate) metaParts.push(`<strong>Tarih:</strong> ${formatDate(m.examDate)}`);
+      if (totalLabel && opt.showPoints) metaParts.push(`<strong>${totalLabel}</strong>`);
+
+      const studentBlock = opt.showStudentFields ? `
+        <div class="paper-student-fields">
+          <div class="paper-field-line"><span class="label">Ad Soyad:</span><span class="line"></span></div>
+          <div class="paper-field-line"><span class="label">Numara:</span><span class="line"></span></div>
+          <div class="paper-field-line"><span class="label">Sınıf:</span><span class="line"></span></div>
+          <div class="paper-field-line"><span class="label">İmza:</span><span class="line"></span></div>
+        </div>
+      ` : '';
+
+      const instructions = m.instructions.trim()
+        ? `<div class="paper-instructions">${escapeHtml(m.instructions.trim())}</div>`
+        : '';
+
+      const questionsHtml = state.questions.map((q, i) => {
+        const displayText = q.text.trim() || '…';
+        const pts = opt.showPoints && q.points !== ''
+          ? `<span class="paper-question-points">(${escapeHtml(String(q.points))} puan)</span>`
+          : '';
+        const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
+        const answerBlock = lines > 0
+          ? `<div class="answer-lines">${Array(lines).fill('<div class="answer-line"></div>').join('')}</div>`
+          : '';
+        return `
+          <div class="paper-question">
+            <div class="paper-question-head">
+              <span class="paper-question-num">${i + 1}.</span>
+              <span class="paper-question-text">${escapeHtml(displayText)}</span>
+              ${pts}
+            </div>
+            ${answerBlock}
+          </div>
+        `;
+      }).join('') || '<p class="empty-preview">Soldan soru ekleyin; önizleme burada görünür.</p>';
+
+      return `
+        ${m.school ? `<div class="paper-school">${escapeHtml(m.school)}</div>` : ''}
+        <h2 class="paper-title">${escapeHtml(m.title || 'SINAV KAĞIDI')}</h2>
+        ${m.subject ? `<div class="paper-subtitle">${escapeHtml(m.subject)}${m.classLevel ? ' — ' + escapeHtml(m.classLevel) : ''}</div>` : ''}
+        ${metaParts.length ? `<div class="paper-meta-row">${metaParts.join(' &nbsp;|&nbsp; ')}</div>` : ''}
+        ${studentBlock}
+        ${instructions}
+        <div class="paper-questions">${questionsHtml}</div>
+        <div class="paper-footer">Başarılar dileriz.</div>
+      `;
+    }
+
+    function renderPreview() {
+      document.getElementById('exam-paper').innerHTML = buildPaperHtml();
+    }
+
+    function getExportStyles() {
+      return `
+        body { font-family: 'Libre Baskerville', Georgia, serif; font-size: 12pt; color: #1a1a1a; margin: 0; padding: 18mm 20mm; }
+        .paper-school { text-align: center; font-size: 10pt; text-transform: uppercase; color: #444; margin-bottom: 4px; }
+        .paper-title { text-align: center; font-size: 16pt; font-weight: bold; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; margin: 0 0 8px; }
+        .paper-subtitle { text-align: center; font-size: 11pt; margin-bottom: 14px; }
+        .paper-meta-row { font-size: 10pt; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
+        .paper-student-fields { display: table; width: 100%; margin-bottom: 16px; }
+        .paper-field-line { margin-bottom: 10px; }
+        .paper-field-line .label { font-weight: bold; }
+        .paper-field-line .line { border-bottom: 1px solid #333; display: inline-block; min-width: 200px; }
+        .paper-instructions { font-style: italic; margin-bottom: 18px; padding: 8px 12px; background: #f5f4ef; border-left: 3px solid #333; }
+        .paper-question { margin-bottom: 20px; }
+        .paper-question-head { margin-bottom: 6px; }
+        .paper-question-num { font-weight: bold; }
+        .paper-question-text { white-space: pre-wrap; }
+        .answer-line { border-bottom: 1px dotted #999; height: 1.6em; margin-bottom: 4px; margin-left: 24px; }
+        .paper-footer { margin-top: 24px; text-align: center; font-size: 9pt; color: #888; border-top: 1px solid #ddd; padding-top: 12px; }
+      `;
+    }
+
+    async function exportPdf() {
+      const el = document.getElementById('exam-paper');
+      const title = (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
+      showToast('PDF hazırlanıyor…');
+      try {
+        await html2pdf().set({
+          margin: [10, 10, 10, 10],
+          filename: `${title}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(el).save();
+        showToast('PDF indirildi');
+      } catch (e) {
+        showToast('PDF oluşturulamadı — Yazdır ile deneyin');
+      }
+    }
+
+    function exportWord() {
+      const inner = buildPaperHtml();
+      const title = (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
+      const html = `<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr">
+<head><meta charset="utf-8"><title>${escapeHtml(title)}</title>
+<style>${getExportStyles()}</style>
+</head><body>${inner}</body></html>`;
+      const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${title}.doc`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Word dosyası indirildi');
+    }
+
+    function syncMetaToForm() {
+      const fields = ['school', 'title', 'subject', 'classLevel', 'duration', 'examDate', 'instructions', 'totalPoints'];
+      const keys = ['school', 'title', 'subject', 'classLevel', 'duration', 'examDate', 'instructions', 'totalPoints'];
+      keys.forEach((key, i) => {
+        const el = document.getElementById(fields[i]);
+        if (el) el.value = state.meta[key] ?? '';
+      });
+      document.getElementById('showStudentFields').checked = state.options.showStudentFields;
+      document.getElementById('showPoints').checked = state.options.showPoints;
+      document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
+    }
+
+    function clearDraft() {
+      if (!confirm('Tüm sorular ve kağıt bilgileri silinecek. Emin misiniz?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      state = defaultState();
+      nextId = 2;
+      syncMetaToForm();
+      renderQuestions();
+      renderPreview();
+      scheduleSave();
+      showToast('Taslak sıfırlandı');
+    }
+
+    document.getElementById('add-question').addEventListener('click', () => addQuestion());
+    document.getElementById('btn-pdf').addEventListener('click', exportPdf);
+    document.getElementById('btn-word').addEventListener('click', exportWord);
+    document.getElementById('btn-print').addEventListener('click', () => window.print());
+    document.getElementById('btn-clear').addEventListener('click', clearDraft);
+
+    loadState();
+    bindMetaFields();
+    renderQuestions();
+    renderPreview();
+    setSaveStatus(false);
+  </script>
+</body>
+</html>
