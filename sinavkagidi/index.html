@@ -660,9 +660,9 @@
   <div class="toast" id="toast" role="status"></div>
 
   <script>
-    const STORAGE_KEY = 'sinavkagidi-draft-v1';
+    const STORAGE_KEY = 'sinavkagidi-draft-v2';
     let saveTimer = null;
-    let nextId = 1;
+    let nextId = 2; /* q1 varsayılan soruda kullanılıyor */
 
     const defaultState = () => ({
       meta: {
@@ -736,18 +736,46 @@
       }, 400);
     }
 
+    function ensureUniqueQuestionIds() {
+      const seen = new Set();
+      state.questions.forEach(q => {
+        if (!q.id || seen.has(q.id)) {
+          q.id = `q${nextId++}`;
+        }
+        seen.add(q.id);
+      });
+      const nums = state.questions
+        .map(q => parseInt(String(q.id).replace(/\D/g, ''), 10))
+        .filter(n => !isNaN(n));
+      if (nums.length) nextId = Math.max(nextId, ...nums) + 1;
+    }
+
+    /** Liste yeniden çizilmeden önce textarea değerlerini state'e yazar */
+    function syncQuestionsFromDom() {
+      document.querySelectorAll('#questions-list .question-card').forEach(card => {
+        const q = state.questions.find(x => x.id === card.dataset.id);
+        if (!q) return;
+        const ta = card.querySelector('textarea');
+        if (ta) q.text = ta.value;
+        const pts = card.querySelector('[data-field="points"]');
+        if (pts) q.points = pts.value;
+        const lines = card.querySelector('[data-field="answerLines"]');
+        if (lines) q.answerLines = parseInt(lines.value, 10);
+      });
+    }
+
     function loadState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        let raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) raw = localStorage.getItem('sinavkagidi-draft-v1');
         if (!raw) return;
         const parsed = JSON.parse(raw);
         if (parsed.meta) state.meta = { ...defaultState().meta, ...parsed.meta };
         if (parsed.options) state.options = { ...defaultState().options, ...parsed.options };
         if (Array.isArray(parsed.questions) && parsed.questions.length) {
           state.questions = parsed.questions;
-          const ids = state.questions.map(q => parseInt(String(q.id).replace(/\D/g, ''), 10)).filter(Boolean);
-          nextId = Math.max(1, ...ids) + 1;
         }
+        ensureUniqueQuestionIds();
       } catch (_) { /* ignore */ }
     }
 
@@ -793,6 +821,7 @@
     }
 
     function addQuestion(text = '') {
+      syncQuestionsFromDom();
       const lines = state.options.defaultAnswerLines;
       state.questions.push({
         id: `q${nextId++}`,
@@ -812,6 +841,7 @@
         showToast('En az bir soru kalmalı');
         return;
       }
+      syncQuestionsFromDom();
       state.questions = state.questions.filter(q => q.id !== id);
       renderQuestions();
       renderPreview();
@@ -819,6 +849,7 @@
     }
 
     function moveQuestion(id, dir) {
+      syncQuestionsFromDom();
       const i = state.questions.findIndex(q => q.id === id);
       const j = i + dir;
       if (j < 0 || j >= state.questions.length) return;
@@ -831,6 +862,8 @@
     }
 
     function renderQuestions() {
+      syncQuestionsFromDom();
+      ensureUniqueQuestionIds();
       const list = document.getElementById('questions-list');
       const count = state.questions.length;
       document.getElementById('question-count').textContent =
@@ -850,7 +883,7 @@
             data-id="${q.id}"
             placeholder="Soruyu buraya yazın…"
             rows="3"
-          >${escapeHtml(q.text)}</textarea>
+          ></textarea>
           <div class="question-meta">
             <label>Cevap satırı
               <select data-field="answerLines" data-id="${q.id}">
@@ -865,6 +898,12 @@
           </div>
         </div>
       `).join('');
+
+      list.querySelectorAll('.question-card').forEach((card, index) => {
+        const q = state.questions[index];
+        const ta = card.querySelector('textarea');
+        if (ta && q) ta.value = q.text ?? '';
+      });
 
       list.querySelectorAll('textarea').forEach(ta => {
         ta.addEventListener('input', () => {
@@ -1077,10 +1116,12 @@
     document.getElementById('btn-clear').addEventListener('click', clearDraft);
 
     loadState();
+    ensureUniqueQuestionIds();
     bindMetaFields();
     renderQuestions();
     renderPreview();
     setSaveStatus(false);
+    scheduleSave();
   </script>
 </body>
 </html>
