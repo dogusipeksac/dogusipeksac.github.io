@@ -683,7 +683,7 @@
 
       <p class="hint">
         Sorular yazdıkça otomatik kaydedilir. Her sorunun üstüne kazanım/ipucu yazabilirsiniz.
-        <strong>Yazdır</strong> sınav kağıdını yazdırır; pencerede üstbilgi/altbilgiyi kapatın (URL görünmesin).
+        <strong>PDF İndir</strong> doğrudan dosya indirir. <strong>Yazdır</strong> PDF önizlemesi açar (site adresi yok).
         Son soruda <kbd>Enter</kbd> ile yeni soru ekleyebilirsiniz.
       </p>
 
@@ -1161,180 +1161,214 @@
       return (state.meta.title || 'sinav-kagidi').replace(/[^\w\u00C0-\u024F\s-]/gi, '').trim().slice(0, 40) || 'sinav-kagidi';
     }
 
-    function buildPrintDocumentHtml(autoPrint) {
-      const title = escapeHtml(getDocTitle());
+    function buildPrintDocumentHtml() {
       const content = buildPaperHtml();
-      const hint = autoPrint
-        ? '<p class="print-hint">Yazdır penceresinde <strong>Üstbilgi ve altbilgi</strong> kapalı olsun (URL ve site adı görünmez).</p>'
-        : '';
-      const printScript = autoPrint ? `
-<script>
-(function() {
-  function run() {
-    window.focus();
-    window.print();
-  }
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function() { setTimeout(run, 350); });
-  } else {
-    setTimeout(run, 500);
-  }
-  window.onafterprint = function() { window.close(); };
-})();
-<\/script>` : '';
       return `<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<title>${title}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<title>&#8203;</title>
 <style>${getPrintStyles()}</style>
 </head>
 <body>
-${hint}
 <main class="print-sheet">${content}</main>
-${printScript}
 </body>
 </html>`;
     }
 
-    function getJsPDF() {
-      if (window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
-      if (typeof window.jsPDF === 'function') return window.jsPDF;
-      return null;
+    function hrLine(margin) {
+      return {
+        canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1 }],
+        margin: margin || [0, 8, 0, 8]
+      };
     }
 
-    function getOrCreatePrintFrame() {
-      let frame = document.getElementById('sinav-print-frame');
-      if (!frame) {
-        frame = document.createElement('iframe');
-        frame.id = 'sinav-print-frame';
-        frame.setAttribute('title', 'Yazdırma önizlemesi');
-        document.body.appendChild(frame);
-      }
-      return frame;
+    function answerLine() {
+      return {
+        canvas: [{ type: 'line', x1: 28, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, dash: { length: 2, space: 3 } }],
+        margin: [0, 16, 0, 0]
+      };
     }
 
-    async function waitForFrameReady(frameDoc) {
-      await new Promise(r => setTimeout(r, 250));
-      if (frameDoc.fonts && frameDoc.fonts.ready) {
-        try { await frameDoc.fonts.ready; } catch (_) { /* ignore */ }
-      }
-      await new Promise(r => setTimeout(r, 200));
-    }
-
-    /** Açılır pencere yok — gizli iframe ile yazdır */
-    async function printPaper() {
+    function buildPdfMakeDoc() {
       syncQuestionsFromDom();
-      renderPreview();
-      showToast('Yazdır: Üstbilgi ve altbilgiyi kapatın');
+      const m = state.meta;
+      const opt = state.options;
+      const content = [];
 
-      const frame = getOrCreatePrintFrame();
-      const doc = frame.contentDocument;
-      doc.open();
-      doc.write(buildPrintDocumentHtml(false));
-      doc.close();
-      await waitForFrameReady(doc);
-
-      try {
-        frame.contentWindow.focus();
-        frame.contentWindow.print();
-      } catch (e) {
-        console.error(e);
-        showToast('Yazdırma başlatılamadı');
+      if (m.school) {
+        content.push({
+          text: m.school.toUpperCase(),
+          alignment: 'center',
+          fontSize: 9,
+          color: '#444444',
+          margin: [0, 0, 0, 4]
+        });
       }
+
+      content.push({
+        text: m.title || 'SINAV KAĞIDI',
+        alignment: 'center',
+        fontSize: 16,
+        bold: true,
+        margin: [0, 0, 0, 6]
+      });
+      content.push({
+        canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 2 }],
+        margin: [0, 0, 0, 10]
+      });
+
+      if (m.subject) {
+        const sub = m.classLevel ? `${m.subject} — ${m.classLevel}` : m.subject;
+        content.push({ text: sub, alignment: 'center', fontSize: 11, margin: [0, 0, 0, 10] });
+      }
+
+      const metaParts = [];
+      if (m.subject && !m.classLevel) metaParts.push(`Ders: ${m.subject}`);
+      if (m.classLevel && !m.subject) metaParts.push(`Sınıf: ${m.classLevel}`);
+      if (m.duration) metaParts.push(`Süre: ${m.duration}`);
+      if (m.examDate) metaParts.push(`Tarih: ${formatDate(m.examDate)}`);
+      if (metaParts.length) {
+        content.push({ text: metaParts.join('   |   '), fontSize: 9, margin: [0, 0, 0, 10] });
+        content.push(hrLine([0, 0, 0, 12]));
+      }
+
+      if (opt.showStudentFields) {
+        content.push({
+          columns: [
+            { text: [{ text: 'Ad Soyad: ', bold: true }, '_______________________________'], width: '*' },
+            { text: [{ text: 'Numara: ', bold: true }, '____________'], width: 140 }
+          ],
+          margin: [0, 0, 0, 8]
+        });
+        content.push({
+          columns: [
+            { text: [{ text: 'Sınıf: ', bold: true }, '____________'], width: '*' },
+            { text: [{ text: 'İmza: ', bold: true }, '____________'], width: 140 }
+          ],
+          margin: [0, 0, 0, 14]
+        });
+      }
+
+      if (m.instructions && m.instructions.trim()) {
+        content.push({
+          table: {
+            widths: ['*'],
+            body: [[{
+              text: m.instructions.trim(),
+              italics: true,
+              fontSize: 10,
+              margin: [8, 8, 8, 8]
+            }]]
+          },
+          layout: {
+            hLineWidth: () => 0,
+            vLineWidth: () => 0,
+            paddingLeft: () => 0,
+            paddingRight: () => 0,
+            fillColor: () => '#f5f4ef'
+          },
+          margin: [0, 0, 0, 16]
+        });
+      }
+
+      state.questions.forEach((q, i) => {
+        if ((q.kazanim || '').trim()) {
+          content.push({
+            table: {
+              widths: ['*'],
+              body: [[{
+                text: [
+                  { text: 'Kazanım: ', bold: true, color: '#0f766e', fontSize: 9 },
+                  { text: q.kazanim.trim(), fontSize: 9 }
+                ],
+                margin: [8, 6, 8, 6]
+              }]]
+            },
+            layout: {
+              hLineWidth: () => 0,
+              vLineWidth: () => 0,
+              paddingLeft: () => 0,
+              paddingRight: () => 0,
+              fillColor: () => '#f0fdfa'
+            },
+            margin: [0, 12, 0, 6]
+          });
+        }
+
+        const qParts = [{ text: `${i + 1}. `, bold: true }, { text: q.text.trim() || '…' }];
+        if (opt.showPoints && q.points !== '') {
+          qParts.push({ text: ` (${q.points} puan)`, fontSize: 10, color: '#555555' });
+        }
+        content.push({ text: qParts, margin: [0, 4, 0, 2] });
+
+        const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
+        for (let j = 0; j < lines; j++) content.push(answerLine());
+        content.push({ text: ' ', margin: [0, 4, 0, 0] });
+      });
+
+      content.push({
+        text: 'Başarılar dileriz.',
+        alignment: 'center',
+        fontSize: 9,
+        color: '#888888',
+        margin: [0, 24, 0, 0]
+      });
+
+      return {
+        pageSize: 'A4',
+        pageMargins: [42, 42, 42, 42],
+        defaultStyle: { font: 'Roboto', fontSize: 11, lineHeight: 1.35 },
+        content
+      };
     }
 
-    /** PDF için görünür klon (opacity:0 iframe canvas boş üretiyordu) */
-    function createPdfCaptureElement() {
+    function exportPdf() {
       syncQuestionsFromDom();
-      renderPreview();
-
-      let host = document.getElementById('pdf-capture-host');
-      if (host) host.remove();
-
-      host = document.createElement('div');
-      host.id = 'pdf-capture-host';
-      const clone = document.getElementById('exam-paper').cloneNode(true);
-      clone.removeAttribute('id');
-      host.appendChild(clone);
-      document.body.appendChild(host);
-      return clone;
-    }
-
-    function removePdfCapture() {
-      document.getElementById('pdf-capture-host')?.remove();
-    }
-
-    async function exportPdf() {
-      const JsPDF = getJsPDF();
-      if (!window.html2canvas || !JsPDF) {
-        showToast('PDF kütüphanesi yüklenemedi — sayfayı yenileyin veya internet bağlantısını kontrol edin');
+      if (!window.pdfMake || !window.pdfMake.createPdf) {
+        showToast('PDF kütüphanesi yüklenemedi — internet bağlantısı ve sayfa yenileme');
         return;
       }
 
-      const filename = `${getFileSlug()}.pdf`;
       showToast('PDF hazırlanıyor…');
-
-      let el = null;
       try {
-        el = createPdfCaptureElement();
-        if (document.fonts && document.fonts.ready) {
-          await document.fonts.ready;
-        }
-        await new Promise(r => setTimeout(r, 300));
-
-        const canvas = await html2canvas(el, {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          backgroundColor: '#fffef9',
-          width: PRINT_PAGE_WIDTH_PX,
-          windowWidth: PRINT_PAGE_WIDTH_PX,
-          scrollX: 0,
-          scrollY: 0
+        const doc = buildPdfMakeDoc();
+        pdfMake.createPdf(doc).download(`${getFileSlug()}.pdf`, () => {
+          showToast('PDF indirildi');
         });
-
-        if (!canvas.width || !canvas.height) {
-          throw new Error('Boş görüntü');
-        }
-
-        const pdf = new JsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-        const margin = 12;
-        const contentW = 210 - margin * 2;
-        const contentH = 297 - margin * 2;
-        const pxPerMm = canvas.width / contentW;
-        const pageHeightPx = Math.floor(contentH * pxPerMm);
-
-        let offsetY = 0;
-        let pageIndex = 0;
-
-        while (offsetY < canvas.height) {
-          if (pageIndex > 0) pdf.addPage();
-          const slicePx = Math.min(pageHeightPx, canvas.height - offsetY);
-          const pageCanvas = document.createElement('canvas');
-          pageCanvas.width = canvas.width;
-          pageCanvas.height = slicePx;
-          const ctx = pageCanvas.getContext('2d');
-          ctx.fillStyle = '#fffef9';
-          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
-          ctx.drawImage(canvas, 0, offsetY, canvas.width, slicePx, 0, 0, canvas.width, slicePx);
-          const img = pageCanvas.toDataURL('image/jpeg', 0.94);
-          const sliceHmm = slicePx / pxPerMm;
-          pdf.addImage(img, 'JPEG', margin, margin, contentW, sliceHmm);
-          offsetY += slicePx;
-          pageIndex++;
-        }
-
-        pdf.save(filename);
-        showToast('PDF indirildi');
       } catch (e) {
         console.error(e);
-        showToast('PDF oluşturulamadı — Yazdır → PDF olarak kaydet deneyin');
-      } finally {
-        removePdfCapture();
+        showToast('PDF oluşturulamadı');
+      }
+    }
+
+    /** PDF önizlemesi açar — yazdırınca site adresi görünmez */
+    function printPaper() {
+      syncQuestionsFromDom();
+
+      if (!window.pdfMake) {
+        showToast('PDF kütüphanesi yüklenemedi');
+        return;
+      }
+
+      showToast('PDF açılıyor…');
+      try {
+        const doc = buildPdfMakeDoc();
+        pdfMake.createPdf(doc).getBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          showToast('PDF açıldı — yazdırın (üstbilgi/altbilgi kapalı olsun)');
+          setTimeout(() => URL.revokeObjectURL(url), 120000);
+        });
+      } catch (e) {
+        console.error(e);
+        showToast('Yazdırma hazırlanamadı — önce PDF İndir deneyin');
       }
     }
 
