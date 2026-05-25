@@ -537,13 +537,19 @@
       white-space: nowrap;
     }
 
-    .answer-lines {
+    .answer-lines,
+    .answer-space {
       margin-left: 1.8em;
       margin-top: 8px;
     }
 
     .answer-line {
       border-bottom: 1px dotted #999;
+      height: 1.6em;
+      margin-bottom: 4px;
+    }
+
+    .answer-space-block {
       height: 1.6em;
       margin-bottom: 4px;
     }
@@ -656,7 +662,7 @@
       </label>
       <div class="field-row">
         <div class="field">
-          <label for="defaultAnswerLines">Varsayılan cevap satırı</label>
+          <label for="defaultAnswerLines">Varsayılan satır sayısı</label>
           <select id="defaultAnswerLines">
             <option value="0">Yok (sadece soru)</option>
             <option value="2">2 satır</option>
@@ -667,9 +673,16 @@
           </select>
         </div>
         <div class="field">
-          <label for="totalPoints">Toplam puan</label>
-          <input type="number" id="totalPoints" min="0" placeholder="100" />
+          <label for="defaultAnswerStyle">Varsayılan cevap alanı</label>
+          <select id="defaultAnswerStyle">
+            <option value="lined">Çizgili</option>
+            <option value="blank">Boşluk</option>
+          </select>
         </div>
+      </div>
+      <div class="field">
+        <label for="totalPoints">Toplam puan</label>
+        <input type="number" id="totalPoints" min="0" placeholder="100" />
       </div>
 
       <div class="questions-header">
@@ -724,10 +737,11 @@
       options: {
         showStudentFields: true,
         showPoints: false,
-        defaultAnswerLines: 3
+        defaultAnswerLines: 3,
+        defaultAnswerStyle: 'lined'
       },
       questions: [
-        { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3 }
+        { id: 'q1', text: '', kazanim: '', points: '', answerLines: 3, answerStyle: 'lined' }
       ]
     });
 
@@ -809,6 +823,8 @@
         if (pts) q.points = pts.value;
         const lines = card.querySelector('[data-field="answerLines"]');
         if (lines) q.answerLines = parseInt(lines.value, 10);
+        const style = card.querySelector('[data-field="answerStyle"]');
+        if (style) q.answerStyle = style.value === 'blank' ? 'blank' : 'lined';
       });
     }
 
@@ -823,7 +839,8 @@
         if (Array.isArray(parsed.questions) && parsed.questions.length) {
           state.questions = parsed.questions.map(q => ({
             ...q,
-            kazanim: q.kazanim ?? ''
+            kazanim: q.kazanim ?? '',
+            answerStyle: q.answerStyle === 'blank' ? 'blank' : 'lined'
           }));
         }
         ensureUniqueQuestionIds();
@@ -854,6 +871,8 @@
       document.getElementById('showStudentFields').checked = state.options.showStudentFields;
       document.getElementById('showPoints').checked = state.options.showPoints;
       document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
+      document.getElementById('defaultAnswerStyle').value =
+        state.options.defaultAnswerStyle === 'blank' ? 'blank' : 'lined';
 
       document.getElementById('showStudentFields').addEventListener('change', e => {
         state.options.showStudentFields = e.target.checked;
@@ -869,17 +888,45 @@
         state.options.defaultAnswerLines = parseInt(e.target.value, 10);
         scheduleSave();
       });
+      document.getElementById('defaultAnswerStyle').addEventListener('change', e => {
+        state.options.defaultAnswerStyle = e.target.value === 'blank' ? 'blank' : 'lined';
+        scheduleSave();
+      });
+    }
+
+    function normalizeAnswerStyle(style) {
+      return style === 'blank' ? 'blank' : 'lined';
+    }
+
+    function buildAnswerBlockHtml(q) {
+      const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
+      if (lines === 0) return '';
+      const isBlank = normalizeAnswerStyle(q.answerStyle) === 'blank';
+      if (isBlank) {
+        return `<div class="answer-space">${Array(lines).fill('<div class="answer-space-block"></div>').join('')}</div>`;
+      }
+      return `<div class="answer-lines">${Array(lines).fill('<div class="answer-line"></div>').join('')}</div>`;
+    }
+
+    function pushAnswerBlocksToPdf(content, q) {
+      const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
+      const isBlank = normalizeAnswerStyle(q.answerStyle) === 'blank';
+      for (let j = 0; j < lines; j++) {
+        content.push(isBlank ? { text: ' ', margin: [0, 18, 0, 0] } : answerLine());
+      }
     }
 
     function addQuestion(text = '') {
       syncQuestionsFromDom();
       const lines = state.options.defaultAnswerLines;
+      const answerStyle = normalizeAnswerStyle(state.options.defaultAnswerStyle);
       state.questions.push({
         id: `q${nextId++}`,
         text,
         kazanim: '',
         points: '',
-        answerLines: lines
+        answerLines: lines,
+        answerStyle
       });
       renderQuestions();
       renderPreview();
@@ -946,11 +993,17 @@
             rows="3"
           ></textarea>
           <div class="question-meta">
-            <label>Cevap satırı
+            <label>Satır
               <select data-field="answerLines" data-id="${q.id}">
                 ${[0,2,3,4,5,8].map(n =>
                   `<option value="${n}" ${Number(q.answerLines) === n ? 'selected' : ''}>${n === 0 ? 'Yok' : n}</option>`
                 ).join('')}
+              </select>
+            </label>
+            <label>Alan
+              <select data-field="answerStyle" data-id="${q.id}">
+                <option value="lined" ${normalizeAnswerStyle(q.answerStyle) === 'lined' ? 'selected' : ''}>Çizgili</option>
+                <option value="blank" ${normalizeAnswerStyle(q.answerStyle) === 'blank' ? 'selected' : ''}>Boşluk</option>
               </select>
             </label>
             <label>Puan
@@ -1004,6 +1057,7 @@
           const q = state.questions.find(x => x.id === el.dataset.id);
           if (!q) return;
           if (field === 'answerLines') q.answerLines = parseInt(el.value, 10);
+          if (field === 'answerStyle') q.answerStyle = normalizeAnswerStyle(el.value);
           if (field === 'points') q.points = el.value;
           renderPreview();
           scheduleSave();
@@ -1075,10 +1129,7 @@
         const pts = opt.showPoints && q.points !== ''
           ? `<span class="paper-question-points">(${escapeHtml(String(q.points))} puan)</span>`
           : '';
-        const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
-        const answerBlock = lines > 0
-          ? `<div class="answer-lines">${Array(lines).fill('<div class="answer-line"></div>').join('')}</div>`
-          : '';
+        const answerBlock = buildAnswerBlockHtml(q);
         return `
           <div class="paper-question">
             ${kazanimBlock}
@@ -1143,8 +1194,9 @@
         .paper-question-num { font-weight: 700; min-width: 1.5em; }
         .paper-question-text { flex: 1; white-space: pre-wrap; word-break: break-word; }
         .paper-question-points { font-size: 10pt; color: #555; white-space: nowrap; }
-        .answer-lines { margin-left: 1.8em; margin-top: 8px; }
+        .answer-lines, .answer-space { margin-left: 1.8em; margin-top: 8px; }
         .answer-line { border-bottom: 1px dotted #999; height: 1.6em; margin-bottom: 4px; }
+        .answer-space-block { height: 1.6em; margin-bottom: 4px; }
         .paper-footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; text-align: center; color: #888; }
       `;
     }
@@ -1302,8 +1354,7 @@
         }
         content.push({ text: qParts, margin: [0, 4, 0, 2] });
 
-        const lines = Math.max(0, parseInt(q.answerLines, 10) || 0);
-        for (let j = 0; j < lines; j++) content.push(answerLine());
+        pushAnswerBlocksToPdf(content, q);
         content.push({ text: ' ', margin: [0, 4, 0, 0] });
       });
 
@@ -1399,6 +1450,8 @@
       document.getElementById('showStudentFields').checked = state.options.showStudentFields;
       document.getElementById('showPoints').checked = state.options.showPoints;
       document.getElementById('defaultAnswerLines').value = String(state.options.defaultAnswerLines);
+      document.getElementById('defaultAnswerStyle').value =
+        state.options.defaultAnswerStyle === 'blank' ? 'blank' : 'lined';
     }
 
     function clearDraft() {
