@@ -1,0 +1,442 @@
+<!-- dogusipeksac - ProFix Tamirat Demo Sitesi -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProFix Tadilat & Onarım — Evinizi Yeniliyoruz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #111111;
+      --bg2: #1a1a1a;
+      --bg3: #1f1f1f;
+      --surface: #242424;
+      --surface2: #2d2d2d;
+      --border: #333;
+      --accent: #f59e0b;
+      --accent2: #fbbf24;
+      --accent-d: #d97706;
+      --accent-glow: rgba(245,158,11,0.2);
+      --text: #f5f5f0;
+      --text2: #a8a89a;
+      --text3: #6b6b60;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(17,17,17,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .back-link { color: var(--text3); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 0.375rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-brand-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent), var(--accent-d)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .nav-brand-name { font-weight: 800; font-size: 1.1rem; color: var(--accent2); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { padding: 0.55rem 1.25rem; background: var(--accent); color: #111; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.875rem; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px; opacity: 0.5;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(17,17,17,0.8) 0%, rgba(17,17,17,0.95) 60%, #111 100%);
+    }
+    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); right: -100px; top: 50%; transform: translateY(-50%); }
+    .hero-content { position: relative; z-index: 1; max-width: 650px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); padding: 0.375rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero-title { font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .hero-title span { color: var(--accent); }
+    .hero-slogan { font-size: 1.15rem; color: var(--text2); margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { padding: 0.85rem 2rem; background: var(--accent); color: #111; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
+    .btn-outline { padding: 0.85rem 2rem; background: transparent; color: var(--text); border: 2px solid var(--border); border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-top { margin-bottom: 3.5rem; }
+    .section-top.center { text-align: center; }
+    .section-label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .section-sub { color: var(--text2); max-width: 500px; }
+    .section-top.center .section-sub { margin: 0 auto; }
+    .section-divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-d)); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .section-top.center .section-divider { margin: 1rem auto 1.5rem; }
+
+    /* SERVICES */
+    #services { background: var(--bg2); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+    .service-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.75rem 1.5rem; text-align: center; transition: all 0.3s; cursor: default;
+    }
+    .service-card:hover { border-color: var(--accent); background: var(--surface2); transform: translateY(-4px); box-shadow: 0 8px 32px var(--accent-glow); }
+    .service-icon { font-size: 2.25rem; margin-bottom: 0.75rem; display: block; }
+    .service-name { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+
+    /* PORTFOLIO */
+    #portfolio { background: var(--bg); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .portfolio-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; }
+    .portfolio-card:hover { border-color: var(--accent); box-shadow: 0 8px 40px rgba(0,0,0,0.5); transform: translateY(-4px); }
+    .portfolio-before-after { display: grid; grid-template-columns: 1fr 1fr; }
+    .portfolio-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+    .portfolio-img.before { background: linear-gradient(135deg, #2a2520, #3d3025); color: #8a7a60; }
+    .portfolio-img.after { background: linear-gradient(135deg, #1a2a1a, #2d3d20); color: #6a8a50; }
+    .portfolio-info { padding: 1.25rem 1.5rem; background: var(--surface); }
+    .portfolio-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .portfolio-desc { font-size: 0.82rem; color: var(--text2); }
+    .before-after-label { display: flex; }
+    .ba-label {
+      flex: 1; text-align: center; padding: 0.35rem; font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .ba-label.b { background: rgba(200,100,50,0.15); color: #e07840; }
+    .ba-label.a { background: rgba(80,180,80,0.15); color: #50b450; }
+
+    /* PROCESS */
+    #process { background: var(--bg2); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; top: 28px; left: 12%; right: 12%; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-d));
+    }
+    .process-step { text-align: center; position: relative; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 800; color: #111;
+      margin: 0 auto 1rem; position: relative; z-index: 1;
+    }
+    .step-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .step-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+
+    /* MASTERS */
+    #masters { background: var(--bg); }
+    .masters-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .master-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; transition: all 0.3s; }
+    .master-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 32px var(--accent-glow); }
+    .master-avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .master-avatar.m1 { background: linear-gradient(135deg, #3d2a1a, #5a3d25); }
+    .master-avatar.m2 { background: linear-gradient(135deg, #1a2a3d, #25385a); }
+    .master-avatar.m3 { background: linear-gradient(135deg, #2a1a3d, #3d255a); }
+    .master-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .master-specialty { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .master-exp { font-size: 0.82rem; color: var(--text2); }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); }
+    .contact-inner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .contact-left h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+    .contact-left p { color: var(--text2); margin-bottom: 1.5rem; line-height: 1.7; }
+    .contact-detail { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; color: var(--text2); font-size: 0.9rem; }
+    .contact-icon { width: 36px; height: 36px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 1.75rem; background: #25d366; color: #fff;
+      border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; margin-top: 1rem;
+    }
+    .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+    .contact-right { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem; background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 10px; font-family: var(--font); font-size: 0.9rem; color: var(--text); transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { width: 100%; padding: 0.9rem; background: var(--accent); color: #111; border: none; border-radius: 10px; font-family: var(--font); font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .form-submit:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 20px var(--accent-glow); }
+
+    /* FOOTER */
+    footer { background: #0a0a0a; border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-brand { font-size: 1.25rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem; }
+    .footer-copy { font-size: 0.82rem; color: var(--text3); }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .masters-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .contact-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      section { padding: 4rem 1.25rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://dogusipeksac.github.io" class="back-link">← dogusipeksac.github.io</a>
+    <div class="nav-brand">
+      <div class="nav-brand-icon">🔧</div>
+      <div class="nav-brand-name">ProFix</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Hizmetler</a></li>
+      <li><a href="#portfolio">Portföy</a></li>
+      <li><a href="#process">Süreç</a></li>
+      <li><a href="#masters">Ustalar</a></li>
+      <li><a href="#contact">İletişim</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Ücretsiz Keşif</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">🔧 Adana'nın Güvenilir Tadilat Ekibi</div>
+        <h1 class="hero-title">ProFix <span>Tadilat</span><br>& Onarım</h1>
+        <p class="hero-slogan">Evinizi Yeniliyoruz — Kaliteden Ödün Vermeden</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">📋 Ücretsiz Keşif</a>
+          <a href="#portfolio" class="btn-outline">Portföyü Gör</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-top center">
+        <div class="section-label reveal">Uzmanlık Alanlarımız</div>
+        <h2 class="section-title reveal">Hizmetlerimiz</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal">Her türlü ev tadilat ve onarım işini profesyonelce yapıyoruz.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal"><span class="service-icon">🪣</span><div class="service-name">Boya & Badana</div></div>
+        <div class="service-card reveal reveal-d1"><span class="service-icon">🚿</span><div class="service-name">Banyo Tadilat</div></div>
+        <div class="service-card reveal reveal-d2"><span class="service-icon">🍳</span><div class="service-name">Mutfak Yenileme</div></div>
+        <div class="service-card reveal reveal-d3"><span class="service-icon">⚡</span><div class="service-name">Elektrik Tesisatı</div></div>
+        <div class="service-card reveal"><span class="service-icon">💧</span><div class="service-name">Su Tesisatı</div></div>
+        <div class="service-card reveal reveal-d1"><span class="service-icon">🪟</span><div class="service-name">Pencere & Kapı</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-top center">
+        <div class="section-label reveal">Çalışmalarımız</div>
+        <h2 class="section-title reveal">Öncesi / Sonrası</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal">Gerçekleştirdiğimiz tadilat projelerinden örnekler.</p>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-card reveal">
+          <div class="before-after-label"><span class="ba-label b">Öncesi</span><span class="ba-label a">Sonrası</span></div>
+          <div class="portfolio-before-after">
+            <div class="portfolio-img before">📸 Eski Banyo</div>
+            <div class="portfolio-img after">✨ Yeni Banyo</div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-name">Seyhan — Banyo Yenileme</div>
+            <div class="portfolio-desc">Komple seramik, batarya ve aydınlatma değişimi. 5 gün tamamlandı.</div>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-d1">
+          <div class="before-after-label"><span class="ba-label b">Öncesi</span><span class="ba-label a">Sonrası</span></div>
+          <div class="portfolio-before-after">
+            <div class="portfolio-img before">📸 Eski Mutfak</div>
+            <div class="portfolio-img after">✨ Yeni Mutfak</div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-name">Çukurova — Mutfak Tadilat</div>
+            <div class="portfolio-desc">Dolap değişimi, tezgah yenileme ve boya. 7 günde teslim.</div>
+          </div>
+        </div>
+        <div class="portfolio-card reveal">
+          <div class="before-after-label"><span class="ba-label b">Öncesi</span><span class="ba-label a">Sonrası</span></div>
+          <div class="portfolio-before-after">
+            <div class="portfolio-img before">📸 Eski Salon</div>
+            <div class="portfolio-img after">✨ Yeni Salon</div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-name">Yüreğir — Salon Boyası</div>
+            <div class="portfolio-desc">Komple boya, alçı ve parke temizliği. 3 günde tamamlandı.</div>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-d1">
+          <div class="before-after-label"><span class="ba-label b">Öncesi</span><span class="ba-label a">Sonrası</span></div>
+          <div class="portfolio-before-after">
+            <div class="portfolio-img before">📸 Eski Ofis</div>
+            <div class="portfolio-img after">✨ Yeni Ofis</div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-name">Sarıçam — Ofis Tadilat</div>
+            <div class="portfolio-desc">Elektrik güncelleme, alçıpan tavan ve boya. 10 günde bitirildi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <div class="section-top center">
+        <div class="section-label reveal">Nasıl Çalışıyoruz</div>
+        <h2 class="section-title reveal">4 Adımda Tadilat</h2>
+        <div class="section-divider reveal"></div>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-num">1</div>
+          <div class="step-title">Keşif & Teklif</div>
+          <div class="step-desc">Ücretsiz yerinde keşif yapıyor, detaylı fiyat teklifi sunuyoruz.</div>
+        </div>
+        <div class="process-step reveal reveal-d1">
+          <div class="step-num">2</div>
+          <div class="step-title">Malzeme Seçimi</div>
+          <div class="step-desc">Sizinle birlikte kaliteli malzemeleri seçiyor, tedarik ediyoruz.</div>
+        </div>
+        <div class="process-step reveal reveal-d2">
+          <div class="step-num">3</div>
+          <div class="step-title">Uygulama</div>
+          <div class="step-desc">Deneyimli ustalarımız işi özenle ve zamanında tamamlar.</div>
+        </div>
+        <div class="process-step reveal reveal-d3">
+          <div class="step-num">4</div>
+          <div class="step-title">Teslim</div>
+          <div class="step-desc">Memnuniyetinizi kontrol ederek evi temiz teslim ediyoruz.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASTERS -->
+  <section id="masters">
+    <div class="container">
+      <div class="section-top center">
+        <div class="section-label reveal">Ekibimiz</div>
+        <h2 class="section-title reveal">Ustalarımız</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal">Deneyimli ve sertifikalı ustalarımızla kaliteden emin olun.</p>
+      </div>
+      <div class="masters-grid">
+        <div class="master-card reveal">
+          <div class="master-avatar m1">👷</div>
+          <div class="master-name">Kadir Usta</div>
+          <div class="master-specialty">Boya & Alçı Uzmanı</div>
+          <div class="master-exp">20 yıl deneyim</div>
+        </div>
+        <div class="master-card reveal reveal-d1">
+          <div class="master-avatar m2">🔧</div>
+          <div class="master-name">Hüseyin Usta</div>
+          <div class="master-specialty">Tesisat Uzmanı</div>
+          <div class="master-exp">15 yıl deneyim</div>
+        </div>
+        <div class="master-card reveal reveal-d2">
+          <div class="master-avatar m3">⚡</div>
+          <div class="master-name">Murat Usta</div>
+          <div class="master-specialty">Elektrik & Güvenlik</div>
+          <div class="master-exp">12 yıl deneyim</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-top center">
+        <div class="section-label reveal">İletişim</div>
+        <h2 class="section-title reveal">Ücretsiz Keşif İste</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal">Sizi arayalım, keşif için tarih belirleyelim.</p>
+      </div>
+      <div class="contact-inner reveal">
+        <div class="contact-left">
+          <h3>Hemen Bize Ulaşın</h3>
+          <p>7/24 WhatsApp üzerinden veya formu doldurarak bizimle iletişime geçebilirsiniz. En kısa sürede dönüş yaparız.</p>
+          <div class="contact-detail"><div class="contact-icon">📞</div> 0532 987 65 43</div>
+          <div class="contact-detail"><div class="contact-icon">📍</div> Adana, Türkiye</div>
+          <div class="contact-detail"><div class="contact-icon">🕐</div> Haftaiçi & Haftasonu: 08:00–20:00</div>
+          <a href="https://wa.me/905329876543" target="_blank" class="whatsapp-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp ile Yaz
+          </a>
+        </div>
+        <div class="contact-right">
+          <div class="form-group"><label>Ad Soyad</label><input type="text" placeholder="Adınız Soyadınız" /></div>
+          <div class="form-group"><label>Telefon</label><input type="tel" placeholder="05XX XXX XX XX" /></div>
+          <div class="form-group"><label>İhtiyacınız</label>
+            <select>
+              <option value="">Hizmet Seçin</option>
+              <option>Boya & Badana</option>
+              <option>Banyo Tadilat</option>
+              <option>Mutfak Yenileme</option>
+              <option>Elektrik Tesisatı</option>
+              <option>Su Tesisatı</option>
+              <option>Pencere & Kapı</option>
+              <option>Genel Tadilat</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Notunuz</label><textarea placeholder="Projenizi kısaca anlatın..."></textarea></div>
+          <button class="form-submit" onclick="alert('Talebiniz alındı! En kısa sürede sizi arayacağız. 🔧')">📋 Keşif Talep Et</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">🔧 ProFix Tadilat & Onarım</div>
+    <div class="footer-copy">
+      📞 0532 987 65 43 &nbsp;|&nbsp; 📍 Adana, Türkiye &nbsp;|&nbsp; © 2026 ProFix
+      &nbsp;|&nbsp; <a href="https://dogusipeksac.github.io" style="color:var(--text3);text-decoration:none">Demo by dogusipeksac</a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

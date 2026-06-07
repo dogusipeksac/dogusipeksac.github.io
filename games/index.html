@@ -1,0 +1,793 @@
+<!-- dogusipeksac - MiniPlay Oyunlar Sitesi -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiniPlay — Oyna, Eğlen, Kazan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #08080f;
+      --bg2: #0f0f1a;
+      --surface: #151525;
+      --surface2: #1e1e32;
+      --border: #2a2a45;
+      --purple: #8b5cf6;
+      --purple2: #a78bfa;
+      --purple-d: #6d28d9;
+      --glow: rgba(139,92,246,0.3);
+      --pink: #ec4899;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --text: #f0eeff;
+      --text2: #9d9cbf;
+      --text3: #5c5c80;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --radius: 18px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(8,8,15,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .back-link { color: var(--text3); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+    .back-link:hover { color: var(--purple2); }
+    .nav-brand { font-size: 1.25rem; font-weight: 800; background: linear-gradient(135deg, var(--purple2), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-slogan { font-size: 0.78rem; color: var(--text3); }
+
+    /* HERO */
+    #hero {
+      min-height: 50vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 50% 0%, rgba(139,92,246,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 20% 80%, rgba(236,72,153,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 30% 30% at 80% 80%, rgba(6,182,212,0.1) 0%, transparent 50%);
+    }
+    .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.75rem; position: relative; }
+    .hero-title span { background: linear-gradient(135deg, var(--purple2), var(--pink), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.15rem; color: var(--text2); margin-bottom: 0.5rem; position: relative; }
+    .hero-desc { font-size: 0.9rem; color: var(--text3); position: relative; }
+
+    /* GAMES GRID */
+    #games { padding: 2rem 2rem 6rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .game-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+    }
+    .game-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .game-card.c-snake::before { background: radial-gradient(ellipse at top right, rgba(16,185,129,0.15), transparent 60%); }
+    .game-card.c-memory::before { background: radial-gradient(ellipse at top right, rgba(139,92,246,0.15), transparent 60%); }
+    .game-card.c-math::before { background: radial-gradient(ellipse at top right, rgba(245,158,11,0.15), transparent 60%); }
+    .game-card.c-color::before { background: radial-gradient(ellipse at top right, rgba(236,72,153,0.15), transparent 60%); }
+    .game-card.c-word::before { background: radial-gradient(ellipse at top right, rgba(6,182,212,0.15), transparent 60%); }
+    .game-card:hover::before { opacity: 1; }
+    .game-card:hover { transform: translateY(-5px); }
+    .game-card.c-snake:hover { border-color: var(--green); box-shadow: 0 0 30px rgba(16,185,129,0.25); }
+    .game-card.c-memory:hover { border-color: var(--purple); box-shadow: 0 0 30px rgba(139,92,246,0.25); }
+    .game-card.c-math:hover { border-color: var(--yellow); box-shadow: 0 0 30px rgba(245,158,11,0.25); }
+    .game-card.c-color:hover { border-color: var(--pink); box-shadow: 0 0 30px rgba(236,72,153,0.25); }
+    .game-card.c-word:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(6,182,212,0.25); }
+    .game-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; position: relative; }
+    .game-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; }
+    .game-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem; position: relative; }
+    .game-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; position: relative; }
+    .game-tag { padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.72rem; font-weight: 600; }
+    .tag-g { background: rgba(16,185,129,0.15); color: #34d399; }
+    .tag-p { background: rgba(139,92,246,0.15); color: #a78bfa; }
+    .tag-y { background: rgba(245,158,11,0.15); color: #fcd34d; }
+    .tag-pk { background: rgba(236,72,153,0.15); color: #f472b6; }
+    .tag-c { background: rgba(6,182,212,0.15); color: #22d3ee; }
+    .play-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.5rem; border-radius: 10px; border: none;
+      font-family: var(--font); font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; position: relative;
+    }
+    .c-snake .play-btn { background: var(--green); color: #fff; }
+    .c-snake .play-btn:hover { background: #059669; box-shadow: 0 4px 20px rgba(16,185,129,0.4); }
+    .c-memory .play-btn { background: var(--purple); color: #fff; }
+    .c-memory .play-btn:hover { background: var(--purple-d); box-shadow: 0 4px 20px var(--glow); }
+    .c-math .play-btn { background: var(--yellow); color: #111; }
+    .c-math .play-btn:hover { background: #d97706; box-shadow: 0 4px 20px rgba(245,158,11,0.4); }
+    .c-color .play-btn { background: var(--pink); color: #fff; }
+    .c-color .play-btn:hover { background: #db2777; box-shadow: 0 4px 20px rgba(236,72,153,0.4); }
+    .c-word .play-btn { background: var(--cyan); color: #fff; }
+    .c-word .play-btn:hover { background: #0891b2; box-shadow: 0 4px 20px rgba(6,182,212,0.4); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 24px;
+      width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto;
+      position: relative;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--bg2); border-radius: 24px 24px 0 0; z-index: 1;
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 800; }
+    .modal-score { font-size: 0.9rem; color: var(--text2); }
+    .modal-close {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--surface2);
+      border: 1px solid var(--border); color: var(--text2); font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--surface); color: var(--text); }
+    .modal-body { padding: 1.5rem 2rem 2rem; }
+
+    /* SNAKE GAME */
+    #snakeCanvas { display: block; margin: 0 auto; border: 2px solid #2a3d2a; border-radius: 12px; background: #0a150a; }
+    .snake-controls { display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; flex-wrap: wrap; }
+    .snake-btn { padding: 0.6rem 1.5rem; background: var(--green); color: #fff; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+    .snake-btn:hover { background: #059669; }
+    .snake-tip { text-align: center; color: var(--text3); font-size: 0.8rem; margin-top: 0.75rem; }
+
+    /* MEMORY GAME */
+    .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 0 auto; max-width: 360px; }
+    .mem-card {
+      aspect-ratio: 1; border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 2rem;
+      background: var(--surface2); border: 2px solid var(--border); transition: all 0.3s;
+      user-select: none;
+    }
+    .mem-card.flipped { background: #1e1040; border-color: var(--purple); }
+    .mem-card.matched { background: #0f2a1f; border-color: var(--green); cursor: default; }
+    .mem-card.flip-anim { animation: cardFlip 0.4s ease; }
+    @keyframes cardFlip { 0%{transform:scaleX(1)} 50%{transform:scaleX(0)} 100%{transform:scaleX(1)} }
+    .memory-stats { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text2); }
+    .memory-stats span { font-weight: 700; color: var(--text); }
+    .mem-restart { display: block; margin: 1rem auto 0; padding: 0.6rem 1.5rem; background: var(--purple); color: #fff; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.875rem; }
+
+    /* MATH GAME */
+    .math-timer-bar { height: 6px; background: var(--surface2); border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
+    .math-timer-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--yellow)); border-radius: 3px; transition: width 1s linear, background 1s; }
+    .math-question { font-size: 2.5rem; font-weight: 800; text-align: center; margin: 1.5rem 0; letter-spacing: -0.02em; }
+    .math-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .math-opt {
+      padding: 1rem; background: var(--surface2); border: 2px solid var(--border);
+      border-radius: 12px; font-family: var(--font); font-size: 1.1rem; font-weight: 700;
+      color: var(--text); cursor: pointer; transition: all 0.2s;
+    }
+    .math-opt:hover { background: var(--surface); border-color: var(--yellow); }
+    .math-opt.correct { background: #0f2a1f; border-color: var(--green); color: #34d399; }
+    .math-opt.wrong { background: #2a0f0f; border-color: #ef4444; color: #f87171; }
+    .math-score-row { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text2); }
+    .math-score-row span { font-weight: 700; color: var(--text); }
+    .math-result { text-align: center; padding: 2rem; }
+    .math-result-num { font-size: 4rem; font-weight: 800; }
+    .math-result-label { color: var(--text2); margin-top: 0.5rem; margin-bottom: 1.5rem; }
+    .math-restart { padding: 0.7rem 2rem; background: var(--yellow); color: #111; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+
+    /* COLOR GAME */
+    .color-rgb { font-size: 1.8rem; font-weight: 800; text-align: center; margin: 0.5rem 0 1.5rem; font-family: monospace; letter-spacing: 0.05em; }
+    .color-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .color-opt { height: 90px; border-radius: 14px; border: 3px solid transparent; cursor: pointer; transition: all 0.25s; }
+    .color-opt:hover { transform: scale(1.05); }
+    .color-opt.correct { border-color: var(--green); box-shadow: 0 0 20px rgba(16,185,129,0.5); }
+    .color-opt.wrong { border-color: #ef4444; box-shadow: 0 0 20px rgba(239,68,68,0.3); opacity: 0.5; }
+    .color-stats { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text2); }
+    .color-stats span { font-weight: 700; color: var(--text); }
+    .color-result { text-align: center; padding: 1.5rem; }
+    .color-restart { padding: 0.7rem 2rem; background: var(--pink); color: #fff; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+
+    /* WORDLE GAME */
+    .wordle-grid { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; margin: 0.75rem 0; }
+    .wordle-row { display: flex; gap: 0.5rem; }
+    .wordle-cell {
+      width: 52px; height: 52px; border: 2px solid var(--border); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 800; text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .wordle-cell.filled { border-color: var(--text3); }
+    .wordle-cell.correct { background: #0f2a1f; border-color: var(--green); color: #34d399; }
+    .wordle-cell.present { background: #2a1f0a; border-color: var(--yellow); color: #fcd34d; }
+    .wordle-cell.absent { background: var(--surface2); border-color: var(--surface2); color: var(--text3); }
+    .wordle-keyboard { display: flex; flex-direction: column; gap: 0.4rem; align-items: center; margin-top: 1rem; }
+    .wordle-kb-row { display: flex; gap: 0.3rem; }
+    .wordle-key {
+      min-width: 32px; height: 40px; padding: 0 0.4rem; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-family: var(--font); font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+    }
+    .wordle-key:hover { background: var(--surface); }
+    .wordle-key.wide { min-width: 52px; font-size: 0.7rem; }
+    .wordle-key.k-correct { background: #0f2a1f; border-color: var(--green); color: #34d399; }
+    .wordle-key.k-present { background: #2a1f0a; border-color: var(--yellow); color: #fcd34d; }
+    .wordle-key.k-absent { background: #0d0d15; border-color: #1a1a2a; color: var(--text3); }
+    .wordle-msg { text-align: center; font-size: 0.9rem; color: var(--text2); min-height: 1.5rem; margin: 0.5rem 0; font-weight: 600; }
+    .wordle-restart { display: block; margin: 0.5rem auto 0; padding: 0.6rem 1.5rem; background: var(--cyan); color: #fff; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.875rem; }
+
+    /* FOOTER */
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+    .footer-brand { font-size: 1.1rem; font-weight: 800; background: linear-gradient(135deg, var(--purple2), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .footer-copy { font-size: 0.8rem; color: var(--text3); }
+
+    @media (max-width: 600px) {
+      .games-grid { grid-template-columns: 1fr; }
+      .math-options { grid-template-columns: 1fr 1fr; }
+      #snakeCanvas { max-width: 300px; max-height: 300px; }
+      .wordle-cell { width: 44px; height: 44px; font-size: 1.2rem; }
+      .wordle-key { min-width: 28px; height: 36px; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://dogusipeksac.github.io" class="back-link">← dogusipeksac.github.io</a>
+    <div>
+      <div class="nav-brand">🎮 MiniPlay</div>
+    </div>
+    <div class="nav-slogan">Oyna, Eğlen, Kazan</div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div>
+      <h1 class="hero-title"><span>MiniPlay</span></h1>
+      <p class="hero-sub">Oyna · Eğlen · Kazan</p>
+      <p class="hero-desc">5 farklı mini oyun · Pure JS · Sıfır yükleme</p>
+    </div>
+  </section>
+
+  <!-- GAMES -->
+  <section id="games">
+    <div class="container">
+      <div class="games-grid">
+        <!-- SNAKE -->
+        <div class="game-card c-snake" onclick="openModal('snake')">
+          <span class="game-emoji">🐍</span>
+          <div class="game-name">Snake</div>
+          <div class="game-desc">Klasik yılan oyunu! Yiyecekleri ye, büyü ve duvarlara çarpma.</div>
+          <div class="game-tags">
+            <span class="game-tag tag-g">WASD / Ok Tuşları</span>
+            <span class="game-tag tag-g">Skor Sayacı</span>
+          </div>
+          <button class="play-btn">▶ Oyna</button>
+        </div>
+        <!-- MEMORY -->
+        <div class="game-card c-memory" onclick="openModal('memory')">
+          <span class="game-emoji">🃏</span>
+          <div class="game-name">Hafıza Kartları</div>
+          <div class="game-desc">4×4 kart gridi. Eşleşen kartları bul, en az hamlede tamamla!</div>
+          <div class="game-tags">
+            <span class="game-tag tag-p">16 Kart</span>
+            <span class="game-tag tag-p">Hamle Sayacı</span>
+          </div>
+          <button class="play-btn">▶ Oyna</button>
+        </div>
+        <!-- MATH -->
+        <div class="game-card c-math" onclick="openModal('math')">
+          <span class="game-emoji">🧮</span>
+          <div class="game-name">Hızlı Matematik</div>
+          <div class="game-desc">60 saniyede kaç soruyu doğru cevaplayabilirsin? 4 şıklı matematik yarışı!</div>
+          <div class="game-tags">
+            <span class="game-tag tag-y">60 Saniye</span>
+            <span class="game-tag tag-y">4 Şık</span>
+          </div>
+          <button class="play-btn">▶ Oyna</button>
+        </div>
+        <!-- COLOR -->
+        <div class="game-card c-color" onclick="openModal('color')">
+          <span class="game-emoji">🎨</span>
+          <div class="game-name">Renk Tahmin</div>
+          <div class="game-desc">RGB değerini görüyorsun, 4 renkten doğruyu seç. 10 round!</div>
+          <div class="game-tags">
+            <span class="game-tag tag-pk">RGB Kodu</span>
+            <span class="game-tag tag-pk">10 Round</span>
+          </div>
+          <button class="play-btn">▶ Oyna</button>
+        </div>
+        <!-- WORD -->
+        <div class="game-card c-word" onclick="openModal('word')">
+          <span class="game-emoji">📝</span>
+          <div class="game-name">Kelime Bul</div>
+          <div class="game-desc">5 harfli Türkçe kelimeyi 5 denemede bul. Wordle tarzı bulmaca!</div>
+          <div class="game-tags">
+            <span class="game-tag tag-c">5 Harf</span>
+            <span class="game-tag tag-c">5 Deneme</span>
+          </div>
+          <button class="play-btn">▶ Oyna</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-score" id="modalScore"></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">🎮 MiniPlay</div>
+    <div class="footer-copy">© 2026 &nbsp;|&nbsp; <a href="https://dogusipeksac.github.io" style="color:var(--text3);text-decoration:none">Demo by dogusipeksac</a></div>
+  </footer>
+
+<script>
+/* ============================
+   MODAL SYSTEM
+   ============================ */
+let currentGame = null;
+
+function openModal(game) {
+  currentGame = game;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  initGame(game);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  stopCurrentGame();
+  currentGame = null;
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function stopCurrentGame() {
+  if (snakeInterval) { clearInterval(snakeInterval); snakeInterval = null; }
+  if (mathInterval) { clearInterval(mathInterval); mathInterval = null; }
+}
+
+function initGame(game) {
+  const titles = { snake:'🐍 Snake', memory:'🃏 Hafıza Kartları', math:'🧮 Hızlı Matematik', color:'🎨 Renk Tahmin', word:'📝 Kelime Bul' };
+  document.getElementById('modalTitle').textContent = titles[game];
+  document.getElementById('modalScore').textContent = '';
+
+  const body = document.getElementById('modalBody');
+  if (game === 'snake') initSnake(body);
+  else if (game === 'memory') initMemory(body);
+  else if (game === 'math') initMath(body);
+  else if (game === 'color') initColor(body);
+  else if (game === 'word') initWord(body);
+}
+
+
+/* ============================
+   SNAKE
+   ============================ */
+let snakeInterval = null;
+let snakeGameState = null;
+const COLS = 20, ROWS = 20, CELL = 18;
+
+function initSnake(container) {
+  container.innerHTML = `
+    <canvas id="snakeCanvas" width="${COLS*CELL}" height="${ROWS*CELL}"></canvas>
+    <div class="snake-controls">
+      <button class="snake-btn" onclick="startSnake()">▶ Başlat</button>
+      <button class="snake-btn" style="background:#4b5563" onclick="pauseSnake()">⏸ Duraklat</button>
+    </div>
+    <p class="snake-tip">WASD veya ok tuşları ile oyna</p>
+  `;
+  snakeGameState = null;
+  drawSnakeEmpty();
+}
+
+function drawSnakeEmpty() {
+  const canvas = document.getElementById('snakeCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0a150a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#34d399';
+  ctx.font = 'bold 16px Plus Jakarta Sans';
+  ctx.textAlign = 'center';
+  ctx.fillText('Başlat butonuna bas!', canvas.width/2, canvas.height/2);
+}
+
+function startSnake() {
+  if (snakeInterval) clearInterval(snakeInterval);
+  const state = {
+    snake: [{x:10,y:10},{x:9,y:10},{x:8,y:10}],
+    dir: {x:1,y:0},
+    next: {x:1,y:0},
+    food: randomFood([{x:10,y:10}]),
+    score: 0,
+    running: true,
+    paused: false
+  };
+  snakeGameState = state;
+  document.getElementById('modalScore').textContent = 'Skor: 0';
+
+  document.onkeydown = (e) => {
+    if (!snakeGameState || !snakeGameState.running) return;
+    const d = snakeGameState.next;
+    if (e.key==='ArrowUp'||e.key==='w') { if(d.y!==1) snakeGameState.next={x:0,y:-1}; }
+    else if (e.key==='ArrowDown'||e.key==='s') { if(d.y!==-1) snakeGameState.next={x:0,y:1}; }
+    else if (e.key==='ArrowLeft'||e.key==='a') { if(d.x!==1) snakeGameState.next={x:-1,y:0}; }
+    else if (e.key==='ArrowRight'||e.key==='d') { if(d.x!==-1) snakeGameState.next={x:1,y:0}; }
+    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+  };
+
+  snakeInterval = setInterval(() => tickSnake(state), 140);
+}
+
+function pauseSnake() {
+  if (!snakeGameState) return;
+  if (snakeGameState.paused) {
+    snakeGameState.paused = false;
+    snakeInterval = setInterval(() => tickSnake(snakeGameState), 140);
+  } else {
+    snakeGameState.paused = true;
+    clearInterval(snakeInterval);
+  }
+}
+
+function randomFood(snake) {
+  let pos;
+  do { pos = {x:Math.floor(Math.random()*COLS), y:Math.floor(Math.random()*ROWS)}; }
+  while (snake.some(s => s.x===pos.x && s.y===pos.y));
+  return pos;
+}
+
+function tickSnake(state) {
+  if (!state.running || state.paused) return;
+  const canvas = document.getElementById('snakeCanvas');
+  if (!canvas) { clearInterval(snakeInterval); return; }
+  const ctx = canvas.getContext('2d');
+
+  state.dir = state.next;
+  const head = {x: state.snake[0].x + state.dir.x, y: state.snake[0].y + state.dir.y};
+
+  if (head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||state.snake.some(s=>s.x===head.x&&s.y===head.y)) {
+    state.running = false;
+    clearInterval(snakeInterval);
+    ctx.fillStyle='rgba(0,0,0,0.7)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#ef4444'; ctx.font='bold 20px Plus Jakarta Sans'; ctx.textAlign='center';
+    ctx.fillText('Oyun Bitti!', canvas.width/2, canvas.height/2 - 15);
+    ctx.fillStyle='#34d399'; ctx.font='bold 14px Plus Jakarta Sans';
+    ctx.fillText('Skor: '+state.score, canvas.width/2, canvas.height/2+15);
+    return;
+  }
+
+  state.snake.unshift(head);
+  if (head.x===state.food.x && head.y===state.food.y) {
+    state.score++;
+    document.getElementById('modalScore').textContent = 'Skor: ' + state.score;
+    state.food = randomFood(state.snake);
+  } else {
+    state.snake.pop();
+  }
+
+  ctx.fillStyle='#0a150a'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  // Grid
+  ctx.strokeStyle='#0d1a0d'; ctx.lineWidth=0.5;
+  for(let i=0;i<=COLS;i++){ctx.beginPath();ctx.moveTo(i*CELL,0);ctx.lineTo(i*CELL,canvas.height);ctx.stroke();}
+  for(let j=0;j<=ROWS;j++){ctx.beginPath();ctx.moveTo(0,j*CELL);ctx.lineTo(canvas.width,j*CELL);ctx.stroke();}
+  // Snake
+  state.snake.forEach((s,i) => {
+    const g = ctx.createLinearGradient(s.x*CELL,s.y*CELL,(s.x+1)*CELL,(s.y+1)*CELL);
+    g.addColorStop(0, i===0?'#34d399':'#059669');
+    g.addColorStop(1, i===0?'#10b981':'#047857');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.roundRect(s.x*CELL+1, s.y*CELL+1, CELL-2, CELL-2, 4);
+    ctx.fill();
+  });
+  // Eyes on head
+  const hx = state.snake[0].x*CELL, hy = state.snake[0].y*CELL;
+  ctx.fillStyle='#fff';
+  ctx.beginPath(); ctx.arc(hx+CELL*0.35,hy+CELL*0.35,2.5,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(hx+CELL*0.65,hy+CELL*0.35,2.5,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#000';
+  ctx.beginPath(); ctx.arc(hx+CELL*0.35+state.dir.x,hy+CELL*0.35+state.dir.y,1.2,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(hx+CELL*0.65+state.dir.x,hy+CELL*0.35+state.dir.y,1.2,0,Math.PI*2); ctx.fill();
+  // Food
+  ctx.fillStyle='#f87171';
+  ctx.shadowColor='#ef4444'; ctx.shadowBlur=10;
+  ctx.beginPath();
+  ctx.arc(state.food.x*CELL+CELL/2, state.food.y*CELL+CELL/2, CELL/2.5, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur=0;
+}
+
+
+/* ============================
+   MEMORY CARDS
+   ============================ */
+const memEmojis = ['🎮','🎯','🏆','⭐','🎪','🎨','🎭','🎬'];
+
+function initMemory(container) {
+  let moves = 0, matched = 0, flipped = [], blocking = false;
+  const cards = shuffle([...memEmojis,...memEmojis]).map((e,i)=>({id:i,emoji:e,flipped:false,matched:false}));
+
+  function render() {
+    container.innerHTML = `
+      <div class="memory-stats">Hamle: <span id="memMoves">${moves}</span> &nbsp; Eşleşme: <span id="memMatched">${matched}/8</span></div>
+      <div class="memory-grid" id="memGrid">
+        ${cards.map(c=>`
+          <div class="mem-card ${c.flipped?'flipped':''} ${c.matched?'matched':''}" data-id="${c.id}">
+            ${(c.flipped||c.matched)?c.emoji:''}
+          </div>`).join('')}
+      </div>
+      <button class="mem-restart" onclick="initMemory(document.getElementById('modalBody'))">↺ Yeniden Başla</button>
+    `;
+    document.querySelectorAll('.mem-card').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = parseInt(el.dataset.id);
+        const card = cards[id];
+        if (blocking || card.flipped || card.matched) return;
+        card.flipped = true;
+        flipped.push(card);
+        el.classList.add('flipped','flip-anim');
+        el.textContent = card.emoji;
+        if (flipped.length === 2) {
+          moves++;
+          document.getElementById('memMoves').textContent = moves;
+          blocking = true;
+          if (flipped[0].emoji === flipped[1].emoji) {
+            flipped[0].matched = flipped[1].matched = true;
+            matched++;
+            document.getElementById('memMatched').textContent = matched+'/8';
+            flipped = []; blocking = false;
+            if (matched === 8) {
+              setTimeout(()=>{ container.innerHTML=`<div style="text-align:center;padding:2rem"><div style="font-size:4rem">🏆</div><div style="font-size:1.5rem;font-weight:800;margin:0.75rem 0">Tebrikler!</div><div style="color:var(--text2)">${moves} hamlede tamamladın</div><button class="mem-restart" style="margin-top:1rem" onclick="initMemory(document.getElementById('modalBody'))">↺ Tekrar Oyna</button></div>`; }, 300);
+            }
+          } else {
+            setTimeout(() => {
+              flipped[0].flipped = flipped[1].flipped = false;
+              flipped = []; blocking = false;
+              document.querySelectorAll('.mem-card').forEach(el2 => {
+                const c2 = cards[parseInt(el2.dataset.id)];
+                if (!c2.matched && !c2.flipped) { el2.classList.remove('flipped'); el2.textContent=''; }
+              });
+            }, 900);
+          }
+        }
+      });
+    });
+  }
+  render();
+}
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+
+
+/* ============================
+   MATH GAME
+   ============================ */
+let mathInterval = null;
+
+function initMath(container) {
+  let score=0, timeLeft=60, answered=false, q=null;
+
+  function genQuestion() {
+    const ops = ['+','-','×'];
+    const op = ops[Math.floor(Math.random()*ops.length)];
+    let a,b,ans;
+    if(op==='+'){a=Math.floor(Math.random()*50)+1;b=Math.floor(Math.random()*50)+1;ans=a+b;}
+    else if(op==='-'){a=Math.floor(Math.random()*50)+20;b=Math.floor(Math.random()*a)+1;ans=a-b;}
+    else{a=Math.floor(Math.random()*12)+1;b=Math.floor(Math.random()*12)+1;ans=a*b;}
+    const wrongs = new Set([ans]);
+    while(wrongs.size<4){
+      const w=ans+Math.floor(Math.random()*20)-10;
+      if(w!==ans&&w>=0) wrongs.add(w);
+    }
+    return {text:`${a} ${op} ${b} = ?`, ans, opts: shuffle([...wrongs])};
+  }
+
+  function renderMath(showResult=false) {
+    if(showResult) {
+      container.innerHTML=`<div class="math-result"><div class="math-result-num" style="color:${score>=7?'#34d399':score>=4?'#fcd34d':'#f87171'}">${score}</div><div class="math-result-label">doğru cevap / 60 saniye</div><button class="math-restart" onclick="initMath(document.getElementById('modalBody'))">↺ Tekrar Oyna</button></div>`;
+      return;
+    }
+    q = genQuestion();
+    answered = false;
+    container.innerHTML = `
+      <div class="math-score-row">Skor: <span id="mathScore">${score}</span> &nbsp; Kalan: <span id="mathTime">${timeLeft}s</span></div>
+      <div class="math-timer-bar"><div class="math-timer-fill" id="mathBar" style="width:${(timeLeft/60)*100}%"></div></div>
+      <div class="math-question">${q.text}</div>
+      <div class="math-options">
+        ${q.opts.map(o=>`<button class="math-opt" onclick="answerMath(this,${o},${q.ans})">${o}</button>`).join('')}
+      </div>
+    `;
+  }
+
+  renderMath();
+  if(mathInterval) clearInterval(mathInterval);
+  mathInterval = setInterval(()=>{
+    timeLeft--;
+    const timeEl=document.getElementById('mathTime');
+    const barEl=document.getElementById('mathBar');
+    if(timeEl) timeEl.textContent=timeLeft+'s';
+    if(barEl) { barEl.style.width=(timeLeft/60)*100+'%'; if(timeLeft<15) barEl.style.background='#ef4444'; else if(timeLeft<30) barEl.style.background='#f59e0b'; }
+    if(timeLeft<=0){clearInterval(mathInterval);mathInterval=null;renderMath(true);}
+  },1000);
+
+  window.answerMath = (btn, chosen, correct) => {
+    if(answered) return;
+    answered = true;
+    if(chosen===correct){btn.classList.add('correct');score++;}
+    else{btn.classList.add('wrong');document.querySelectorAll('.math-opt').forEach(b=>{if(parseInt(b.textContent)===correct)b.classList.add('correct');});}
+    setTimeout(()=>{ if(document.getElementById('mathScore')) renderMath(); },700);
+  };
+}
+
+
+/* ============================
+   COLOR GAME
+   ============================ */
+function initColor(container) {
+  let round=0, score=0, totalRounds=10, answered=false;
+
+  function genColor() {
+    return {r:Math.floor(Math.random()*256),g:Math.floor(Math.random()*256),b:Math.floor(Math.random()*256)};
+  }
+
+  function renderColor(showResult=false) {
+    if(showResult||round>=totalRounds){
+      container.innerHTML=`<div class="color-result"><div style="font-size:4rem">🎨</div><div style="font-size:2rem;font-weight:800;margin:0.5rem 0">${score}/${totalRounds}</div><div style="color:var(--text2);margin-bottom:1.5rem">${score>=8?'Renk ustasısın!':score>=5?'Fena değil!':'Biraz daha pratik yap!'}</div><button class="color-restart" onclick="initColor(document.getElementById('modalBody'))">↺ Tekrar Oyna</button></div>`;
+      return;
+    }
+    answered=false;
+    const correct=genColor();
+    const colors=[correct];
+    while(colors.length<4){
+      const c=genColor();
+      const diff=Math.abs(c.r-correct.r)+Math.abs(c.g-correct.g)+Math.abs(c.b-correct.b);
+      if(diff>80) colors.push(c);
+    }
+    const opts=shuffle([...colors]);
+    round++;
+
+    container.innerHTML=`
+      <div class="color-stats">Round: <span>${round}/${totalRounds}</span> &nbsp; Skor: <span>${score}</span></div>
+      <div class="color-rgb">rgb(${correct.r}, ${correct.g}, ${correct.b})</div>
+      <div class="color-options">
+        ${opts.map(c=>`<div class="color-opt" style="background:rgb(${c.r},${c.g},${c.b})" onclick="answerColor(this,${c.r===correct.r&&c.g===correct.g&&c.b===correct.b})"></div>`).join('')}
+      </div>
+    `;
+  }
+
+  renderColor();
+
+  window.answerColor = (el, isCorrect) => {
+    if(answered) return;
+    answered=true;
+    if(isCorrect){el.classList.add('correct');score++;}
+    else{el.classList.add('wrong');document.querySelectorAll('.color-opt').forEach((o,i)=>{if(i===0){}});}
+    setTimeout(()=>renderColor(),900);
+  };
+}
+
+
+/* ============================
+   WORDLE
+   ============================ */
+const WORDS = ['ARABA','BEBEK','CEVIZ','DOLAP','ELMAS','FENER','GÜNEŞ','HASTA','İNEK','KADIN','KALEM','KAPAK','KURAL','LIMON','MEYVE','NEHIR','OKUMA','PAKET','RENGI','SIMIT','TAKIM','UZMAN','YAZAR','ZAMAN','BULUT','ÇIÇEK','DÜNYA','FIRÇA','KOMŞU','MUTLU'];
+
+function initWord(container) {
+  const word = WORDS[Math.floor(Math.random()*WORDS.length)];
+  let guesses = [], current = '', gameOver = false, won = false;
+  const maxAttempts = 5;
+
+  const keyRows = [
+    ['E','R','T','Y','U','I','O','P','Ğ','Ü'],
+    ['A','S','D','F','G','H','J','K','L','Ş','İ'],
+    ['ENTER','Z','C','V','B','N','M','Ö','Ç','⌫']
+  ];
+
+  function render() {
+    const grid = Array(maxAttempts).fill(null).map((_,ri)=>{
+      const guess = guesses[ri];
+      const cells = Array(5).fill(null).map((_,ci)=>{
+        let val='', cls='';
+        if(guess){ val=guess.result[ci].letter; cls=guess.result[ci].type; }
+        else if(ri===guesses.length&&ci<current.length){ val=current[ci]; cls='filled'; }
+        return `<div class="wordle-cell ${cls}">${val}</div>`;
+      }).join('');
+      return `<div class="wordle-row">${cells}</div>`;
+    }).join('');
+
+    const kbState = {};
+    guesses.forEach(g=>g.result.forEach(r=>{
+      const prev=kbState[r.letter];
+      if(!prev||(prev==='present'&&r.type==='correct')||prev==='absent') kbState[r.letter]=r.type;
+    }));
+
+    const kb = keyRows.map(row=>`<div class="wordle-kb-row">${row.map(k=>{
+      const cls=kbState[k]?`k-${kbState[k]}`:'';
+      const wide=k==='ENTER'||k==='⌫'?'wide':'';
+      return `<button class="wordle-key ${wide} ${cls}" onclick="wordKey('${k}')">${k}</button>`;
+    }).join('')}</div>`).join('');
+
+    let msg='';
+    if(gameOver) msg=won?`🎉 "${word}" — Tebrikler!`:`😢 Cevap: ${word}`;
+
+    container.innerHTML=`
+      <div class="wordle-grid">${grid}</div>
+      <div class="wordle-msg">${msg}</div>
+      <div class="wordle-keyboard">${kb}</div>
+      ${gameOver?`<button class="wordle-restart" onclick="initWord(document.getElementById('modalBody'))">↺ Yeni Kelime</button>`:''}
+    `;
+    document.getElementById('modalScore').textContent = `${guesses.length}/${maxAttempts}`;
+  }
+
+  function check(guess, word) {
+    const result = Array(5).fill(null).map((_,i)=>({letter:guess[i],type:'absent'}));
+    const wordLeft = word.split('');
+    // Mark correct
+    for(let i=0;i<5;i++){if(guess[i]===word[i]){result[i].type='correct';wordLeft[i]=null;}}
+    // Mark present
+    for(let i=0;i<5;i++){if(result[i].type!=='correct'){const wi=wordLeft.indexOf(guess[i]);if(wi!==-1){result[i].type='present';wordLeft[wi]=null;}}}
+    return result;
+  }
+
+  window.wordKey = (k) => {
+    if(gameOver) return;
+    if(k==='⌫'){ current=current.slice(0,-1); render(); return; }
+    if(k==='ENTER'){
+      if(current.length!==5){ return; }
+      const result=check(current,word);
+      guesses.push({guess:current,result});
+      if(current===word){won=true;gameOver=true;}
+      else if(guesses.length>=maxAttempts){gameOver=true;}
+      current='';
+      render();
+      return;
+    }
+    if(current.length<5){ current+=k; render(); }
+  };
+
+  // Physical keyboard
+  document.onkeydown = (e) => {
+    if(!document.getElementById('modalOverlay').classList.contains('open')) return;
+    if(currentGame!=='word') return;
+    if(e.key==='Enter') wordKey('ENTER');
+    else if(e.key==='Backspace') wordKey('⌫');
+    else if(/^[a-zA-ZğĞüÜşŞİıöÖçÇ]$/.test(e.key)) {
+      const map = {'ğ':'Ğ','ü':'Ü','ş':'Ş','ı':'İ','ö':'Ö','ç':'Ç','i':'İ'};
+      const ch = map[e.key]||e.key.toUpperCase();
+      if('AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz'.includes(e.key)) wordKey(ch);
+    }
+  };
+
+  render();
+}
+</script>
+
+</body>
+</html>
