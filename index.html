@@ -171,8 +171,35 @@
     .project-desc { color: var(--text2); font-size: 0.9rem; line-height: 1.6; flex: 1; }
     .project-link-label { display: flex; align-items: center; gap: 0.375rem; color: var(--accent2); font-size: 0.82rem; font-weight: 600; margin-top: auto; }
 
+    /* TOOLS */
+    #tools { background: var(--bg); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .tool-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.75rem; transition: all 0.3s; position: relative; overflow: hidden;
+      text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .tool-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), #34d399);
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .tool-card:hover::before { transform: scaleX(1); }
+    .tool-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.5); box-shadow: 0 16px 48px rgba(16,185,129,0.12); }
+    .tool-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+    .tool-emoji { font-size: 2rem; line-height: 1; }
+    .tool-badge {
+      padding: 0.2rem 0.6rem; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 100px; font-size: 0.68rem; font-weight: 700; color: var(--green);
+      text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0;
+    }
+    .tool-name { font-size: 1.05rem; font-weight: 700; }
+    .tool-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.6; flex: 1; }
+    .tool-link-label { display: flex; align-items: center; gap: 0.375rem; color: var(--green); font-size: 0.82rem; font-weight: 600; margin-top: auto; }
+    .tool-url { color: var(--text3); font-size: 0.75rem; font-family: ui-monospace, monospace; margin-top: 0.25rem; }
+
     /* APPS */
-    #apps { background: var(--bg); }
+    #apps { background: var(--bg2); }
     .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
     .app-card {
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
@@ -197,7 +224,7 @@
     .app-btn.ios:hover { background: #242435; border-color: var(--accent); }
 
     /* YOUTUBE */
-    #youtube { background: var(--bg2); }
+    #youtube { background: var(--bg); }
     .yt-card {
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 3rem; display: flex; gap: 3rem; align-items: center; margin-top: 3rem; transition: all 0.3s;
@@ -256,6 +283,7 @@
       .skills-grid { grid-template-columns: repeat(2, 1fr); }
       section { padding: 4rem 1.25rem; }
       .projects-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -267,6 +295,7 @@
       <li><a href="#about">Hakkımda</a></li>
       <li><a href="#skills">Yetenekler</a></li>
       <li><a href="#projects">Projeler</a></li>
+      <li><a href="#tools">Araçlar</a></li>
       <li><a href="#apps">Uygulamalar</a></li>
       <li><a href="#youtube">YouTube</a></li>
       <li><a href="#contact">İletişim</a></li>
@@ -280,6 +309,7 @@
     <a href="#about" onclick="closeMobile()">Hakkımda</a>
     <a href="#skills" onclick="closeMobile()">Yetenekler</a>
     <a href="#projects" onclick="closeMobile()">Projeler</a>
+    <a href="#tools" onclick="closeMobile()">Araçlar</a>
     <a href="#apps" onclick="closeMobile()">Uygulamalar</a>
     <a href="#youtube" onclick="closeMobile()">YouTube</a>
     <a href="#contact" onclick="closeMobile()">İletişim</a>
@@ -386,6 +416,78 @@
           <div class="project-name">MiniPlay Games</div>
           <div class="project-desc">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</div>
           <div class="project-link-label">Oyna →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="container">
+      <span class="section-label reveal">Ücretsiz</span>
+      <h2 class="section-title reveal">Faydalanılabilecek Araçlar</h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-sub reveal">Doğrudan kullanabileceğiniz web araçları. Tarayıcıda açılır, kayıt gerektirmez.</p>
+      <div class="tools-grid">
+        <a href="/app-logo-generator/" class="tool-card reveal">
+          <div class="tool-card-head">
+            <span class="tool-emoji">✨</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">IconForge — App Icon Builder</div>
+          <div class="tool-desc">Play Store ve App Store görselleri, adaptive icon ve mağaza ekran görüntüleri için profesyonel ikon aracı.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/app-logo-generator</div>
+        </a>
+        <a href="/sinavkagidi/" class="tool-card reveal reveal-d1">
+          <div class="tool-card-head">
+            <span class="tool-emoji">📝</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">Sınav Kağıdı</div>
+          <div class="tool-desc">Soruları yazın; numaralı sınav kağıdını PDF veya Word olarak indirin.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/sinavkagidi</div>
+        </a>
+        <a href="/textdiff/" class="tool-card reveal reveal-d2">
+          <div class="tool-card-head">
+            <span class="tool-emoji">🔍</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">Text Diff</div>
+          <div class="tool-desc">İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/textdiff</div>
+        </a>
+        <a href="/logcleaner/" class="tool-card reveal">
+          <div class="tool-card-head">
+            <span class="tool-emoji">🧹</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">Logcleaner</div>
+          <div class="tool-desc">Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/logcleaner</div>
+        </a>
+        <a href="/txtconverter/" class="tool-card reveal reveal-d1">
+          <div class="tool-card-head">
+            <span class="tool-emoji">📄</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">TXT Converter</div>
+          <div class="tool-desc">Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/txtconverter</div>
+        </a>
+        <a href="/template/" class="tool-card reveal">
+          <div class="tool-card-head">
+            <span class="tool-emoji">🃏</span>
+            <span class="tool-badge">Canlı</span>
+          </div>
+          <div class="tool-name">YA DA Şablonu</div>
+          <div class="tool-desc">İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.</div>
+          <div class="tool-link-label">Aracı Aç →</div>
+          <div class="tool-url">/template</div>
         </a>
       </div>
     </div>
