@@ -173,22 +173,28 @@
 
     /* APPS */
     #apps { background: var(--bg); }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
     .app-card {
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start;
-      transition: all 0.3s; max-width: 520px; margin-top: 3rem;
+      transition: all 0.3s;
     }
     .app-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
     .app-icon { width: 64px; height: 64px; border-radius: 16px; flex-shrink: 0; background: linear-gradient(135deg, #7c3aed, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+    .app-icon.plaka { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+    .app-icon.moment { background: linear-gradient(135deg, #f59e0b, #ef4444); }
     .app-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
     .app-platform { font-size: 0.75rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
     .app-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; }
+    .app-btns { display: flex; flex-wrap: wrap; gap: 0.625rem; }
     .app-btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.6rem 1.25rem; background: var(--accent); color: #fff;
       border-radius: 8px; text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: all 0.2s;
     }
     .app-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+    .app-btn.ios { background: #1c1c28; border: 1px solid var(--border); }
+    .app-btn.ios:hover { background: #242435; border-color: var(--accent); }
 
     /* YOUTUBE */
     #youtube { background: var(--bg2); }
@@ -392,16 +398,56 @@
       <h2 class="section-title reveal">Uygulamalarım</h2>
       <div class="section-divider reveal"></div>
       <p class="section-sub reveal">Kendi geliştirdiğim ve yayınladığım uygulamalar.</p>
-      <div class="app-card reveal">
-        <div class="app-icon">📔</div>
-        <div>
-          <div class="app-name">MyDiary</div>
-          <div class="app-platform">Android</div>
-          <div class="app-desc">Kişisel günlük uygulaması. Jetpack Compose ile geliştirildi. Günlük notlar, fotoğraf ekleme ve güvenli kilit özelliği.</div>
-          <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.mydiary" target="_blank" class="app-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
-            Play Store'da İndir
-          </a>
+      <div class="apps-grid">
+        <div class="app-card reveal">
+          <div class="app-icon">📔</div>
+          <div>
+            <div class="app-name">My Diary</div>
+            <div class="app-platform">Android</div>
+            <div class="app-desc">Kişisel günlük uygulaması. Jetpack Compose ile geliştirildi. Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</div>
+            <div class="app-btns">
+              <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
+                Android
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="app-card reveal reveal-d1">
+          <div class="app-icon plaka">🚗</div>
+          <div>
+            <div class="app-name">App Plaka Kontrol</div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc">Yapay zeka destekli plaka tanıma uygulaması. Türkiye plakalarını saniyeler içinde okur, geçmiş kayıtlarını saklar.</div>
+            <div class="app-btns">
+              <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
+                Android
+              </a>
+              <a href="https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433" target="_blank" rel="noopener noreferrer" class="app-btn ios">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                iOS
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="app-card reveal reveal-d2">
+          <div class="app-icon moment">📸</div>
+          <div>
+            <div class="app-name">Anı Yakala / Moment Capture</div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</div>
+            <div class="app-btns">
+              <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
+                Android
+              </a>
+              <a href="https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335" target="_blank" rel="noopener noreferrer" class="app-btn ios">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                iOS
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
