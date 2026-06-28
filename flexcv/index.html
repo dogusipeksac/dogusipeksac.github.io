@@ -1,0 +1,253 @@
+<!-- dogusipeksac - FlexCV Builder · Drag & Drop Resume Designer -->
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexCV Builder — Sürükle-Bırak CV Tasarım Stüdyosu</title>
+  <meta name="description" content="FlexCV Builder — tarayıcıda çalışan sürükle-bırak CV/özgeçmiş tasarım aracı. 10 şablon, serbest yerleşim, PDF/PNG/JPEG çıktı. Kayıt gerektirmez." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800;900&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Mobile gate -->
+  <div class="mobile-gate" id="mobileGate">
+    <div class="mobile-gate-card">
+      <div class="mg-logo">📐</div>
+      <h1>FlexCV Builder</h1>
+      <p>Resume Builder is available on desktop devices.</p>
+      <p class="mg-sub">Lütfen tasarım stüdyosunu masaüstü bir cihazda (≥ 1024px) açın.</p>
+      <a href="/" class="mg-back">← Ana sayfaya dön</a>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div class="app" id="app">
+
+    <!-- ===== TOP BAR ===== -->
+    <header class="topbar">
+      <div class="tb-left">
+        <a href="/" class="tb-brand">
+          <span class="tb-logo">📐</span>
+          <span class="tb-brand-txt">FlexCV<small>Builder</small></span>
+        </a>
+        <div class="tb-file">
+          <input id="projectName" class="tb-name-input" value="Adsız CV" spellcheck="false" />
+          <span class="tb-saved" id="savedState">Kaydedildi</span>
+        </div>
+      </div>
+
+      <div class="tb-center">
+        <button class="tb-btn" id="undoBtn" title="Geri Al (Ctrl+Z)">↶</button>
+        <button class="tb-btn" id="redoBtn" title="İleri Al (Ctrl+Y)">↷</button>
+        <span class="tb-sep"></span>
+        <button class="tb-btn" id="zoomOut" title="Uzaklaş">−</button>
+        <select class="tb-zoom" id="zoomSelect" title="Yakınlaştırma">
+          <option value="0.5">50%</option>
+          <option value="0.75">75%</option>
+          <option value="1" selected>100%</option>
+          <option value="1.25">125%</option>
+          <option value="1.5">150%</option>
+        </select>
+        <button class="tb-btn" id="zoomIn" title="Yakınlaş">+</button>
+        <span class="tb-sep"></span>
+        <button class="tb-btn toggle" id="gridToggle" title="Izgara (G)">▦</button>
+        <button class="tb-btn toggle active" id="snapToggle" title="Hizalama (S)">⌖</button>
+        <button class="tb-btn" id="fullscreenBtn" title="Tam Ekran (F)">⛶</button>
+      </div>
+
+      <div class="tb-right">
+        <button class="tb-btn" id="helpBtn" title="Yardım">?</button>
+        <button class="tb-btn" id="shortcutsBtn" title="Kısayollar">⌨</button>
+        <button class="tb-btn" id="themeBtn" title="Tema">🌙</button>
+        <span class="tb-sep"></span>
+        <div class="tb-menu">
+          <button class="tb-btn ghost" id="projectMenuBtn">Proje ▾</button>
+          <div class="tb-dropdown" id="projectMenu">
+            <button data-act="save">💾 Projeyi Kaydet</button>
+            <button data-act="recent">🕘 Son Projeler</button>
+            <button data-act="new">✨ Yeni Proje</button>
+            <div class="dd-sep"></div>
+            <button data-act="exportJson">⬇️ JSON Dışa Aktar</button>
+            <button data-act="importJson">⬆️ JSON İçe Aktar</button>
+          </div>
+        </div>
+        <div class="tb-menu">
+          <button class="tb-btn primary" id="exportMenuBtn">⤓ Dışa Aktar ▾</button>
+          <div class="tb-dropdown right" id="exportMenu">
+            <button data-export="pdf">📄 PDF olarak indir</button>
+            <button data-export="png">🖼️ PNG olarak indir</button>
+            <button data-export="jpeg">🖼️ JPEG olarak indir</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== BODY (3 columns) ===== -->
+    <div class="workspace">
+
+      <!-- LEFT: Component Library -->
+      <aside class="panel left" id="leftPanel">
+        <div class="panel-head">
+          <h2>Bileşenler</h2>
+          <button class="panel-collapse" id="leftCollapse" title="Gizle">⟨</button>
+        </div>
+        <div class="lib-search">
+          <input id="libSearch" placeholder="Bileşen ara…" />
+        </div>
+        <div class="lib-scroll" id="componentLibrary"><!-- filled by JS --></div>
+        <div class="panel-foot">
+          <button class="full-btn" id="openGalleryBtn">🎨 Şablon Galerisi</button>
+        </div>
+      </aside>
+
+      <!-- CENTER: Canvas -->
+      <main class="canvas-wrap" id="canvasWrap">
+        <div class="canvas-scroll" id="canvasScroll">
+          <div class="canvas-stage" id="canvasStage">
+            <div class="page" id="page">
+              <div class="grid-overlay" id="gridOverlay"></div>
+              <div class="guides" id="guides"></div>
+              <div class="elements" id="elements"></div>
+              <div class="marquee" id="marquee"></div>
+            </div>
+          </div>
+        </div>
+        <div class="canvas-statusbar" id="statusBar">
+          <span id="sbInfo">Hazır</span>
+          <span id="sbZoom">100%</span>
+        </div>
+      </main>
+
+      <!-- RIGHT: Properties -->
+      <aside class="panel right" id="rightPanel">
+        <div class="panel-head">
+          <h2 id="propTitle">Özellikler</h2>
+          <button class="panel-collapse" id="rightCollapse" title="Gizle">⟩</button>
+        </div>
+        <div class="prop-scroll" id="propertiesPanel">
+          <div class="prop-empty" id="propEmpty">
+            <div class="pe-icon">🖱️</div>
+            <p>Düzenlemek için tuvalden bir öğe seçin veya soldan bir bileşen sürükleyin.</p>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Floating rich-text toolbar -->
+  <div class="rt-toolbar" id="rtToolbar">
+    <button data-cmd="bold" title="Kalın"><b>B</b></button>
+    <button data-cmd="italic" title="İtalik"><i>I</i></button>
+    <button data-cmd="underline" title="Altı çizili"><u>U</u></button>
+    <span class="rt-sep"></span>
+    <button data-cmd="insertUnorderedList" title="Madde listesi">•</button>
+    <button data-cmd="insertOrderedList" title="Numaralı liste">1.</button>
+    <span class="rt-sep"></span>
+    <button data-cmd="justifyLeft" title="Sola">⌶</button>
+    <button data-cmd="justifyCenter" title="Ortala">≡</button>
+    <button data-cmd="justifyRight" title="Sağa">⌷</button>
+    <span class="rt-sep"></span>
+    <button data-cmd="createLink" title="Bağlantı">🔗</button>
+    <button data-cmd="removeFormat" title="Biçimi temizle">⌫</button>
+  </div>
+
+  <!-- Selection context mini-toolbar -->
+  <div class="el-quickbar" id="elQuickbar">
+    <button data-q="duplicate" title="Çoğalt (Ctrl+D)">⧉</button>
+    <button data-q="front" title="Öne getir">⤒</button>
+    <button data-q="back" title="Arkaya gönder">⤓</button>
+    <button data-q="lock" title="Kilitle">🔓</button>
+    <button data-q="delete" title="Sil (Del)">🗑️</button>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+
+  <!-- Template gallery -->
+  <div class="modal lg" id="galleryModal">
+    <div class="modal-head">
+      <h3>🎨 Şablon Galerisi</h3>
+      <button class="modal-x" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-sub">Bir şablon seçin — tuval anında yeniden oluşturulur. Mevcut tasarımınız değişir.</p>
+      <div class="template-grid" id="templateGrid"></div>
+    </div>
+  </div>
+
+  <!-- Recent projects -->
+  <div class="modal" id="recentModal">
+    <div class="modal-head">
+      <h3>🕘 Son Projeler</h3>
+      <button class="modal-x" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="recent-list" id="recentList"></div>
+    </div>
+  </div>
+
+  <!-- Shortcuts -->
+  <div class="modal" id="shortcutsModal">
+    <div class="modal-head">
+      <h3>⌨ Klavye Kısayolları</h3>
+      <button class="modal-x" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="kbd-grid">
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">Z</span></div><span>Geri al</span>
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">Y</span></div><span>İleri al</span>
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">C</span></div><span>Kopyala</span>
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">V</span></div><span>Yapıştır</span>
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">D</span></div><span>Çoğalt</span>
+        <div><span class="kbd">Del</span></div><span>Sil</span>
+        <div><span class="kbd">←↑↓→</span></div><span>1px taşı (Shift = 10px)</span>
+        <div><span class="kbd">Ctrl</span>+<span class="kbd">A</span></div><span>Tümünü seç</span>
+        <div><span class="kbd">Esc</span></div><span>Seçimi bırak</span>
+        <div><span class="kbd">G</span></div><span>Izgara aç/kapa</span>
+        <div><span class="kbd">S</span></div><span>Hizalama aç/kapa</span>
+        <div><span class="kbd">F</span></div><span>Tam ekran</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help -->
+  <div class="modal" id="helpModal">
+    <div class="modal-head">
+      <h3>❓ Yardım Merkezi</h3>
+      <button class="modal-x" data-close>✕</button>
+    </div>
+    <div class="modal-body help-body">
+      <h4>Başlarken</h4>
+      <ol>
+        <li>Soldaki <b>Bileşenler</b> panelinden bir öğeyi tuvale sürükleyin.</li>
+        <li>Öğeyi tıklayıp <b>taşıyın</b>, köşelerden <b>boyutlandırın</b>.</li>
+        <li>Metne <b>çift tıklayarak</b> düzenleyin; çıkan araç çubuğuyla biçimlendirin.</li>
+        <li>Sağdaki <b>Özellikler</b> panelinden renk, yazı tipi, kenarlık vb. ayarlayın.</li>
+        <li>Hazır başlamak için <b>Şablon Galerisi</b>'nden bir tasarım seçin.</li>
+      </ol>
+      <h4>Dışa Aktarma</h4>
+      <p>Sağ üstten <b>PDF / PNG / JPEG</b> olarak indirebilirsiniz. Çıktı tuvalin birebir aynısıdır.</p>
+      <h4>Kaydetme</h4>
+      <p>Çalışmanız her 2 saniyede bir otomatik olarak tarayıcınıza kaydedilir. JSON olarak dışa/içe aktarabilirsiniz.</p>
+    </div>
+  </div>
+
+  <input type="file" id="jsonFileInput" accept="application/json" hidden />
+  <input type="file" id="imageFileInput" accept="image/*" hidden />
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
