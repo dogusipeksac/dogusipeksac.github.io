@@ -110,6 +110,9 @@
     .color-dot.active { border-color: #fff; box-shadow: 0 0 0 2px var(--bg2); }
 
     .hint { font-size: 0.72rem; color: var(--text3); margin-top: 0.4rem; line-height: 1.5; }
+    .quick-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.45rem; }
+    .qtag { cursor: pointer; font-family: inherit; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text2); transition: all 0.15s; }
+    .qtag:hover { border-color: var(--accent2); color: var(--text); background: var(--surface2); }
 
     /* Toast */
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface); border: 1px solid var(--accent2); color: var(--text); padding: 0.7rem 1.2rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.25s; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
@@ -140,6 +143,9 @@
     .cv-entry-org { font-weight: 600; color: var(--cv-accent); font-size: 9.5pt; }
     .cv-entry-date { font-size: 8.5pt; color: #666; white-space: nowrap; font-weight: 500; }
     .cv-entry-desc { font-size: 9.5pt; margin-top: 3pt; color: #333; white-space: pre-wrap; }
+    .cv-entry-tags { display: flex; flex-wrap: wrap; gap: 4pt; margin-top: 4pt; }
+    .cv-mini-tag { font-size: 7.8pt; font-weight: 600; padding: 1.5pt 6pt; border-radius: 12pt; }
+    .cv-entry-link { display: inline-block; margin-top: 3pt; font-size: 8.6pt; font-weight: 600; color: var(--cv-accent); }
     .cv-summary { font-size: 9.8pt; color: #333; white-space: pre-wrap; }
     .cv-tags { display: flex; flex-wrap: wrap; gap: 5pt; }
     .cv-tag { background: rgba(0,0,0,0.05); padding: 2.5pt 8pt; border-radius: 20pt; font-size: 8.8pt; font-weight: 500; }
@@ -154,6 +160,8 @@
     .cv-page.modern .side .cv-lang .lvl { color: rgba(255,255,255,0.75); }
     .cv-page.modern .side a, .cv-page.modern .side span { color: #fff; }
     .cv-page.modern .side .cv-contact { flex-direction: column; gap: 6pt; }
+    .cv-page.modern .side .cv-entry-desc { color: rgba(255,255,255,0.9); }
+    .cv-page.modern .side .cv-entry-date { color: rgba(255,255,255,0.75); }
     .cv-page.modern .photo { width: 42mm; height: 42mm; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.5); margin: 0 auto 10pt; display: block; }
     .cv-page.modern .main { flex: 1; padding: 14mm 12mm; }
     .cv-page.modern .main .cv-name { color: #111; }
@@ -288,6 +296,18 @@
         </div>
       </div>
 
+      <!-- Projects / Apps -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>🚀 Projeler & Uygulamalar</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div id="projList"></div>
+          <button class="add-btn" onclick="addItem('projects')">+ Proje / Uygulama Ekle</button>
+          <div class="hint">Play Store / App Store / GitHub bağlantısı ve iOS, Android, Flutter gibi etiketler ekleyebilirsiniz.</div>
+        </div>
+      </div>
+
       <!-- Education -->
       <div class="group">
         <div class="group-head" onclick="toggleGroup(this)">
@@ -326,7 +346,7 @@
       <!-- Certificates / extra -->
       <div class="group">
         <div class="group-head" onclick="toggleGroup(this)">
-          <h3>🏆 Sertifika / Projeler</h3><span class="chev">▼</span>
+          <h3>🏆 Sertifika / Ödüller</h3><span class="chev">▼</span>
         </div>
         <div class="group-body">
           <div id="certList"></div>
@@ -371,8 +391,8 @@
         template: 'modern', accent: '#2563eb', font: 'Inter',
         name: '', title: '', email: '', phone: '', location: '', website: '', linkedin: '', github: '',
         photo: '', summary: '', skills: '',
-        experience: [], education: [], languages: [], certificates: [],
-        show: { summary:true, experience:true, education:true, skills:true, languages:true, certificates:true }
+        experience: [], education: [], projects: [], languages: [], certificates: [],
+        show: { summary:true, experience:true, projects:true, education:true, skills:true, languages:true, certificates:true }
       };
     }
 
@@ -397,6 +417,12 @@
 
     /* ---------- Helpers ---------- */
     function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function hexToRgba(hex, a) {
+      let h = (hex||'#2563eb').replace('#','');
+      if (h.length === 3) h = h.split('').map(x=>x+x).join('');
+      const n = parseInt(h, 16);
+      return `rgba(${(n>>16)&255}, ${(n>>8)&255}, ${n&255}, ${a})`;
+    }
     function uid() { return Math.random().toString(36).slice(2,9); }
     function dateRange(it) {
       const s = (it.start||'').trim(), e = (it.end||'').trim();
@@ -404,6 +430,15 @@
       if (s && !e) return s + ' – Devam';
       return s || e || '';
     }
+
+    /* per-type field configuration */
+    const TYPE_CFG = {
+      experience:   { link:true,  tags:true,  titlePh:'Pozisyon',          orgPh:'Şirket',     orgLabel:'Kurum' },
+      projects:     { link:true,  tags:true,  titlePh:'Proje / Uygulama adı', orgPh:'Rol / Platform', orgLabel:'Rol / Platform' },
+      education:    { link:false, tags:false, titlePh:'Bölüm / Derece',    orgPh:'Üniversite', orgLabel:'Kurum' },
+      certificates: { link:true,  tags:false, titlePh:'Sertifika / Ödül adı', orgPh:'Veren kurum', orgLabel:'Kurum' },
+    };
+    const QUICK_TAGS = ['Android','iOS','Flutter','Kotlin','Swift','Java','React Native','Jetpack Compose','Firebase'];
 
     /* ---------- Build form (repeatable) ---------- */
     function itemFields(type, it, idx) {
@@ -414,19 +449,31 @@
             <div class="field"><label>Seviye</label><input value="${esc(it.level)}" oninput="updItem('${type}',${idx},'level',this.value)" placeholder="İleri / B2" /></div>
           </div>`;
       }
-      // experience, education, certificates share the same shape
-      return `
-        <div class="field"><label>Başlık</label><input value="${esc(it.title)}" oninput="updItem('${type}',${idx},'title',this.value)" placeholder="${type==='education'?'Bölüm / Derece':type==='certificates'?'Sertifika / Proje adı':'Pozisyon'}" /></div>
-        <div class="field"><label>${type==='certificates'?'Kurum / Bağlantı':'Kurum'}</label><input value="${esc(it.org)}" oninput="updItem('${type}',${idx},'org',this.value)" placeholder="${type==='education'?'Üniversite':type==='certificates'?'Veren kurum':'Şirket'}" /></div>
+      const cfg = TYPE_CFG[type] || TYPE_CFG.experience;
+      let html = `
+        <div class="field"><label>Başlık</label><input value="${esc(it.title)}" oninput="updItem('${type}',${idx},'title',this.value)" placeholder="${cfg.titlePh}" /></div>
+        <div class="field"><label>${cfg.orgLabel}</label><input value="${esc(it.org)}" oninput="updItem('${type}',${idx},'org',this.value)" placeholder="${cfg.orgPh}" /></div>
         <div class="row2">
           <div class="field"><label>Başlangıç</label><input value="${esc(it.start)}" oninput="updItem('${type}',${idx},'start',this.value)" placeholder="Oca 2022" /></div>
           <div class="field"><label>Bitiş</label><input value="${esc(it.end)}" oninput="updItem('${type}',${idx},'end',this.value)" placeholder="Halen" /></div>
         </div>
         <div class="field"><label>Açıklama</label><textarea oninput="updItem('${type}',${idx},'desc',this.value)" placeholder="Sorumluluklar / başarılar...">${esc(it.desc)}</textarea></div>`;
+      if (cfg.link) {
+        html += `<div class="field"><label>Bağlantı (Play Store / App Store / GitHub)</label><input value="${esc(it.link)}" oninput="updItem('${type}',${idx},'link',this.value)" placeholder="https://play.google.com/..." /></div>`;
+      }
+      if (cfg.tags) {
+        html += `
+          <div class="field">
+            <label>Etiketler</label>
+            <input value="${esc((it.tags||[]).join(', '))}" oninput="updItemTags('${type}',${idx},this.value)" placeholder="Android, iOS, Flutter" />
+            <div class="quick-tags">${QUICK_TAGS.map(t=>`<button type="button" class="qtag" onclick="addTag('${type}',${idx},'${t}')">+ ${t}</button>`).join('')}</div>
+          </div>`;
+      }
+      return html;
     }
 
-    const LIST_MAP = { experience:'expList', education:'eduList', languages:'langList', certificates:'certList' };
-    const LABEL_MAP = { experience:'Deneyim', education:'Eğitim', languages:'Dil', certificates:'Kayıt' };
+    const LIST_MAP = { experience:'expList', projects:'projList', education:'eduList', languages:'langList', certificates:'certList' };
+    const LABEL_MAP = { experience:'Deneyim', projects:'Proje', education:'Eğitim', languages:'Dil', certificates:'Kayıt' };
 
     function renderList(type) {
       const host = document.getElementById(LIST_MAP[type]);
@@ -444,11 +491,21 @@
 
     function addItem(type) {
       if (type === 'languages') data[type].push({ name:'', level:'' });
-      else data[type].push({ title:'', org:'', start:'', end:'', desc:'' });
+      else data[type].push({ title:'', org:'', start:'', end:'', desc:'', link:'', tags:[] });
       renderList(type); render(); save();
     }
     function delItem(type, idx) { data[type].splice(idx,1); renderList(type); render(); save(); }
     function updItem(type, idx, key, val) { data[type][idx][key] = val; render(); save(); }
+    function updItemTags(type, idx, val) {
+      data[type][idx].tags = val.split(',').map(s=>s.trim()).filter(Boolean);
+      render(); save();
+    }
+    function addTag(type, idx, tag) {
+      const it = data[type][idx];
+      if (!Array.isArray(it.tags)) it.tags = [];
+      if (!it.tags.some(t => t.toLowerCase() === tag.toLowerCase())) it.tags.push(tag);
+      renderList(type); render(); save();
+    }
 
     /* ---------- Bind simple fields ---------- */
     function bindFields() {
@@ -490,7 +547,7 @@
     function setFont(f) { data.font = f; render(); save(); }
 
     /* ---------- Section visibility ---------- */
-    const SEC_LABELS = { summary:'Özet', experience:'Deneyim', education:'Eğitim', skills:'Yetenekler', languages:'Diller', certificates:'Sertifika / Projeler' };
+    const SEC_LABELS = { summary:'Özet', experience:'Deneyim', projects:'Projeler & Uygulamalar', education:'Eğitim', skills:'Yetenekler', languages:'Diller', certificates:'Sertifika / Ödüller' };
     function renderVis() {
       document.getElementById('visBody').innerHTML = Object.keys(SEC_LABELS).map(k => `
         <div class="toggle-row">
@@ -520,16 +577,29 @@
       return `<div class="cv-section"><div class="cv-sec-title">${title}</div>${inner}</div>`;
     }
 
+    function linkLabel(url) {
+      const u = (url||'').toLowerCase();
+      if (u.includes('play.google')) return '▶ Play Store';
+      if (u.includes('apps.apple') || u.includes('itunes.apple')) return ' App Store';
+      if (u.includes('github')) return '⌥ GitHub';
+      return '🔗 ' + (url||'').replace(/^https?:\/\//,'').replace(/\/$/,'');
+    }
     function entriesHtml(type) {
       if (!data[type].length) return '';
       return data[type].map(it => {
-        if (!it.title && !it.org && !it.desc) return '';
+        const tags = Array.isArray(it.tags) ? it.tags.filter(Boolean) : [];
+        if (!it.title && !it.org && !it.desc && !tags.length && !it.link) return '';
+        const tagStyle = `background:${hexToRgba(data.accent,0.12)};color:${data.accent};border:0.5pt solid ${hexToRgba(data.accent,0.35)}`;
+        const tagsHtml = tags.length ? `<div class="cv-entry-tags">${tags.map(t=>`<span class="cv-mini-tag" style="${tagStyle}">${esc(t)}</span>`).join('')}</div>` : '';
+        const linkHtml = it.link ? `<a class="cv-entry-link" href="${esc(it.link)}">${esc(linkLabel(it.link))}</a>` : '';
         return `<div class="cv-entry">
           <div class="cv-entry-top">
             <div><span class="cv-entry-title">${esc(it.title)}</span>${it.org?` <span class="cv-entry-org">· ${esc(it.org)}</span>`:''}</div>
             <span class="cv-entry-date">${esc(dateRange(it))}</span>
           </div>
           ${it.desc?`<div class="cv-entry-desc">${esc(it.desc)}</div>`:''}
+          ${tagsHtml}
+          ${linkHtml}
         </div>`;
       }).join('');
     }
@@ -556,10 +626,11 @@
       const show = data.show;
       const sumSec  = show.summary && data.summary ? sec('Özet', `<div class="cv-summary">${esc(data.summary)}</div>`) : '';
       const expSec  = show.experience ? sec('Deneyim', entriesHtml('experience')) : '';
+      const projSec = show.projects ? sec('Projeler & Uygulamalar', entriesHtml('projects')) : '';
       const eduSec  = show.education ? sec('Eğitim', entriesHtml('education')) : '';
       const skillSec= show.skills ? sec('Yetenekler', skillsHtml()) : '';
       const langSec = show.languages ? sec('Diller', langHtml()) : '';
-      const certSec = show.certificates ? sec('Sertifika & Projeler', entriesHtml('certificates')) : '';
+      const certSec = show.certificates ? sec('Sertifika & Ödüller', entriesHtml('certificates')) : '';
 
       const head = `<div class="cv-head">
         ${(data.template==='klasik'||data.template==='minimal') ? photoHtml() : ''}
@@ -582,6 +653,7 @@
             <div class="cv-role">${esc(data.title)}</div>
             ${sumSec}
             ${expSec}
+            ${projSec}
             ${certSec}
           </div>`;
       } else {
@@ -590,6 +662,7 @@
           ${contactHtml()}
           ${sumSec}
           ${expSec}
+          ${projSec}
           ${eduSec}
           ${skillSec}
           ${langSec}
@@ -649,11 +722,16 @@
     }
     function wordEntries(type) {
       return data[type].map(it => {
-        if (!it.title && !it.org && !it.desc) return '';
+        const tags = Array.isArray(it.tags) ? it.tags.filter(Boolean) : [];
+        if (!it.title && !it.org && !it.desc && !tags.length && !it.link) return '';
+        const tagsLine = tags.length ? `<br><span style="font-size:8.5pt;color:#555">${tags.map(esc).join(' • ')}</span>` : '';
+        const linkLine = it.link ? `<br><a href="${esc(it.link)}" style="font-size:8.5pt;color:${data.accent}">${esc(linkLabel(it.link))}</a>` : '';
         return `<p style="margin:0 0 8pt 0">
           <b>${esc(it.title)}</b>${it.org?` — <span style="color:${data.accent}">${esc(it.org)}</span>`:''}
           ${dateRange(it)?`<span style="color:#777;font-size:9pt;float:right">${esc(dateRange(it))}</span>`:''}
           ${it.desc?`<br><span style="font-size:10pt;color:#333">${esc(it.desc).replace(/\n/g,'<br>')}</span>`:''}
+          ${tagsLine}
+          ${linkLine}
         </p>`;
       }).join('');
     }
@@ -671,10 +749,11 @@
         </div>
         ${show.summary && data.summary ? wordSection('Özet', `<p style="font-size:10pt;color:#333">${esc(data.summary).replace(/\n/g,'<br>')}</p>`) : ''}
         ${show.experience ? wordSection('Deneyim', wordEntries('experience')) : ''}
+        ${show.projects ? wordSection('Projeler & Uygulamalar', wordEntries('projects')) : ''}
         ${show.education ? wordSection('Eğitim', wordEntries('education')) : ''}
         ${show.skills && skills ? wordSection('Yetenekler', `<p style="font-size:10pt">${skills}</p>`) : ''}
         ${show.languages && langs ? wordSection('Diller', `<p style="font-size:10pt">${langs}</p>`) : ''}
-        ${show.certificates ? wordSection('Sertifika & Projeler', wordEntries('certificates')) : ''}
+        ${show.certificates ? wordSection('Sertifika & Ödüller', wordEntries('certificates')) : ''}
       `;
 
       const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr">
@@ -699,12 +778,16 @@
         summary: '5+ yıl deneyimli mobil uygulama geliştirici. Kotlin, Jetpack Compose ve Flutter ile native ve cross-platform uygulamalar geliştiriyorum. Fintech alanında güvenlik odaklı çözümler.',
         skills: 'Kotlin, Java, Jetpack Compose, Flutter, Swift, Firebase, REST API, MVVM, Git, CI/CD',
         experience: [
-          { title:'Senior Android Developer', org:'Veripark', start:'2022', end:'Halen', desc:'Fintech uygulamalarında NFC, Samsung Pay SDK ve SSL Pinning entegrasyonları. Jetpack Compose ile modern UI geçişi.' },
-          { title:'Android Developer', org:'XYZ Yazılım', start:'2019', end:'2022', desc:'Play Store yayını yapılan 4 uygulamanın geliştirilmesi ve bakımı.' },
+          { title:'Senior Android Developer', org:'Veripark', start:'2022', end:'Halen', desc:'Fintech uygulamalarında NFC, Samsung Pay SDK ve SSL Pinning entegrasyonları. Jetpack Compose ile modern UI geçişi.', link:'', tags:['Kotlin','Jetpack Compose','Android'] },
+          { title:'Android Developer', org:'XYZ Yazılım', start:'2019', end:'2022', desc:'Play Store yayını yapılan 4 uygulamanın geliştirilmesi ve bakımı.', link:'', tags:['Java','Android'] },
+        ],
+        projects: [
+          { title:'My Diary', org:'Kişisel günlük uygulaması', start:'2024', end:'', desc:'Jetpack Compose ile günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.', link:'https://play.google.com/store/apps/details?id=com.product.mydiary', tags:['Android','Kotlin','Jetpack Compose'] },
+          { title:'Anı Yakala / Moment Capture', org:'Konum damgalı fotoğraf', start:'2024', end:'', desc:'Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü ve filigran kontrolü.', link:'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335', tags:['iOS','Android','Flutter'] },
         ],
         education: [ { title:'Bilgisayar Mühendisliği', org:'Çukurova Üniversitesi', start:'2015', end:'2019', desc:'' } ],
         languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'İleri (C1)' } ],
-        certificates: [ { title:'Google Associate Android Developer', org:'Google', start:'2021', end:'', desc:'' } ],
+        certificates: [ { title:'Google Associate Android Developer', org:'Google', start:'2021', end:'', desc:'', link:'' } ],
       },
       pazarlama: {
         name: 'Ayşe Yılmaz', title: 'Dijital Pazarlama Uzmanı', accent:'#db2777', template:'kompakt', font:'Roboto',
@@ -712,22 +795,28 @@
         summary: 'Marka bilinirliği ve performans pazarlamasında 6 yıl deneyim. SEO/SEM, sosyal medya ve içerik stratejisi yönetimi.',
         skills: 'Google Ads, Meta Ads, SEO, SEM, Google Analytics, İçerik Pazarlama, Email Marketing, Canva',
         experience: [
-          { title:'Dijital Pazarlama Uzmanı', org:'ABC Ajans', start:'2020', end:'Halen', desc:'10+ markanın dijital reklam kampanyalarını yönettim. ROAS ortalama %35 artış.' },
-          { title:'Pazarlama Asistanı', org:'DEF Şirket', start:'2018', end:'2020', desc:'Sosyal medya yönetimi ve içerik üretimi.' },
+          { title:'Dijital Pazarlama Uzmanı', org:'ABC Ajans', start:'2020', end:'Halen', desc:'10+ markanın dijital reklam kampanyalarını yönettim. ROAS ortalama %35 artış.', link:'', tags:['Google Ads','Meta Ads','SEO'] },
+          { title:'Pazarlama Asistanı', org:'DEF Şirket', start:'2018', end:'2020', desc:'Sosyal medya yönetimi ve içerik üretimi.', link:'', tags:['İçerik','Sosyal Medya'] },
+        ],
+        projects: [
+          { title:'E-ticaret Lansman Kampanyası', org:'Kampanya Yönetimi', start:'2023', end:'', desc:'Yeni ürün lansmanında 3 ayda 500K erişim, %42 dönüşüm artışı.', link:'', tags:['Performans','Funnel'] },
         ],
         education: [ { title:'İşletme', org:'Marmara Üniversitesi', start:'2014', end:'2018', desc:'' } ],
         languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'Orta (B2)' } ],
-        certificates: [ { title:'Google Ads Sertifikası', org:'Google', start:'2021', end:'', desc:'' } ],
+        certificates: [ { title:'Google Ads Sertifikası', org:'Google', start:'2021', end:'', desc:'', link:'' } ],
       },
       mezun: {
         name: 'Mehmet Demir', title: 'Yeni Mezun · Endüstri Mühendisi', accent:'#0891b2', template:'minimal', font:'Inter',
         email:'mehmet@mail.com', phone:'+90 5xx xxx xx xx', location:'Ankara, Türkiye', website:'', linkedin:'linkedin.com/in/mehmetdemir', github:'', photo:'',
         summary: 'Yeni mezun endüstri mühendisi. Veri analizi, süreç iyileştirme ve proje yönetimine ilgili. Takım çalışmasına yatkın, öğrenmeye açık.',
         skills: 'Excel, Python, SQL, MS Project, Minitab, Lean, Six Sigma, Power BI',
-        experience: [ { title:'Stajyer', org:'Üretim A.Ş.', start:'2024 Yaz', end:'', desc:'Üretim hattı verimlilik analizi ve raporlama.' } ],
+        experience: [ { title:'Stajyer', org:'Üretim A.Ş.', start:'2024 Yaz', end:'', desc:'Üretim hattı verimlilik analizi ve raporlama.', link:'', tags:['Lean','Veri Analizi'] } ],
+        projects: [
+          { title:'Bitirme Projesi — Stok Optimizasyonu', org:'Üniversite Projesi', start:'2024', end:'', desc:'Python ile talep tahmini ve stok maliyeti %18 azaltan model.', link:'https://github.com/', tags:['Python','SQL','Power BI'] },
+        ],
         education: [ { title:'Endüstri Mühendisliği', org:'ODTÜ', start:'2020', end:'2024', desc:'GPA: 3.4 / 4.0' } ],
         languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'İleri (C1)' }, { name:'Almanca', level:'Başlangıç (A2)' } ],
-        certificates: [ { title:'Six Sigma Yellow Belt', org:'—', start:'2023', end:'', desc:'' } ],
+        certificates: [ { title:'Six Sigma Yellow Belt', org:'—', start:'2023', end:'', desc:'', link:'' } ],
       },
     };
 
