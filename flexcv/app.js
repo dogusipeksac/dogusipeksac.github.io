@@ -72,6 +72,7 @@
       { type: 'name', icon: '🅰️', label: 'İsim' },
       { type: 'jobTitle', icon: '💼', label: 'Ünvan' },
       { type: 'customText', icon: '✏️', label: 'Metin' },
+      { type: 'appCard', icon: '📱', label: 'Uygulama' },
       { type: 'divider', icon: '➖', label: 'Ayraç' },
       { type: 'image', icon: '🖼️', label: 'Görsel' },
       { type: 'button', icon: '🔘', label: 'Buton' },
@@ -100,7 +101,7 @@
     ]},
   ];
 
-  const TEXT_TYPES = new Set(['name','jobTitle','customText','about','experience','education','skills','languages','certificates','awards','projects','references','contact','socialLinks','iconList','timeline','button']);
+  const TEXT_TYPES = new Set(['name','jobTitle','customText','about','experience','education','skills','languages','certificates','awards','projects','references','contact','socialLinks','iconList','timeline','button','appCard']);
 
   // default geometry + content per type
   function factory(type, x, y) {
@@ -159,6 +160,9 @@
         style: defaultStyle({ fontSize: 12, color: '#333333' }) });
       case 'button': return Object.assign(base, { w: 150, h: 40, content: 'Buton', data: { href: '' },
         style: defaultStyle({ fontSize: 13, fontWeight: 600, color: '#ffffff', bg: A, radius: 8, textAlign: 'center', padT: 0, padB: 0 }) });
+      case 'appCard': return Object.assign(base, { w: 360, h: 96,
+        content: appCardHTML('📱', 'Uygulama Adı', 'Android · iOS', 'Uygulamanın kısa açıklaması ve öne çıkan özellikleri.', 'https://play.google.com/store', 'https://apps.apple.com', A),
+        style: defaultStyle({ fontSize: 12, color: '#333333' }) });
       case 'divider': return Object.assign(base, { w: 300, h: 12, data: { lineColor: '#d0d4dd', thickness: 2, lineStyle: 'solid' },
         style: defaultStyle({}) });
       case 'photo': return Object.assign(base, { w: 130, h: 130, data: { src: '', shape: 'circle' }, style: defaultStyle({ radius: 0 }) });
@@ -180,6 +184,18 @@
       </div>
       ${org ? `<div style="font-size:11.5px;opacity:.85;font-weight:600">${org}</div>` : ''}
       ${desc ? `<div style="font-size:11.5px;margin-top:2px">${desc}</div>` : ''}
+    </div>`;
+  }
+  function appCardHTML(emoji, name, platform, desc, android, ios, accent) {
+    const badge = (url, label, bg) => url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:${bg};color:#fff;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;text-decoration:none;margin:4px 6px 0 0">${label}</a>` : '';
+    return `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
+      <div style="font-size:24px;line-height:1.1;flex-shrink:0">${emoji}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:800;font-size:13px">${name}</div>
+        <div style="font-size:10px;color:${accent};font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:1px 0 3px">${platform}</div>
+        <div style="font-size:11px;line-height:1.45">${desc}</div>
+        <div>${badge(android, '▸ Google Play', '#0f9d58')}${badge(ios, ' App Store', '#0a0a0a')}</div>
+      </div>
     </div>`;
   }
   function tlItem(accent, date, text) {
@@ -385,6 +401,9 @@
   }
 
   function onPointerDown(e) {
+    // let links inside an element open (unless editing text)
+    const anchor = e.target.closest('a[href]');
+    if (anchor && !editingId) return;
     const handle = e.target.closest('.handle');
     const node = e.target.closest('.el');
     if (!node) return;
@@ -1235,7 +1254,7 @@
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
     try {
-      return await html2canvas(clone, {
+      const canvas = await html2canvas(clone, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
@@ -1244,6 +1263,17 @@
         height: PAGE_H,
         logging: false
       });
+      // collect clickable link rects (normalized 0..1) for PDF hyperlinks
+      const base = clone.getBoundingClientRect();
+      const links = [];
+      clone.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const r = a.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1) return;
+        links.push({ url: a.href, x: (r.left - base.left) / PAGE_W, y: (r.top - base.top) / PAGE_H, w: r.width / PAGE_W, h: r.height / PAGE_H });
+      });
+      return { canvas, links };
     } finally {
       holder.remove();
     }
@@ -1258,13 +1288,14 @@
     $('#gridOverlay').classList.remove('on');
     clearGuides();
     try {
-      const canvas = await capturePageCanvas();
+      const { canvas, links } = await capturePageCanvas();
       const fname = fileBase();
       if (kind === 'pdf') {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
         const img = canvas.toDataURL('image/jpeg', 0.95);
         pdf.addImage(img, 'JPEG', 0, 0, 210, 297);
+        links.forEach(l => pdf.link(l.x * 210, l.y * 297, l.w * 210, l.h * 297, { url: l.url }));
         pdf.save(fname + '.pdf');
       } else {
         const mime = kind === 'png' ? 'image/png' : 'image/jpeg';
@@ -1367,17 +1398,22 @@
         { type: 'contact', x: 24, y: 288, w: 232, h: 118, content: sideTitle('Contact') + `<div style="font-size:10.8px;line-height:1.85;word-break:break-word">+90 505 001 22 48<br>ipeksac.dogus.19@gmail.com<br>Sultanbeyli, İstanbul<br>linkedin.com/in/dogusipeksac</div>`, style: { color: oc, fontFamily: p.font } },
         { type: 'skills', x: 24, y: 412, w: 232, h: 300, content: sideTitle('Skills') + skillRow('Languages', 'Kotlin, Java') + skillRow('Architecture', 'MVVM, MVI, Clean Architecture') + skillRow('UI / UX', 'Jetpack Compose') + skillRow('Async', 'Coroutines, Flow, RxJava') + skillRow('Dependency Injection', 'Dagger, Hilt, Koin') + skillRow('Testing', 'JUnit, Espresso, Mockito') + skillRow('Tools', 'Git, Jira, Firebase'), style: { color: oc, fontFamily: p.font } },
         { type: 'languages', x: 24, y: 720, w: 232, h: 92, content: sideTitle('Languages') + `<div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>English</span><span style="opacity:.7">C1</span></div><div style="display:flex;justify-content:space-between;font-size:11.5px"><span>Turkish</span><span style="opacity:.7">Native</span></div>`, style: { color: oc, fontFamily: p.font } },
-        { type: 'education', x: 24, y: 820, w: 232, h: 150, content: sideTitle('Education') + `<div style="font-size:11.3px;line-height:1.5"><b>BSc Computer Science Eng.</b><br>İnönü University<br><span style="opacity:.82">2017 – 2021 · GPA 3.43 / 4.0</span><br><span style="opacity:.82">Malatya, Turkey</span></div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'education', x: 24, y: 816, w: 232, h: 122, content: sideTitle('Education') + `<div style="font-size:11.3px;line-height:1.5"><b>BSc Computer Science Eng.</b><br>İnönü University<br><span style="opacity:.82">2017 – 2021 · GPA 3.43 / 4.0</span><br><span style="opacity:.82">Malatya, Turkey</span></div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'references', x: 24, y: 946, w: 232, h: 150, content: sideTitle('References') + `<div style="font-size:11px;line-height:1.5"><b>Canberk Çakmak</b><br><span style="opacity:.82">Senior iOS Developer</span><br><b style="display:inline-block;margin-top:6px">Fatih Erdem</b><br><span style="opacity:.82">Project Manager</span></div>`, style: { color: oc, fontFamily: p.font } },
 
-        { type: 'about', x: 312, y: 54, w: 452, h: 112, content: mainTitle('About Me') + `<div>Android developer with 3+ years of experience building scalable, high-performance applications with Kotlin, Jetpack Compose and the MVVM architecture. Focused on modern mobile solutions with a strong emphasis on clean architecture and user experience.</div>`, style: { color: '#333', fontSize: 12, fontFamily: p.font } },
-        { type: 'experience', x: 312, y: 178, w: 452, h: 600, content: mainTitle('Experience') + [
+        { type: 'about', x: 312, y: 54, w: 452, h: 104, content: mainTitle('About Me') + `<div>Android developer with 3+ years of experience building scalable, high-performance applications with Kotlin, Jetpack Compose and the MVVM architecture. Focused on modern mobile solutions with a strong emphasis on clean architecture and user experience.</div>`, style: { color: '#333', fontSize: 12, fontFamily: p.font } },
+        { type: 'experience', x: 312, y: 168, w: 452, h: 472, content: mainTitle('Experience') + [
           entryHTML('Senior Android Developer', 'Veripark', '01/2025 – Present', 'Banking sector — Alternative Bank project, delivering innovative and efficient solutions. Contributed to major international projects: Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native and A&amp;T Bank.'),
           entryHTML('Android Developer', '', '07/2023 – 01/2025', 'Built and maintained production Android applications using MVVM / Clean Architecture and modern Jetpack libraries.'),
           entryHTML('Android Developer', 'OGOO Teknoloji Ajansı', '01/2023 – 07/2023', 'Developed intranet apps for Pegasus, Tofaş, TOGG and Opet. Integrated Microsoft ADAL &amp; MSAL for secure authentication and managed sprints with Jira for efficient, collaborative delivery.'),
           entryHTML('Junior Android Developer', '', '09/2021 – 01/2023', 'Implemented features and resolved defects across Android apps while deepening Kotlin and Android fundamentals.'),
           entryHTML('Intern Android Developer', '', '07/2021 – 09/2021', 'First professional Android experience — supported feature development and learned production workflows.')
         ].join(''), style: { color: '#333', fontSize: 12, fontFamily: p.font } },
-        { type: 'customText', x: 312, y: 792, w: 452, h: 110, content: mainTitle('References') + `<div style="font-size:11.5px;line-height:1.7"><b>Canberk Çakmak</b> — Senior iOS Developer<br><b>Fatih Erdem</b> — Project Manager<br><span style="opacity:.7">Available on request</span></div>`, style: { color: '#333', fontFamily: p.font } },
+        { type: 'projects', x: 312, y: 652, w: 452, h: 446, content: mainTitle('Apps & Projects') +
+          appCardHTML('📔', 'My Diary', 'Android', 'Personal journal built with Jetpack Compose — notes, audio, photos and PDF export.', 'https://play.google.com/store/apps/details?id=com.product.mydiary', '', ac) +
+          appCardHTML('🚗', 'App Plaka Kontrol', 'Android · iOS', 'AI-powered Turkish license-plate recognition with saved history records.', 'https://play.google.com/store/apps/details?id=com.product.appplakakontrol', 'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433', ac) +
+          appCardHTML('📸', 'Anı Yakala — Moment Capture', 'Android · iOS', 'Photo capture with location, date & template stamps, map view and watermark control.', 'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment', 'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335', ac),
+          style: { color: '#333', fontSize: 12, fontFamily: p.font } },
       ]
     };
   }
