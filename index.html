@@ -342,11 +342,58 @@
       .stats-grid { gap: 0.75rem; }
     }
 
+    /* ===== Particle constellation canvas ===== */
+    #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.6; }
+
+    /* ===== Custom cursor ===== */
+    .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; border-radius: 50%; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+    .cursor-dot { width: 7px; height: 7px; background: #fff; }
+    .cursor-ring { width: 34px; height: 34px; border: 1.5px solid rgba(255,255,255,0.6); transition: width 0.22s var(--ease), height 0.22s var(--ease), background 0.22s, border-color 0.22s; }
+    .cursor-ring.hovering { width: 56px; height: 56px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.9); }
+    .cursor-ring.clicking { width: 26px; height: 26px; }
+    body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .skill-card { cursor: none; }
+
+    /* ===== 3D tilt ===== */
+    .tilt { transform-style: preserve-3d; transition: transform 0.18s var(--ease); will-change: transform; }
+    .tilt-inner { transform: translateZ(40px); transition: transform 0.18s var(--ease); }
+
+    /* ===== Hero name letter reveal ===== */
+    .hero-name .ltr { display: inline-block; opacity: 0; transform: translateY(0.5em) rotate(8deg); animation: ltrIn 0.7s var(--ease) forwards; }
+    @keyframes ltrIn { to { opacity: 1; transform: none; } }
+
+    /* ===== Section title shimmer on reveal ===== */
+    .section-title.shimmer.visible { background: linear-gradient(100deg, var(--text) 30%, var(--accent2) 50%, var(--text) 70%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: titleShine 2.4s var(--ease) 1; }
+    @keyframes titleShine { from { background-position: 180% center; } to { background-position: -20% center; } }
+
+    /* ===== Reveal blur variant ===== */
+    .reveal-blur { opacity: 0; filter: blur(14px); transform: translateY(24px) scale(0.98); transition: opacity 0.8s var(--ease), filter 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-blur.visible { opacity: 1; filter: none; transform: none; }
+
+    /* ===== Ripple ===== */
+    .ripple-host { position: relative; overflow: hidden; }
+    .ripple { position: absolute; border-radius: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(255,255,255,0.45); pointer-events: none; animation: rippleOut 0.6s ease-out forwards; }
+    @keyframes rippleOut { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+
+    /* ===== Animated gradient border on cards ===== */
+    .skill-card, .project-card, .tool-card, .app-card, .stat { position: relative; }
+    .skill-card::after, .project-card::after, .tool-card::after, .app-card::after { content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(130deg, transparent, var(--accent2), var(--accent3), transparent); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.35s var(--ease); pointer-events: none; }
+    .skill-card:hover::after, .project-card:hover::after, .tool-card:hover::after, .app-card:hover::after { opacity: 0.9; }
+
+    /* ===== Marquee gradient sweep on hover ===== */
+    .marquee-track span:hover { color: var(--accent2); transition: color 0.2s; }
+
+    /* ===== Scroll-float chips parallax helper ===== */
+    .float-chips .chip { transition: transform 0.1s linear; }
+
     /* ===== Reduced motion ===== */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-      .reveal, .reveal-left, .reveal-right, .reveal-scale, .hero-anim { opacity: 1 !important; transform: none !important; }
-      .orb, .spotlight, .float-chips { display: none !important; }
+      .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .hero-anim { opacity: 1 !important; transform: none !important; filter: none !important; }
+      .orb, .spotlight, .float-chips, #particles, .cursor-dot, .cursor-ring { display: none !important; }
+      .hero-name .ltr { opacity: 1 !important; transform: none !important; }
+    }
+    @media (pointer: coarse) {
+      #particles, .cursor-dot, .cursor-ring { display: none !important; }
     }
   </style>
 </head>
@@ -368,7 +415,12 @@
     <div class="orb o3"></div>
   </div>
   <div class="bg-grid"></div>
+  <canvas id="particles"></canvas>
   <div class="spotlight" id="spotlight"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
 
   <nav id="nav">
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">dogusipeksac</div>
@@ -406,7 +458,7 @@
     </div>
     <div class="hero-content">
       <div class="hero-badge hero-anim d1"><span class="dot"></span> Veripark'ta Senior Android Developer</div>
-      <h1 class="hero-name hero-anim d2">Doğuş <span>İpeksaç</span></h1>
+      <h1 class="hero-name hero-anim d2" id="heroName" data-text="Doğuş İpeksaç">Doğuş <span>İpeksaç</span></h1>
       <p class="hero-title hero-anim d3"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
       <p class="hero-bio hero-anim d4">Mobil uygulama geliştirme, güvenlik ve kullanıcı deneyimine tutkuyla bağlı bir yazılımcı. Adana'dan dünyaya kod yazıyorum.</p>
       <div class="hero-links hero-anim d5">
@@ -780,7 +832,7 @@
       toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
       /* Reveal on scroll */
-      var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur');
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
@@ -883,6 +935,158 @@
       /* Duplicate marquee content for seamless loop */
       var track = document.getElementById('marqueeTrack');
       if (track) { track.innerHTML += track.innerHTML; }
+
+      /* Section titles shimmer */
+      document.querySelectorAll('.section-title').forEach(function (t) { t.classList.add('shimmer'); });
+
+      /* Hero name letter-by-letter reveal */
+      var heroName = document.getElementById('heroName');
+      if (heroName && !reduce) {
+        var accentSpan = heroName.querySelector('span');
+        var accentText = accentSpan ? accentSpan.textContent : '';
+        var firstPart = heroName.textContent.replace(accentText, '').trim();
+        heroName.innerHTML = '';
+        var di = 0;
+        (firstPart + '\u00A0').split('').forEach(function (ch) {
+          var s = document.createElement('span');
+          s.className = 'ltr';
+          s.textContent = ch === ' ' ? '\u00A0' : ch;
+          s.style.animationDelay = (0.25 + di * 0.05) + 's';
+          di++;
+          heroName.appendChild(s);
+        });
+        var grad = document.createElement('span');
+        grad.className = 'ltr';
+        grad.textContent = accentText;
+        grad.style.animationDelay = (0.25 + di * 0.05) + 's';
+        heroName.appendChild(grad);
+      }
+
+      /* Particle constellation */
+      var canvas = document.getElementById('particles');
+      if (canvas && !reduce && !coarse) {
+        var ctx = canvas.getContext('2d');
+        var W, H, particles = [], mouse = { x: -9999, y: -9999 };
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+          var count = Math.min(90, Math.floor((W * H) / 18000));
+          particles = [];
+          for (var i = 0; i < count; i++) {
+            particles.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, r: Math.random() * 1.8 + 0.6 });
+          }
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+        window.addEventListener('pointerleave', function () { mouse.x = -9999; mouse.y = -9999; });
+        var pRaf;
+        function drawParticles() {
+          ctx.clearRect(0, 0, W, H);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+            var dxm = p.x - mouse.x, dym = p.y - mouse.y, dm = Math.sqrt(dxm * dxm + dym * dym);
+            if (dm < 130) { p.x += dxm / dm * 0.8; p.y += dym / dm * 0.8; }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(168,85,247,0.6)';
+            ctx.fill();
+          }
+          for (var a = 0; a < particles.length; a++) {
+            for (var b = a + 1; b < particles.length; b++) {
+              var dx = particles[a].x - particles[b].x, dy = particles[a].y - particles[b].y;
+              var d = dx * dx + dy * dy;
+              if (d < 13000) {
+                ctx.beginPath();
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.strokeStyle = 'rgba(124,58,237,' + (0.16 * (1 - d / 13000)) + ')';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
+            }
+          }
+          pRaf = requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) { cancelAnimationFrame(pRaf); }
+          else { pRaf = requestAnimationFrame(drawParticles); }
+        });
+      }
+
+      /* Custom cursor */
+      var dot = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      if (dot && ring && !reduce && !coarse) {
+        document.body.classList.add('has-cursor');
+        var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, cRaf = false;
+        window.addEventListener('pointermove', function (e) {
+          mx = e.clientX; my = e.clientY;
+          dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+          if (!cRaf) { cRaf = true; requestAnimationFrame(moveRing); }
+        }, { passive: true });
+        function moveRing() {
+          rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+          ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+          if (Math.abs(mx - rx) > 0.5 || Math.abs(my - ry) > 0.5) requestAnimationFrame(moveRing); else cRaf = false;
+        }
+        document.addEventListener('pointerdown', function () { ring.classList.add('clicking'); });
+        document.addEventListener('pointerup', function () { ring.classList.remove('clicking'); });
+        document.querySelectorAll('a, button, .skill-card, .project-card, .tool-card, .app-card').forEach(function (el) {
+          el.addEventListener('pointerenter', function () { ring.classList.add('hovering'); });
+          el.addEventListener('pointerleave', function () { ring.classList.remove('hovering'); });
+        });
+      }
+
+      /* 3D tilt on cards */
+      if (!reduce && !coarse) {
+        document.querySelectorAll('.skill-card, .project-card, .tool-card, .app-card, .stat').forEach(function (card) {
+          card.classList.add('tilt');
+          card.addEventListener('pointermove', function (e) {
+            var r = card.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width - 0.5;
+            var py = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = 'perspective(700px) rotateX(' + (-py * 8) + 'deg) rotateY(' + (px * 10) + 'deg) translateY(-6px)';
+          });
+          card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+        });
+      }
+
+      /* Scroll parallax for hero chips + orbs */
+      if (!reduce && !coarse) {
+        var chips = Array.prototype.slice.call(document.querySelectorAll('.float-chips .chip'));
+        var orbs = Array.prototype.slice.call(document.querySelectorAll('.orb'));
+        var pTick = false;
+        window.addEventListener('scroll', function () {
+          if (pTick) return; pTick = true;
+          requestAnimationFrame(function () {
+            var y = window.scrollY;
+            chips.forEach(function (c, i) { c.style.transform = 'translateY(' + (y * (0.08 + i * 0.03)) + 'px)'; });
+            orbs.forEach(function (o, i) { o.style.marginTop = (y * (0.04 + i * 0.02)) + 'px'; });
+            pTick = false;
+          });
+        }, { passive: true });
+      }
+
+      /* Ripple on buttons */
+      document.querySelectorAll('.hero-link, .app-btn, .nav-cta, .yt-btn, .contact-email').forEach(function (btn) {
+        btn.classList.add('ripple-host');
+        btn.addEventListener('pointerdown', function (e) {
+          var r = btn.getBoundingClientRect();
+          var size = Math.max(r.width, r.height) * 2;
+          var rip = document.createElement('span');
+          rip.className = 'ripple';
+          rip.style.width = rip.style.height = size + 'px';
+          rip.style.left = (e.clientX - r.left) + 'px';
+          rip.style.top = (e.clientY - r.top) + 'px';
+          btn.appendChild(rip);
+          setTimeout(function () { rip.remove(); }, 650);
+        });
+      });
     })();
   </script>
 
