@@ -1351,7 +1351,46 @@
     return `<div style="font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:${headColor};border-bottom:1px solid ${hexA(accent||headColor,0.4)};padding-bottom:3px;margin-bottom:8px">${title}</div>${entries.join('')}`;
   }
 
+  /* Owner's real CV — professional, English, sidebar layout */
+  function tplDogus(p) {
+    const oc = p.onSidebar, ocs = p.onSidebarSoft, ac = p.accent;
+    const sideTitle = (t) => `<div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:9px;border-bottom:1px solid ${hexA(oc, 0.35)};padding-bottom:5px">${t}</div>`;
+    const skillRow = (label, val) => `<div style="margin-bottom:7px"><div style="font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em">${label}</div><div style="font-size:11px;opacity:.85;line-height:1.4">${val}</div></div>`;
+    const mainTitle = (t) => `<div style="font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.05em;color:${ac};margin-bottom:9px;border-bottom:2px solid ${hexA(ac, 0.25)};padding-bottom:4px">${t}</div>`;
+    return {
+      theme: { accent: ac, font: p.font }, page: { bg: '#ffffff' },
+      defs: [
+        { type: 'customText', x: 0, y: 0, w: 280, h: 1123, content: '', style: { bg: p.sidebar, padT: 0 } },
+        { type: 'photo', x: 80, y: 48, w: 120, h: 120, data: { shape: 'circle' } },
+        { type: 'name', x: 18, y: 188, w: 244, h: 58, content: 'Doğuş İpeksaç', style: { color: oc, fontSize: 25, fontWeight: 800, textAlign: 'center', lineHeight: 1.15, fontFamily: p.font } },
+        { type: 'jobTitle', x: 18, y: 244, w: 244, h: 22, content: 'Senior Android Developer', style: { color: ocs, fontSize: 12.5, textAlign: 'center', letterSpacing: 0.5, fontFamily: p.font } },
+        { type: 'contact', x: 24, y: 288, w: 232, h: 118, content: sideTitle('Contact') + `<div style="font-size:10.8px;line-height:1.85;word-break:break-word">+90 505 001 22 48<br>ipeksac.dogus.19@gmail.com<br>Sultanbeyli, İstanbul<br>linkedin.com/in/dogusipeksac</div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'skills', x: 24, y: 412, w: 232, h: 300, content: sideTitle('Skills') + skillRow('Languages', 'Kotlin, Java') + skillRow('Architecture', 'MVVM, MVI, Clean Architecture') + skillRow('UI / UX', 'Jetpack Compose') + skillRow('Async', 'Coroutines, Flow, RxJava') + skillRow('Dependency Injection', 'Dagger, Hilt, Koin') + skillRow('Testing', 'JUnit, Espresso, Mockito') + skillRow('Tools', 'Git, Jira, Firebase'), style: { color: oc, fontFamily: p.font } },
+        { type: 'languages', x: 24, y: 720, w: 232, h: 92, content: sideTitle('Languages') + `<div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>English</span><span style="opacity:.7">C1</span></div><div style="display:flex;justify-content:space-between;font-size:11.5px"><span>Turkish</span><span style="opacity:.7">Native</span></div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'education', x: 24, y: 820, w: 232, h: 150, content: sideTitle('Education') + `<div style="font-size:11.3px;line-height:1.5"><b>BSc Computer Science Eng.</b><br>İnönü University<br><span style="opacity:.82">2017 – 2021 · GPA 3.43 / 4.0</span><br><span style="opacity:.82">Malatya, Turkey</span></div>`, style: { color: oc, fontFamily: p.font } },
+
+        { type: 'about', x: 312, y: 54, w: 452, h: 112, content: mainTitle('About Me') + `<div>Android developer with 3+ years of experience building scalable, high-performance applications with Kotlin, Jetpack Compose and the MVVM architecture. Focused on modern mobile solutions with a strong emphasis on clean architecture and user experience.</div>`, style: { color: '#333', fontSize: 12, fontFamily: p.font } },
+        { type: 'experience', x: 312, y: 178, w: 452, h: 600, content: mainTitle('Experience') + [
+          entryHTML('Senior Android Developer', 'Veripark', '01/2025 – Present', 'Banking sector — Alternative Bank project, delivering innovative and efficient solutions. Contributed to major international projects: Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native and A&amp;T Bank.'),
+          entryHTML('Android Developer', '', '07/2023 – 01/2025', 'Built and maintained production Android applications using MVVM / Clean Architecture and modern Jetpack libraries.'),
+          entryHTML('Android Developer', 'OGOO Teknoloji Ajansı', '01/2023 – 07/2023', 'Developed intranet apps for Pegasus, Tofaş, TOGG and Opet. Integrated Microsoft ADAL &amp; MSAL for secure authentication and managed sprints with Jira for efficient, collaborative delivery.'),
+          entryHTML('Junior Android Developer', '', '09/2021 – 01/2023', 'Implemented features and resolved defects across Android apps while deepening Kotlin and Android fundamentals.'),
+          entryHTML('Intern Android Developer', '', '07/2021 – 09/2021', 'First professional Android experience — supported feature development and learned production workflows.')
+        ].join(''), style: { color: '#333', fontSize: 12, fontFamily: p.font } },
+        { type: 'customText', x: 312, y: 792, w: 452, h: 110, content: mainTitle('References') + `<div style="font-size:11.5px;line-height:1.7"><b>Canberk Çakmak</b> — Senior iOS Developer<br><b>Fatih Erdem</b> — Project Manager<br><span style="opacity:.7">Available on request</span></div>`, style: { color: '#333', fontFamily: p.font } },
+      ]
+    };
+  }
+
+  function seedProject() {
+    const t = tplDogus({ accent: '#1e3a5f', sidebar: '#1e3a5f', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.82)', font: 'Inter' });
+    const pr = newProject('Doğuş İpeksaç CV');
+    pr.theme = t.theme; pr.page = t.page; pr.elements = inflate(t.defs, t.theme);
+    return pr;
+  }
+
   const TEMPLATES = [
+    { name: 'Doğuş İpeksaç', desc: 'Senior Android — Pro', build: () => tplDogus({ accent: '#1e3a5f', sidebar: '#1e3a5f', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.82)', font: 'Inter' }) },
     { name: 'Modern', desc: 'Renkli kenar çubuğu', build: () => tplSidebar({ accent: '#6366f1', sidebar: '#6366f1', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.8)', font: 'Inter' }) },
     { name: 'Minimal', desc: 'Sade tek sütun', build: () => tplSingle({ accent: '#111111', heading: '#111111', muted: '#666', font: 'Inter', center: false }) },
     { name: 'Corporate', desc: 'Kurumsal lacivert', build: () => tplSidebar({ accent: '#1e3a5f', sidebar: '#1e3a5f', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.8)', font: 'Roboto' }) },
@@ -1435,9 +1474,9 @@
     try { prefs = Object.assign(prefs, JSON.parse(localStorage.getItem(PREFS_KEY)) || {}); } catch (e) {}
     applyPrefs();
 
-    // project
-    try { const saved = JSON.parse(localStorage.getItem(STORE_KEY)); if (saved && saved.elements) project = saved; } catch (e) {}
-    if (!project) { project = newProject(); }
+    // project — restore real saved work; otherwise seed with the owner's CV
+    try { const saved = JSON.parse(localStorage.getItem(STORE_KEY)); if (saved && saved.elements && saved.elements.length) project = saved; } catch (e) {}
+    if (!project) { project = seedProject(); }
     $('#projectName').value = project.name;
 
     buildLibrary('');
@@ -1448,7 +1487,7 @@
     updateUndoRedo();
     setSaved('saved');
 
-    // if empty, offer template gallery
+    // if somehow empty, offer template gallery
     if (!project.elements.length) setTimeout(openGallery, 400);
   }
 
