@@ -1,0 +1,781 @@
+<!-- dogusipeksac - Esnek CV Oluşturucu -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Oluşturucu — Ücretsiz Esnek Özgeçmiş Aracı</title>
+  <meta name="description" content="Ücretsiz, esnek CV / özgeçmiş oluşturucu. Hazır şablonlar, canlı önizleme, PDF ve Word çıktısı. Tarayıcıda çalışır, kayıt gerektirmez." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --surface: #1c1c28;
+      --surface2: #242435;
+      --border: #2a2a3d;
+      --accent: #7c3aed;
+      --accent2: #a855f7;
+      --green: #10b981;
+      --text: #f1f0ff;
+      --text2: #a09fc0;
+      --text3: #6b6a8a;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
+
+    /* Top bar */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.75rem 1.25rem; background: rgba(10,10,15,0.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 800; }
+    .brand .logo { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .brand small { display: block; font-weight: 500; font-size: 0.7rem; color: var(--text3); }
+    .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer;
+      padding: 0.55rem 1rem; border-radius: 9px; font-family: inherit; font-size: 0.82rem; font-weight: 700;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: all 0.18s;
+    }
+    .btn:hover { background: var(--surface2); border-color: var(--accent2); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.primary:hover { background: var(--accent2); }
+    .btn.green { background: var(--green); border-color: var(--green); color: #04221a; }
+    .btn.green:hover { filter: brightness(1.08); }
+    .btn.ghost { background: transparent; }
+
+    /* Layout */
+    .wrap { display: grid; grid-template-columns: 420px 1fr; gap: 0; height: calc(100vh - 64px); }
+    .panel { overflow-y: auto; padding: 1.25rem; border-right: 1px solid var(--border); background: var(--bg2); }
+    .preview-area { overflow: auto; background: #2a2a35; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; }
+
+    /* Form */
+    .group { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1rem; overflow: hidden; }
+    .group-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+      padding: 0.85rem 1rem; cursor: pointer; user-select: none;
+    }
+    .group-head h3 { font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+    .group-head .chev { color: var(--text3); transition: transform 0.2s; font-size: 0.75rem; }
+    .group.collapsed .chev { transform: rotate(-90deg); }
+    .group-body { padding: 0 1rem 1rem; }
+    .group.collapsed .group-body { display: none; }
+
+    .field { margin-bottom: 0.75rem; }
+    .field:last-child { margin-bottom: 0; }
+    .field label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text2); margin-bottom: 0.3rem; }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-family: inherit; font-size: 0.82rem; transition: border 0.18s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent2); }
+    .field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+
+    .item { border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem; margin-bottom: 0.75rem; background: var(--bg); position: relative; }
+    .item-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+    .item-head span { font-size: 0.72rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.05em; }
+    .icon-btn { cursor: pointer; background: transparent; border: 1px solid var(--border); color: var(--text2); border-radius: 7px; padding: 0.25rem 0.5rem; font-size: 0.72rem; font-family: inherit; transition: all 0.18s; }
+    .icon-btn:hover { color: #fff; border-color: #ef4444; background: rgba(239,68,68,0.12); }
+    .add-btn { width: 100%; padding: 0.6rem; border: 1px dashed var(--border); border-radius: 9px; background: transparent; color: var(--text2); font-family: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+    .add-btn:hover { border-color: var(--accent2); color: var(--text); background: var(--surface); }
+
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0; font-size: 0.8rem; color: var(--text2); }
+    .switch { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; inset: 0; background: var(--border); border-radius: 22px; transition: 0.2s; cursor: pointer; }
+    .slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: 0.2s; }
+    .switch input:checked + .slider { background: var(--accent); }
+    .switch input:checked + .slider::before { transform: translateX(16px); }
+
+    /* Template & color pickers */
+    .tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .tpl-card { border: 2px solid var(--border); border-radius: 9px; padding: 0.6rem; cursor: pointer; text-align: center; transition: all 0.18s; background: var(--bg); }
+    .tpl-card:hover { border-color: var(--accent2); }
+    .tpl-card.active { border-color: var(--accent); background: rgba(124,58,237,0.1); }
+    .tpl-thumb { height: 56px; border-radius: 5px; margin-bottom: 0.4rem; display: flex; overflow: hidden; border: 1px solid var(--border); }
+    .tpl-name { font-size: 0.74rem; font-weight: 700; }
+    .color-grid { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s; }
+    .color-dot:hover { transform: scale(1.12); }
+    .color-dot.active { border-color: #fff; box-shadow: 0 0 0 2px var(--bg2); }
+
+    .hint { font-size: 0.72rem; color: var(--text3); margin-top: 0.4rem; line-height: 1.5; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface); border: 1px solid var(--accent2); color: var(--text); padding: 0.7rem 1.2rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.25s; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== CV PAGE (A4) ===== */
+    .cv-scaler { transform-origin: top center; }
+    .cv-page {
+      width: 210mm; min-height: 297mm; background: #fff; color: #1a1a1a;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+      font-family: 'Inter', sans-serif; font-size: 10.5pt; line-height: 1.5;
+      --cv-accent: #2563eb;
+    }
+    .cv-page * { box-sizing: border-box; }
+    .cv-page a { color: inherit; text-decoration: none; }
+
+    /* Shared content bits */
+    .cv-name { font-size: 26pt; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; }
+    .cv-role { font-size: 12pt; font-weight: 500; margin-top: 2pt; }
+    .cv-contact { display: flex; flex-wrap: wrap; gap: 4pt 14pt; font-size: 9pt; }
+    .cv-contact span { display: inline-flex; align-items: center; gap: 4pt; }
+    .cv-section { margin-top: 14pt; }
+    .cv-sec-title { font-size: 11pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7pt; color: var(--cv-accent); }
+    .cv-entry { margin-bottom: 9pt; }
+    .cv-entry:last-child { margin-bottom: 0; }
+    .cv-entry-top { display: flex; justify-content: space-between; gap: 10pt; align-items: baseline; }
+    .cv-entry-title { font-weight: 700; font-size: 10.5pt; }
+    .cv-entry-org { font-weight: 600; color: var(--cv-accent); font-size: 9.5pt; }
+    .cv-entry-date { font-size: 8.5pt; color: #666; white-space: nowrap; font-weight: 500; }
+    .cv-entry-desc { font-size: 9.5pt; margin-top: 3pt; color: #333; white-space: pre-wrap; }
+    .cv-summary { font-size: 9.8pt; color: #333; white-space: pre-wrap; }
+    .cv-tags { display: flex; flex-wrap: wrap; gap: 5pt; }
+    .cv-tag { background: rgba(0,0,0,0.05); padding: 2.5pt 8pt; border-radius: 20pt; font-size: 8.8pt; font-weight: 500; }
+    .cv-lang { display: flex; justify-content: space-between; font-size: 9.3pt; margin-bottom: 3pt; }
+    .cv-lang .lvl { color: #777; }
+
+    /* --- Template: MODERN (colored sidebar) --- */
+    .cv-page.modern { display: flex; }
+    .cv-page.modern .side { width: 68mm; background: var(--cv-accent); color: #fff; padding: 14mm 9mm; }
+    .cv-page.modern .side .cv-sec-title { color: rgba(255,255,255,0.85); border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 4pt; }
+    .cv-page.modern .side .cv-tag { background: rgba(255,255,255,0.18); color: #fff; }
+    .cv-page.modern .side .cv-lang .lvl { color: rgba(255,255,255,0.75); }
+    .cv-page.modern .side a, .cv-page.modern .side span { color: #fff; }
+    .cv-page.modern .side .cv-contact { flex-direction: column; gap: 6pt; }
+    .cv-page.modern .photo { width: 42mm; height: 42mm; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.5); margin: 0 auto 10pt; display: block; }
+    .cv-page.modern .main { flex: 1; padding: 14mm 12mm; }
+    .cv-page.modern .main .cv-name { color: #111; }
+    .cv-page.modern .main .cv-role { color: var(--cv-accent); }
+
+    /* --- Template: KOMPAKT (light sidebar) --- */
+    .cv-page.kompakt { display: flex; font-size: 10pt; }
+    .cv-page.kompakt .side { width: 62mm; background: #f4f5f7; padding: 12mm 8mm; }
+    .cv-page.kompakt .main { flex: 1; padding: 12mm 11mm; }
+    .cv-page.kompakt .photo { width: 38mm; height: 38mm; border-radius: 10px; object-fit: cover; margin: 0 auto 9pt; display: block; }
+    .cv-page.kompakt .cv-name { font-size: 22pt; }
+    .cv-page.kompakt .cv-sec-title { font-size: 10pt; }
+
+    /* --- Template: KLASIK (single column serif) --- */
+    .cv-page.klasik { padding: 16mm 16mm; font-family: 'Lora', serif; }
+    .cv-page.klasik .cv-head { text-align: center; border-bottom: 2px solid var(--cv-accent); padding-bottom: 9pt; margin-bottom: 4pt; }
+    .cv-page.klasik .cv-name { color: var(--cv-accent); }
+    .cv-page.klasik .cv-contact { justify-content: center; }
+    .cv-page.klasik .cv-sec-title { border-bottom: 1px solid #ccc; padding-bottom: 3pt; }
+    .cv-page.klasik .photo { width: 34mm; height: 34mm; border-radius: 50%; object-fit: cover; margin: 0 auto 8pt; display: block; }
+
+    /* --- Template: MINIMAL (single column clean) --- */
+    .cv-page.minimal { padding: 16mm 16mm; }
+    .cv-page.minimal .cv-head { margin-bottom: 6pt; }
+    .cv-page.minimal .cv-name { font-size: 28pt; }
+    .cv-page.minimal .cv-role { color: var(--cv-accent); }
+    .cv-page.minimal .cv-sec-title { color: #111; border-bottom: 2px solid var(--cv-accent); padding-bottom: 4pt; display: inline-block; }
+    .cv-page.minimal .photo { width: 32mm; height: 32mm; border-radius: 8px; object-fit: cover; float: right; margin-left: 10pt; }
+
+    .cv-single .cv-section:first-child { margin-top: 12pt; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .wrap { grid-template-columns: 1fr; height: auto; }
+      .panel { border-right: none; border-bottom: 1px solid var(--border); max-height: none; }
+      .preview-area { padding: 1rem; }
+    }
+    @media (max-width: 520px) {
+      .row2 { grid-template-columns: 1fr; }
+      .brand small { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="/" class="brand" style="text-decoration:none;color:inherit">
+      <span class="logo">📄</span>
+      <span>CV Oluşturucu<small>Esnek · PDF & Word çıktı</small></span>
+    </a>
+    <div class="topbar-actions">
+      <button class="btn ghost" onclick="loadSampleMenu()">📋 Hazır CV</button>
+      <button class="btn ghost" onclick="clearAll()">🗑️ Temizle</button>
+      <button class="btn" onclick="exportWord()">📝 Word</button>
+      <button class="btn green" onclick="exportPdf()">⬇️ PDF İndir</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- LEFT: FORM -->
+    <div class="panel" id="panel">
+
+      <!-- Template -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>🎨 Şablon & Renk</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div class="tpl-grid" id="tplGrid"></div>
+          <div class="field" style="margin-top:0.85rem">
+            <label>Vurgu Rengi</label>
+            <div class="color-grid" id="colorGrid"></div>
+          </div>
+          <div class="field" style="margin-top:0.85rem">
+            <label>Yazı Tipi</label>
+            <select id="fontSelect" onchange="setFont(this.value)">
+              <option value="Inter">Inter (modern)</option>
+              <option value="Roboto">Roboto (sade)</option>
+              <option value="Lora">Lora (serif)</option>
+              <option value="Plus Jakarta Sans">Jakarta (yumuşak)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>👤 Kişisel Bilgiler</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div class="field"><label>Ad Soyad</label><input data-p="name" placeholder="Ör. Doğuş İpeksaç" /></div>
+          <div class="field"><label>Ünvan / Pozisyon</label><input data-p="title" placeholder="Ör. Senior Android Developer" /></div>
+          <div class="row2">
+            <div class="field"><label>E-posta</label><input data-p="email" placeholder="ad@mail.com" /></div>
+            <div class="field"><label>Telefon</label><input data-p="phone" placeholder="+90 5xx ..." /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Şehir</label><input data-p="location" placeholder="Adana, Türkiye" /></div>
+            <div class="field"><label>Web / Portföy</label><input data-p="website" placeholder="site.com" /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>LinkedIn</label><input data-p="linkedin" placeholder="linkedin.com/in/..." /></div>
+            <div class="field"><label>GitHub</label><input data-p="github" placeholder="github.com/..." /></div>
+          </div>
+          <div class="field">
+            <label>Fotoğraf (opsiyonel)</label>
+            <input type="file" accept="image/*" onchange="loadPhoto(this)" />
+            <div class="hint">Modern/Kompakt/Klasik şablonlarda gösterilir.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>📝 Özet / Hakkımda</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div class="field"><textarea data-p="summary" placeholder="Kısa profesyonel özet..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>💼 Deneyim</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div id="expList"></div>
+          <button class="add-btn" onclick="addItem('experience')">+ Deneyim Ekle</button>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>🎓 Eğitim</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div id="eduList"></div>
+          <button class="add-btn" onclick="addItem('education')">+ Eğitim Ekle</button>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>⚡ Yetenekler</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div class="field">
+            <textarea data-p="skills" placeholder="Virgülle ayırın: Kotlin, Java, Jetpack Compose, Flutter"></textarea>
+            <div class="hint">Her beceriyi virgül ile ayırın.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>🌐 Diller</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div id="langList"></div>
+          <button class="add-btn" onclick="addItem('languages')">+ Dil Ekle</button>
+        </div>
+      </div>
+
+      <!-- Certificates / extra -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>🏆 Sertifika / Projeler</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body">
+          <div id="certList"></div>
+          <button class="add-btn" onclick="addItem('certificates')">+ Kayıt Ekle</button>
+        </div>
+      </div>
+
+      <!-- Section visibility -->
+      <div class="group">
+        <div class="group-head" onclick="toggleGroup(this)">
+          <h3>👁️ Bölüm Görünürlüğü</h3><span class="chev">▼</span>
+        </div>
+        <div class="group-body" id="visBody"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="preview-area">
+      <div class="cv-scaler" id="scaler">
+        <div class="cv-page modern" id="cvPage"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'cv-builder-v1';
+    const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+
+    const TEMPLATES = [
+      { id: 'modern',  name: 'Modern',  layout: 'side',   c1: 'var(--cv-accent)', c2: '#fff' },
+      { id: 'kompakt', name: 'Kompakt', layout: 'side',   c1: '#f4f5f7', c2: '#fff' },
+      { id: 'klasik',  name: 'Klasik',  layout: 'single', c1: '#fff', c2: '#fff' },
+      { id: 'minimal', name: 'Minimal', layout: 'single', c1: '#fff', c2: '#fff' },
+    ];
+    const COLORS = ['#2563eb','#7c3aed','#0891b2','#059669','#dc2626','#ea580c','#db2777','#0f172a'];
+
+    function emptyData() {
+      return {
+        template: 'modern', accent: '#2563eb', font: 'Inter',
+        name: '', title: '', email: '', phone: '', location: '', website: '', linkedin: '', github: '',
+        photo: '', summary: '', skills: '',
+        experience: [], education: [], languages: [], certificates: [],
+        show: { summary:true, experience:true, education:true, skills:true, languages:true, certificates:true }
+      };
+    }
+
+    let data = emptyData();
+
+    /* ---------- Persistence ---------- */
+    function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) data = Object.assign(emptyData(), JSON.parse(raw));
+      } catch(e) {}
+    }
+
+    /* ---------- Toast ---------- */
+    let toastT;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    /* ---------- Helpers ---------- */
+    function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function uid() { return Math.random().toString(36).slice(2,9); }
+    function dateRange(it) {
+      const s = (it.start||'').trim(), e = (it.end||'').trim();
+      if (s && e) return s + ' – ' + e;
+      if (s && !e) return s + ' – Devam';
+      return s || e || '';
+    }
+
+    /* ---------- Build form (repeatable) ---------- */
+    function itemFields(type, it, idx) {
+      if (type === 'languages') {
+        return `
+          <div class="row2">
+            <div class="field"><label>Dil</label><input value="${esc(it.name)}" oninput="updItem('${type}',${idx},'name',this.value)" placeholder="İngilizce" /></div>
+            <div class="field"><label>Seviye</label><input value="${esc(it.level)}" oninput="updItem('${type}',${idx},'level',this.value)" placeholder="İleri / B2" /></div>
+          </div>`;
+      }
+      // experience, education, certificates share the same shape
+      return `
+        <div class="field"><label>Başlık</label><input value="${esc(it.title)}" oninput="updItem('${type}',${idx},'title',this.value)" placeholder="${type==='education'?'Bölüm / Derece':type==='certificates'?'Sertifika / Proje adı':'Pozisyon'}" /></div>
+        <div class="field"><label>${type==='certificates'?'Kurum / Bağlantı':'Kurum'}</label><input value="${esc(it.org)}" oninput="updItem('${type}',${idx},'org',this.value)" placeholder="${type==='education'?'Üniversite':type==='certificates'?'Veren kurum':'Şirket'}" /></div>
+        <div class="row2">
+          <div class="field"><label>Başlangıç</label><input value="${esc(it.start)}" oninput="updItem('${type}',${idx},'start',this.value)" placeholder="Oca 2022" /></div>
+          <div class="field"><label>Bitiş</label><input value="${esc(it.end)}" oninput="updItem('${type}',${idx},'end',this.value)" placeholder="Halen" /></div>
+        </div>
+        <div class="field"><label>Açıklama</label><textarea oninput="updItem('${type}',${idx},'desc',this.value)" placeholder="Sorumluluklar / başarılar...">${esc(it.desc)}</textarea></div>`;
+    }
+
+    const LIST_MAP = { experience:'expList', education:'eduList', languages:'langList', certificates:'certList' };
+    const LABEL_MAP = { experience:'Deneyim', education:'Eğitim', languages:'Dil', certificates:'Kayıt' };
+
+    function renderList(type) {
+      const host = document.getElementById(LIST_MAP[type]);
+      host.innerHTML = data[type].map((it, idx) => `
+        <div class="item">
+          <div class="item-head">
+            <span>${LABEL_MAP[type]} ${idx+1}</span>
+            <button class="icon-btn" onclick="delItem('${type}',${idx})">✕ Sil</button>
+          </div>
+          ${itemFields(type, it, idx)}
+        </div>`).join('');
+    }
+
+    function renderAllLists() { Object.keys(LIST_MAP).forEach(renderList); }
+
+    function addItem(type) {
+      if (type === 'languages') data[type].push({ name:'', level:'' });
+      else data[type].push({ title:'', org:'', start:'', end:'', desc:'' });
+      renderList(type); render(); save();
+    }
+    function delItem(type, idx) { data[type].splice(idx,1); renderList(type); render(); save(); }
+    function updItem(type, idx, key, val) { data[type][idx][key] = val; render(); save(); }
+
+    /* ---------- Bind simple fields ---------- */
+    function bindFields() {
+      document.querySelectorAll('[data-p]').forEach(el => {
+        const key = el.getAttribute('data-p');
+        el.value = data[key] || '';
+        el.addEventListener('input', () => { data[key] = el.value; render(); save(); });
+      });
+    }
+
+    function loadPhoto(input) {
+      const f = input.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = e => { data.photo = e.target.result; render(); save(); showToast('Fotoğraf eklendi'); };
+      reader.readAsDataURL(f);
+    }
+
+    /* ---------- Template / color / font ---------- */
+    function renderTplGrid() {
+      document.getElementById('tplGrid').innerHTML = TEMPLATES.map(t => `
+        <div class="tpl-card ${data.template===t.id?'active':''}" onclick="setTemplate('${t.id}')">
+          <div class="tpl-thumb">
+            ${t.layout==='side'
+              ? `<div style="width:38%;background:${t.id==='modern'?data.accent:'#e5e7eb'}"></div><div style="flex:1;background:#fff;padding:5px"><div style="height:5px;width:70%;background:#cbd5e1;margin-bottom:4px"></div><div style="height:3px;width:90%;background:#e2e8f0;margin-bottom:2px"></div><div style="height:3px;width:80%;background:#e2e8f0"></div></div>`
+              : `<div style="flex:1;background:#fff;padding:5px"><div style="height:6px;width:60%;background:${data.accent};margin:0 auto 5px"></div><div style="height:3px;width:100%;background:#e2e8f0;margin-bottom:2px"></div><div style="height:3px;width:90%;background:#e2e8f0"></div></div>`}
+          </div>
+          <div class="tpl-name">${t.name}</div>
+        </div>`).join('');
+    }
+    function setTemplate(id) { data.template = id; renderTplGrid(); render(); save(); }
+
+    function renderColorGrid() {
+      document.getElementById('colorGrid').innerHTML = COLORS.map(c => `
+        <div class="color-dot ${data.accent===c?'active':''}" style="background:${c}" onclick="setColor('${c}')"></div>`).join('')
+        + `<input type="color" value="${data.accent}" oninput="setColor(this.value)" style="width:30px;height:30px;border:none;background:none;cursor:pointer;padding:0" title="Özel renk">`;
+    }
+    function setColor(c) { data.accent = c; renderColorGrid(); renderTplGrid(); render(); save(); }
+    function setFont(f) { data.font = f; render(); save(); }
+
+    /* ---------- Section visibility ---------- */
+    const SEC_LABELS = { summary:'Özet', experience:'Deneyim', education:'Eğitim', skills:'Yetenekler', languages:'Diller', certificates:'Sertifika / Projeler' };
+    function renderVis() {
+      document.getElementById('visBody').innerHTML = Object.keys(SEC_LABELS).map(k => `
+        <div class="toggle-row">
+          <span>${SEC_LABELS[k]}</span>
+          <label class="switch"><input type="checkbox" ${data.show[k]?'checked':''} onchange="toggleSec('${k}',this.checked)"><span class="slider"></span></label>
+        </div>`).join('');
+    }
+    function toggleSec(k, v) { data.show[k] = v; render(); save(); }
+
+    function toggleGroup(head) { head.parentElement.classList.toggle('collapsed'); }
+
+    /* ---------- RENDER PREVIEW ---------- */
+    function contactHtml() {
+      const p = data;
+      const items = [];
+      if (p.email) items.push(`<span>✉ ${esc(p.email)}</span>`);
+      if (p.phone) items.push(`<span>☎ ${esc(p.phone)}</span>`);
+      if (p.location) items.push(`<span>📍 ${esc(p.location)}</span>`);
+      if (p.website) items.push(`<span>🌐 ${esc(p.website)}</span>`);
+      if (p.linkedin) items.push(`<span>in ${esc(p.linkedin)}</span>`);
+      if (p.github) items.push(`<span>⌥ ${esc(p.github)}</span>`);
+      return `<div class="cv-contact">${items.join('')}</div>`;
+    }
+
+    function sec(title, inner) {
+      if (!inner) return '';
+      return `<div class="cv-section"><div class="cv-sec-title">${title}</div>${inner}</div>`;
+    }
+
+    function entriesHtml(type) {
+      if (!data[type].length) return '';
+      return data[type].map(it => {
+        if (!it.title && !it.org && !it.desc) return '';
+        return `<div class="cv-entry">
+          <div class="cv-entry-top">
+            <div><span class="cv-entry-title">${esc(it.title)}</span>${it.org?` <span class="cv-entry-org">· ${esc(it.org)}</span>`:''}</div>
+            <span class="cv-entry-date">${esc(dateRange(it))}</span>
+          </div>
+          ${it.desc?`<div class="cv-entry-desc">${esc(it.desc)}</div>`:''}
+        </div>`;
+      }).join('');
+    }
+
+    function skillsHtml() {
+      const arr = (data.skills||'').split(',').map(s=>s.trim()).filter(Boolean);
+      if (!arr.length) return '';
+      return `<div class="cv-tags">${arr.map(s=>`<span class="cv-tag">${esc(s)}</span>`).join('')}</div>`;
+    }
+    function langHtml() {
+      if (!data.languages.length) return '';
+      return data.languages.filter(l=>l.name).map(l=>`<div class="cv-lang"><span>${esc(l.name)}</span><span class="lvl">${esc(l.level)}</span></div>`).join('');
+    }
+
+    function photoHtml() { return data.photo ? `<img class="photo" src="${data.photo}" alt="">` : ''; }
+
+    function render() {
+      const page = document.getElementById('cvPage');
+      const t = TEMPLATES.find(x=>x.id===data.template) || TEMPLATES[0];
+      page.className = 'cv-page ' + data.template + (t.layout==='single'?' cv-single':'');
+      page.style.setProperty('--cv-accent', data.accent);
+      page.style.fontFamily = `'${data.font}', sans-serif`;
+
+      const show = data.show;
+      const sumSec  = show.summary && data.summary ? sec('Özet', `<div class="cv-summary">${esc(data.summary)}</div>`) : '';
+      const expSec  = show.experience ? sec('Deneyim', entriesHtml('experience')) : '';
+      const eduSec  = show.education ? sec('Eğitim', entriesHtml('education')) : '';
+      const skillSec= show.skills ? sec('Yetenekler', skillsHtml()) : '';
+      const langSec = show.languages ? sec('Diller', langHtml()) : '';
+      const certSec = show.certificates ? sec('Sertifika & Projeler', entriesHtml('certificates')) : '';
+
+      const head = `<div class="cv-head">
+        ${(data.template==='klasik'||data.template==='minimal') ? photoHtml() : ''}
+        <div class="cv-name">${esc(data.name)||'Ad Soyad'}</div>
+        <div class="cv-role">${esc(data.title)}</div>
+      </div>`;
+
+      if (t.layout === 'side') {
+        // sidebar: contact + skills + langs + education on side; main: summary + experience + certificates
+        page.innerHTML = `
+          <div class="side">
+            ${photoHtml()}
+            ${contactHtml()}
+            ${skillSec}
+            ${langSec}
+            ${eduSec}
+          </div>
+          <div class="main">
+            <div class="cv-name">${esc(data.name)||'Ad Soyad'}</div>
+            <div class="cv-role">${esc(data.title)}</div>
+            ${sumSec}
+            ${expSec}
+            ${certSec}
+          </div>`;
+      } else {
+        page.innerHTML = `
+          ${head}
+          ${contactHtml()}
+          ${sumSec}
+          ${expSec}
+          ${eduSec}
+          ${skillSec}
+          ${langSec}
+          ${certSec}`;
+      }
+      fitScale();
+    }
+
+    /* ---------- Scale preview to fit ---------- */
+    function fitScale() {
+      const area = document.querySelector('.preview-area');
+      const scaler = document.getElementById('scaler');
+      const pageW = document.getElementById('cvPage').offsetWidth;
+      if (!pageW) return;
+      const avail = area.clientWidth - 16;
+      const scale = Math.min(1, avail / pageW);
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.height = (document.getElementById('cvPage').offsetHeight * scale) + 'px';
+    }
+    window.addEventListener('resize', fitScale);
+
+    /* ---------- Export filename ---------- */
+    function fileBase() {
+      const name = (data.name||'CV').trim() || 'CV';
+      const d = new Date();
+      return `${name} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`.replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,' ').trim();
+    }
+
+    /* ---------- PDF export ---------- */
+    function exportPdf() {
+      const node = document.getElementById('cvPage');
+      const prevTransform = document.getElementById('scaler').style.transform;
+      document.getElementById('scaler').style.transform = 'scale(1)';
+      showToast('PDF hazırlanıyor…');
+      const opt = {
+        margin: 0,
+        filename: fileBase() + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+      html2pdf().set(opt).from(node).save().then(() => {
+        document.getElementById('scaler').style.transform = prevTransform;
+        fitScale();
+        showToast('PDF indirildi: ' + fileBase() + '.pdf');
+      }).catch(() => {
+        document.getElementById('scaler').style.transform = prevTransform; fitScale();
+        showToast('PDF oluşturulamadı');
+      });
+    }
+
+    /* ---------- Word export (clean single-column) ---------- */
+    function wordSection(title, inner) {
+      if (!inner) return '';
+      return `<h2 style="font-size:13pt;color:${data.accent};border-bottom:1px solid #ccc;padding-bottom:3pt;margin:14pt 0 6pt;text-transform:uppercase;letter-spacing:0.5pt">${title}</h2>${inner}`;
+    }
+    function wordEntries(type) {
+      return data[type].map(it => {
+        if (!it.title && !it.org && !it.desc) return '';
+        return `<p style="margin:0 0 8pt 0">
+          <b>${esc(it.title)}</b>${it.org?` — <span style="color:${data.accent}">${esc(it.org)}</span>`:''}
+          ${dateRange(it)?`<span style="color:#777;font-size:9pt;float:right">${esc(dateRange(it))}</span>`:''}
+          ${it.desc?`<br><span style="font-size:10pt;color:#333">${esc(it.desc).replace(/\n/g,'<br>')}</span>`:''}
+        </p>`;
+      }).join('');
+    }
+    function exportWord() {
+      const show = data.show;
+      const skills = (data.skills||'').split(',').map(s=>s.trim()).filter(Boolean).join(' • ');
+      const langs = data.languages.filter(l=>l.name).map(l=>`${esc(l.name)}${l.level?` (${esc(l.level)})`:''}`).join(' • ');
+      const contact = [data.email,data.phone,data.location,data.website,data.linkedin,data.github].filter(Boolean).map(esc).join(' &nbsp;|&nbsp; ');
+
+      const body = `
+        <div style="text-align:center;border-bottom:2px solid ${data.accent};padding-bottom:8pt">
+          <div style="font-size:24pt;font-weight:bold">${esc(data.name)||'Ad Soyad'}</div>
+          <div style="font-size:12pt;color:${data.accent}">${esc(data.title)}</div>
+          <div style="font-size:9pt;color:#555;margin-top:4pt">${contact}</div>
+        </div>
+        ${show.summary && data.summary ? wordSection('Özet', `<p style="font-size:10pt;color:#333">${esc(data.summary).replace(/\n/g,'<br>')}</p>`) : ''}
+        ${show.experience ? wordSection('Deneyim', wordEntries('experience')) : ''}
+        ${show.education ? wordSection('Eğitim', wordEntries('education')) : ''}
+        ${show.skills && skills ? wordSection('Yetenekler', `<p style="font-size:10pt">${skills}</p>`) : ''}
+        ${show.languages && langs ? wordSection('Diller', `<p style="font-size:10pt">${langs}</p>`) : ''}
+        ${show.certificates ? wordSection('Sertifika & Projeler', wordEntries('certificates')) : ''}
+      `;
+
+      const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr">
+        <head><meta charset="utf-8"><title>${esc(fileBase())}</title>
+        <style>@page{margin:1.6cm} body{font-family:'${data.font}',Calibri,Arial,sans-serif;color:#1a1a1a;font-size:11pt}</style></head>
+        <body>${body}</body></html>`;
+      const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = fileBase() + '.doc';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Word indirildi: ' + fileBase() + '.doc');
+    }
+
+    /* ---------- Sample CVs ---------- */
+    const SAMPLES = {
+      yazilim: {
+        name: 'Doğuş İpeksaç', title: 'Senior Android Developer', accent:'#7c3aed', template:'modern', font:'Inter',
+        email: 'ad@mail.com', phone: '+90 5xx xxx xx xx', location: 'Adana, Türkiye', website: 'dogusipeksac.com',
+        linkedin: 'linkedin.com/in/dogusipeksac', github: 'github.com/dogusipeksac', photo:'',
+        summary: '5+ yıl deneyimli mobil uygulama geliştirici. Kotlin, Jetpack Compose ve Flutter ile native ve cross-platform uygulamalar geliştiriyorum. Fintech alanında güvenlik odaklı çözümler.',
+        skills: 'Kotlin, Java, Jetpack Compose, Flutter, Swift, Firebase, REST API, MVVM, Git, CI/CD',
+        experience: [
+          { title:'Senior Android Developer', org:'Veripark', start:'2022', end:'Halen', desc:'Fintech uygulamalarında NFC, Samsung Pay SDK ve SSL Pinning entegrasyonları. Jetpack Compose ile modern UI geçişi.' },
+          { title:'Android Developer', org:'XYZ Yazılım', start:'2019', end:'2022', desc:'Play Store yayını yapılan 4 uygulamanın geliştirilmesi ve bakımı.' },
+        ],
+        education: [ { title:'Bilgisayar Mühendisliği', org:'Çukurova Üniversitesi', start:'2015', end:'2019', desc:'' } ],
+        languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'İleri (C1)' } ],
+        certificates: [ { title:'Google Associate Android Developer', org:'Google', start:'2021', end:'', desc:'' } ],
+      },
+      pazarlama: {
+        name: 'Ayşe Yılmaz', title: 'Dijital Pazarlama Uzmanı', accent:'#db2777', template:'kompakt', font:'Roboto',
+        email: 'ayse@mail.com', phone:'+90 5xx xxx xx xx', location:'İstanbul, Türkiye', website:'', linkedin:'linkedin.com/in/ayseyilmaz', github:'', photo:'',
+        summary: 'Marka bilinirliği ve performans pazarlamasında 6 yıl deneyim. SEO/SEM, sosyal medya ve içerik stratejisi yönetimi.',
+        skills: 'Google Ads, Meta Ads, SEO, SEM, Google Analytics, İçerik Pazarlama, Email Marketing, Canva',
+        experience: [
+          { title:'Dijital Pazarlama Uzmanı', org:'ABC Ajans', start:'2020', end:'Halen', desc:'10+ markanın dijital reklam kampanyalarını yönettim. ROAS ortalama %35 artış.' },
+          { title:'Pazarlama Asistanı', org:'DEF Şirket', start:'2018', end:'2020', desc:'Sosyal medya yönetimi ve içerik üretimi.' },
+        ],
+        education: [ { title:'İşletme', org:'Marmara Üniversitesi', start:'2014', end:'2018', desc:'' } ],
+        languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'Orta (B2)' } ],
+        certificates: [ { title:'Google Ads Sertifikası', org:'Google', start:'2021', end:'', desc:'' } ],
+      },
+      mezun: {
+        name: 'Mehmet Demir', title: 'Yeni Mezun · Endüstri Mühendisi', accent:'#0891b2', template:'minimal', font:'Inter',
+        email:'mehmet@mail.com', phone:'+90 5xx xxx xx xx', location:'Ankara, Türkiye', website:'', linkedin:'linkedin.com/in/mehmetdemir', github:'', photo:'',
+        summary: 'Yeni mezun endüstri mühendisi. Veri analizi, süreç iyileştirme ve proje yönetimine ilgili. Takım çalışmasına yatkın, öğrenmeye açık.',
+        skills: 'Excel, Python, SQL, MS Project, Minitab, Lean, Six Sigma, Power BI',
+        experience: [ { title:'Stajyer', org:'Üretim A.Ş.', start:'2024 Yaz', end:'', desc:'Üretim hattı verimlilik analizi ve raporlama.' } ],
+        education: [ { title:'Endüstri Mühendisliği', org:'ODTÜ', start:'2020', end:'2024', desc:'GPA: 3.4 / 4.0' } ],
+        languages: [ { name:'Türkçe', level:'Ana dil' }, { name:'İngilizce', level:'İleri (C1)' }, { name:'Almanca', level:'Başlangıç (A2)' } ],
+        certificates: [ { title:'Six Sigma Yellow Belt', org:'—', start:'2023', end:'', desc:'' } ],
+      },
+    };
+
+    function loadSampleMenu() {
+      const choice = prompt('Hazır CV seç:\n1 → Yazılım Geliştirici\n2 → Dijital Pazarlama\n3 → Yeni Mezun\n\nNumara gir (1-3):');
+      const map = { '1':'yazilim', '2':'pazarlama', '3':'mezun' };
+      const key = map[(choice||'').trim()];
+      if (!key) return;
+      data = Object.assign(emptyData(), JSON.parse(JSON.stringify(SAMPLES[key])));
+      refreshAll(); save(); showToast('Hazır CV yüklendi');
+    }
+
+    function clearAll() {
+      if (!confirm('Tüm CV bilgileri silinecek. Emin misiniz?')) return;
+      data = emptyData(); refreshAll(); save(); showToast('Temizlendi');
+    }
+
+    function refreshAll() {
+      bindFieldsValues();
+      renderAllLists();
+      renderTplGrid();
+      renderColorGrid();
+      renderVis();
+      document.getElementById('fontSelect').value = data.font;
+      render();
+    }
+
+    // re-set values of simple fields (after sample load / clear)
+    function bindFieldsValues() {
+      document.querySelectorAll('[data-p]').forEach(el => {
+        const key = el.getAttribute('data-p');
+        el.value = data[key] || '';
+      });
+    }
+
+    /* ---------- Init ---------- */
+    function init() {
+      load();
+      bindFields();
+      renderAllLists();
+      renderTplGrid();
+      renderColorGrid();
+      renderVis();
+      document.getElementById('fontSelect').value = data.font;
+      render();
+      setTimeout(fitScale, 100);
+    }
+    init();
+  </script>
+</body>
+</html>
