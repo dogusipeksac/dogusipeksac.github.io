@@ -27,8 +27,8 @@
       --radius: 12px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
+    html { scroll-behavior: smooth; height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; height: 100%; overflow: hidden; }
 
     /* Top bar */
     .topbar {
@@ -54,9 +54,9 @@
     .btn.ghost { background: transparent; }
 
     /* Layout */
-    .wrap { display: grid; grid-template-columns: 420px 1fr; gap: 0; height: calc(100vh - 64px); }
-    .panel { overflow-y: auto; padding: 1.25rem; border-right: 1px solid var(--border); background: var(--bg2); }
-    .preview-area { overflow: auto; background: #2a2a35; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; }
+    .wrap { display: grid; grid-template-columns: 420px 1fr; gap: 0; height: calc(100vh - 64px); min-height: 0; overflow: hidden; }
+    .panel { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding: 1.25rem; border-right: 1px solid var(--border); background: var(--bg2); -webkit-overflow-scrolling: touch; }
+    .preview-area { overflow: auto; overscroll-behavior: contain; min-height: 0; background: #2a2a35; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; -webkit-overflow-scrolling: touch; }
 
     /* Form */
     .group { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1rem; overflow: hidden; }
@@ -692,25 +692,33 @@
     }
 
     /* ---------- PDF export ---------- */
-    function exportPdf() {
+    async function exportPdf() {
       const node = document.getElementById('cvPage');
-      const prevTransform = document.getElementById('scaler').style.transform;
-      document.getElementById('scaler').style.transform = 'scale(1)';
+      const scaler = document.getElementById('scaler');
+      const prevTransform = scaler.style.transform;
+      const prevHeight = scaler.style.height;
+      scaler.style.transform = 'none';
+      scaler.style.height = 'auto';
       showToast('PDF hazırlanıyor…');
+      if (document.fonts?.ready) await document.fonts.ready;
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
       const opt = {
         margin: 0,
         filename: fileBase() + '.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        html2canvas: { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
       html2pdf().set(opt).from(node).save().then(() => {
-        document.getElementById('scaler').style.transform = prevTransform;
+        scaler.style.transform = prevTransform;
+        scaler.style.height = prevHeight;
         fitScale();
         showToast('PDF indirildi: ' + fileBase() + '.pdf');
       }).catch(() => {
-        document.getElementById('scaler').style.transform = prevTransform; fitScale();
+        scaler.style.transform = prevTransform;
+        scaler.style.height = prevHeight;
+        fitScale();
         showToast('PDF oluşturulamadı');
       });
     }

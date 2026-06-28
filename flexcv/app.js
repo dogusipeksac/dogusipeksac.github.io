@@ -1099,7 +1099,11 @@
   /* ========================= ZOOM ========================= */
   function setZoom(z) {
     zoom = clamp(z, 0.25, 3);
+    const zoomWrap = $('#pageZoom');
+    zoomWrap.style.width = (PAGE_W * zoom) + 'px';
+    zoomWrap.style.height = (PAGE_H * zoom) + 'px';
     page.style.transform = `scale(${zoom})`;
+    page.style.transformOrigin = 'top left';
     const stage = $('#canvasStage');
     stage.style.width = (PAGE_W * zoom + 96) + 'px';
     stage.style.height = (PAGE_H * zoom + 96) + 'px';
@@ -1209,19 +1213,52 @@
   }
 
   /* ========================= EXPORT IMAGE / PDF ========================= */
+  async function capturePageCanvas() {
+    const holder = document.createElement('div');
+    holder.setAttribute('aria-hidden', 'true');
+    holder.style.cssText = `position:fixed;left:-12000px;top:0;width:${PAGE_W}px;height:${PAGE_H}px;overflow:hidden;z-index:-1;pointer-events:none;background:${project.page.bg || '#fff'}`;
+
+    const clone = page.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.style.transform = 'none';
+    clone.style.boxShadow = 'none';
+    clone.querySelector('#gridOverlay')?.remove();
+    clone.querySelector('#guides')?.remove();
+    clone.querySelector('#marquee')?.remove();
+    clone.querySelectorAll('.handle').forEach(h => h.remove());
+    clone.querySelectorAll('.el').forEach(n => n.classList.remove('selected', 'multi'));
+
+    holder.appendChild(clone);
+    document.body.appendChild(holder);
+
+    if (document.fonts?.ready) await document.fonts.ready;
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+    try {
+      return await html2canvas(clone, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: project.page.bg || '#ffffff',
+        width: PAGE_W,
+        height: PAGE_H,
+        logging: false
+      });
+    } finally {
+      holder.remove();
+    }
+  }
+
   async function exportImage(kind) {
     const wasSel = new Set(selection); clearSelect();
-    const oldEditing = editingId; if (editingId) finishEditing();
+    if (editingId) finishEditing();
     closeMenus();
     toast(kind.toUpperCase() + ' hazırlanıyor…');
-    const oldTransform = page.style.transform;
-    page.style.transform = 'scale(1)';
     const gridWasOn = $('#gridOverlay').classList.contains('on');
     $('#gridOverlay').classList.remove('on');
     clearGuides();
-    await new Promise(r => setTimeout(r, 60));
     try {
-      const canvas = await html2canvas(page, { scale: 2, useCORS: true, backgroundColor: project.page.bg, width: PAGE_W, height: PAGE_H, windowWidth: PAGE_W, windowHeight: PAGE_H });
+      const canvas = await capturePageCanvas();
       const fname = fileBase();
       if (kind === 'pdf') {
         const { jsPDF } = window.jspdf;
@@ -1238,7 +1275,6 @@
       }
       toast(kind.toUpperCase() + ' indirildi');
     } catch (e) { console.error(e); toast('Dışa aktarma başarısız'); }
-    page.style.transform = oldTransform;
     if (gridWasOn) $('#gridOverlay').classList.add('on');
     selection = wasSel; afterSelect();
   }
