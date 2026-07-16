@@ -187,13 +187,13 @@
     </div>`;
   }
   function appCardHTML(emoji, name, platform, desc, android, ios, accent) {
-    const badge = (url, label, bg) => url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:${bg};color:#fff;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;text-decoration:none;margin:4px 6px 0 0">${label}</a>` : '';
-    return `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
-      <div style="font-size:24px;line-height:1.1;flex-shrink:0">${emoji}</div>
+    const badge = (url, label, bg) => url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:${bg};color:#fff;padding:2px 8px;border-radius:5px;font-size:9.5px;font-weight:700;text-decoration:none;margin:3px 5px 0 0">${label}</a>` : '';
+    return `<div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:7px">
+      <div style="font-size:20px;line-height:1.1;flex-shrink:0">${emoji}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-weight:800;font-size:13px">${name}</div>
-        <div style="font-size:10px;color:${accent};font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:1px 0 3px">${platform}</div>
-        <div style="font-size:11px;line-height:1.45">${desc}</div>
+        <div style="font-weight:800;font-size:12px">${name}</div>
+        <div style="font-size:9.5px;color:${accent};font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:1px 0 2px">${platform}</div>
+        <div style="font-size:10.5px;line-height:1.35">${desc}</div>
         <div>${badge(android, '▸ Google Play', '#0f9d58')}${badge(ios, ' App Store', '#0a0a0a')}</div>
       </div>
     </div>`;
@@ -1402,17 +1402,18 @@
         { type: 'references', x: 24, y: 946, w: 232, h: 150, content: sideTitle('References') + `<div style="font-size:11px;line-height:1.5"><b>Canberk Çakmak</b><br><span style="opacity:.82">Senior iOS Developer</span><br><b style="display:inline-block;margin-top:6px">Fatih Erdem</b><br><span style="opacity:.82">Project Manager</span></div>`, style: { color: oc, fontFamily: p.font } },
 
         { type: 'about', x: 312, y: 54, w: 452, h: 104, content: mainTitle('About Me') + `<div>Android developer with 3+ years of experience building scalable, high-performance applications with Kotlin, Jetpack Compose and the MVVM architecture. Focused on modern mobile solutions with a strong emphasis on clean architecture and user experience.</div>`, style: { color: '#333', fontSize: 12, fontFamily: p.font } },
-        { type: 'experience', x: 312, y: 168, w: 452, h: 472, content: mainTitle('Experience') + [
-          entryHTML('Senior Android Developer', 'Veripark', '01/2025 – Present', 'Banking sector — Alternative Bank project, delivering innovative and efficient solutions. Contributed to major international projects: Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native and A&amp;T Bank.'),
-          entryHTML('Android Developer', '', '07/2023 – 01/2025', 'Built and maintained production Android applications using MVVM / Clean Architecture and modern Jetpack libraries.'),
-          entryHTML('Android Developer', 'OGOO Teknoloji Ajansı', '01/2023 – 07/2023', 'Developed intranet apps for Pegasus, Tofaş, TOGG and Opet. Integrated Microsoft ADAL &amp; MSAL for secure authentication and managed sprints with Jira for efficient, collaborative delivery.'),
-          entryHTML('Junior Android Developer', '', '09/2021 – 01/2023', 'Implemented features and resolved defects across Android apps while deepening Kotlin and Android fundamentals.'),
-          entryHTML('Intern Android Developer', '', '07/2021 – 09/2021', 'First professional Android experience — supported feature development and learned production workflows.')
+        { type: 'experience', x: 312, y: 168, w: 452, h: 400, content: mainTitle('Experience') + [
+          entryHTML('Senior Android Developer', 'Veripark', '01/2025 – Present', 'Banking sector — Alternative Bank project. Contributed to Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native and A&amp;T Bank.'),
+          entryHTML('Android Developer', '', '07/2023 – 01/2025', 'Built and maintained production Android apps using MVVM / Clean Architecture and modern Jetpack libraries.'),
+          entryHTML('Android Developer', 'OGOO Teknoloji Ajansı', '01/2023 – 07/2023', 'Intranet apps for Pegasus, Tofaş, TOGG and Opet. Microsoft ADAL &amp; MSAL auth; sprint management with Jira.'),
+          entryHTML('Junior Android Developer', '', '09/2021 – 01/2023', 'Feature development and defect fixes while deepening Kotlin and Android fundamentals.'),
+          entryHTML('Intern Android Developer', '', '07/2021 – 09/2021', 'First professional Android experience — feature support and production workflows.')
         ].join(''), style: { color: '#333', fontSize: 12, fontFamily: p.font } },
-        { type: 'projects', x: 312, y: 652, w: 452, h: 446, content: mainTitle('Apps & Projects') +
-          appCardHTML('📔', 'My Diary', 'Android', 'Personal journal built with Jetpack Compose — notes, audio, photos and PDF export.', 'https://play.google.com/store/apps/details?id=com.product.mydiary', '', ac) +
-          appCardHTML('🚗', 'App Plaka Kontrol', 'Android · iOS', 'AI-powered Turkish license-plate recognition with saved history records.', 'https://play.google.com/store/apps/details?id=com.product.appplakakontrol', 'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433', ac) +
-          appCardHTML('📸', 'Anı Yakala — Moment Capture', 'Android · iOS', 'Photo capture with location, date & template stamps, map view and watermark control.', 'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment', 'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335', ac),
+        { type: 'projects', x: 312, y: 580, w: 452, h: 520, content: mainTitle('Apps & Projects') +
+          appCardHTML('📔', 'My Diary', 'Android', 'Personal journal with Jetpack Compose — notes, audio, photos and PDF export.', 'https://play.google.com/store/apps/details?id=com.product.mydiary', '', ac) +
+          appCardHTML('🚗', 'App Plaka Kontrol', 'Android · iOS', 'AI-powered Turkish license-plate recognition with saved history.', 'https://play.google.com/store/apps/details?id=com.product.appplakakontrol', 'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433', ac) +
+          appCardHTML('📸', 'Anı Yakala — Moment Capture', 'Android · iOS', 'Photo capture with location, date & template stamps; map view and watermark control.', 'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment', 'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335', ac) +
+          appCardHTML('💧', 'Su İçme Hatırlatıcısı', 'Android · iOS', 'Smart water intake tracker — personal goals, reminders, progress stats and dark/light themes.', 'https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate', 'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946', ac),
           style: { color: '#333', fontSize: 12, fontFamily: p.font } },
       ]
     };

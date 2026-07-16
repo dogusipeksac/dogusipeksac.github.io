@@ -242,6 +242,7 @@
     .app-card:hover .app-icon { transform: scale(1.1) rotate(-5deg); }
     .app-icon.plaka { background: linear-gradient(135deg, #0891b2, #06b6d4); }
     .app-icon.moment { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+    .app-icon.hydrate { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
     .app-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
     .app-platform { font-size: 0.75rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
     .app-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; }
