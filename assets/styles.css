@@ -235,7 +235,7 @@
 
     /* ===== APPS ===== */
     #apps { background: var(--bg2); }
-    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
     .app-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
     .app-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 44px rgba(0,0,0,0.4); }
     .app-content { flex: 1; min-width: 0; }
