@@ -253,22 +253,6 @@
     .app-btn:hover { background: var(--accent2); transform: translateY(-2px); }
     .app-btn.ios { background: #1c1c28; border: 1px solid var(--border); }
     .app-btn.ios:hover { background: #242435; border-color: var(--accent); }
-    .app-qr {
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.5rem;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      text-decoration: none;
-      transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
-    }
-    .app-qr:hover { border-color: var(--accent2); transform: scale(1.03); }
-    .app-qr img { display: block; width: 72px; height: 72px; border-radius: 6px; background: #fff; padding: 3px; }
-    .app-qr-label { font-size: 0.62rem; color: var(--text3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
 
     /* ===== YOUTUBE ===== */
     #youtube { background: var(--bg); }
