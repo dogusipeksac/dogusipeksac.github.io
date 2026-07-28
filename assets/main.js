@@ -3,9 +3,21 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var coarse = window.matchMedia('(pointer: coarse)').matches;
 
-      /* Preloader */
+      /* Preloader + ana sayfada uygulamalar bölümüne kaydır */
+      function scrollToApps() {
+        var apps = document.getElementById('apps');
+        if (!apps || window.location.hash) return;
+        var navEl = document.getElementById('nav');
+        var offset = (navEl ? navEl.offsetHeight : 72) + 20;
+        var top = apps.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      }
+
       window.addEventListener('load', function () {
-        setTimeout(function () { document.getElementById('preloader').classList.add('done'); }, 350);
+        setTimeout(function () {
+          document.getElementById('preloader').classList.add('done');
+          scrollToApps();
+        }, 350);
       });
       // safety: hide preloader even if load is slow
       setTimeout(function () { document.getElementById('preloader').classList.add('done'); }, 2500);
