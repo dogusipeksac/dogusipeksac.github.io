@@ -235,7 +235,7 @@
 
     /* ===== APPS ===== */
     #apps { background: var(--bg2); }
-    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
     .app-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
     .app-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 44px rgba(0,0,0,0.4); }
     .app-content { flex: 1; min-width: 0; }
@@ -253,6 +253,8 @@
     .app-btn:hover { background: var(--accent2); transform: translateY(-2px); }
     .app-btn.ios { background: #1c1c28; border: 1px solid var(--border); }
     .app-btn.ios:hover { background: #242435; border-color: var(--accent); }
+    .app-btn.qr { background: rgba(124, 58, 237, 0.12); border: 1px solid rgba(168, 85, 247, 0.45); color: #d8b4fe; }
+    .app-btn.qr:hover { background: rgba(124, 58, 237, 0.22); border-color: var(--accent2); color: #f3e8ff; transform: translateY(-2px); }
 
     /* ===== YOUTUBE ===== */
     #youtube { background: var(--bg); }
