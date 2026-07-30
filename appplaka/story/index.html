@@ -28,23 +28,27 @@
         <div class="ig-story-meta">
           <span class="ig-story-chip"><span>🚗</span> App Plaka Kontrol</span>
           <span class="ig-story-chip">Utilities · AI</span>
-          <span class="ig-story-chip">1080 × 1920</span>
         </div>
         <h1>Instagram Story</h1>
         <p class="lead">
           Hazır story görselini PNG olarak indirip Instagram’a yükle.
-          Mağaza linklerini Instagram’ın <strong>bağlantı (link) sticker</strong> özelliğiyle ekle — görselde link yok, sen eklersin.
+          Instagram’da tek link sticker olduğu için <strong>Android</strong> veya <strong>iOS</strong> için ayrı story indirebilirsin — ya da ikisini birlikte gösteren versiyonu kullan.
         </p>
         <ol class="ig-story-steps">
-          <li><span class="n">1</span><span>Aşağıdan dili seçip <strong>Story İndir</strong>’e bas.</span></li>
+          <li><span class="n">1</span><span>Story tipini seç (Her ikisi / Android / iOS), dili seç ve <strong>Story İndir</strong>.</span></li>
           <li><span class="n">2</span><span>Instagram → Yeni story → Galeriden PNG’yi seç.</span></li>
-          <li><span class="n">3</span><span>Bağlantı sticker ekle (Play Store / App Store URL).</span></li>
+          <li><span class="n">3</span><span>Platform story’sinde link sticker ile ilgili mağaza URL’sini ekle.</span></li>
         </ol>
+        <div class="ig-story-platform-tabs" role="tablist" aria-label="Story tipi">
+          <button type="button" class="ig-story-tab active" data-story-platform="both">Her ikisi</button>
+          <button type="button" class="ig-story-tab" data-story-platform="android">Android</button>
+          <button type="button" class="ig-story-tab" data-story-platform="ios">iOS</button>
+        </div>
         <div class="ig-story-actions">
           <button type="button" class="app-btn" id="dlTr">Story İndir (TR)</button>
           <button type="button" class="app-btn ios" id="dlEn">Download Story (EN)</button>
         </div>
-        <p class="ig-story-note">Alt kutudaki boş alan, link sticker için bırakıldı. Safe zone Instagram UI ile çakışmaz.</p>
+        <p class="ig-story-note">Android veya iOS story’sinde QR büyük gösterilir; link sticker için uygun alan bırakıldı.</p>
         <h2 style="font-size:1rem;margin:2rem 0 0.75rem;font-weight:700">Diğer uygulamalar</h2>
         <div class="ig-story-apps"><a class="ig-story-app-link" href="/kuberush/story/"><span class="e"><img src="/assets/apps/kuberush.png" width="36" height="36" alt="" style="border-radius:9px;display:block"/></span><span class="n">Kube Rush</span></a><a class="ig-story-app-link" href="/mydiary/story/"><span class="e">📔</span><span class="n">My Diary</span></a><a class="ig-story-app-link" href="/aniyakala/story/"><span class="e"><img src="/assets/apps/aniyakala.png" width="36" height="36" alt="" style="border-radius:9px;display:block"/></span><span class="n">Anı Yakala</span></a><a class="ig-story-app-link" href="/suicme/story/"><span class="e"><img src="/assets/apps/suicme.png" width="36" height="36" alt="" style="border-radius:9px;display:block"/></span><span class="n">Su İçme Hatırlatıcısı</span></a></div>
       </div>
@@ -52,23 +56,6 @@
   </div>
   <script src="/assets/qrcode.min.js"></script>
   <script src="/assets/ig-story.js"></script>
-  <script>
-    (function () {
-      var slug = document.body.getAttribute('data-story-app');
-      var host = document.getElementById('storyPreview');
-      function refresh(lang) {
-        IgStory.preview(slug, lang, host);
-      }
-      refresh('tr');
-      document.getElementById('dlTr').addEventListener('click', function () {
-        refresh('tr');
-        IgStory.download(slug, 'tr');
-      });
-      document.getElementById('dlEn').addEventListener('click', function () {
-        refresh('en');
-        IgStory.download(slug, 'en');
-      });
-    })();
-  </script>
+  <script src="/assets/ig-story-page.js"></script>
 </body>
 </html>

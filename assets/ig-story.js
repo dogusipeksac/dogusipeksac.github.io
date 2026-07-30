@@ -174,7 +174,7 @@ window.IG_STORY_APPS = {
     ctx.fillText(app.emoji, ix, iy + 8);
   }
 
-  function drawQrCard(ctx, x, y, w, h, label, img, accent) {
+  function drawQrCard(ctx, x, y, w, h, label, img, accent, qrSize) {
     roundRect(ctx, x, y, w, h, 28);
     ctx.fillStyle = 'rgba(255,255,255,0.96)';
     ctx.fill();
@@ -183,14 +183,14 @@ window.IG_STORY_APPS = {
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
-    ctx.font = '800 28px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.font = '800 ' + (qrSize > 220 ? 32 : 28) + 'px "Plus Jakarta Sans", system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(label, x + w / 2, y + 48);
+    ctx.fillText(label, x + w / 2, y + (qrSize > 220 ? 56 : 48));
 
-    var qs = 200;
+    var qs = qrSize || 200;
     var qx = x + (w - qs) / 2;
-    var qy = y + 70;
+    var qy = y + (qrSize > 220 ? 88 : 70);
     roundRect(ctx, qx - 8, qy - 8, qs + 16, qs + 16, 16);
     ctx.fillStyle = '#ffffff';
     ctx.fill();
@@ -202,7 +202,8 @@ window.IG_STORY_APPS = {
     }
   }
 
-  function drawStory(app, lang) {
+  function drawStory(app, lang, platform) {
+    platform = platform || 'both';
     var canvas = document.createElement('canvas');
     canvas.width = W;
     canvas.height = H;
@@ -262,30 +263,55 @@ window.IG_STORY_APPS = {
 
     // QR section
     var cards = [];
-    if (app.android) cards.push({ label: 'Android', img: app._qrAndroid, accent: '#34d399' });
-    if (app.ios) cards.push({ label: 'iOS', img: app._qrIos, accent: '#94a3b8' });
+    if (platform === 'both' || platform === 'android') {
+      if (app.android) cards.push({ label: 'Android', img: app._qrAndroid, accent: '#34d399' });
+    }
+    if (platform === 'both' || platform === 'ios') {
+      if (app.ios) cards.push({ label: 'iOS', img: app._qrIos, accent: '#94a3b8' });
+    }
 
-    var cardW = cards.length === 1 ? 420 : 400;
-    var cardH = 320;
+    var single = cards.length === 1;
+    var cardW = single ? 520 : 400;
+    var cardH = single ? 420 : 320;
+    var qrSize = single ? 280 : 200;
     var gap = 40;
     var totalW = cards.length * cardW + (cards.length - 1) * gap;
     var startX = (W - totalW) / 2;
-    var qrY = Math.max(ny + 20, 980);
+    var qrY = Math.max(ny + 20, single ? 940 : 980);
 
     ctx.fillStyle = '#f8fafc';
     ctx.font = '800 36px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText(lang === 'en' ? 'Scan to download' : 'QR ile indir', W / 2, qrY - 30);
+    var sectionTitle;
+    if (platform === 'android') {
+      sectionTitle = lang === 'en' ? 'Get it on Google Play' : 'Google Play\'den indir';
+    } else if (platform === 'ios') {
+      sectionTitle = lang === 'en' ? 'Get it on the App Store' : 'App Store\'dan indir';
+    } else {
+      sectionTitle = lang === 'en' ? 'Scan to download' : 'QR ile indir';
+    }
+    ctx.fillText(sectionTitle, W / 2, qrY - 30);
 
     cards.forEach(function (card, i) {
-      drawQrCard(ctx, startX + i * (cardW + gap), qrY, cardW, cardH, card.label, card.img, card.accent);
+      drawQrCard(ctx, startX + i * (cardW + gap), qrY, cardW, cardH, card.label, card.img, card.accent, qrSize);
     });
 
     var hintY = qrY + cardH + 70;
     ctx.fillStyle = 'rgba(241,240,255,0.55)';
     ctx.font = '500 26px "Plus Jakarta Sans", system-ui, sans-serif';
-    var hint = lang === 'en'
-      ? 'You can also add store links with Instagram Link sticker'
-      : 'İstersen Instagram bağlantı sticker ile de link ekleyebilirsin';
+    var hint;
+    if (platform === 'android') {
+      hint = lang === 'en'
+        ? 'Add Play Store link with Instagram link sticker'
+        : 'Link sticker ile Play Store bağlantısını ekle';
+    } else if (platform === 'ios') {
+      hint = lang === 'en'
+        ? 'Add App Store link with Instagram link sticker'
+        : 'Link sticker ile App Store bağlantısını ekle';
+    } else {
+      hint = lang === 'en'
+        ? 'Or pick Android / iOS story for a single store link sticker'
+        : 'Tek link sticker için Android veya iOS story de indirebilirsin';
+    }
     wrapText(ctx, hint, 820).forEach(function (ln, i) {
       ctx.fillText(ln, W / 2, hintY + i * 36);
     });
@@ -333,21 +359,24 @@ window.IG_STORY_APPS = {
   window.IgStory = {
     apps: window.IG_STORY_APPS,
     draw: drawStory,
-    download: function (slug, lang) {
+    download: function (slug, lang, platform) {
       var app = window.IG_STORY_APPS[slug];
       if (!app) return Promise.resolve();
       lang = lang || 'tr';
+      platform = platform || 'both';
       return ensureAssets(app).then(function () {
-        var canvas = drawStory(app, lang);
-        downloadCanvas(canvas, app.file + '-' + lang);
+        var canvas = drawStory(app, lang, platform);
+        var suffix = platform === 'both' ? '' : '-' + platform;
+        downloadCanvas(canvas, app.file + '-' + lang + suffix);
         return canvas;
       });
     },
-    preview: function (slug, lang, host) {
+    preview: function (slug, lang, host, platform) {
       var app = window.IG_STORY_APPS[slug];
       if (!app) return Promise.resolve();
+      platform = platform || 'both';
       return ensureAssets(app).then(function () {
-        var canvas = drawStory(app, lang || 'tr');
+        var canvas = drawStory(app, lang || 'tr', platform);
         renderPreview(canvas, host);
         return canvas;
       });
