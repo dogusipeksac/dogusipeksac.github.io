@@ -275,10 +275,14 @@
     .app-content { flex: 1; min-width: 0; }
     .app-icon { width: 64px; height: 64px; border-radius: 16px; flex-shrink: 0; background: linear-gradient(135deg, #7c3aed, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 2rem; transition: transform 0.3s var(--ease); }
     .app-card:hover .app-icon { transform: scale(1.1) rotate(-5deg); }
+    .app-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
+    .app-icon.has-logo { padding: 0; overflow: hidden; background: transparent; }
     .app-icon.plaka { background: linear-gradient(135deg, #0891b2, #06b6d4); }
-    .app-icon.moment { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+    .app-icon.moment { background: linear-gradient(135deg, #0b1220, #152238); }
+    .app-icon.moment.has-logo { box-shadow: 0 8px 24px rgba(34, 211, 238, 0.18); }
     .app-icon.hydrate { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
-    .app-icon.kube { background: linear-gradient(135deg, #6366f1, #ec4899); }
+    .app-icon.kube { background: linear-gradient(135deg, #111827, #1f2937); }
+    .app-icon.kube.has-logo { box-shadow: 0 8px 24px rgba(163, 230, 53, 0.2); }
     .app-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
     .app-platform { font-size: 0.75rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
     .app-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; }

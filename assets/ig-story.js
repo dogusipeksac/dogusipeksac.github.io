@@ -6,10 +6,11 @@ window.IG_STORY_APPS = {
     name: 'Kube Rush',
     tag: 'Casual · Hypercasual',
     emoji: '🎮',
+    icon: '/assets/apps/kuberush.png',
     tagline: 'Tek elle oyna. Küpü büyüt, engellerden geç.',
     taglineEn: 'One-hand runner. Grow, dodge, win.',
     platforms: 'Android · iOS',
-    colors: ['#6366f1', '#ec4899', '#0a0a0f'],
+    colors: ['#a3e635', '#65a30d', '#0a0a0f'],
     file: 'kube-rush-story'
   },
   mydiary: {
@@ -39,10 +40,11 @@ window.IG_STORY_APPS = {
     name: 'Anı Yakala',
     tag: 'Photo · Location',
     emoji: '📸',
+    icon: '/assets/apps/aniyakala.png',
     tagline: 'Konum ve tarih damgalı anılar.',
     taglineEn: 'Moments stamped with place & time.',
     platforms: 'Android · iOS',
-    colors: ['#f59e0b', '#ef4444', '#0a0a0f'],
+    colors: ['#22d3ee', '#fb7185', '#0b1220'],
     file: 'ani-yakala-story'
   },
   suicme: {
@@ -92,6 +94,46 @@ window.IG_STORY_APPS = {
     return lines;
   }
 
+  function loadImage(src) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.onload = function () { resolve(img); };
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
+
+  function drawIcon(ctx, app, ix, iy, size) {
+    var half = size / 2;
+    if (app._iconImg) {
+      roundRect(ctx, ix - half, iy - half, size, size, size * 0.22);
+      ctx.save();
+      ctx.clip();
+      ctx.drawImage(app._iconImg, ix - half, iy - half, size, size);
+      ctx.restore();
+      // soft ring
+      roundRect(ctx, ix - half, iy - half, size, size, size * 0.22);
+      ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      return;
+    }
+    var c0 = app.colors[0];
+    var c1 = app.colors[1];
+    var ir = half;
+    var ig = ctx.createLinearGradient(ix - ir, iy - ir, ix + ir, iy + ir);
+    ig.addColorStop(0, c0);
+    ig.addColorStop(1, c1);
+    ctx.fillStyle = ig;
+    ctx.beginPath();
+    ctx.arc(ix, iy, ir, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = Math.round(size * 0.42) + 'px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(app.emoji, ix, iy + 8);
+  }
+
   function drawStory(app, lang) {
     var canvas = document.createElement('canvas');
     canvas.width = W;
@@ -128,34 +170,12 @@ window.IG_STORY_APPS = {
     ctx.textAlign = 'center';
     ctx.fillText('dogusipeksac.com', W / 2, 220);
 
-    // App icon circle
-    var ix = W / 2;
-    var iy = 480;
-    var ir = 140;
-    var ig = ctx.createLinearGradient(ix - ir, iy - ir, ix + ir, iy + ir);
-    ig.addColorStop(0, c0);
-    ig.addColorStop(1, c1);
-    ctx.fillStyle = ig;
-    ctx.beginPath();
-    ctx.arc(ix, iy, ir, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = 'rgba(0,0,0,0.18)';
-    ctx.beginPath();
-    ctx.arc(ix, iy + 8, ir, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = ig;
-    ctx.beginPath();
-    ctx.arc(ix, iy, ir, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.font = '120px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(app.emoji, ix, iy + 8);
+    // App icon
+    drawIcon(ctx, app, W / 2, 480, 280);
 
     // Tag
     ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = c1;
+    ctx.fillStyle = c0;
     ctx.font = '700 26px "Plus Jakarta Sans", system-ui, sans-serif';
     ctx.fillText(app.tag.toUpperCase(), W / 2, 700);
 
@@ -224,6 +244,15 @@ window.IG_STORY_APPS = {
     return canvas;
   }
 
+  function ensureIcon(app) {
+    if (!app.icon) return Promise.resolve(app);
+    if (app._iconImg) return Promise.resolve(app);
+    return loadImage(app.icon).then(function (img) {
+      app._iconImg = img;
+      return app;
+    }).catch(function () { return app; });
+  }
+
   function downloadCanvas(canvas, filename) {
     var a = document.createElement('a');
     a.download = filename + '.png';
@@ -247,18 +276,22 @@ window.IG_STORY_APPS = {
     draw: drawStory,
     download: function (slug, lang) {
       var app = window.IG_STORY_APPS[slug];
-      if (!app) return;
+      if (!app) return Promise.resolve();
       lang = lang || 'tr';
-      var canvas = drawStory(app, lang);
-      downloadCanvas(canvas, app.file + '-' + lang);
-      return canvas;
+      return ensureIcon(app).then(function () {
+        var canvas = drawStory(app, lang);
+        downloadCanvas(canvas, app.file + '-' + lang);
+        return canvas;
+      });
     },
     preview: function (slug, lang, host) {
       var app = window.IG_STORY_APPS[slug];
-      if (!app) return;
-      var canvas = drawStory(app, lang || 'tr');
-      renderPreview(canvas, host);
-      return canvas;
+      if (!app) return Promise.resolve();
+      return ensureIcon(app).then(function () {
+        var canvas = drawStory(app, lang || 'tr');
+        renderPreview(canvas, host);
+        return canvas;
+      });
     }
   };
 })();
