@@ -1,0 +1,194 @@
+/* Instagram Story studio */
+
+.ig-story-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.ig-story-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.ig-story-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.ig-story-top a {
+  color: var(--text2);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.ig-story-top a:hover { color: var(--accent2); }
+
+.ig-story-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.ig-story-preview-shell {
+  position: sticky;
+  top: 1.25rem;
+}
+
+.ig-story-phone {
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #111;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.ig-story-phone canvas,
+.ig-story-phone img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.ig-story-panel h1 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.ig-story-panel .lead {
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-size: 0.98rem;
+}
+
+.ig-story-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ig-story-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.ig-story-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+}
+
+.ig-story-steps li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  color: var(--text2);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.ig-story-steps .n {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--accent2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.ig-story-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ig-story-actions .app-btn {
+  cursor: pointer;
+  border: none;
+}
+
+.ig-story-note {
+  font-size: 0.82rem;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+.ig-story-apps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.ig-story-app-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 0.75rem;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.ig-story-app-link:hover {
+  border-color: var(--accent2);
+  transform: translateY(-2px);
+}
+
+.ig-story-app-link .e { font-size: 1.75rem; }
+.ig-story-app-link .n { font-size: 0.82rem; font-weight: 700; text-align: center; }
+
+.ig-story-btn-on-landing {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 760px) {
+  .ig-story-layout {
+    grid-template-columns: 1fr;
+  }
+  .ig-story-preview-shell {
+    position: static;
+    order: -1;
+  }
+  .ig-story-phone {
+    max-width: 280px;
+  }
+}

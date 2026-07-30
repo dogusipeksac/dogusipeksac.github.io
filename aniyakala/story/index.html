@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anı Yakala — Instagram Story</title>
+  <meta name="description" content="Anı Yakala için Instagram Story görseli indir. 1080×1920 PNG." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f59e0b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/app-landing.css" />
+  <link rel="stylesheet" href="/assets/ig-story.css" />
+</head>
+<body class="ig-story-page" data-story-app="aniyakala">
+  <div class="ig-story-wrap">
+    <div class="ig-story-top">
+      <a href="/aniyakala/">← Anı Yakala</a>
+      <a href="/#apps">Uygulamalar</a>
+    </div>
+    <div class="ig-story-layout">
+      <div class="ig-story-preview-shell">
+        <div class="ig-story-phone" id="storyPreview" aria-label="Story önizleme"></div>
+      </div>
+      <div class="ig-story-panel">
+        <div class="ig-story-meta">
+          <span class="ig-story-chip"><span>📸</span> Anı Yakala</span>
+          <span class="ig-story-chip">Photo · Location</span>
+          <span class="ig-story-chip">1080 × 1920</span>
+        </div>
+        <h1>Instagram Story</h1>
+        <p class="lead">
+          Hazır story görselini PNG olarak indirip Instagram’a yükle.
+          Mağaza linklerini Instagram’ın <strong>bağlantı (link) sticker</strong> özelliğiyle ekle — görselde link yok, sen eklersin.
+        </p>
+        <ol class="ig-story-steps">
+          <li><span class="n">1</span><span>Aşağıdan dili seçip <strong>Story İndir</strong>’e bas.</span></li>
+          <li><span class="n">2</span><span>Instagram → Yeni story → Galeriden PNG’yi seç.</span></li>
+          <li><span class="n">3</span><span>Bağlantı sticker ekle (Play Store / App Store URL).</span></li>
+        </ol>
+        <div class="ig-story-actions">
+          <button type="button" class="app-btn" id="dlTr">Story İndir (TR)</button>
+          <button type="button" class="app-btn ios" id="dlEn">Download Story (EN)</button>
+        </div>
+        <p class="ig-story-note">Alt kutudaki boş alan, link sticker için bırakıldı. Safe zone Instagram UI ile çakışmaz.</p>
+        <h2 style="font-size:1rem;margin:2rem 0 0.75rem;font-weight:700">Diğer uygulamalar</h2>
+        <div class="ig-story-apps"><a class="ig-story-app-link" href="/kuberush/story/"><span class="e">🎮</span><span class="n">Kube Rush</span></a><a class="ig-story-app-link" href="/mydiary/story/"><span class="e">📔</span><span class="n">My Diary</span></a><a class="ig-story-app-link" href="/appplaka/story/"><span class="e">🚗</span><span class="n">App Plaka Kontrol</span></a><a class="ig-story-app-link" href="/suicme/story/"><span class="e">💧</span><span class="n">Su İçme Hatırlatıcısı</span></a></div>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/ig-story.js"></script>
+  <script>
+    (function () {
+      var slug = document.body.getAttribute('data-story-app');
+      var host = document.getElementById('storyPreview');
+      function refresh(lang) {
+        IgStory.preview(slug, lang, host);
+      }
+      refresh('tr');
+      document.getElementById('dlTr').addEventListener('click', function () {
+        refresh('tr');
+        IgStory.download(slug, 'tr');
+      });
+      document.getElementById('dlEn').addEventListener('click', function () {
+        refresh('en');
+        IgStory.download(slug, 'en');
+      });
+    })();
+  </script>
+</body>
+</html>
