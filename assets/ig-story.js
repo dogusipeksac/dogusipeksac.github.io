@@ -10,6 +10,8 @@ window.IG_STORY_APPS = {
     tagline: 'Tek elle oyna. Küpü büyüt, engellerden geç.',
     taglineEn: 'One-hand runner. Grow, dodge, win.',
     platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush',
+    ios: 'https://apps.apple.com/us/app/kube-rush/id6790684293',
     colors: ['#a3e635', '#65a30d', '#0a0a0f'],
     file: 'kube-rush-story'
   },
@@ -21,6 +23,7 @@ window.IG_STORY_APPS = {
     tagline: 'Notlar, ses, fotoğraf ve PDF — kişisel günlüğün.',
     taglineEn: 'Notes, voice, photos & PDF — your journal.',
     platforms: 'Android',
+    android: 'https://play.google.com/store/apps/details?id=com.product.mydiary',
     colors: ['#7c3aed', '#a855f7', '#0a0a0f'],
     file: 'my-diary-story'
   },
@@ -32,6 +35,8 @@ window.IG_STORY_APPS = {
     tagline: 'Türkiye plakalarını saniyeler içinde oku.',
     taglineEn: 'Read Turkish plates in seconds.',
     platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.product.appplakakontrol',
+    ios: 'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433',
     colors: ['#0891b2', '#06b6d4', '#0a0a0f'],
     file: 'app-plaka-story'
   },
@@ -44,6 +49,8 @@ window.IG_STORY_APPS = {
     tagline: 'Konum ve tarih damgalı anılar.',
     taglineEn: 'Moments stamped with place & time.',
     platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment',
+    ios: 'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335',
     colors: ['#22d3ee', '#fb7185', '#0b1220'],
     file: 'ani-yakala-story'
   },
@@ -56,6 +63,8 @@ window.IG_STORY_APPS = {
     tagline: 'Günlük su hedefini takip et, hatırlatıcı al.',
     taglineEn: 'Track your daily water goal.',
     platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate',
+    ios: 'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946',
     colors: ['#38bdf8', '#1d4ed8', '#0c1929'],
     file: 'su-icme-story'
   }
@@ -104,6 +113,37 @@ window.IG_STORY_APPS = {
     });
   }
 
+  function makeQrDataUrl(text, size) {
+    if (typeof qrcode !== 'function') return null;
+    var qr = qrcode(0, 'M');
+    qr.addData(text);
+    qr.make();
+    var count = qr.getModuleCount();
+    var canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    var margin = Math.floor(size * 0.06);
+    var cell = (size - margin * 2) / count;
+    ctx.fillStyle = '#000000';
+    for (var r = 0; r < count; r++) {
+      for (var c = 0; c < count; c++) {
+        if (qr.isDark(r, c)) {
+          ctx.fillRect(margin + c * cell, margin + r * cell, cell + 0.5, cell + 0.5);
+        }
+      }
+    }
+    return canvas.toDataURL('image/png');
+  }
+
+  function loadQr(text) {
+    var dataUrl = makeQrDataUrl(text, 280);
+    if (!dataUrl) return Promise.reject(new Error('qrcode lib missing'));
+    return loadImage(dataUrl);
+  }
+
   function drawIcon(ctx, app, ix, iy, size) {
     var half = size / 2;
     if (app._iconImg) {
@@ -112,7 +152,6 @@ window.IG_STORY_APPS = {
       ctx.clip();
       ctx.drawImage(app._iconImg, ix - half, iy - half, size, size);
       ctx.restore();
-      // soft ring
       roundRect(ctx, ix - half, iy - half, size, size, size * 0.22);
       ctx.strokeStyle = 'rgba(255,255,255,0.18)';
       ctx.lineWidth = 4;
@@ -135,6 +174,34 @@ window.IG_STORY_APPS = {
     ctx.fillText(app.emoji, ix, iy + 8);
   }
 
+  function drawQrCard(ctx, x, y, w, h, label, img, accent) {
+    roundRect(ctx, x, y, w, h, 28);
+    ctx.fillStyle = 'rgba(255,255,255,0.96)';
+    ctx.fill();
+    ctx.strokeStyle = accent + 'aa';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.fillStyle = '#0f172a';
+    ctx.font = '800 28px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(label, x + w / 2, y + 48);
+
+    var qs = 200;
+    var qx = x + (w - qs) / 2;
+    var qy = y + 70;
+    roundRect(ctx, qx - 8, qy - 8, qs + 16, qs + 16, 16);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    if (img) {
+      ctx.drawImage(img, qx, qy, qs, qs);
+    } else {
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillRect(qx, qy, qs, qs);
+    }
+  }
+
   function drawStory(app, lang) {
     var canvas = document.createElement('canvas');
     canvas.width = W;
@@ -144,7 +211,6 @@ window.IG_STORY_APPS = {
     var c1 = app.colors[1];
     var bg = app.colors[2];
 
-    // Background
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -155,110 +221,102 @@ window.IG_STORY_APPS = {
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
 
-    // Soft orbs
     ctx.fillStyle = c0 + '33';
     ctx.beginPath();
-    ctx.arc(180, 320, 220, 0, Math.PI * 2);
+    ctx.arc(180, 280, 200, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = c1 + '28';
     ctx.beginPath();
-    ctx.arc(920, 1480, 280, 0, Math.PI * 2);
+    ctx.arc(920, 1600, 260, 0, Math.PI * 2);
     ctx.fill();
 
-    // Top brand
     ctx.fillStyle = 'rgba(255,255,255,0.55)';
     ctx.font = '600 28px "Plus Jakarta Sans", system-ui, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('dogusipeksac.com', W / 2, 220);
+    ctx.fillText('dogusipeksac.com', W / 2, 180);
 
-    // App icon
-    drawIcon(ctx, app, W / 2, 480, 280);
+    drawIcon(ctx, app, W / 2, 380, 220);
 
-    // Tag
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = c0;
-    ctx.font = '700 26px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText(app.tag.toUpperCase(), W / 2, 700);
+    ctx.font = '700 24px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText(app.tag.toUpperCase(), W / 2, 560);
 
-    // Name
     ctx.fillStyle = '#f8fafc';
-    ctx.font = '800 78px "Plus Jakarta Sans", system-ui, sans-serif';
-    var nameLines = wrapText(ctx, app.name, 860);
-    var ny = 800;
+    ctx.font = '800 68px "Plus Jakarta Sans", system-ui, sans-serif';
+    var nameLines = wrapText(ctx, app.name, 900);
+    var ny = 640;
     nameLines.forEach(function (ln, i) {
-      ctx.fillText(ln, W / 2, ny + i * 88);
+      ctx.fillText(ln, W / 2, ny + i * 76);
     });
-    ny += nameLines.length * 88 + 24;
+    ny += nameLines.length * 76 + 16;
 
-    // Tagline
     ctx.fillStyle = 'rgba(241,240,255,0.72)';
-    ctx.font = '500 36px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.font = '500 32px "Plus Jakarta Sans", system-ui, sans-serif';
     var tagline = lang === 'en' ? app.taglineEn : app.tagline;
-    var tLines = wrapText(ctx, tagline, 820);
+    var tLines = wrapText(ctx, tagline, 860);
     tLines.forEach(function (ln, i) {
-      ctx.fillText(ln, W / 2, ny + i * 48);
+      ctx.fillText(ln, W / 2, ny + i * 42);
     });
-    ny += tLines.length * 48 + 60;
+    ny += tLines.length * 42 + 40;
 
-    // Platform pill
-    var plat = app.platforms;
-    ctx.font = '700 28px "Plus Jakarta Sans", system-ui, sans-serif';
-    var pw = ctx.measureText(plat).width + 64;
-    var px = (W - pw) / 2;
-    var py = Math.max(ny, 1080);
-    roundRect(ctx, px, py, pw, 64, 32);
-    ctx.fillStyle = 'rgba(255,255,255,0.1)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.fillStyle = '#e2e8f0';
-    ctx.fillText(plat, W / 2, py + 42);
+    // QR section
+    var cards = [];
+    if (app.android) cards.push({ label: 'Android', img: app._qrAndroid, accent: '#34d399' });
+    if (app.ios) cards.push({ label: 'iOS', img: app._qrIos, accent: '#94a3b8' });
 
-    // Link sticker zone hint (bottom safe area)
-    var boxY = 1420;
-    roundRect(ctx, 120, boxY, W - 240, 280, 28);
-    ctx.fillStyle = 'rgba(28,28,40,0.85)';
-    ctx.fill();
-    ctx.strokeStyle = c0 + '99';
-    ctx.lineWidth = 3;
-    ctx.stroke();
+    var cardW = cards.length === 1 ? 420 : 400;
+    var cardH = 320;
+    var gap = 40;
+    var totalW = cards.length * cardW + (cards.length - 1) * gap;
+    var startX = (W - totalW) / 2;
+    var qrY = Math.max(ny + 20, 980);
 
     ctx.fillStyle = '#f8fafc';
-    ctx.font = '800 40px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText(lang === 'en' ? 'Download now' : 'Hemen indir', W / 2, boxY + 90);
+    ctx.font = '800 36px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText(lang === 'en' ? 'Scan to download' : 'QR ile indir', W / 2, qrY - 30);
 
-    ctx.fillStyle = 'rgba(241,240,255,0.7)';
-    ctx.font = '500 28px "Plus Jakarta Sans", system-ui, sans-serif';
-    var hint = lang === 'en'
-      ? 'Add your store link with Instagram Link sticker'
-      : 'Instagram bağlantı sticker ile mağaza linkini ekle';
-    wrapText(ctx, hint, 760).forEach(function (ln, i) {
-      ctx.fillText(ln, W / 2, boxY + 150 + i * 40);
+    cards.forEach(function (card, i) {
+      drawQrCard(ctx, startX + i * (cardW + gap), qrY, cardW, cardH, card.label, card.img, card.accent);
     });
 
-    // Bottom mark
-    ctx.fillStyle = 'rgba(255,255,255,0.35)';
-    ctx.font = '600 24px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText('1080 × 1920 · Instagram Story', W / 2, 1850);
+    var hintY = qrY + cardH + 70;
+    ctx.fillStyle = 'rgba(241,240,255,0.55)';
+    ctx.font = '500 26px "Plus Jakarta Sans", system-ui, sans-serif';
+    var hint = lang === 'en'
+      ? 'You can also add store links with Instagram Link sticker'
+      : 'İstersen Instagram bağlantı sticker ile de link ekleyebilirsin';
+    wrapText(ctx, hint, 820).forEach(function (ln, i) {
+      ctx.fillText(ln, W / 2, hintY + i * 36);
+    });
 
     return canvas;
   }
 
-  function ensureIcon(app) {
-    if (!app.icon) return Promise.resolve(app);
-    if (app._iconImg) return Promise.resolve(app);
-    return loadImage(app.icon).then(function (img) {
-      app._iconImg = img;
-      return app;
-    }).catch(function () { return app; });
+  function ensureAssets(app) {
+    var tasks = [];
+    if (app.icon && !app._iconImg) {
+      tasks.push(loadImage(app.icon).then(function (img) { app._iconImg = img; }).catch(function () {}));
+    }
+    if (app.android && !app._qrAndroid) {
+      tasks.push(loadQr(app.android).then(function (img) { app._qrAndroid = img; }).catch(function () {}));
+    }
+    if (app.ios && !app._qrIos) {
+      tasks.push(loadQr(app.ios).then(function (img) { app._qrIos = img; }).catch(function () {}));
+    }
+    return Promise.all(tasks).then(function () { return app; });
   }
 
   function downloadCanvas(canvas, filename) {
-    var a = document.createElement('a');
-    a.download = filename + '.png';
-    a.href = canvas.toDataURL('image/png');
-    a.click();
+    try {
+      var a = document.createElement('a');
+      a.download = filename + '.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    } catch (err) {
+      console.error(err);
+      alert('PNG indirilemedi. Sayfayı yenileyip tekrar dene.');
+    }
   }
 
   function renderPreview(canvas, host) {
@@ -279,7 +337,7 @@ window.IG_STORY_APPS = {
       var app = window.IG_STORY_APPS[slug];
       if (!app) return Promise.resolve();
       lang = lang || 'tr';
-      return ensureIcon(app).then(function () {
+      return ensureAssets(app).then(function () {
         var canvas = drawStory(app, lang);
         downloadCanvas(canvas, app.file + '-' + lang);
         return canvas;
@@ -288,7 +346,7 @@ window.IG_STORY_APPS = {
     preview: function (slug, lang, host) {
       var app = window.IG_STORY_APPS[slug];
       if (!app) return Promise.resolve();
-      return ensureIcon(app).then(function () {
+      return ensureAssets(app).then(function () {
         var canvas = drawStory(app, lang || 'tr');
         renderPreview(canvas, host);
         return canvas;
