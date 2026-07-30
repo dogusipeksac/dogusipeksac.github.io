@@ -84,7 +84,7 @@
       } else { counters.forEach(animateCount); }
 
       /* Typewriter */
-      var roles = ['Senior Android Developer', 'Kotlin & Jetpack Compose', 'Flutter & iOS Developer', 'Mobil Güvenlik Meraklısı'];
+      var roles = ['Senior Android Developer', 'Kotlin & Jetpack Compose', 'Flutter · Swift · Unity', 'Mobile & Game Development'];
       var typeEl = document.getElementById('typeText');
       if (typeEl) {
         if (reduce) { typeEl.textContent = roles[0]; }
