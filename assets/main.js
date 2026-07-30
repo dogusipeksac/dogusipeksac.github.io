@@ -84,22 +84,28 @@
       } else { counters.forEach(animateCount); }
 
       /* Typewriter */
-      var roles = ['Senior Android Developer', 'Kotlin & Jetpack Compose', 'Flutter · Swift · Unity', 'Mobile & Game Development'];
+      var roles = (window.SiteLang && window.SiteLang.t('roles')) || ['Senior Android Developer', 'Bilgisayar Mühendisi', 'Kotlin & Jetpack Compose', 'Flutter · Swift · Unity'];
       var typeEl = document.getElementById('typeText');
-      if (typeEl) {
-        if (reduce) { typeEl.textContent = roles[0]; }
-        else {
-          var ri = 0, ci = 0, deleting = false;
-          (function type() {
-            var cur = roles[ri];
-            typeEl.textContent = cur.substring(0, ci);
-            if (!deleting && ci < cur.length) { ci++; setTimeout(type, 65); }
-            else if (!deleting && ci === cur.length) { deleting = true; setTimeout(type, 1600); }
-            else if (deleting && ci > 0) { ci--; setTimeout(type, 30); }
-            else { deleting = false; ri = (ri + 1) % roles.length; setTimeout(type, 350); }
-          })();
-        }
+      var typeTimer = null;
+      function startTypewriter(nextRoles) {
+        if (!typeEl) return;
+        if (typeTimer) { clearTimeout(typeTimer); typeTimer = null; }
+        roles = nextRoles && nextRoles.length ? nextRoles : roles;
+        if (reduce) { typeEl.textContent = roles[0]; return; }
+        var ri = 0, ci = 0, deleting = false;
+        (function type() {
+          var cur = roles[ri];
+          typeEl.textContent = cur.substring(0, ci);
+          if (!deleting && ci < cur.length) { ci++; typeTimer = setTimeout(type, 65); }
+          else if (!deleting && ci === cur.length) { deleting = true; typeTimer = setTimeout(type, 1600); }
+          else if (deleting && ci > 0) { ci--; typeTimer = setTimeout(type, 30); }
+          else { deleting = false; ri = (ri + 1) % roles.length; typeTimer = setTimeout(type, 350); }
+        })();
       }
+      startTypewriter(roles);
+      window.addEventListener('site-lang-change', function (e) {
+        if (e.detail && e.detail.roles) startTypewriter(e.detail.roles);
+      });
 
       /* Interactive spotlight (desktop, motion ok) */
       var spot = document.getElementById('spotlight');
