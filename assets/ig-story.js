@@ -52,10 +52,11 @@ window.IG_STORY_APPS = {
     name: 'Su İçme Hatırlatıcısı',
     tag: 'Health · Wellness',
     emoji: '💧',
+    icon: '/assets/apps/suicme.png',
     tagline: 'Günlük su hedefini takip et, hatırlatıcı al.',
     taglineEn: 'Track your daily water goal.',
     platforms: 'Android · iOS',
-    colors: ['#0ea5e9', '#2563eb', '#0a0a0f'],
+    colors: ['#38bdf8', '#1d4ed8', '#0c1929'],
     file: 'su-icme-story'
   }
 };

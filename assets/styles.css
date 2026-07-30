@@ -280,7 +280,8 @@
     .app-icon.plaka { background: linear-gradient(135deg, #0891b2, #06b6d4); }
     .app-icon.moment { background: linear-gradient(135deg, #0b1220, #152238); }
     .app-icon.moment.has-logo { box-shadow: 0 8px 24px rgba(34, 211, 238, 0.18); }
-    .app-icon.hydrate { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+    .app-icon.hydrate { background: linear-gradient(135deg, #0c1929, #1e3a5f); }
+    .app-icon.hydrate.has-logo { box-shadow: 0 8px 24px rgba(56, 189, 248, 0.22); }
     .app-icon.kube { background: linear-gradient(135deg, #111827, #1f2937); }
     .app-icon.kube.has-logo { box-shadow: 0 8px 24px rgba(163, 230, 53, 0.2); }
     .app-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
