@@ -146,6 +146,8 @@
       /* Duplicate marquee content for seamless loop */
       var track = document.getElementById('marqueeTrack');
       if (track) { track.innerHTML += track.innerHTML; }
+      var codeTrack = document.getElementById('codeMarquee');
+      if (codeTrack) { codeTrack.innerHTML += codeTrack.innerHTML; }
 
       /* Section titles shimmer */
       document.querySelectorAll('.section-title').forEach(function (t) { t.classList.add('shimmer'); });
