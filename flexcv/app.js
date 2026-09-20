@@ -22,7 +22,7 @@
   }
 
   const PAGE_W = 794, PAGE_H = 1123;
-  const STORE_KEY = 'flexcv:project:v2026-li';
+  const STORE_KEY = 'flexcv:project:v2026-apps';
   const RECENT_KEY = 'flexcv:recent';
   const PREFS_KEY = 'flexcv:prefs';
 
@@ -1385,13 +1385,15 @@
   function pillHTML(text, bg, fg) {
     return `<span style="display:inline-block;background:${bg};color:${fg};padding:4px 9px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.02em;white-space:nowrap">${text}</span>`;
   }
-  function appMiniHTML(name, plat, desc, accent) {
-    return `<div style="margin-bottom:7px;padding:8px 9px;border:1px solid ${hexA(accent, 0.18)};border-left:3px solid ${accent};border-radius:8px;background:${hexA(accent, 0.04)}">
+  function appMiniHTML(name, plat, desc, accent, android, ios, extra) {
+    const badge = (url, label, bg) => url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:${bg};color:#fff;padding:2px 7px;border-radius:4px;font-size:8.5px;font-weight:700;text-decoration:none;margin:3px 4px 0 0">${label}</a>` : '';
+    return `<div style="margin-bottom:6px;padding:7px 8px;border:1px solid ${hexA(accent, 0.18)};border-left:3px solid ${accent};border-radius:8px;background:${hexA(accent, 0.04)}">
       <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
-        <b style="font-size:12px">${name}</b>
-        <span style="font-size:9px;color:${accent};font-weight:800;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${plat}</span>
+        <b style="font-size:11.8px">${name}</b>
+        <span style="font-size:8.5px;color:${accent};font-weight:800;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${plat}</span>
       </div>
-      <div style="font-size:10.6px;line-height:1.4;margin-top:2px;opacity:.92">${desc}</div>
+      <div style="font-size:10.4px;line-height:1.35;margin-top:2px;opacity:.92">${desc}</div>
+      <div>${badge(android, 'Google Play', '#0f9d58')}${badge(ios, 'App Store', '#111111')}${badge(extra && extra.github, 'GitHub', '#24292f')}${badge(extra && extra.web, 'Web', accent)}</div>
     </div>`;
   }
 
@@ -1454,14 +1456,31 @@
             ${bullet('Feature work, defects and production workflows — Kotlin, Android fundamentals to mid-level delivery.')}
           </div>`,
           style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
-        { type: 'projects', x: 300, y: 590, w: 466, h: 506, content: mainTitle('Products, Flutter &amp; open source') +
-          `<div style="font-size:11px;opacity:.78;margin:-2px 0 8px">Own apps on Google Play &amp; App Store · Flutter (BTK, 2022) · OSS on GitHub</div>` +
-          appMiniHTML('Maintenance Mode Library', 'Open source · Kotlin / Java / Compose', 'First public Android library — maintenance screen as a one-line modular setup. github.com/dogusipeksac/maintenance-lib') +
-          appMiniHTML('Kube Rush', 'Android · iOS · Unity', 'Hypercasual runner I designed, built and published — one-hand play, skins, store listing.') +
-          appMiniHTML('Anı Yakala / Moment Capture', 'Android · iOS · Flutter', 'Location-stamped photos, map and watermarks. Cross-platform product on both stores.') +
-          appMiniHTML('Su İçme Hatırlatıcısı', 'Android · iOS · Flutter', 'Daily water tracker: goals, reminders, stats, light/dark — my own health app.') +
-          appMiniHTML('App Plaka Kontrol', 'Android · iOS', 'AI Turkish plate recognition with scan history. Live on Play Store and App Store.') +
-          appMiniHTML('My Diary', 'Android · Jetpack Compose', 'Personal journal: notes, voice, photos, PDF — Compose + Clean Architecture.'),
+        { type: 'projects', x: 300, y: 590, w: 466, h: 506, content: mainTitle('Published apps') +
+          `<div style="font-size:11px;opacity:.78;margin:-2px 0 7px">Own products — store links from dogusipeksac.com</div>` +
+          appMiniHTML('Kube Rush', 'Android · iOS · Unity', 'Hypercasual runner: one-hand play, skins, store listing.', ac,
+            'https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush',
+            'https://apps.apple.com/us/app/kube-rush/id6790684293',
+            { web: 'https://dogusipeksac.com/kuberush/' }) +
+          appMiniHTML('Anı Yakala / Moment Capture', 'Android · iOS · Flutter', 'Location-stamped photos, map view and watermarks.', ac,
+            'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment',
+            'https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335',
+            { web: 'https://dogusipeksac.com/aniyakala/' }) +
+          appMiniHTML('Su İçme Hatırlatıcısı', 'Android · iOS · Flutter', 'Daily water tracker: goals, reminders, stats, light/dark.', ac,
+            'https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate',
+            'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946',
+            { web: 'https://dogusipeksac.com/suicme/' }) +
+          appMiniHTML('App Plaka Kontrol', 'Android · iOS', 'AI Turkish plate recognition with scan history.', ac,
+            'https://play.google.com/store/apps/details?id=com.product.appplakakontrol',
+            'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433',
+            { web: 'https://dogusipeksac.com/appplaka/' }) +
+          appMiniHTML('My Diary', 'Android · Jetpack Compose', 'Journal: notes, voice, photos, PDF export.', ac,
+            'https://play.google.com/store/apps/details?id=com.product.mydiary',
+            '',
+            { web: 'https://dogusipeksac.com/mydiary/' }) +
+          appMiniHTML('Maintenance Mode Library', 'Open source · Kotlin / Compose', 'Android maintenance-screen library — one-line setup.', ac,
+            '', '',
+            { github: 'https://github.com/dogusipeksac/maintenance-lib' }),
           style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
       ]
     };
