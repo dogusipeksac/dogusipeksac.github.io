@@ -22,7 +22,7 @@
   }
 
   const PAGE_W = 794, PAGE_H = 1123;
-  const STORE_KEY = 'flexcv:project:v2026';
+  const STORE_KEY = 'flexcv:project:v2026-li';
   const RECENT_KEY = 'flexcv:recent';
   const PREFS_KEY = 'flexcv:prefs';
 
@@ -1395,55 +1395,73 @@
     </div>`;
   }
 
-  /* Owner CV — 2026 applications: banking, Flutter, shipped products */
+  function roleLine(title, date) {
+    return `<div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:2px"><b style="font-size:12px">${title}</b><span style="font-size:10.5px;opacity:.65;white-space:nowrap">${date}</span></div>`;
+  }
+
+  /* Owner CV — aligned with linkedin.com/in/dogusipeksac */
   function tplDogus(p) {
     const oc = p.onSidebar, ocs = p.onSidebarSoft, ac = p.accent;
     const sideTitle = (t) => `<div style="font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;border-bottom:1px solid ${hexA(oc, 0.28)};padding-bottom:5px;opacity:.95">${t}</div>`;
-    const skillRow = (label, val) => `<div style="margin-bottom:8px"><div style="font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.04em;opacity:.72">${label}</div><div style="font-size:11px;line-height:1.45;margin-top:1px">${val}</div></div>`;
+    const skillRow = (label, val) => `<div style="margin-bottom:7px"><div style="font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.04em;opacity:.72">${label}</div><div style="font-size:11px;line-height:1.42;margin-top:1px">${val}</div></div>`;
     const mainTitle = (t) => `<div style="font-weight:800;font-size:13.5px;text-transform:uppercase;letter-spacing:.08em;color:${ac};margin-bottom:8px;border-bottom:2px solid ${hexA(ac, 0.22)};padding-bottom:4px">${t}</div>`;
-    const bullet = (t) => `<div style="display:flex;gap:7px;margin:0 0 4px;font-size:11.2px;line-height:1.4"><span style="color:${ac};font-weight:800;flex-shrink:0">▸</span><span>${t}</span></div>`;
+    const bullet = (t) => `<div style="display:flex;gap:7px;margin:0 0 4px;font-size:11.1px;line-height:1.4"><span style="color:${ac};font-weight:800;flex-shrink:0">▸</span><span>${t}</span></div>`;
+    const cert = (name, org, date) => `<div style="margin-bottom:6px"><div style="font-size:10.8px;font-weight:700;line-height:1.3">${name}</div><div style="font-size:10px;opacity:.78">${org} · ${date}</div></div>`;
     return {
       theme: { accent: ac, font: p.font }, page: { bg: '#ffffff' },
       defs: [
         { type: 'customText', x: 0, y: 0, w: 272, h: 1123, content: '', style: { bg: p.sidebar, padT: 0 } },
-        { type: 'photo', x: 76, y: 32, w: 120, h: 120, data: { shape: 'circle' } },
-        { type: 'name', x: 14, y: 162, w: 244, h: 48, content: 'Doğuş İpeksaç', style: { color: oc, fontSize: 24, fontWeight: 800, textAlign: 'center', lineHeight: 1.12, fontFamily: p.font } },
-        { type: 'jobTitle', x: 14, y: 210, w: 244, h: 38, content: 'Senior Mobile Engineer', style: { color: ocs, fontSize: 12, textAlign: 'center', letterSpacing: 0.4, fontFamily: p.font } },
-        { type: 'customText', x: 14, y: 246, w: 244, h: 18, content: 'Android · Flutter · Fintech', style: { color: oc, fontSize: 10.5, fontWeight: 700, textAlign: 'center', letterSpacing: 0.8, opacity: 0.78, fontFamily: p.font } },
-        { type: 'contact', x: 20, y: 278, w: 232, h: 132, content: sideTitle('Contact') + `<div style="font-size:10.6px;line-height:1.78;word-break:break-word">+90 505 001 22 48<br>ipeksac.dogus.19@gmail.com<br>İstanbul, Turkey<br>dogusipeksac.com<br>github.com/dogusipeksac<br>linkedin.com/in/dogusipeksac</div>`, style: { color: oc, fontFamily: p.font } },
-        { type: 'skills', x: 20, y: 418, w: 232, h: 268, content: sideTitle('Stack') +
-          skillRow('Mobile', 'Kotlin · Jetpack Compose · Flutter · Dart · Swift / iOS') +
+        { type: 'photo', x: 76, y: 28, w: 120, h: 120, data: { shape: 'circle' } },
+        { type: 'name', x: 14, y: 156, w: 244, h: 44, content: 'Doğuş İpeksaç', style: { color: oc, fontSize: 23, fontWeight: 800, textAlign: 'center', lineHeight: 1.12, fontFamily: p.font } },
+        { type: 'jobTitle', x: 14, y: 200, w: 244, h: 36, content: 'Senior Android Developer', style: { color: ocs, fontSize: 12, textAlign: 'center', letterSpacing: 0.3, fontFamily: p.font } },
+        { type: 'customText', x: 14, y: 234, w: 244, h: 16, content: 'VeriPark · İstanbul', style: { color: oc, fontSize: 10.5, fontWeight: 700, textAlign: 'center', letterSpacing: 0.6, opacity: 0.78, fontFamily: p.font } },
+        { type: 'contact', x: 20, y: 262, w: 232, h: 118, content: sideTitle('Contact') + `<div style="font-size:10.5px;line-height:1.72;word-break:break-word">+90 505 001 22 48<br>ipeksac.dogus.19@gmail.com<br>İstanbul, Türkiye<br>dogusipeksac.com<br>linkedin.com/in/dogusipeksac<br>github.com/dogusipeksac</div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'skills', x: 20, y: 388, w: 232, h: 248, content: sideTitle('Stack') +
+          skillRow('Mobile', 'Kotlin · Jetpack Compose · Flutter · Dart · Swift') +
+          skillRow('Architecture', 'MVVM · Clean Architecture · Modular / feature-first · Hilt') +
+          skillRow('Data & APIs', 'Retrofit · Room · DataStore · offline-first · Coroutines / Flow') +
           skillRow('Banking / Security', 'NFC · Samsung Pay SDK · SSL Pinning · MSAL') +
-          skillRow('Architecture', 'MVVM · MVI · Clean Architecture') +
-          skillRow('Async & DI', 'Coroutines · Flow · Hilt · Koin') +
-          skillRow('Product', 'Play Store · App Store · Firebase · CI/CD'), style: { color: oc, fontFamily: p.font } },
-        { type: 'languages', x: 20, y: 694, w: 232, h: 72, content: sideTitle('Languages') + `<div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>English</span><span style="opacity:.7">C1</span></div><div style="display:flex;justify-content:space-between;font-size:11.5px"><span>Turkish</span><span style="opacity:.7">Native</span></div>`, style: { color: oc, fontFamily: p.font } },
-        { type: 'education', x: 20, y: 774, w: 232, h: 108, content: sideTitle('Education') + `<div style="font-size:11.2px;line-height:1.48"><b>BSc Computer Engineering</b><br>İnönü University<br><span style="opacity:.82">2017 – 2021 · GPA 3.43 / 4.0</span></div>`, style: { color: oc, fontFamily: p.font } },
-        { type: 'qrcode', x: 81, y: 894, w: 110, h: 110, data: { text: 'https://dogusipeksac.com' }, style: { padT: 0, padR: 0, padB: 0, padL: 0 } },
-        { type: 'customText', x: 20, y: 1008, w: 232, h: 28, content: 'Portfolio · Apps · GitHub', style: { color: oc, fontSize: 10, fontWeight: 700, textAlign: 'center', letterSpacing: 0.6, opacity: 0.8, fontFamily: p.font } },
-        { type: 'references', x: 20, y: 1038, w: 232, h: 70, content: `<div style="font-size:10px;line-height:1.45;opacity:.88"><b>Refs:</b> Canberk Çakmak — Senior iOS · Fatih Erdem — Project Manager</div>`, style: { color: oc, fontFamily: p.font } },
+          skillRow('Quality & CI', 'JUnit · Mockito · Espresso · GitHub Actions · Bitrise'), style: { color: oc, fontFamily: p.font } },
+        { type: 'languages', x: 20, y: 642, w: 232, h: 64, content: sideTitle('Languages') + `<div style="display:flex;justify-content:space-between;font-size:11.2px;margin-bottom:4px"><span>English</span><span style="opacity:.75">C1 · professional</span></div><div style="display:flex;justify-content:space-between;font-size:11.2px"><span>Turkish</span><span style="opacity:.75">Native</span></div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'education', x: 20, y: 712, w: 232, h: 88, content: sideTitle('Education') + `<div style="font-size:11px;line-height:1.45"><b>BSc Computer Engineering</b><br>İnönü University<br><span style="opacity:.82">2017 – 2021 · GPA 3.43 / 4.0</span></div>`, style: { color: oc, fontFamily: p.font } },
+        { type: 'certificates', x: 20, y: 808, w: 232, h: 210, content: sideTitle('Certifications') +
+          cert('Google Flutter — Mobil Uygulama', 'BTK Akademi', 'Apr 2022') +
+          cert('Kotlin ile Android — İleri Seviye', 'BTK Akademi', 'Nov 2021') +
+          cert('Jetpack Compose MVVM', 'Udemy', 'Dec 2021') +
+          cert('Unity ile Dijital Oyun', 'BTK Akademi', 'Nov 2021') +
+          cert('English (C1)', 'Amerikan Kültür Dil Okulları', 'Jan 2020'), style: { color: oc, fontFamily: p.font } },
+        { type: 'qrcode', x: 86, y: 1024, w: 80, h: 80, data: { text: 'https://dogusipeksac.com' }, style: { padT: 0, padR: 0, padB: 0, padL: 0 } },
 
-        { type: 'about', x: 300, y: 36, w: 466, h: 118, content: mainTitle('Profile') + `<div style="font-size:11.6px;line-height:1.55">Computer engineer and senior mobile developer. I ship production apps in <b>banking / fintech</b> (NFC, Samsung Pay, SSL Pinning) and build my own products end-to-end with <b>Android, Jetpack Compose and Flutter</b>. 5+ years, 12+ published apps, Istanbul.</div>`, style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
-        { type: 'customText', x: 300, y: 158, w: 466, h: 44, content: `<div style="display:flex;flex-wrap:wrap;gap:6px">${pillHTML('5+ yrs mobile', hexA(ac, 0.12), ac)}${pillHTML('Banking / Fintech', hexA(ac, 0.12), ac)}${pillHTML('Flutter + Native', hexA(ac, 0.12), ac)}${pillHTML('12+ live apps', hexA(ac, 0.12), ac)}</div>`, style: { padT: 0, padB: 0, fontFamily: p.font } },
-        { type: 'experience', x: 300, y: 208, w: 466, h: 418, content: mainTitle('Experience') +
-          `<div style="margin-bottom:11px">
-            <div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:12.8px">Senior Android Developer</b><span style="font-size:10.5px;opacity:.65;white-space:nowrap">01/2025 – Present</span></div>
-            <div style="font-size:11.5px;font-weight:700;color:${ac};margin:1px 0 5px">Veripark · Banking &amp; Fintech</div>
-            ${bullet('Alternative Bank programme: Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native, A&amp;T Bank.')}
-            ${bullet('Payments &amp; security: NFC, Samsung Pay SDK, SSL pinning, auth and release hardening for regulated apps.')}
-            ${bullet('Kotlin + Jetpack Compose on multi-country banking clients — architecture, performance and store delivery.')}
-          </div>` +
-          entryHTML('Android Developer', 'Product / platform work', '07/2023 – 01/2025', 'Production Android apps with MVVM / Clean Architecture, Compose UI and modern Jetpack libraries.') +
-          entryHTML('Android Developer', 'OGOO Teknoloji Ajansı', '01/2023 – 07/2023', 'Intranet apps for Pegasus, Tofaş, TOGG and Opet. Microsoft ADAL &amp; MSAL; Jira sprints.') +
-          entryHTML('Junior → Intern Android', 'Mobile engineering', '07/2021 – 01/2023', 'Feature work, defect fixes and production workflows while building Kotlin / Android fundamentals.'),
+        { type: 'about', x: 300, y: 32, w: 466, h: 132, content: mainTitle('Profile') + `<div style="font-size:11.4px;line-height:1.52">Senior Android Developer with <b>5+ years</b> building scalable, maintainable mobile apps. Strong in <b>Kotlin, Jetpack Compose, MVVM, Hilt, Coroutines</b>, Clean Architecture and modular development. REST with Retrofit; local data with Room &amp; DataStore; offline-first. Tests with JUnit, Mockito and Espresso. CI/CD with GitHub Actions and Bitrise. Mentoring, code review, and shipping my own Flutter / Android products — plus banking apps at VeriPark.</div>`, style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
+        { type: 'customText', x: 300, y: 168, w: 466, h: 40, content: `<div style="display:flex;flex-wrap:wrap;gap:6px">${pillHTML('5+ yrs Android', hexA(ac, 0.12), ac)}${pillHTML('VeriPark · Banking', hexA(ac, 0.12), ac)}${pillHTML('Flutter', hexA(ac, 0.12), ac)}${pillHTML('Open source', hexA(ac, 0.12), ac)}</div>`, style: { padT: 0, padB: 0, fontFamily: p.font } },
+        { type: 'experience', x: 300, y: 214, w: 466, h: 368, content: mainTitle('Experience') +
+          `<div style="margin-bottom:12px">
+            <div style="font-size:12.4px;font-weight:800;color:${ac}">VeriPark</div>
+            <div style="font-size:10.5px;opacity:.7;margin:0 0 6px">İstanbul · Engineering</div>
+            ${roleLine('Senior Android Developer', 'Feb 2025 – Present')}
+            ${roleLine('Android Developer', 'Aug 2023 – Feb 2025')}
+            ${bullet('Banking / FSI — Alternative Bank: Barclaycard, Ziraat Germany, YapıKredi NL, YapıKredi AZ, Ziraat AZ Native, A&amp;T Bank.')}
+            ${bullet('Payments &amp; security: NFC, Samsung Pay SDK, SSL pinning; DI and architecture on regulated mobile banking.')}
+            ${bullet('Kotlin, Compose, Clean Architecture, Hilt — mentoring, reviews, CI/CD (GitHub Actions, Bitrise).')}
+          </div>
+          <div>
+            <div style="font-size:12.4px;font-weight:800;color:${ac}">OGOO Teknoloji Ajansı</div>
+            <div style="font-size:10.5px;opacity:.7;margin:0 0 6px">İstanbul · Engineering</div>
+            ${roleLine('Android Developer', 'Jan 2023 – Aug 2023')}
+            ${roleLine('Junior Android Developer', 'Oct 2021 – Jan 2023')}
+            ${roleLine('Intern Android Developer', 'Jul 2021 – Sep 2021')}
+            ${bullet('Intranet apps for Pegasus, Tofaş, TOGG and Opet. Microsoft ADAL &amp; MSAL; Jira / Scrum.')}
+            ${bullet('Feature work, defects and production workflows — Kotlin, Android fundamentals to mid-level delivery.')}
+          </div>`,
           style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
-        { type: 'projects', x: 300, y: 636, w: 466, h: 460, content: mainTitle('Shipped products — own apps') +
-          `<div style="font-size:11px;opacity:.78;margin:-2px 0 8px">Designed, built and published independently. Live on Google Play &amp; App Store.</div>` +
-          appMiniHTML('Kube Rush', 'Android · iOS · Unity', 'Hypercasual runner I shipped myself — one-hand controls, progression, skins and store listing.') +
-          appMiniHTML('Anı Yakala / Moment Capture', 'Android · iOS · Flutter', 'Location-stamped photos, map view and watermarks. Cross-platform product on both stores.') +
-          appMiniHTML('Su İçme Hatırlatıcısı', 'Android · iOS · Flutter', 'Daily water tracker: goals, reminders, stats, light/dark — published as my own health app.') +
-          appMiniHTML('App Plaka Kontrol', 'Android · iOS', 'AI Turkish plate recognition with scan history. Native + store presence on both platforms.') +
-          appMiniHTML('My Diary', 'Android · Compose', 'Personal journal: notes, voice, photos and PDF export — Jetpack Compose from scratch.'),
+        { type: 'projects', x: 300, y: 590, w: 466, h: 506, content: mainTitle('Products, Flutter &amp; open source') +
+          `<div style="font-size:11px;opacity:.78;margin:-2px 0 8px">Own apps on Google Play &amp; App Store · Flutter (BTK, 2022) · OSS on GitHub</div>` +
+          appMiniHTML('Maintenance Mode Library', 'Open source · Kotlin / Java / Compose', 'First public Android library — maintenance screen as a one-line modular setup. github.com/dogusipeksac/maintenance-lib') +
+          appMiniHTML('Kube Rush', 'Android · iOS · Unity', 'Hypercasual runner I designed, built and published — one-hand play, skins, store listing.') +
+          appMiniHTML('Anı Yakala / Moment Capture', 'Android · iOS · Flutter', 'Location-stamped photos, map and watermarks. Cross-platform product on both stores.') +
+          appMiniHTML('Su İçme Hatırlatıcısı', 'Android · iOS · Flutter', 'Daily water tracker: goals, reminders, stats, light/dark — my own health app.') +
+          appMiniHTML('App Plaka Kontrol', 'Android · iOS', 'AI Turkish plate recognition with scan history. Live on Play Store and App Store.') +
+          appMiniHTML('My Diary', 'Android · Jetpack Compose', 'Personal journal: notes, voice, photos, PDF — Compose + Clean Architecture.'),
           style: { color: '#1e293b', fontSize: 12, fontFamily: p.font } },
       ]
     };
@@ -1457,7 +1475,7 @@
   }
 
   const TEMPLATES = [
-    { name: 'Doğuş İpeksaç 2026', desc: 'Banking · Flutter · Apps', build: () => tplDogus({ accent: '#0e7490', sidebar: '#0f172a', onSidebar: '#f8fafc', onSidebarSoft: 'rgba(248,250,252,.78)', font: 'Inter' }) },
+    { name: 'Doğuş İpeksaç 2026', desc: 'LinkedIn · Banking · Flutter', build: () => tplDogus({ accent: '#0e7490', sidebar: '#0f172a', onSidebar: '#f8fafc', onSidebarSoft: 'rgba(248,250,252,.78)', font: 'Inter' }) },
     { name: 'Modern', desc: 'Renkli kenar çubuğu', build: () => tplSidebar({ accent: '#6366f1', sidebar: '#6366f1', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.8)', font: 'Inter' }) },
     { name: 'Minimal', desc: 'Sade tek sütun', build: () => tplSingle({ accent: '#111111', heading: '#111111', muted: '#666', font: 'Inter', center: false }) },
     { name: 'Corporate', desc: 'Kurumsal lacivert', build: () => tplSidebar({ accent: '#1e3a5f', sidebar: '#1e3a5f', onSidebar: '#ffffff', onSidebarSoft: 'rgba(255,255,255,.8)', font: 'Roboto' }) },
