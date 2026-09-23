@@ -153,7 +153,7 @@ function detectCategory(tags: Record<string, string>): {
   const craft = tags.craft
 
   const map: Array<{ test: boolean; id: BusinessCategoryId }> = [
-    { test: amenity === 'hairdresser', id: 'hairdresser' },
+    { test: amenity === 'hairdresser' || shop === 'hairdresser', id: 'hairdresser' },
     { test: shop === 'beauty' || shop === 'cosmetics', id: 'beauty' },
     { test: amenity === 'restaurant', id: 'restaurant' },
     { test: amenity === 'cafe', id: 'cafe' },
@@ -181,6 +181,11 @@ function detectCategory(tags: Record<string, string>): {
   }
 
   return { id: 'other', label: 'Diğer' }
+}
+
+/** Nominatim / diğer kaynaklar için dışa açık kategori tespiti */
+export function detectCategoryFromTags(tags: Record<string, string>) {
+  return detectCategory(tags)
 }
 
 function getCoords(el: OverpassElement): LatLng | null {
@@ -270,12 +275,12 @@ export function normalizeOverpassElements(
 
 function selectorsForCategory(category: BusinessCategoryId): string[] {
   if (category === 'all') {
+    // Sadece node — way/relation daha yavaş
     return [
-      'nwr["amenity"~"^(hairdresser|restaurant|cafe|dentist|car_wash)$"]',
-      'nwr["shop"~"^(beauty|cosmetics|car_repair|supermarket|convenience|bakery|pet|florist|photo|laundry)$"]',
-      'nwr["office"="estate_agent"]',
-      'nwr["leisure"~"^(fitness_centre|sports_centre)$"]',
-      'nwr["craft"="photographer"]',
+      'node["amenity"~"^(hairdresser|restaurant|cafe|dentist|car_wash)$"]',
+      'node["shop"~"^(beauty|cosmetics|car_repair|supermarket|convenience|bakery|pet|florist|photo)$"]',
+      'node["office"="estate_agent"]',
+      'node["leisure"~"^(fitness_centre|sports_centre)$"]',
     ]
   }
   if (category === 'car_repair') {
@@ -295,7 +300,7 @@ export function buildOverpassQuery(
   const body = selectors.map((s) => `${s}${around};`).join('\n  ')
 
   return `
-[out:json][timeout:25];
+[out:json][timeout:10];
 (
   ${body}
 );

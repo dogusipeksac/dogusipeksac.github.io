@@ -62,42 +62,41 @@ export const ALL_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
 ]
 
 /**
- * Overpass selectors — nwr = node+way+relation (tek satır, daha hızlı).
+ * Overpass selectors — sadece node (way/relation yavaş).
  */
 export const CATEGORY_OVERPASS: Record<Exclude<BusinessCategoryId, 'all'>, string[]> = {
   salon: [
-    'nwr["amenity"="hairdresser"]',
-    'nwr["shop"="beauty"]',
-    'nwr["shop"="cosmetics"]',
+    'node["amenity"="hairdresser"]',
+    'node["shop"="beauty"]',
+    'node["shop"="cosmetics"]',
   ],
-  hairdresser: ['nwr["amenity"="hairdresser"]'],
-  beauty: ['nwr["shop"="beauty"]', 'nwr["shop"="cosmetics"]'],
-  restaurant: ['nwr["amenity"="restaurant"]'],
-  cafe: ['nwr["amenity"="cafe"]'],
-  dentist: ['nwr["amenity"="dentist"]'],
-  car_repair: ['nwr["shop"="car_repair"]'],
-  car_wash: ['nwr["amenity"="car_wash"]'],
-  estate: ['nwr["office"="estate_agent"]'],
-  gym: ['nwr["leisure"="fitness_centre"]', 'nwr["leisure"="sports_centre"]'],
-  market: ['nwr["shop"="supermarket"]', 'nwr["shop"="convenience"]'],
-  bakery: ['nwr["shop"="bakery"]'],
-  pet: ['nwr["shop"="pet"]'],
-  florist: ['nwr["shop"="florist"]'],
-  photographer: ['nwr["shop"="photo"]', 'nwr["craft"="photographer"]'],
+  hairdresser: ['node["amenity"="hairdresser"]', 'node["shop"="hairdresser"]'],
+  beauty: ['node["shop"="beauty"]', 'node["shop"="cosmetics"]'],
+  restaurant: ['node["amenity"="restaurant"]'],
+  cafe: ['node["amenity"="cafe"]'],
+  dentist: ['node["amenity"="dentist"]'],
+  car_repair: ['node["shop"="car_repair"]'],
+  car_wash: ['node["amenity"="car_wash"]'],
+  estate: ['node["office"="estate_agent"]'],
+  gym: ['node["leisure"="fitness_centre"]', 'node["leisure"="sports_centre"]'],
+  market: ['node["shop"="supermarket"]', 'node["shop"="convenience"]'],
+  bakery: ['node["shop"="bakery"]'],
+  pet: ['node["shop"="pet"]'],
+  florist: ['node["shop"="florist"]'],
+  photographer: ['node["shop"="photo"]', 'node["craft"="photographer"]'],
   other: [
-    'nwr["shop"="laundry"]',
-    'nwr["shop"="dry_cleaning"]',
-    'nwr["shop"="tailor"]',
-    'nwr["craft"="electronics_repair"]',
-    'nwr["amenity"="veterinary"]',
-    'nwr["office"="lawyer"]',
-    'nwr["office"="accountant"]',
+    'node["shop"="laundry"]',
+    'node["shop"="dry_cleaning"]',
+    'node["amenity"="veterinary"]',
+    'node["office"="lawyer"]',
   ],
 }
 
+/** @deprecated — overpass.ts içindeki liste kullanılıyor */
 export const OVERPASS_ENDPOINTS = [
-  'https://overpass-api.de/api/interpreter',
+  'https://overpass.openstreetmap.fr/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
+  'https://overpass-api.de/api/interpreter',
 ]
 
 export const OSM_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

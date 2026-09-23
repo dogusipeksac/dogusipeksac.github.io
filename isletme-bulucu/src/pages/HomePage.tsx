@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { BusinessCard } from '../components/BusinessCard'
 import { BusinessMap } from '../components/BusinessMap'
 import { DetailPanel } from '../components/DetailPanel'
 import { FilterPanel } from '../components/FilterPanel'
+import { LocationPicker } from '../components/LocationPicker'
 import { Pagination } from '../components/Pagination'
 import { StatsBar } from '../components/StatsBar'
 import {
@@ -32,6 +33,7 @@ export function HomePage() {
   const [detail, setDetail] = useState<Business | null>(null)
   const [demoMsg, setDemoMsg] = useState<string | null>(null)
   const [page, setPage] = useState(1)
+  const lastSearchKey = useRef<string | null>(null)
 
   const {
     items,
@@ -69,13 +71,6 @@ export function HomePage() {
     [items, loadedKm, filters.distanceKm],
   )
 
-  const locationLabel =
-    geo.status === 'ready'
-      ? '📍 Konumunuz bulundu'
-      : geo.status === 'loading'
-        ? '📍 Konum alınıyor…'
-        : '📍 Konum alınamadı'
-
   const updateFilters = (partial: Partial<FiltersState>) => {
     setFilters((prev) => ({ ...prev, ...partial }))
   }
@@ -90,18 +85,41 @@ export function HomePage() {
     downloadCsv(`isletmeler-${Date.now()}.csv`, csv)
   }
 
-  const handleSearch = () => {
-    if (!geo.position) return
-    void search(geo.position, filters.distanceKm, filters.category)
+  const runSearch = (pos: LatLng) => {
+    const key = `${pos.lat.toFixed(4)},${pos.lng.toFixed(4)}:${filters.category}:${filters.distanceKm}`
+    lastSearchKey.current = key
+    void search(pos, filters.distanceKm, filters.category)
   }
 
-  // Konum ilk kez gelince otomatik ilk arama (1 km)
+  const handleSearch = () => {
+    if (!geo.position) return
+    runSearch(geo.position)
+  }
+
+  const handlePickLocation = (pos: LatLng, label?: string) => {
+    geo.setManualPosition(pos, label)
+    setFocus(pos)
+    void search(pos, filters.distanceKm, filters.category)
+  }
+
+  // Konum ilk kez (GPS) gelince otomatik ara
   useEffect(() => {
-    if (geo.position && !hasSearched && !loading) {
-      void search(geo.position, filters.distanceKm, filters.category)
+    if (!geo.position || geo.source !== 'gps') return
+    const key = `${geo.position.lat.toFixed(4)},${geo.position.lng.toFixed(4)}`
+    if (lastSearchKey.current?.startsWith(key)) return
+    if (!hasSearched && !loading) {
+      runSearch(geo.position)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only when position becomes ready
-  }, [geo.position])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geo.position, geo.source])
+
+  const locationHint =
+    geo.placeLabel ||
+    (geo.status === 'loading'
+      ? 'GPS alınıyor…'
+      : geo.position
+        ? `${geo.position.lat.toFixed(4)}, ${geo.position.lng.toFixed(4)}`
+        : 'Konum seçilmedi')
 
   return (
     <div className="min-h-full bg-[#f4f6f9]">
@@ -115,20 +133,13 @@ export function HomePage() {
               Yakınımdaki İşletmeleri Bul
             </h1>
             <p className="mt-1 max-w-2xl text-sm text-slate-500 sm:text-base">
-              Web sitesi olmayan işletmeleri keşfet ve yeni müşteriler bul.
+              Web sitesi olmayan işletmeleri keşfet — istediğin semtte ara.
             </p>
-            <p className="mt-2 text-sm font-medium text-slate-700">{locationLabel}</p>
+            <p className="mt-2 text-sm font-medium text-slate-700">
+              📍 {locationHint}
+            </p>
             {geo.error && (
-              <p className="mt-1 text-sm text-amber-700">
-                {geo.error}{' '}
-                <button
-                  type="button"
-                  className="font-semibold underline"
-                  onClick={geo.requestLocation}
-                >
-                  Tekrar dene
-                </button>
-              </p>
+              <p className="mt-1 text-sm text-amber-700">{geo.error}</p>
             )}
             {loadedKm != null && (
               <p className="mt-1 text-xs text-slate-500">
@@ -147,13 +158,6 @@ export function HomePage() {
               className="rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
-            </button>
-            <button
-              type="button"
-              onClick={geo.requestLocation}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-              Konumu yenile
             </button>
             <button
               type="button"
@@ -176,36 +180,63 @@ export function HomePage() {
           radiusLabel={`${loadedKm ?? filters.distanceKm} km İçinde`}
         />
 
-        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:hidden">
-          <FilterPanel filters={filters} onChange={updateFilters} compact />
-          <button
-            type="button"
-            onClick={handleSearch}
-            disabled={!geo.position || loading}
-            className="mt-3 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
-          >
-            {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
-          </button>
-        </div>
-
-        <div className="mt-4 grid gap-4 lg:grid-cols-[260px_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
-          <aside className="hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:block">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
-              Filtreler
-            </h2>
-            <FilterPanel filters={filters} onChange={updateFilters} />
+        <div className="mt-4 space-y-4 lg:hidden">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <LocationPicker
+              position={geo.position}
+              placeLabel={geo.placeLabel}
+              source={geo.source}
+              onSelect={handlePickLocation}
+              onUseGps={geo.requestLocation}
+              gpsLoading={geo.status === 'loading'}
+            />
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <FilterPanel filters={filters} onChange={updateFilters} compact />
             <button
               type="button"
               onClick={handleSearch}
               disabled={!geo.position || loading}
-              className="mt-4 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
+              className="mt-3 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
             >
               {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
             </button>
-            <p className="mt-4 text-xs leading-relaxed text-slate-400">
-              Önce 1 km yüklenir; “Daha fazla” ile mesafeyi adım adım genişletirsiniz.
-              Liste sayfa sayfa gösterilir.
-            </p>
+          </div>
+        </div>
+
+        <div className="mt-4 grid gap-4 lg:grid-cols-[280px_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
+          <aside className="hidden space-y-4 lg:block">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Konum
+              </h2>
+              <LocationPicker
+                position={geo.position}
+                placeLabel={geo.placeLabel}
+                source={geo.source}
+                onSelect={handlePickLocation}
+                onUseGps={geo.requestLocation}
+                gpsLoading={geo.status === 'loading'}
+              />
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Filtreler
+              </h2>
+              <FilterPanel filters={filters} onChange={updateFilters} />
+              <button
+                type="button"
+                onClick={handleSearch}
+                disabled={!geo.position || loading}
+                className="mt-4 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
+              >
+                {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+              </button>
+              <p className="mt-4 text-xs leading-relaxed text-slate-400">
+                Başka şehir/semt için adres yazın veya haritaya tıklayın. Önce 1 km
+                yüklenir; “Daha fazla” ile genişletilir.
+              </p>
+            </div>
           </aside>
 
           <section className="h-[360px] lg:h-[calc(100vh-220px)] lg:min-h-[520px]">
@@ -213,8 +244,9 @@ export function HomePage() {
               user={geo.position}
               businesses={filtered}
               focus={focus}
-              pickMode={geo.status !== 'ready'}
-              onPickLocation={geo.setManualPosition}
+              pickMode
+              placeLabel={geo.placeLabel}
+              onPickLocation={(pos) => handlePickLocation(pos)}
               onSelectBusiness={(id) => {
                 setSelectedId(id)
                 const b =
@@ -222,13 +254,6 @@ export function HomePage() {
                 if (b) setDetail(b)
               }}
             />
-            {(geo.status === 'denied' ||
-              geo.status === 'error' ||
-              geo.status === 'idle') && (
-              <p className="mt-2 text-center text-xs text-slate-500">
-                Haritaya tıklayarak konum seçebilirsiniz.
-              </p>
-            )}
           </section>
 
           <section className="flex max-h-[70vh] flex-col rounded-2xl border border-slate-200 bg-white shadow-sm lg:max-h-[calc(100vh-220px)]">
@@ -261,7 +286,7 @@ export function HomePage() {
 
               {loading && items.length === 0 && (
                 <div className="rounded-xl border border-dashed border-teal-200 bg-teal-50/50 px-4 py-10 text-center text-sm text-teal-800">
-                  1 km içindeki işletmeler yükleniyor…
+                  Yakındaki işletmeler aranıyor… (en fazla ~10 sn)
                 </div>
               )}
 
@@ -275,8 +300,8 @@ export function HomePage() {
                     </>
                   ) : (
                     <>
-                      Bu alanda işletme bulunamadı. Mesafeyi artırıp “Daha fazla yükle”
-                      veya kategoriyi değiştirin.
+                      Bu alanda işletme bulunamadı. Mesafeyi artırın veya başka konum
+                      seçin.
                     </>
                   )}
                 </div>
@@ -284,7 +309,7 @@ export function HomePage() {
 
               {!geo.position && !loading && (
                 <div className="rounded-xl border border-dashed border-slate-200 px-4 py-10 text-center text-sm text-slate-500">
-                  Konum alınana kadar liste boş. İzin verin veya haritadan seçin.
+                  Konum seçin: adres yazın, şehir butonuna basın veya haritaya tıklayın.
                 </div>
               )}
 

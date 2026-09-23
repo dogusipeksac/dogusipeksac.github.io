@@ -56,9 +56,11 @@ interface BusinessMapProps {
   user: LatLng | null
   businesses: Business[]
   focus: LatLng | null
-  pickMode: boolean
+  /** Haritada tıklayarak konum seç (varsayılan: açık) */
+  pickMode?: boolean
   onPickLocation: (pos: LatLng) => void
   onSelectBusiness: (id: string) => void
+  placeLabel?: string | null
 }
 
 const DEFAULT_CENTER: LatLng = { lat: 41.0082, lng: 28.9784 }
@@ -67,19 +69,24 @@ export function BusinessMap({
   user,
   businesses,
   focus,
-  pickMode,
+  pickMode = true,
   onPickLocation,
   onSelectBusiness,
+  placeLabel,
 }: BusinessMapProps) {
   const center = user || DEFAULT_CENTER
 
   const markers = useMemo(() => {
-    // Cap markers for performance on dense areas
     return businesses.slice(0, 400)
   }, [businesses])
 
   return (
-    <div className="h-full min-h-[280px] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+    <div className="relative h-full min-h-[280px] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+      {pickMode && (
+        <div className="pointer-events-none absolute left-3 top-3 z-[1000] rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-medium text-slate-600 shadow">
+          Haritaya tıklayarak konum seçin
+        </div>
+      )}
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={13}
@@ -89,11 +96,11 @@ export function BusinessMap({
         <TileLayer attribution={OSM_ATTRIBUTION} url={OSM_TILE_URL} />
         {user && <Recenter center={user} />}
         <FlyTo target={focus} />
-        <ClickPicker enabled={pickMode || !user} onPick={onPickLocation} />
+        <ClickPicker enabled={pickMode} onPick={onPickLocation} />
 
         {user && (
           <Marker position={[user.lat, user.lng]} icon={userIcon}>
-            <Popup>Konumunuz</Popup>
+            <Popup>{placeLabel || 'Arama merkezi'}</Popup>
           </Marker>
         )}
 
