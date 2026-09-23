@@ -14,6 +14,10 @@ export function filterAndSortBusinesses(
 ): Business[] {
   let list = [...items]
 
+  // Mesafe filtresi client-side; henüz yüklenmemiş halkalar zaten listede yok
+  const maxMeters = filters.distanceKm * 1000
+  list = list.filter((b) => b.distanceMeters <= maxMeters)
+
   list = list.filter((b) => matchesCategory(b, filters.category))
 
   if (filters.website === 'missing') {
@@ -27,8 +31,6 @@ export function filterAndSortBusinesses(
   } else if (filters.openNow === 'closed') {
     list = list.filter((b) => b.openStatus === 'closed')
   }
-
-  list = list.filter((b) => b.distanceMeters <= filters.distanceKm * 1000)
 
   switch (filters.sort) {
     case 'nearest':

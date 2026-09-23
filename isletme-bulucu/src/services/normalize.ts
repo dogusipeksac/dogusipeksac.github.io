@@ -270,18 +270,12 @@ export function normalizeOverpassElements(
 
 function selectorsForCategory(category: BusinessCategoryId): string[] {
   if (category === 'all') {
-    // Compact union for "all" — avoids huge queries that often timeout
     return [
-      'node["amenity"~"^(hairdresser|restaurant|cafe|dentist|car_wash)$"]',
-      'way["amenity"~"^(hairdresser|restaurant|cafe|dentist|car_wash)$"]',
-      'node["shop"~"^(beauty|cosmetics|car_repair|supermarket|convenience|bakery|pet|florist|photo|laundry)$"]',
-      'way["shop"~"^(beauty|cosmetics|car_repair|supermarket|convenience|bakery|pet|florist|photo|laundry)$"]',
-      'node["office"="estate_agent"]',
-      'way["office"="estate_agent"]',
-      'node["leisure"~"^(fitness_centre|sports_centre)$"]',
-      'way["leisure"~"^(fitness_centre|sports_centre)$"]',
-      'node["craft"="photographer"]',
-      'way["craft"="photographer"]',
+      'nwr["amenity"~"^(hairdresser|restaurant|cafe|dentist|car_wash)$"]',
+      'nwr["shop"~"^(beauty|cosmetics|car_repair|supermarket|convenience|bakery|pet|florist|photo|laundry)$"]',
+      'nwr["office"="estate_agent"]',
+      'nwr["leisure"~"^(fitness_centre|sports_centre)$"]',
+      'nwr["craft"="photographer"]',
     ]
   }
   if (category === 'car_repair') {
@@ -301,7 +295,7 @@ export function buildOverpassQuery(
   const body = selectors.map((s) => `${s}${around};`).join('\n  ')
 
   return `
-[out:json][timeout:60];
+[out:json][timeout:25];
 (
   ${body}
 );

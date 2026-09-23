@@ -1,10 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BusinessCard } from '../components/BusinessCard'
 import { BusinessMap } from '../components/BusinessMap'
 import { DetailPanel } from '../components/DetailPanel'
 import { FilterPanel } from '../components/FilterPanel'
+import { Pagination } from '../components/Pagination'
 import { StatsBar } from '../components/StatsBar'
-import { DEFAULT_CATEGORY, DEFAULT_RADIUS_KM } from '../constants/categories'
+import {
+  DEFAULT_CATEGORY,
+  DEFAULT_RADIUS_KM,
+  PAGE_SIZE,
+} from '../constants/categories'
 import { useBusinesses } from '../hooks/useBusinesses'
 import { useGeolocation } from '../hooks/useGeolocation'
 import type { Business, FiltersState, LatLng } from '../types/business'
@@ -14,7 +19,7 @@ import { businessesToCsv, downloadCsv } from '../utils/scoring'
 const initialFilters: FiltersState = {
   category: DEFAULT_CATEGORY,
   distanceKm: DEFAULT_RADIUS_KM,
-  website: 'missing',
+  website: 'all',
   openNow: 'all',
   sort: 'no_website',
 }
@@ -26,20 +31,43 @@ export function HomePage() {
   const [focus, setFocus] = useState<LatLng | null>(null)
   const [detail, setDetail] = useState<Business | null>(null)
   const [demoMsg, setDemoMsg] = useState<string | null>(null)
+  const [page, setPage] = useState(1)
 
-  const { items, loading, error } = useBusinesses({
-    user: geo.position,
-    radiusKm: filters.distanceKm,
-    category: filters.category,
-    enabled: Boolean(geo.position),
-  })
+  const {
+    items,
+    loading,
+    loadingMore,
+    error,
+    loadedKm,
+    search,
+    loadMore,
+    getNextKm,
+    hasSearched,
+  } = useBusinesses()
+
+  const nextKm = getNextKm(filters.distanceKm)
+  const canLoadMore = nextKm != null
 
   const filtered = useMemo(
     () => filterAndSortBusinesses(items, filters),
     [items, filters],
   )
 
-  const stats = useMemo(() => computeStats(items, filters.distanceKm), [items, filters.distanceKm])
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const pageSafe = Math.min(page, totalPages)
+  const pageItems = useMemo(() => {
+    const start = (pageSafe - 1) * PAGE_SIZE
+    return filtered.slice(start, start + PAGE_SIZE)
+  }, [filtered, pageSafe])
+
+  useEffect(() => {
+    setPage(1)
+  }, [filters, items])
+
+  const stats = useMemo(
+    () => computeStats(items, loadedKm ?? filters.distanceKm),
+    [items, loadedKm, filters.distanceKm],
+  )
 
   const locationLabel =
     geo.status === 'ready'
@@ -61,6 +89,19 @@ export function HomePage() {
     const csv = businessesToCsv(filtered)
     downloadCsv(`isletmeler-${Date.now()}.csv`, csv)
   }
+
+  const handleSearch = () => {
+    if (!geo.position) return
+    void search(geo.position, filters.distanceKm, filters.category)
+  }
+
+  // Konum ilk kez gelince otomatik ilk arama (1 km)
+  useEffect(() => {
+    if (geo.position && !hasSearched && !loading) {
+      void search(geo.position, filters.distanceKm, filters.category)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only when position becomes ready
+  }, [geo.position])
 
   return (
     <div className="min-h-full bg-[#f4f6f9]">
@@ -89,8 +130,24 @@ export function HomePage() {
                 </button>
               </p>
             )}
+            {loadedKm != null && (
+              <p className="mt-1 text-xs text-slate-500">
+                Yüklü alan: {loadedKm} km
+                {filters.distanceKm > loadedKm
+                  ? ` · Hedef: ${filters.distanceKm} km`
+                  : ''}
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={handleSearch}
+              disabled={!geo.position || loading}
+              className="rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+            </button>
             <button
               type="button"
               onClick={geo.requestLocation}
@@ -116,28 +173,41 @@ export function HomePage() {
           noWebsite={stats.noWebsite}
           withWebsite={stats.withWebsite}
           withinRadius={stats.withinRadius}
-          radiusLabel={`${filters.distanceKm} km İçinde`}
+          radiusLabel={`${loadedKm ?? filters.distanceKm} km İçinde`}
         />
 
-        {/* Mobile filters */}
         <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:hidden">
           <FilterPanel filters={filters} onChange={updateFilters} compact />
+          <button
+            type="button"
+            onClick={handleSearch}
+            disabled={!geo.position || loading}
+            className="mt-3 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
+          >
+            {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+          </button>
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[260px_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
-          {/* Desktop filters */}
           <aside className="hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:block">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
               Filtreler
             </h2>
             <FilterPanel filters={filters} onChange={updateFilters} />
+            <button
+              type="button"
+              onClick={handleSearch}
+              disabled={!geo.position || loading}
+              className="mt-4 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
+            >
+              {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+            </button>
             <p className="mt-4 text-xs leading-relaxed text-slate-400">
-              Veriler OpenStreetMap üzerinden gelir. Eksik telefon veya website alanları
-              tahmin edilmez.
+              Önce 1 km yüklenir; “Daha fazla” ile mesafeyi adım adım genişletirsiniz.
+              Liste sayfa sayfa gösterilir.
             </p>
           </aside>
 
-          {/* Map */}
           <section className="h-[360px] lg:h-[calc(100vh-220px)] lg:min-h-[520px]">
             <BusinessMap
               user={geo.position}
@@ -147,25 +217,30 @@ export function HomePage() {
               onPickLocation={geo.setManualPosition}
               onSelectBusiness={(id) => {
                 setSelectedId(id)
-                const b = filtered.find((x) => x.id === id) || items.find((x) => x.id === id)
+                const b =
+                  filtered.find((x) => x.id === id) || items.find((x) => x.id === id)
                 if (b) setDetail(b)
               }}
             />
-            {(geo.status === 'denied' || geo.status === 'error' || geo.status === 'idle') && (
+            {(geo.status === 'denied' ||
+              geo.status === 'error' ||
+              geo.status === 'idle') && (
               <p className="mt-2 text-center text-xs text-slate-500">
                 Haritaya tıklayarak konum seçebilirsiniz.
               </p>
             )}
           </section>
 
-          {/* List */}
           <section className="flex max-h-[70vh] flex-col rounded-2xl border border-slate-200 bg-white shadow-sm lg:max-h-[calc(100vh-220px)]">
             <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
               <h2 className="text-sm font-semibold text-slate-800">
                 İşletmeler{' '}
-                <span className="font-normal text-slate-400">({filtered.length})</span>
+                <span className="font-normal text-slate-400">
+                  ({filtered.length}
+                  {items.length !== filtered.length ? ` / ${items.length}` : ''})
+                </span>
               </h2>
-              {loading && (
+              {(loading || loadingMore) && (
                 <span className="text-xs font-medium text-teal-700">Yükleniyor…</span>
               )}
             </div>
@@ -174,13 +249,36 @@ export function HomePage() {
               {error && (
                 <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-3 text-sm text-rose-700">
                   {error}
+                  <button
+                    type="button"
+                    onClick={handleSearch}
+                    className="mt-2 block font-semibold underline"
+                  >
+                    Tekrar dene
+                  </button>
                 </div>
               )}
 
-              {!loading && !error && geo.position && filtered.length === 0 && (
+              {loading && items.length === 0 && (
+                <div className="rounded-xl border border-dashed border-teal-200 bg-teal-50/50 px-4 py-10 text-center text-sm text-teal-800">
+                  1 km içindeki işletmeler yükleniyor…
+                </div>
+              )}
+
+              {!loading && !error && geo.position && hasSearched && filtered.length === 0 && (
                 <div className="rounded-xl border border-dashed border-slate-200 px-4 py-10 text-center text-sm text-slate-500">
-                  Bu filtrelerle işletme bulunamadı. Mesafeyi artırın veya kategoriyi
-                  değiştirin.
+                  {items.length > 0 ? (
+                    <>
+                      {items.length} işletme geldi ama filtreler hepsini gizliyor.
+                      <br />
+                      Web sitesi / açık-kapalı filtresini “Tümü” yapın.
+                    </>
+                  ) : (
+                    <>
+                      Bu alanda işletme bulunamadı. Mesafeyi artırıp “Daha fazla yükle”
+                      veya kategoriyi değiştirin.
+                    </>
+                  )}
                 </div>
               )}
 
@@ -190,7 +288,7 @@ export function HomePage() {
                 </div>
               )}
 
-              {filtered.map((b) => (
+              {pageItems.map((b) => (
                 <BusinessCard
                   key={b.id}
                   business={b}
@@ -199,7 +297,28 @@ export function HomePage() {
                   onDetails={(biz) => setDetail(biz)}
                 />
               ))}
+
+              {canLoadMore && nextKm && (
+                <button
+                  type="button"
+                  onClick={() => void loadMore(filters.distanceKm)}
+                  disabled={loadingMore}
+                  className="w-full rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-800 hover:bg-teal-100 disabled:opacity-50"
+                >
+                  {loadingMore
+                    ? `${nextKm} km yükleniyor…`
+                    : `Daha fazla yükle (${nextKm} km)`}
+                </button>
+              )}
             </div>
+
+            <Pagination
+              page={pageSafe}
+              totalPages={totalPages}
+              totalItems={filtered.length}
+              pageSize={PAGE_SIZE}
+              onChange={setPage}
+            />
           </section>
         </div>
       </main>

@@ -6,9 +6,13 @@ import type {
   WebsiteFilter,
 } from '../types/business'
 
-/** Hızlı varsayılan: dar kategori + makul yarıçap */
-export const DEFAULT_RADIUS_KM: DistanceKm = 3
+/** Hızlı varsayılan: dar kategori + 1 km (ilk sayfa) */
+export const DEFAULT_RADIUS_KM: DistanceKm = 1
 export const DEFAULT_CATEGORY: BusinessCategoryId = 'salon'
+export const PAGE_SIZE = 10
+
+/** Progressive yükleme sırası (sayfa sayfa mesafe) */
+export const RADIUS_STEPS: DistanceKm[] = [1, 3, 5, 10]
 
 export const DISTANCE_OPTIONS: { value: DistanceKm; label: string }[] = [
   { value: 1, label: '1 km' },
@@ -37,7 +41,6 @@ export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'rating', label: 'En yüksek puan' },
 ]
 
-/** Full category list for search / Overpass mapping */
 export const ALL_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
   { value: 'salon', label: 'Kuaför & Güzellik (hızlı)' },
   { value: 'all', label: 'Tümü (yavaş)' },
@@ -59,68 +62,36 @@ export const ALL_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
 ]
 
 /**
- * Overpass tag selectors per category.
- * "salon" = kuaför + güzellik (varsayılan, hızlı).
- * "all" unions the core commercial set.
+ * Overpass selectors — nwr = node+way+relation (tek satır, daha hızlı).
  */
 export const CATEGORY_OVERPASS: Record<Exclude<BusinessCategoryId, 'all'>, string[]> = {
   salon: [
-    'node["amenity"="hairdresser"]',
-    'way["amenity"="hairdresser"]',
-    'node["shop"="beauty"]',
-    'way["shop"="beauty"]',
-    'node["shop"="cosmetics"]',
-    'way["shop"="cosmetics"]',
+    'nwr["amenity"="hairdresser"]',
+    'nwr["shop"="beauty"]',
+    'nwr["shop"="cosmetics"]',
   ],
-  hairdresser: ['node["amenity"="hairdresser"]', 'way["amenity"="hairdresser"]'],
-  beauty: [
-    'node["shop"="beauty"]',
-    'way["shop"="beauty"]',
-    'node["shop"="cosmetics"]',
-    'way["shop"="cosmetics"]',
-  ],
-  restaurant: ['node["amenity"="restaurant"]', 'way["amenity"="restaurant"]'],
-  cafe: ['node["amenity"="cafe"]', 'way["amenity"="cafe"]'],
-  dentist: ['node["amenity"="dentist"]', 'way["amenity"="dentist"]'],
-  car_repair: ['node["shop"="car_repair"]', 'way["shop"="car_repair"]'],
-  car_wash: ['node["amenity"="car_wash"]', 'way["amenity"="car_wash"]'],
-  estate: ['node["office"="estate_agent"]', 'way["office"="estate_agent"]'],
-  gym: [
-    'node["leisure"="fitness_centre"]',
-    'way["leisure"="fitness_centre"]',
-    'node["leisure"="sports_centre"]',
-    'way["leisure"="sports_centre"]',
-  ],
-  market: [
-    'node["shop"="supermarket"]',
-    'way["shop"="supermarket"]',
-    'node["shop"="convenience"]',
-    'way["shop"="convenience"]',
-  ],
-  bakery: ['node["shop"="bakery"]', 'way["shop"="bakery"]'],
-  pet: ['node["shop"="pet"]', 'way["shop"="pet"]'],
-  florist: ['node["shop"="florist"]', 'way["shop"="florist"]'],
-  photographer: [
-    'node["shop"="photo"]',
-    'way["shop"="photo"]',
-    'node["craft"="photographer"]',
-    'way["craft"="photographer"]',
-  ],
+  hairdresser: ['nwr["amenity"="hairdresser"]'],
+  beauty: ['nwr["shop"="beauty"]', 'nwr["shop"="cosmetics"]'],
+  restaurant: ['nwr["amenity"="restaurant"]'],
+  cafe: ['nwr["amenity"="cafe"]'],
+  dentist: ['nwr["amenity"="dentist"]'],
+  car_repair: ['nwr["shop"="car_repair"]'],
+  car_wash: ['nwr["amenity"="car_wash"]'],
+  estate: ['nwr["office"="estate_agent"]'],
+  gym: ['nwr["leisure"="fitness_centre"]', 'nwr["leisure"="sports_centre"]'],
+  market: ['nwr["shop"="supermarket"]', 'nwr["shop"="convenience"]'],
+  bakery: ['nwr["shop"="bakery"]'],
+  pet: ['nwr["shop"="pet"]'],
+  florist: ['nwr["shop"="florist"]'],
+  photographer: ['nwr["shop"="photo"]', 'nwr["craft"="photographer"]'],
   other: [
-    'node["shop"="laundry"]',
-    'way["shop"="laundry"]',
-    'node["shop"="dry_cleaning"]',
-    'way["shop"="dry_cleaning"]',
-    'node["shop"="tailor"]',
-    'way["shop"="tailor"]',
-    'node["craft"="electronics_repair"]',
-    'way["craft"="electronics_repair"]',
-    'node["amenity"="veterinary"]',
-    'way["amenity"="veterinary"]',
-    'node["office"="lawyer"]',
-    'way["office"="lawyer"]',
-    'node["office"="accountant"]',
-    'way["office"="accountant"]',
+    'nwr["shop"="laundry"]',
+    'nwr["shop"="dry_cleaning"]',
+    'nwr["shop"="tailor"]',
+    'nwr["craft"="electronics_repair"]',
+    'nwr["amenity"="veterinary"]',
+    'nwr["office"="lawyer"]',
+    'nwr["office"="accountant"]',
   ],
 }
 
