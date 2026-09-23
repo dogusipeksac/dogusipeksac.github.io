@@ -5,145 +5,226 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sarnıç — Fine Dining | Sultanahmet, İstanbul</title>
-  <meta name="description" content="Sarnıç — Sultanahmet’te, tarihî bir sarnıcın altında fine dining. 18 kişilik oda, tek menü, rezervasyonla." />
+  <meta name="description" content="Sarnıç — Sultanahmet’te tarihî sarnıç altında fine dining. 18 kişilik oda, tek menü, rezervasyonla." />
   <link rel="canonical" href="https://dogusipeksac.com/sarnic/" />
-  <meta name="theme-color" content="#140e0a" />
+  <meta name="theme-color" content="#120c08" />
   <meta property="og:title" content="Sarnıç — Tek menü. Tek oda. Bir gece." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root { --bg:#140e0a; --fg:#f3eadc; --gold:#c4a36a; --mute:#a89a88; --line:#2e261c; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Outfit',sans-serif; }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { font-family:var(--sans); background:var(--bg); color:var(--fg); line-height:1.65; overflow-x:hidden; }
-    img { width:100%; display:block; object-fit:cover; }
-    a { color:inherit; text-decoration:none; }
-    button { font-family:inherit; cursor:pointer; }
-    ::selection { background:var(--gold); color:#140e0a; }
-    .bar { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.5rem 1.4rem; display:flex; justify-content:space-between; color:var(--mute); border-bottom:1px solid var(--line); }
-    .bar a { color:var(--gold); }
-    nav { position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.4rem; background:rgba(20,14,10,.9); backdrop-filter:blur(14px); }
-    .logo { font-family:var(--serif); font-size:1.7rem; letter-spacing:.14em; }
-    .links { display:flex; gap:1.4rem; font-size:.7rem; letter-spacing:.16em; }
-    .links a:hover { color:var(--gold); }
-    .btn { border:1px solid var(--gold); color:var(--gold); padding:.75rem 1.2rem; font-size:.7rem; letter-spacing:.14em; display:inline-block; transition:.25s; }
-    .btn:hover,.btn.solid { background:var(--gold); color:#140e0a; }
-    .ham { display:none; background:none; border:0; color:var(--fg); font-size:1.25rem; }
-    #m { display:none; flex-direction:column; gap:1rem; padding:0 1.4rem 1.3rem; background:var(--bg); }
-    #m.open { display:flex; }
-    #hero { min-height:calc(100svh - 6.4rem); position:relative; display:grid; place-items:center; text-align:center; padding:2rem; }
-    #hero img { position:absolute; inset:0; height:100%; filter:brightness(.38); }
-    #hero::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 30%,rgba(20,14,10,.55) 100%); }
-    .hero-in { position:relative; z-index:1; }
-    .k { letter-spacing:.32em; font-size:.7rem; text-transform:uppercase; color:var(--gold); }
-    h1 { font-family:var(--serif); font-weight:400; font-size:clamp(3.6rem,12vw,8.2rem); letter-spacing:.1em; margin:.35rem 0; }
-    .tag { font-family:var(--serif); font-style:italic; font-size:clamp(1.2rem,3vw,1.7rem); }
-    .rule { width:48px; height:1px; background:var(--gold); margin:1.2rem auto; }
-    section { padding:5.8rem 1.4rem; }
-    .wrap { max-width:980px; margin:0 auto; }
-    h2 { font-family:var(--serif); font-weight:400; font-size:clamp(2.2rem,5vw,3.8rem); line-height:1.1; }
-    .two { display:grid; grid-template-columns:1fr 1fr; gap:2.6rem; align-items:center; }
-    .menu { max-width:680px; margin:2.2rem auto 0; }
-    .course { border-top:1px solid var(--line); padding:1.35rem 0; display:flex; justify-content:space-between; gap:1.2rem; align-items:baseline; }
-    .course b { font-family:var(--serif); font-size:1.5rem; font-weight:400; }
-    .course span { color:var(--gold); font-size:.78rem; letter-spacing:.16em; }
-    .course p { color:var(--mute); font-size:.88rem; margin-top:.25rem; }
-    .note { text-align:center; color:var(--mute); margin-top:1.2rem; font-size:.88rem; }
-    .gallery { display:grid; grid-template-columns:1.2fr .8fr; gap:.55rem; margin-top:2rem; }
-    .gallery img { min-height:240px; }
-    .book { background:#1b140f; text-align:center; }
-    .hours { color:var(--mute); margin:1rem 0 1.6rem; }
-    form { max-width:440px; margin:0 auto; display:grid; gap:.65rem; text-align:left; }
-    input,select { width:100%; background:#140e0a; border:1px solid var(--line); color:var(--fg); padding:.85rem 1rem; font:inherit; }
-    input:focus,select:focus { outline:1px solid var(--gold); }
-    .submit { background:var(--gold); color:#140e0a; border:0; padding:1rem; letter-spacing:.14em; font-size:.72rem; font-weight:600; }
-    .ok { display:none; color:var(--gold); margin-top:1rem; }
-    footer { padding:2rem 1.4rem; display:flex; justify-content:space-between; color:var(--mute); font-size:.78rem; border-top:1px solid var(--line); gap:1rem; flex-wrap:wrap; }
-    .float { display:none; position:fixed; bottom:1rem; left:1rem; right:1rem; z-index:25; }
-    .float a { display:block; text-align:center; background:var(--gold); color:#140e0a; padding:1rem; letter-spacing:.14em; font-weight:600; }
-    .rv { opacity:0; transform:translateY(20px); transition:.75s ease; }
-    .rv.on { opacity:1; transform:none; }
-    @media (max-width:800px){
-      .links,.nav-cta { display:none; } .ham { display:block; }
-      .two,.gallery { grid-template-columns:1fr; }
-      .float { display:block; }
-      footer { padding-bottom:5.5rem; }
+    :root{--bg:#120c08;--fg:#f3eadc;--gold:#c4a36a;--mute:#a89a88;--line:#2a2118;--card:#1a130e;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--fg);line-height:1.65;overflow-x:hidden}
+    img{width:100%;display:block;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+    ::selection{background:var(--gold);color:#120c08}
+
+    .bar{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.45rem 1.5rem;display:flex;justify-content:space-between;color:var(--mute);border-bottom:1px solid var(--line)}
+    .bar a{color:var(--gold)}
+    nav{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:rgba(18,12,8,.92);backdrop-filter:blur(16px)}
+    .logo{font-family:var(--serif);font-size:1.75rem;letter-spacing:.16em}
+    .links{display:flex;gap:1.5rem;font-size:.68rem;letter-spacing:.18em}
+    .links a:hover{color:var(--gold)}
+    .btn{border:1px solid var(--gold);color:var(--gold);padding:.72rem 1.2rem;font-size:.68rem;letter-spacing:.14em;display:inline-block;transition:.3s}
+    .btn:hover,.btn.solid{background:var(--gold);color:#120c08}
+    .ham{display:none;font-size:1.3rem}
+    #m{display:none;flex-direction:column;gap:1.1rem;padding:0 1.5rem 1.4rem;background:var(--bg)}
+    #m.open{display:flex}
+    #m a{font-family:var(--serif);font-size:1.7rem}
+
+    #hero{min-height:calc(100svh - 5.6rem);position:relative;display:grid;place-items:center;text-align:center;padding:2rem;overflow:hidden}
+    .hero-media{position:absolute;inset:0}
+    .hero-media img{height:100%;filter:brightness(.38);transform:scale(1.04);animation:hz 26s ease-in-out infinite alternate}
+    @keyframes hz{to{transform:scale(1.12)}}
+    #hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 20%,rgba(18,12,8,.7) 100%)}
+    .hero-in{position:relative;z-index:1}
+    .k{letter-spacing:.32em;font-size:.68rem;text-transform:uppercase;color:var(--gold)}
+    h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.8rem,13vw,8.4rem);letter-spacing:.12em;margin:.45rem 0}
+    .tag{font-family:var(--serif);font-style:italic;font-size:clamp(1.25rem,3vw,1.85rem);color:#e8dcc8}
+    .rule{width:52px;height:1px;background:var(--gold);margin:1.3rem auto}
+    .hero-meta{display:flex;justify-content:center;gap:2rem;margin-top:2rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);flex-wrap:wrap}
+
+    section{padding:6rem 1.5rem}
+    .wrap{max-width:1000px;margin:0 auto}
+    .wrap-wide{max-width:1120px;margin:0 auto}
+    h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.3rem,5vw,3.9rem);line-height:1.08}
+    .mute{color:var(--mute)}
+    .lede{color:var(--mute);margin-top:1.1rem;font-size:1.05rem;max-width:36rem}
+
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .two img{min-height:420px}
+
+    .menu-sec{text-align:center}
+    .menu{max-width:700px;margin:2.4rem auto 0}
+    .course{border-top:1px solid var(--line);padding:1.5rem 0;display:grid;grid-template-columns:1fr auto;gap:.5rem 1.5rem;text-align:left}
+    .course b{font-family:var(--serif);font-size:1.55rem;font-weight:400}
+    .course .n{color:var(--gold);font-size:.78rem;letter-spacing:.2em;align-self:start;padding-top:.35rem}
+    .course p{color:var(--mute);font-size:.9rem;grid-column:1}
+    .note{color:var(--mute);margin-top:1.4rem;font-size:.9rem}
+    .wine{margin-top:2.5rem;padding:1.6rem;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}
+    .wine h3{font-family:var(--serif);font-weight:400;font-size:1.4rem;color:var(--gold)}
+    .wine p{color:var(--mute);font-size:.88rem;margin-top:.35rem}
+
+    .gallery{display:grid;grid-template-columns:1.25fr .75fr;grid-template-rows:1fr 1fr;gap:.55rem;margin-top:2.2rem}
+    .gallery .g1{grid-row:span 2}
+    .gallery img{min-height:220px;height:100%}
+    .gallery .g1 img{min-height:480px}
+
+    .chef{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}
+    .chef img{min-height:480px;filter:grayscale(.25)}
+    .chef-list{margin-top:1.4rem;border-top:1px solid var(--line)}
+    .chef-list li{list-style:none;padding:1rem 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;font-size:.92rem}
+    .chef-list span{color:var(--gold);letter-spacing:.1em;font-size:.72rem;text-transform:uppercase}
+
+    .reviews{background:var(--card)}
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem}
+    .rev-grid article{border:1px solid var(--line);padding:1.5rem 1.3rem}
+    .rev-grid .stars{color:var(--gold);letter-spacing:.15em;font-size:.8rem;margin-bottom:.7rem}
+    .rev-grid p{font-family:var(--serif);font-size:1.2rem;font-style:italic;line-height:1.4}
+    .rev-grid cite{display:block;margin-top:1rem;font-style:normal;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+
+    .book{background:#1b140f;text-align:center}
+    .hours{color:var(--mute);margin:1.1rem 0 1.8rem;line-height:1.8}
+    form{max-width:460px;margin:0 auto;display:grid;gap:.65rem;text-align:left}
+    input,select{width:100%;background:#120c08;border:1px solid var(--line);color:var(--fg);padding:.9rem 1rem;font:inherit}
+    input:focus,select:focus{outline:1px solid var(--gold)}
+    .submit{background:var(--gold);color:#120c08;padding:1.05rem;letter-spacing:.14em;font-size:.72rem;font-weight:600}
+    .ok{display:none;color:var(--gold);margin-top:1rem}
+
+    footer{padding:2rem 1.5rem;display:flex;justify-content:space-between;color:var(--mute);font-size:.78rem;border-top:1px solid var(--line);gap:1rem;flex-wrap:wrap}
+    .float{display:none;position:fixed;bottom:1rem;left:1rem;right:1rem;z-index:30}
+    .float a{display:block;text-align:center;background:var(--gold);color:#120c08;padding:1rem;letter-spacing:.14em;font-weight:600}
+    .rv{opacity:0;transform:translateY(24px);transition:.8s cubic-bezier(.22,1,.36,1)}
+    .rv.on{opacity:1;transform:none}
+
+    @media(max-width:860px){
+      .links,.nav-cta{display:none}.ham{display:block}
+      .two,.gallery,.chef,.rev-grid,.wine{grid-template-columns:1fr}
+      .gallery .g1{grid-row:auto}.gallery .g1 img{min-height:280px}
+      .chef img{min-height:360px}.float{display:block}footer{padding-bottom:5.5rem}
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .rv{opacity:1;transform:none;transition:none} }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.hero-media img{animation:none}}
   </style>
 </head>
 <body>
   <div class="bar"><span>Demo · Fine dining</span><a href="/#projects">← Portföy</a></div>
   <nav>
     <a class="logo" href="#hero">SARNIÇ</a>
-    <div class="links"><a href="#hikaye">HİKÂYE</a><a href="#menu">MENÜ</a><a href="#oda">ODA</a><a href="#rez">REZERVASYON</a></div>
+    <div class="links"><a href="#hikaye">HİKÂYE</a><a href="#menu">MENÜ</a><a href="#oda">ODA</a><a href="#sef">ŞEF</a><a href="#rez">REZERVASYON</a></div>
     <a class="btn nav-cta" href="#rez">MASA AYIRT</a>
     <button class="ham" id="h" aria-label="Menü">☰</button>
   </nav>
-  <div id="m"><a href="#hikaye">Hikâye</a><a href="#menu">Menü</a><a href="#oda">Oda</a><a href="#rez">Rezervasyon</a></div>
+  <div id="m"><a href="#hikaye">Hikâye</a><a href="#menu">Menü</a><a href="#oda">Oda</a><a href="#sef">Şef</a><a href="#rez">Rezervasyon</a></div>
+
   <header id="hero">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2000&q=80" alt="Sarnıç — mum ışığında tabak" />
+    <div class="hero-media"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2200&q=85" alt="Sarnıç — mum ışığında tabak" /></div>
     <div class="hero-in">
-      <p class="k">Sultanahmet · 18 seats</p>
+      <p class="k">Sultanahmet · 18 seats · Est. 2019</p>
       <h1>SARNIÇ</h1>
       <div class="rule"></div>
       <p class="tag">Tek menü. Tek oda. Bir gece.</p>
+      <div class="hero-meta"><span>Çarşamba–Pazar</span><span>19:30 tek servis</span><span>₺4.800</span></div>
     </div>
   </header>
+
   <section id="hikaye">
     <div class="wrap two">
-      <img class="rv" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1100&q=80" alt="Şef tabağı" style="min-height:400px" />
+      <img class="rv" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=80" alt="Şef tabağı" />
       <div class="rv">
         <p class="k">Maison</p>
         <h2>Taşın altında,<br>ateşin üstünde.</h2>
-        <p style="color:var(--mute);margin-top:1.1rem">Bizans sarnıcının restorasyonu üzerine kurulmuş 18 kişilik oda. Menü her akşam değişir; şef pazardan, balıktan, ateşten karar verir. Şarap listesi Ege ve Loire.</p>
+        <p class="lede">Bizans sarnıcının restorasyonu üzerine kurulmuş 18 kişilik oda. Menü her akşam değişir; şef pazardan, balıktan, ateşten karar verir. Şarap listesi Ege ve Loire.</p>
+        <p class="mute" style="margin-top:1rem">Kapı 19:30’da açılır. Telefon yok, müzik alçak, servis sessiz. Bir gece — başka oda yok.</p>
       </div>
     </div>
   </section>
-  <section id="menu">
-    <div class="wrap" style="text-align:center">
+
+  <section class="menu-sec" id="menu">
+    <div class="wrap">
       <p class="k">Tonight</p>
       <h2 class="rv">Degüstasyon</h2>
+      <p class="mute" style="margin-top:.6rem">4 servis · şarap eşleşmesi ayrı</p>
       <div class="menu">
-        <div class="course"><div><b>İstiridye · bergamot</b><p>Soğuk, tuz, çiçek</p></div><span>I</span></div>
-        <div class="course"><div><b>Kırmızı karides · is</b><p>Mangal, zeytin yaprağı</p></div><span>II</span></div>
-        <div class="course"><div><b>Kuzu · yoğurt · sumak</b><p>Kömür, tandır ekmeği</p></div><span>III</span></div>
-        <div class="course"><div><b>Armut · antep · duman</b><p>Sıcak tatlı, ceviz yağı</p></div><span>IV</span></div>
+        <div class="course rv"><div><b>İstiridye · bergamot</b><p>Soğuk, tuz, çiçek — Karadeniz istiridyesi, bergamot jeli</p></div><span class="n">I</span></div>
+        <div class="course rv"><div><b>Kırmızı karides · is</b><p>Mangal, zeytin yaprağı, limon kabuğu</p></div><span class="n">II</span></div>
+        <div class="course rv"><div><b>Kuzu · yoğurt · sumak</b><p>Kömür, tandır ekmeği, yabanı ot</p></div><span class="n">III</span></div>
+        <div class="course rv"><div><b>Armut · antep · duman</b><p>Sıcak tatlı, ceviz yağı, dumanlı kaymak</p></div><span class="n">IV</span></div>
       </div>
-      <p class="note">4 servis · ₺4.800 · şarap eşleşmesi +₺2.200 · alerjen için masaya yazın</p>
+      <p class="note">₺4.800 · şarap eşleşmesi +₺2.200 · alerjen için rezervasyonda yazın</p>
+      <div class="wine rv">
+        <div><h3>Ege</h3><p>Urla Chardonnay, Sevilen Syrah, Paşaeli Narince</p></div>
+        <div><h3>Loire & Burgundy</h3><p>Sancerre, Chablis Premier Cru, Beaujolais Cru</p></div>
+      </div>
     </div>
   </section>
+
   <section id="oda">
-    <div class="wrap">
+    <div class="wrap-wide">
       <p class="k">Room</p>
       <h2 class="rv">On sekiz sandalye.<br>Başka yok.</h2>
+      <p class="lede">Tonoz, mum, taş. Müzik yok — sadece sohbet ve tabak sesi. Dress: dark / linen.</p>
       <div class="gallery">
-        <img class="rv" src="https://images.unsplash.com/photo-1550966871-3ed36cdb26de?w=1200&q=80" alt="Salon — taş tonoz" style="min-height:360px" />
-        <img class="rv" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Masa detayı" style="min-height:360px" />
+        <div class="g1 rv"><img src="https://images.unsplash.com/photo-1550966871-3ed36cdb26de?w=1400&q=80" alt="Salon — taş tonoz" /></div>
+        <div class="rv"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Masa detayı" /></div>
+        <div class="rv"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80" alt="Şarap" /></div>
       </div>
     </div>
   </section>
+
+  <section id="sef">
+    <div class="wrap chef">
+      <img class="rv" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1000&q=80" alt="Şef" />
+      <div class="rv">
+        <p class="k">Chef</p>
+        <h2>Ateş ve pazar.</h2>
+        <p class="lede">Şef Deniz Arslan — İstanbul, Kopenhag, San Sebastián. Menü sabah pazarda yazılır; akşam ateşte kapanır.</p>
+        <ul class="chef-list">
+          <li>Copenhagen · Noma stage<span>2016</span></li>
+          <li>San Sebastián · Arzak<span>2017–18</span></li>
+          <li>İstanbul · Sarnıç açılış<span>2019</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="wrap">
+      <p class="k" style="text-align:center">Guests</p>
+      <h2 class="rv" style="text-align:center">Masadan notlar.</h2>
+      <div class="rev-grid">
+        <article class="rv"><div class="stars">★★★★★</div><p>“Tonozun altında, dünyanın dışında. Karidesi hâlâ hatırlıyorum.”</p><cite>— Ayşe K. · İstanbul</cite></article>
+        <article class="rv"><div class="stars">★★★★★</div><p>“18 sandalye — bu kadar az olunca her tabak önemli. Mükemmel.”</p><cite>— Mark T. · London</cite></article>
+        <article class="rv"><div class="stars">★★★★★</div><p>“Şarap eşleşmesi Loire’dan geldi, kuzu Ege’den. Gece bitti, sohbet bitmedi.”</p><cite>— Elif & Can</cite></article>
+      </div>
+    </div>
+  </section>
+
   <section class="book" id="rez">
     <p class="k">Table</p>
     <h2>Kapı 19:30’da açılır.</h2>
-    <p class="hours">Çarşamba–Pazar · tek servis<br>Alemdar Cd. · Sultanahmet · dress: dark / linen</p>
-    <form id="f" onsubmit="event.preventDefault();this.style.display='none';document.getElementById('ok').style.display='block'">
+    <p class="hours">Çarşamba–Pazar · tek servis<br>Alemdar Cd. · Sultanahmet<br>Dress: dark / linen · çocuk yok</p>
+    <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('ok').style.display='block'">
       <input name="name" required placeholder="Ad Soyad" />
       <input name="mail" type="email" required placeholder="E-posta" />
-      <select required><option value="">Kişi</option><option>2</option><option>4</option><option>6</option></select>
+      <input name="tel" type="tel" placeholder="Telefon" />
+      <select required><option value="">Kişi sayısı</option><option>2</option><option>4</option><option>6</option></select>
       <input type="date" required />
+      <select><option value="">Şarap eşleşmesi?</option><option>Evet (+₺2.200)</option><option>Hayır</option></select>
       <button class="submit" type="submit">MASA TALEBİ</button>
     </form>
     <p class="ok" id="ok">Talebiniz alındı — demo. Gerçek restoranda 24 saatte teyit gider.</p>
   </section>
-  <footer><span>© 2026 Sarnıç</span><a href="/">Demo by dogusipeksac</a></footer>
+
+  <footer><span>© 2026 Sarnıç · Sultanahmet</span><a href="/">Demo by dogusipeksac</a></footer>
   <div class="float"><a href="#rez">MASA AYIRT</a></div>
   <script>
     document.getElementById('h').onclick=function(){document.getElementById('m').classList.toggle('open')};
     document.querySelectorAll('#m a').forEach(function(a){a.onclick=function(){document.getElementById('m').classList.remove('open')}});
-    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.15});
+    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.12});
     document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
   </script>
 </body>

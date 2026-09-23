@@ -1,0 +1,142 @@
+<!-- dogusipeksac - Dem Cafe QR Menu Demo -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Dem — QR Menü | Cihangir Kahve</title>
+  <meta name="description" content="Dem Cihangir dijital menü. Espresso, filtre, soğuk, tatlı. Masadaki QR — kağıt yok." />
+  <link rel="canonical" href="https://dogusipeksac.com/dem/" />
+  <meta name="theme-color" content="#2a1d14" />
+  <meta property="og:title" content="Dem — Cihangir QR menü" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#f4efe6; --ink:#2a1d14; --paper:#fffaf3; --mute:#7a6a5c; --bean:#6b3e2e; --chip:#e8dccb; --serif:'Fraunces',Georgia,serif; --sans:'Figtree',system-ui,sans-serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; scroll-padding-top:7.4rem; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); line-height:1.5; }
+    img { width:100%; display:block; object-fit:cover; }
+    a { color:inherit; text-decoration:none; }
+    button,input { font-family:inherit; }
+    ::selection { background:var(--bean); color:#fff; }
+    .bar { font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; padding:.45rem 1rem; display:flex; justify-content:space-between; background:var(--ink); color:#e8dccb; }
+    .bar a { color:#e8b48a; }
+    header { padding:1.1rem 1rem .7rem; }
+    .brand { display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; }
+    .logo { font-family:var(--serif); font-size:2.1rem; font-weight:500; }
+    .logo em { font-style:italic; }
+    .meta { font-size:.78rem; color:var(--mute); text-align:right; }
+    .search { margin-top:.9rem; }
+    .search input { width:100%; border:0; background:var(--paper); padding:.85rem 1rem; border-radius:14px; font-size:1rem; box-shadow:0 0 0 1px #e6d9c8; }
+    .search input:focus { outline:2px solid var(--bean); }
+    .chips { position:sticky; top:0; z-index:20; background:rgba(244,239,230,.94); backdrop-filter:blur(12px); display:flex; gap:.45rem; overflow:auto; padding:.65rem 1rem .75rem; -webkit-overflow-scrolling:touch; }
+    .chips button { flex:0 0 auto; border:0; background:var(--chip); color:var(--ink); padding:.5rem .9rem; border-radius:999px; font-size:.78rem; font-weight:600; }
+    .chips button.on { background:var(--ink); color:var(--paper); }
+    section { padding:.4rem 1rem 1.4rem; }
+    h2 { font-family:var(--serif); font-size:1.45rem; font-weight:500; margin:.4rem 0 1rem; }
+    .item { display:grid; grid-template-columns:92px 1fr auto; gap:.85rem; align-items:center; background:var(--paper); border-radius:16px; padding:.7rem; margin-bottom:.65rem; box-shadow:0 1px 0 #eadfce; }
+    .item img { height:92px; border-radius:12px; }
+    .item h3 { font-size:1rem; font-weight:700; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; }
+    .item p { color:var(--mute); font-size:.82rem; margin-top:.2rem; }
+    .price { font-family:var(--serif); font-size:1.15rem; font-weight:500; white-space:nowrap; }
+    .tag { font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; background:#efe0c8; color:var(--bean); padding:.15rem .4rem; border-radius:999px; font-weight:700; }
+    .tag.new { background:#2a1d14; color:#f4efe6; }
+    .empty { display:none; text-align:center; color:var(--mute); padding:2rem 1rem; }
+    .note { font-size:.78rem; color:var(--mute); padding:0 1rem 5.8rem; }
+    footer { padding:0 1rem 1.2rem; font-size:.75rem; color:var(--mute); display:flex; justify-content:space-between; }
+    .dock { position:fixed; left:.8rem; right:.8rem; bottom:.8rem; z-index:30; display:flex; gap:.5rem; }
+    .dock a { flex:1; text-align:center; padding:.95rem .5rem; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .dock .wa { background:#25d366; color:#fff; }
+    .dock .wifi { background:var(--ink); color:var(--paper); }
+    .hide { display:none !important; }
+    @media (min-width:720px) {
+      body { max-width:480px; margin:0 auto; box-shadow:0 0 0 1px #e6d9c8; min-height:100vh; }
+      .bar span:first-child::after { content:' · telefonda QR gibi'; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span>Demo · Kafe QR menü</span><a href="/#projects">← Portföy</a></div>
+  <header>
+    <div class="brand">
+      <div>
+        <div class="logo">Dem<em>.</em></div>
+        <p style="color:var(--mute);font-size:.85rem">Cihangir · specialty</p>
+      </div>
+      <div class="meta" id="masa">Masa · QR</div>
+    </div>
+    <div class="search"><input id="q" type="search" placeholder="Espresso, cheesecake, matcha…" autocomplete="off" /></div>
+  </header>
+  <nav class="chips" id="chips">
+    <button class="on" data-go="kahve">Kahve</button>
+    <button data-go="soguk">Soğuk</button>
+    <button data-go="cay">Çay</button>
+    <button data-go="tatli">Tatlı</button>
+    <button data-go="tuzlu">Tuzlu</button>
+  </nav>
+
+  <section id="kahve">
+    <h2>Kahve</h2>
+    <article class="item" data-k="espresso americano filtre espresso shot"><img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400&q=70" alt="" /><div><h3>Espresso</h3><p>Tek orijin, 18g · 32s</p></div><span class="price">₺75</span></article>
+    <article class="item" data-k="flat white süt latte"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=70" alt="" /><div><h3>Flat White <span class="tag new">yeni</span></h3><p>Kadıköy süt, çift shot</p></div><span class="price">₺95</span></article>
+    <article class="item" data-k="filtre v60 pour over"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=70" alt="" /><div><h3>Filtre · V60</h3><p>Günün çekirdeği, 250ml</p></div><span class="price">₺110</span></article>
+    <article class="item" data-k="cappuccino kapuçino süt"><img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=70" alt="" /><div><h3>Cappuccino</h3><p>Kuru köpük, kakao</p></div><span class="price">₺90</span></article>
+  </section>
+  <section id="soguk">
+    <h2>Soğuk</h2>
+    <article class="item" data-k="iced latte buzlu"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=70" alt="" /><div><h3>Iced Latte</h3><p>Buz, süt, çift shot</p></div><span class="price">₺105</span></article>
+    <article class="item" data-k="cold brew soğuk demleme"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=70" alt="" /><div><h3>Cold Brew</h3><p>16 saat dem, yulaf seçeneği</p></div><span class="price">₺115</span></article>
+    <article class="item" data-k="matcha latte yeşil"><img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=400&q=70" alt="" /><div><h3>Matcha Latte <span class="tag">vegan</span></h3><p>Uji, yulaf sütü</p></div><span class="price">₺120</span></article>
+  </section>
+  <section id="cay">
+    <h2>Çay</h2>
+    <article class="item" data-k="çay demlik türk"><img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&q=70" alt="" /><div><h3>Demlik</h3><p>Rize, ince belli</p></div><span class="price">₺55</span></article>
+    <article class="item" data-k="adaçayı bitki"><img src="https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?w=400&q=70" alt="" /><div><h3>Adaçayı</h3><p>Taze dal, bal yanında</p></div><span class="price">₺70</span></article>
+  </section>
+  <section id="tatli">
+    <h2>Tatlı</h2>
+    <article class="item" data-k="cheesecake cheescake peynir"><img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&q=70" alt="" /><div><h3>Cheesecake</h3><p>New York, günün reçeli</p></div><span class="price">₺145</span></article>
+    <article class="item" data-k="brownie çikolata"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=70" alt="" /><div><h3>Brownie</h3><p>Sıcak, vanilya dondurma</p></div><span class="price">₺130</span></article>
+    <article class="item" data-k="cookie kurabiye"><img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&q=70" alt="" /><div><h3>Cookie</h3><p>Deniz tuzu, %70</p></div><span class="price">₺85</span></article>
+  </section>
+  <section id="tuzlu">
+    <h2>Tuzlu</h2>
+    <article class="item" data-k="tost avokado ekmek"><img src="https://images.unsplash.com/photo-1525351484163-75202dc4d987?w=400&q=70" alt="" /><div><h3>Avokado tost</h3><p>Ekşi maya, pul biber</p></div><span class="price">₺165</span></article>
+    <article class="item" data-k="börek peynir"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=70" alt="" /><div><h3>Peynirli börek</h3><p>Günün tepsisi</p></div><span class="price">₺95</span></article>
+  </section>
+  <p class="empty" id="empty">Bu aramada bir şey yok — kahve yazın.</p>
+  <p class="note">Fiyatlar KDV dahil. Süt: tam / yulaf / badem +₺15. Alerjen için masaya söyleyin.</p>
+  <footer><span>© 2026 Dem Cihangir</span><a href="/">Demo by dogusipeksac</a></footer>
+  <div class="dock">
+    <a class="wifi" href="#" id="wifi">Wi-Fi: demcihangir</a>
+    <a class="wa" href="https://wa.me/905551112233?text=Dem%20masa%20QR%20—%20garson">Garson</a>
+  </div>
+  <script>
+    var masa=new URLSearchParams(location.search).get('masa');
+    if(masa) document.getElementById('masa').textContent='Masa '+masa;
+    var chips=document.querySelectorAll('#chips button');
+    chips.forEach(function(b){b.onclick=function(){document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})}});
+    var secs=[].slice.call(document.querySelectorAll('section[id]'));
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){chips.forEach(function(c){c.classList.toggle('on',c.dataset.go===e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+    var q=document.getElementById('q');
+    q.addEventListener('input',function(){
+      var v=q.value.trim().toLowerCase();
+      var n=0;
+      document.querySelectorAll('.item').forEach(function(el){
+        var ok=!v||(el.dataset.k+' '+el.innerText).toLowerCase().indexOf(v)>-1;
+        el.classList.toggle('hide',!ok); if(ok) n++;
+      });
+      document.querySelectorAll('section').forEach(function(s){
+        s.classList.toggle('hide',!s.querySelector('.item:not(.hide)'));
+      });
+      document.getElementById('empty').style.display=n?'none':'block';
+    });
+    document.getElementById('wifi').onclick=function(e){e.preventDefault();navigator.clipboard&&navigator.clipboard.writeText('demcihangir');this.textContent='Şifre kopyalandı'};
+  </script>
+</body>
+</html>

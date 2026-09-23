@@ -1,0 +1,148 @@
+<!-- dogusipeksac - Ocak Restaurant QR Menu Demo -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Ocak — QR Menü | Karaköy Izgara</title>
+  <meta name="description" content="Ocak Karaköy dijital menü. Meze, ızgara, deniz, tatlı. Masadaki QR — garson çağır." />
+  <link rel="canonical" href="https://dogusipeksac.com/ocak/" />
+  <meta name="theme-color" content="#1a1410" />
+  <meta property="og:title" content="Ocak — Karaköy QR menü" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#1a1410; --fg:#f3eadc; --mute:#a89886; --ember:#c45c2a; --card:#241c16; --line:#352a22; --serif:'Instrument Serif',Georgia,serif; --sans:'Outfit',system-ui,sans-serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; scroll-padding-top:7.2rem; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--fg); line-height:1.5; }
+    img { width:100%; display:block; object-fit:cover; }
+    a { color:inherit; text-decoration:none; }
+    button,input { font-family:inherit; }
+    ::selection { background:var(--ember); color:#fff; }
+    .bar { font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; padding:.45rem 1rem; display:flex; justify-content:space-between; background:#110e0b; color:var(--mute); }
+    .bar a { color:#e8b48a; }
+    header { padding:1.15rem 1rem .65rem; }
+    .brand { display:flex; justify-content:space-between; align-items:flex-end; }
+    .logo { font-family:var(--serif); font-size:2.3rem; }
+    .meta { font-size:.78rem; color:var(--mute); text-align:right; }
+    .search { margin-top:.9rem; }
+    .search input { width:100%; border:1px solid var(--line); background:var(--card); color:var(--fg); padding:.85rem 1rem; border-radius:12px; font-size:1rem; }
+    .search input:focus { outline:1px solid var(--ember); }
+    .chips { position:sticky; top:0; z-index:20; background:rgba(26,20,16,.94); backdrop-filter:blur(12px); display:flex; gap:.4rem; overflow:auto; padding:.6rem 1rem .7rem; -webkit-overflow-scrolling:touch; }
+    .chips button { flex:0 0 auto; border:1px solid var(--line); background:transparent; color:var(--fg); padding:.48rem .85rem; border-radius:999px; font-size:.76rem; font-weight:600; }
+    .chips button.on { background:var(--ember); border-color:var(--ember); color:#fff; }
+    section { padding:.35rem 1rem 1.3rem; }
+    h2 { font-family:var(--serif); font-size:1.7rem; font-weight:400; margin:.35rem 0 .95rem; }
+    .item { display:grid; grid-template-columns:88px 1fr auto; gap:.8rem; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:.65rem; margin-bottom:.6rem; }
+    .item img { height:88px; border-radius:10px; }
+    .item h3 { font-size:1.02rem; font-weight:600; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; }
+    .item p { color:var(--mute); font-size:.8rem; margin-top:.2rem; }
+    .price { font-family:var(--serif); font-size:1.2rem; color:#f0c9a0; white-space:nowrap; }
+    .tag { font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--ember); color:#e8b48a; padding:.12rem .38rem; border-radius:999px; }
+    .tag.hot { background:var(--ember); color:#fff; border-color:var(--ember); }
+    .empty { display:none; text-align:center; color:var(--mute); padding:2rem 1rem; }
+    .note { font-size:.76rem; color:var(--mute); padding:0 1rem 5.8rem; }
+    footer { padding:0 1rem 1.2rem; font-size:.75rem; color:var(--mute); display:flex; justify-content:space-between; }
+    .dock { position:fixed; left:.8rem; right:.8rem; bottom:.8rem; z-index:30; display:flex; gap:.5rem; }
+    .dock a { flex:1; text-align:center; padding:.95rem .5rem; border-radius:12px; font-size:.78rem; font-weight:700; }
+    .dock .wa { background:#25d366; color:#fff; }
+    .dock .bill { background:var(--ember); color:#fff; }
+    .hide { display:none !important; }
+    @media (min-width:720px) {
+      body { max-width:480px; margin:0 auto; min-height:100vh; box-shadow:0 0 0 1px var(--line); }
+      .bar span:first-child::after { content:' · telefonda QR gibi'; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span>Demo · Restoran QR menü</span><a href="/#projects">← Portföy</a></div>
+  <header>
+    <div class="brand">
+      <div>
+        <div class="logo">Ocak</div>
+        <p style="color:var(--mute);font-size:.85rem">Karaköy · ızgara &amp; meze</p>
+      </div>
+      <div class="meta" id="masa">Masa · QR</div>
+    </div>
+    <div class="search"><input id="q" type="search" placeholder="Adana, ahtapot, baklava…" autocomplete="off" /></div>
+  </header>
+  <nav class="chips" id="chips">
+    <button class="on" data-go="meze">Meze</button>
+    <button data-go="izgara">Izgara</button>
+    <button data-go="deniz">Deniz</button>
+    <button data-go="salata">Salata</button>
+    <button data-go="tatli">Tatlı</button>
+    <button data-go="icki">İçki</button>
+  </nav>
+
+  <section id="meze">
+    <h2>Meze</h2>
+    <article class="item" data-k="humus nohut"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=70" alt="" /><div><h3>Humus</h3><p>Tahin, pul biber yağı</p></div><span class="price">₺180</span></article>
+    <article class="item" data-k="atom yoğurt acı"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70" alt="" /><div><h3>Atom <span class="tag hot">acı</span></h3><p>Süzme yoğurt, isot</p></div><span class="price">₺195</span></article>
+    <article class="item" data-k="lakerda balık"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=70" alt="" /><div><h3>Lakerda</h3><p>Kırmızı soğan, zeytinyağı</p></div><span class="price">₺320</span></article>
+    <article class="item" data-k="haydari sarımsak"><img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&q=70" alt="" /><div><h3>Haydari</h3><p>Nane, sarımsak</p></div><span class="price">₺170</span></article>
+  </section>
+  <section id="izgara">
+    <h2>Izgara</h2>
+    <article class="item" data-k="adana kebap kıyma"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=70" alt="" /><div><h3>Adana <span class="tag">şef</span></h3><p>Kuyruk, sumak soğan, lavaş</p></div><span class="price">₺420</span></article>
+    <article class="item" data-k="kuzu pirzola"><img src="https://images.unsplash.com/photo-1544025162-d76698298863?w=400&q=70" alt="" /><div><h3>Kuzu pirzola</h3><p>Kekik, köz biber</p></div><span class="price">₺580</span></article>
+    <article class="item" data-k="tavuk şiş"><img src="https://images.unsplash.com/photo-1532550906381-2e2d65720713?w=400&q=70" alt="" /><div><h3>Tavuk şiş</h3><p>Yoğurt marine, köz</p></div><span class="price">₺340</span></article>
+    <article class="item" data-k="köfte ızgara"><img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=400&q=70" alt="" /><div><h3>Köfte</h3><p>Dana-kuzu, piyaz</p></div><span class="price">₺360</span></article>
+  </section>
+  <section id="deniz">
+    <h2>Deniz</h2>
+    <article class="item" data-k="ahtapot ızgara"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=70" alt="" /><div><h3>Ahtapot</h3><p>Köz, limon, kereviz</p></div><span class="price">₺640</span></article>
+    <article class="item" data-k="levrek ızgara balık"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=70" alt="" /><div><h3>Levrek</h3><p>Günün balığı, roka</p></div><span class="price">₺520</span></article>
+    <article class="item" data-k="karides güveç"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=70" alt="" /><div><h3>Karides güveç</h3><p>Sarımsak, tereyağı</p></div><span class="price">₺490</span></article>
+  </section>
+  <section id="salata">
+    <h2>Salata</h2>
+    <article class="item" data-k="çoban salata"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=70" alt="" /><div><h3>Çoban</h3><p>Domates, salatalık, sumak</p></div><span class="price">₺160</span></article>
+    <article class="item" data-k="roka nar"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=70" alt="" /><div><h3>Roka · nar</h3><p>Parmesan, nar ekşisi</p></div><span class="price">₺190</span></article>
+  </section>
+  <section id="tatli">
+    <h2>Tatlı</h2>
+    <article class="item" data-k="baklava fıstık"><img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?w=400&q=70" alt="" /><div><h3>Baklava</h3><p>Antep, kaymak</p></div><span class="price">₺220</span></article>
+    <article class="item" data-k="sütlaç fırın"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=70" alt="" /><div><h3>Fırın sütlaç</h3><p>Tarçın, günün tepsisi</p></div><span class="price">₺160</span></article>
+  </section>
+  <section id="icki">
+    <h2>İçki</h2>
+    <article class="item" data-k="rakı aslan sütü"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=70" alt="" /><div><h3>Rakı · duble</h3><p>Yeni Rakı, buz, su</p></div><span class="price">₺280</span></article>
+    <article class="item" data-k="şarap kırmızı"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=70" alt="" /><div><h3>Kadeh şarap</h3><p>Ege kırmızı / beyaz</p></div><span class="price">₺210</span></article>
+    <article class="item" data-k="ayran"><img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&q=70" alt="" /><div><h3>Ayran</h3><p>Yayık, tuzlu</p></div><span class="price">₺55</span></article>
+  </section>
+  <p class="empty" id="empty">Bu aramada yemek yok — Adana yazın.</p>
+  <p class="note">Fiyatlar KDV dahil. Izgara 25–35 dk. Alerjen ve pişme için masaya yazın. 10+ kişi için önceden haber.</p>
+  <footer><span>© 2026 Ocak Karaköy</span><a href="/">Demo by dogusipeksac</a></footer>
+  <div class="dock">
+    <a class="bill" href="https://wa.me/905551112233?text=Ocak%20hesap%20lütfen">Hesap</a>
+    <a class="wa" href="https://wa.me/905551112233?text=Ocak%20garson">Garson</a>
+  </div>
+  <script>
+    var masa=new URLSearchParams(location.search).get('masa');
+    if(masa) document.getElementById('masa').textContent='Masa '+masa;
+    var chips=document.querySelectorAll('#chips button');
+    chips.forEach(function(b){b.onclick=function(){document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})}});
+    var secs=[].slice.call(document.querySelectorAll('section[id]'));
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){chips.forEach(function(c){c.classList.toggle('on',c.dataset.go===e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+    var q=document.getElementById('q');
+    q.addEventListener('input',function(){
+      var v=q.value.trim().toLowerCase();
+      var n=0;
+      document.querySelectorAll('.item').forEach(function(el){
+        var ok=!v||(el.dataset.k+' '+el.innerText).toLowerCase().indexOf(v)>-1;
+        el.classList.toggle('hide',!ok); if(ok) n++;
+      });
+      document.querySelectorAll('section').forEach(function(s){
+        s.classList.toggle('hide',!s.querySelector('.item:not(.hide)'));
+      });
+      document.getElementById('empty').style.display=n?'none':'block';
+    });
+  </script>
+</body>
+</html>

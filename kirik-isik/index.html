@@ -7,126 +7,239 @@
   <title>Kırık Işık — Düğün & Editorial Fotoğraf | İstanbul</title>
   <meta name="description" content="Kırık Işık — film ve dijital. Düğün, editorial, portre. İstanbul ve Ege. Az poz, uzun bakış." />
   <link rel="canonical" href="https://dogusipeksac.com/kirik-isik/" />
-  <meta name="theme-color" content="#f6f3ee" />
+  <meta name="theme-color" content="#f3efe8" />
   <meta property="og:title" content="Kırık Işık — Işığı kıran kadraj" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root { --bg:#f6f3ee; --ink:#1c1916; --mute:#6f6860; --clay:#8a5a32; --serif:'Newsreader',Georgia,serif; --sans:'IBM Plex Sans',sans-serif; }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { font-family:var(--sans); background:var(--bg); color:var(--ink); overflow-x:hidden; }
-    img { width:100%; display:block; object-fit:cover; }
-    a { color:inherit; text-decoration:none; }
-    button { font-family:inherit; cursor:pointer; }
-    ::selection { background:var(--ink); color:var(--bg); }
-    .bar { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.5rem 1.3rem; display:flex; justify-content:space-between; color:var(--mute); }
-    .bar a { color:var(--clay); }
-    nav { position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.3rem; background:rgba(246,243,238,.92); backdrop-filter:blur(14px); }
-    .logo { font-family:var(--serif); font-size:1.45rem; }
-    .links { display:flex; gap:1.3rem; font-size:.72rem; letter-spacing:.14em; }
-    .btn { background:var(--ink); color:var(--bg); padding:.75rem 1.15rem; font-size:.7rem; letter-spacing:.12em; display:inline-block; }
-    .ham { display:none; border:0; background:none; font-size:1.25rem; }
-    #m { display:none; flex-direction:column; gap:1rem; padding:0 1.3rem 1.2rem; background:var(--bg); }
-    #m.open { display:flex; }
-    #hero { padding:1.4rem 1.3rem 0; }
-    h1 { font-family:var(--serif); font-weight:400; font-size:clamp(2.9rem,8.5vw,5.8rem); line-height:.94; max-width:14ch; }
-    h1 em { font-style:italic; }
-    .hero-img { margin-top:1.7rem; height:min(78vh,740px); overflow:hidden; }
-    .hero-img img { height:100%; }
-    section { padding:5rem 1.3rem; }
-    .wrap { max-width:1120px; margin:0 auto; }
-    h2 { font-family:var(--serif); font-weight:400; font-size:clamp(2rem,4.5vw,3.3rem); line-height:1.1; }
-    .film { display:flex; gap:.55rem; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:.8rem; -webkit-overflow-scrolling:touch; }
-    .film a { flex:0 0 70%; scroll-snap-align:start; }
-    .film img { height:440px; }
-    .film p { margin-top:.55rem; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
-    .about { display:grid; grid-template-columns:.85fr 1.15fr; gap:2.6rem; align-items:center; }
-    .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:2rem; }
-    .packs article { border:1px solid #e4ddd3; padding:1.4rem 1.2rem; background:#fff; }
-    .packs h3 { font-family:var(--serif); font-size:1.55rem; font-weight:400; }
-    .packs p { color:var(--mute); font-size:.9rem; margin-top:.45rem; }
-    .end { text-align:center; }
-    form { max-width:440px; margin:1.6rem auto 0; display:grid; gap:.65rem; text-align:left; }
-    input,textarea { width:100%; border:1px solid #d8d1c6; background:#fff; padding:.85rem 1rem; font:inherit; }
-    input:focus,textarea:focus { outline:1px solid var(--ink); }
-    .submit { background:var(--ink); color:var(--bg); border:0; padding:1rem; letter-spacing:.12em; font-size:.72rem; }
-    .ok { display:none; color:var(--clay); margin-top:1rem; }
-    footer { padding:1.6rem 1.3rem; display:flex; justify-content:space-between; color:var(--mute); font-size:.78rem; gap:1rem; flex-wrap:wrap; }
-    .float { display:none; position:fixed; bottom:1rem; left:1rem; right:1rem; z-index:25; }
-    .float a { display:block; text-align:center; background:var(--ink); color:var(--bg); padding:1rem; letter-spacing:.12em; }
-    .rv { opacity:0; transform:translateY(18px); transition:.75s ease; }
-    .rv.on { opacity:1; transform:none; }
-    @media (max-width:800px){
-      .links,.nav-cta { display:none; } .ham { display:block; }
-      .about,.packs { grid-template-columns:1fr; }
-      .film a { flex-basis:88%; } .film img { height:320px; }
-      .float { display:block; }
-      footer { padding-bottom:5.5rem; }
+    :root{--bg:#f3efe8;--ink:#1a1714;--mute:#6a635a;--clay:#8a5a32;--line:#e4ddd3;--paper:#fffdf9;--serif:'Newsreader',Georgia,serif;--sans:'IBM Plex Sans',sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow-x:hidden;line-height:1.6}
+    img{width:100%;display:block;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:0;background:none}
+    ::selection{background:var(--ink);color:var(--bg)}
+
+    .bar{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.45rem 1.4rem;display:flex;justify-content:space-between;color:var(--mute)}
+    .bar a{color:var(--clay)}
+    nav{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;background:rgba(243,239,232,.94);backdrop-filter:blur(14px)}
+    .logo{font-family:var(--serif);font-size:1.5rem}
+    .links{display:flex;gap:1.4rem;font-size:.7rem;letter-spacing:.14em}
+    .btn{background:var(--ink);color:var(--bg);padding:.72rem 1.2rem;font-size:.7rem;letter-spacing:.12em;display:inline-block;transition:.25s}
+    .btn:hover{background:var(--clay)}
+    .ham{display:none;font-size:1.3rem}
+    #m{display:none;flex-direction:column;gap:1rem;padding:0 1.4rem 1.3rem;background:var(--bg)}
+    #m.open{display:flex}
+    #m a{font-family:var(--serif);font-size:1.7rem}
+
+    #hero{padding:1.6rem 1.4rem 0}
+    .hero-k{letter-spacing:.2em;font-size:.68rem;text-transform:uppercase;color:var(--mute);margin-bottom:.9rem}
+    h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,9vw,6rem);line-height:.92;max-width:14ch;letter-spacing:-.02em}
+    h1 em{font-style:italic;color:var(--clay)}
+    .hero-sub{max-width:28rem;color:var(--mute);margin:1.2rem 0 1.6rem;font-size:1.05rem}
+    .hero-img{margin-top:.5rem;height:min(78vh,760px);overflow:hidden;position:relative}
+    .hero-img img{height:100%;transform:scale(1.04);animation:hz 22s ease-in-out infinite alternate}
+    @keyframes hz{to{transform:scale(1.1)}}
+    .hero-img .cap{position:absolute;left:1rem;bottom:1rem;background:rgba(26,23,20,.7);color:#fff;padding:.4rem .7rem;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+
+    section{padding:5.5rem 1.4rem}
+    .wrap{max-width:1140px;margin:0 auto}
+    h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,4.8vw,3.5rem);line-height:1.08}
+    .mute{color:var(--mute)}
+    .lede{color:var(--mute);margin-top:.7rem;max-width:34rem;font-size:1.02rem}
+
+    .film-head{display:flex;justify-content:space-between;align-items:end;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+    .film{display:flex;gap:.6rem;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:.8rem;-webkit-overflow-scrolling:touch}
+    .film a{flex:0 0 68%;scroll-snap-align:start;position:relative}
+    .film img{height:460px;transition:transform .8s}
+    .film a:hover img{transform:scale(1.03)}
+    .film p{margin-top:.6rem;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+    .film .y{color:var(--clay)}
+
+    .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center}
+    .about img{min-height:440px}
+    .facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.8rem}
+    .facts div{border-top:1px solid var(--line);padding-top:.9rem}
+    .facts b{display:block;font-family:var(--serif);font-size:1.8rem;font-weight:400}
+    .facts span{font-size:.78rem;color:var(--mute)}
+
+    .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:2.2rem}
+    .packs article{background:var(--paper);border:1px solid var(--line);padding:1.8rem 1.4rem;transition:border-color .3s,transform .3s}
+    .packs article:hover{border-color:var(--ink);transform:translateY(-3px)}
+    .packs .n{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+    .packs h3{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin:.5rem 0 .7rem}
+    .packs ul{list-style:none;color:var(--mute);font-size:.9rem}
+    .packs li{padding:.4rem 0;border-bottom:1px solid var(--line)}
+    .packs li:last-child{border:0}
+    .packs .price{font-family:var(--serif);font-size:1.5rem;margin-top:1.2rem}
+
+    .grid-more{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-top:2rem}
+    .grid-more img{height:280px;filter:grayscale(.1);transition:filter .4s,transform .6s}
+    .grid-more a:hover img{filter:none;transform:scale(1.02)}
+    .grid-more a{overflow:hidden}
+
+    .quote{text-align:center;padding:5rem 1.4rem;background:var(--ink);color:var(--bg)}
+    .quote blockquote{font-family:var(--serif);font-size:clamp(1.5rem,3.5vw,2.4rem);font-style:italic;max-width:720px;margin:0 auto;line-height:1.35}
+    .quote cite{display:block;margin-top:1.3rem;font-style:normal;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#b8a99a}
+
+    .end{text-align:center}
+    form{max-width:460px;margin:1.8rem auto 0;display:grid;gap:.65rem;text-align:left}
+    input,textarea,select{width:100%;border:1px solid var(--line);background:var(--paper);padding:.9rem 1rem;font:inherit}
+    input:focus,textarea:focus,select:focus{outline:1px solid var(--ink)}
+    .submit{background:var(--ink);color:var(--bg);padding:1.05rem;letter-spacing:.12em;font-size:.72rem}
+    .ok{display:none;color:var(--clay);margin-top:1rem}
+
+    footer{padding:1.6rem 1.4rem;display:flex;justify-content:space-between;color:var(--mute);font-size:.78rem;gap:1rem;flex-wrap:wrap}
+    .float{display:none;position:fixed;bottom:1rem;left:1rem;right:1rem;z-index:30}
+    .float a{display:block;text-align:center;background:var(--ink);color:var(--bg);padding:1rem;letter-spacing:.12em}
+    .rv{opacity:0;transform:translateY(22px);transition:.8s cubic-bezier(.22,1,.36,1)}
+    .rv.on{opacity:1;transform:none}
+
+    @media(max-width:860px){
+      .links,.nav-cta{display:none}.ham{display:block}
+      .about,.packs,.grid-more,.facts{grid-template-columns:1fr}
+      .film a{flex-basis:86%}.film img{height:340px}
+      .about img{min-height:320px}.float{display:block}footer{padding-bottom:5.5rem}
+      .grid-more img{height:220px}
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .rv{opacity:1;transform:none;transition:none} }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.hero-img img{animation:none}}
   </style>
 </head>
 <body>
   <div class="bar"><span>Demo · Fotoğraf</span><a href="/#projects">← Portföy</a></div>
   <nav>
     <a class="logo" href="#hero">Kırık Işık</a>
-    <div class="links"><a href="#is">İŞLER</a><a href="#hak">HAKKINDA</a><a href="#paket">PAKET</a><a href="#yaz">YAZ</a></div>
+    <div class="links"><a href="#is">İŞLER</a><a href="#hak">HAKKINDA</a><a href="#paket">PAKET</a><a href="#galeri">GALERİ</a><a href="#yaz">YAZ</a></div>
     <a class="btn nav-cta" href="#yaz">TARİH SOR</a>
     <button class="ham" id="h" aria-label="Menü">☰</button>
   </nav>
-  <div id="m"><a href="#is">İşler</a><a href="#hak">Hakkında</a><a href="#paket">Paket</a><a href="#yaz">Yaz</a></div>
+  <div id="m"><a href="#is">İşler</a><a href="#hak">Hakkında</a><a href="#paket">Paket</a><a href="#galeri">Galeri</a><a href="#yaz">Yaz</a></div>
+
   <header id="hero">
-    <p style="letter-spacing:.2em;font-size:.7rem;text-transform:uppercase;color:var(--mute);margin-bottom:.85rem">Film + digital · Istanbul · Aegean</p>
+    <p class="hero-k">Film + digital · Istanbul · Aegean · Est. 2016</p>
     <h1>Işığı <em>kıran</em><br>kadraj.</h1>
-    <div class="hero-img"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=2000&q=80" alt="Düğün — avlu, geç saat ışığı" /></div>
+    <p class="hero-sub">Düğün, nişan, editorial. 35mm film ve sessiz dijital. Günde tek iş — kalabalık ajanda yok.</p>
+    <a class="btn" href="#yaz">TARİHİNİZİ YAZIN</a>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=2200&q=85" alt="Düğün — avlu, geç saat ışığı" />
+      <span class="cap">Alaçatı · Eylül 2024</span>
+    </div>
   </header>
+
   <section id="is">
     <div class="wrap">
-      <h2 class="rv">Seçilmiş günler</h2>
-      <p style="color:var(--mute);margin:.6rem 0 0;max-width:32rem">Yatay kaydır. Az metin — iş kendini satar. Fotoğrafçı sitesinde galeri cüzdandır.</p>
-      <div class="film" style="margin-top:1.7rem">
-        <a href="#yaz"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1100&q=80" alt="Alaçatı düğün" /><p>01 · Alaçatı, Eylül</p></a>
-        <a href="#yaz"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1100&q=80" alt="Cihangir çatı" /><p>02 · Cihangir çatı</p></a>
-        <a href="#yaz"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1100&q=80" alt="Editorial Pera" /><p>03 · Editorial, Pera</p></a>
-        <a href="#yaz"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1100&q=80" alt="Portre" /><p>04 · Portre, stüdyo</p></a>
+      <div class="film-head">
+        <div>
+          <h2 class="rv">Seçilmiş günler</h2>
+          <p class="lede">Yatay kaydır. Az metin — iş kendini satar. Fotoğrafçı sitesinde galeri cüzdandır.</p>
+        </div>
+        <p class="mute" style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">← kaydır →</p>
+      </div>
+      <div class="film">
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80" alt="Alaçatı düğün" /><p><span class="y">01</span> · Alaçatı, Eylül · Film</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1200&q=80" alt="Cihangir çatı" /><p><span class="y">02</span> · Cihangir çatı · Nişan</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=80" alt="Editorial Pera" /><p><span class="y">03</span> · Editorial, Pera</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=80" alt="Portre" /><p><span class="y">04</span> · Portre, stüdyo</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80" alt="Kapadokya" /><p><span class="y">05</span> · Kapadokya · Elopement</p></a>
       </div>
     </div>
   </section>
+
   <section id="hak">
     <div class="wrap about">
-      <img class="rv" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=900&q=80" alt="35mm kamera" style="min-height:380px" />
+      <img class="rv" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=1000&q=80" alt="35mm kamera" />
       <div class="rv">
         <h2>Az kare.<br>Uzun bakış.</h2>
-        <p style="color:var(--mute);margin-top:1rem">Düğün, nişan, editorial. 35mm film ve sessiz dijital. Günde tek iş — kalabalık ajanda yok. Teslim 6–8 hafta, basılı bir defter ve dijital arşiv.</p>
+        <p class="lede">Düğün, nişan, editorial. 35mm film (Kodak Portra / Ilford) ve sessiz dijital. Günde tek iş. Teslim 6–8 hafta: basılı defter + dijital arşiv.</p>
+        <div class="facts">
+          <div><b>9</b><span>Yıl</span></div>
+          <div><b>180+</b><span>Düğün</span></div>
+          <div><b>1</b><span>Gün / iş</span></div>
+          <div><b>35mm</b><span>+ dijital</span></div>
+        </div>
       </div>
     </div>
   </section>
-  <section id="paket">
+
+  <section id="paket" style="background:var(--paper)">
     <div class="wrap">
-      <h2 class="rv">Gün, değil koleksiyon.</h2>
+      <h2 class="rv">Gün, değil<br>koleksiyon.</h2>
+      <p class="lede">Üç net paket. Fiyat tarih ve lokasyona göre — önce müsaitlik, sonra teklif.</p>
       <div class="packs">
-        <article class="rv"><h3>Nişan</h3><p>3 saat · 2 lokasyon · 80 seçki</p></article>
-        <article class="rv"><h3>Düğün</h3><p>10 saat · ikinci fotoğrafçı · albüm</p></article>
-        <article class="rv"><h3>Editorial</h3><p>Yarım gün · lookbook · film rulo</p></article>
+        <article class="rv">
+          <div class="n">01 · Nişan</div>
+          <h3>İki lokasyon</h3>
+          <ul>
+            <li>3 saat çekim</li>
+            <li>80 seçilmiş kare</li>
+            <li>Online galeri</li>
+            <li>1 film rulo opsiyon</li>
+          </ul>
+          <div class="price">₺18.000+</div>
+        </article>
+        <article class="rv">
+          <div class="n">02 · Düğün</div>
+          <h3>Tam gün</h3>
+          <ul>
+            <li>10 saat + ikinci fotoğrafçı</li>
+            <li>Basılı defter 30×30</li>
+            <li>Dijital arşiv</li>
+            <li>2 film rulo dahil</li>
+          </ul>
+          <div class="price">₺48.000+</div>
+        </article>
+        <article class="rv">
+          <div class="n">03 · Editorial</div>
+          <h3>Lookbook</h3>
+          <ul>
+            <li>Yarım / tam gün</li>
+            <li>Marka & portre</li>
+            <li>Retouch dahil</li>
+            <li>Film veya dijital</li>
+          </ul>
+          <div class="price">Teklif</div>
+        </article>
       </div>
     </div>
   </section>
+
+  <section id="galeri">
+    <div class="wrap">
+      <h2 class="rv">Daha fazla ışık.</h2>
+      <div class="grid-more">
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=75" alt="" /></a>
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=75" alt="" /></a>
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=800&q=75" alt="" /></a>
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=75" alt="" /></a>
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&q=75" alt="" /></a>
+        <a class="rv" href="#yaz"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=75" alt="" /></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="quote">
+    <blockquote class="rv">“Poz vermedik. O bizi izledi — ve ışık kırıldı.”</blockquote>
+    <cite class="rv">— Deniz & Kerem · Alaçatı 2024</cite>
+  </div>
+
   <section class="end" id="yaz">
     <h2>Tarihinizi yazın.</h2>
-    <p style="color:var(--mute);margin:1rem auto 0;max-width:26rem">Ay ve şehir yeterli. Müsaitlik 48 saatte döner.</p>
+    <p class="mute" style="margin:1rem auto 0;max-width:28rem">Ay, şehir ve paket tipi yeter. Müsaitlik 48 saatte döner.</p>
     <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('ok').style.display='block'">
       <input required placeholder="Ad Soyad" />
       <input type="email" required placeholder="E-posta" />
       <input placeholder="Tarih / şehir" />
+      <select><option value="">Paket</option><option>Nişan</option><option>Düğün</option><option>Editorial</option></select>
       <textarea rows="3" placeholder="Kısaca gününüz"></textarea>
       <button class="submit" type="submit">TARİH SOR</button>
     </form>
     <p class="ok" id="ok">İletildi — demo. Gerçek stüdyoda takvim açılır.</p>
   </section>
-  <footer><span>© 2026 Kırık Işık</span><a href="/">Demo by dogusipeksac</a></footer>
+
+  <footer><span>© 2026 Kırık Işık · Cihangir</span><a href="/">Demo by dogusipeksac</a></footer>
   <div class="float"><a href="#yaz">TARİH SOR</a></div>
   <script>
     document.getElementById('h').onclick=function(){document.getElementById('m').classList.toggle('open')};
