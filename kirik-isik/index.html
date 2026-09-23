@@ -1,0 +1,138 @@
+<!-- dogusipeksac - Kırık Işık Photography Demo -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kırık Işık — Düğün & Editorial Fotoğraf | İstanbul</title>
+  <meta name="description" content="Kırık Işık — film ve dijital. Düğün, editorial, portre. İstanbul ve Ege. Az poz, uzun bakış." />
+  <link rel="canonical" href="https://dogusipeksac.com/kirik-isik/" />
+  <meta name="theme-color" content="#f6f3ee" />
+  <meta property="og:title" content="Kırık Işık — Işığı kıran kadraj" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#f6f3ee; --ink:#1c1916; --mute:#6f6860; --clay:#8a5a32; --serif:'Newsreader',Georgia,serif; --sans:'IBM Plex Sans',sans-serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); overflow-x:hidden; }
+    img { width:100%; display:block; object-fit:cover; }
+    a { color:inherit; text-decoration:none; }
+    button { font-family:inherit; cursor:pointer; }
+    ::selection { background:var(--ink); color:var(--bg); }
+    .bar { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.5rem 1.3rem; display:flex; justify-content:space-between; color:var(--mute); }
+    .bar a { color:var(--clay); }
+    nav { position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.3rem; background:rgba(246,243,238,.92); backdrop-filter:blur(14px); }
+    .logo { font-family:var(--serif); font-size:1.45rem; }
+    .links { display:flex; gap:1.3rem; font-size:.72rem; letter-spacing:.14em; }
+    .btn { background:var(--ink); color:var(--bg); padding:.75rem 1.15rem; font-size:.7rem; letter-spacing:.12em; display:inline-block; }
+    .ham { display:none; border:0; background:none; font-size:1.25rem; }
+    #m { display:none; flex-direction:column; gap:1rem; padding:0 1.3rem 1.2rem; background:var(--bg); }
+    #m.open { display:flex; }
+    #hero { padding:1.4rem 1.3rem 0; }
+    h1 { font-family:var(--serif); font-weight:400; font-size:clamp(2.9rem,8.5vw,5.8rem); line-height:.94; max-width:14ch; }
+    h1 em { font-style:italic; }
+    .hero-img { margin-top:1.7rem; height:min(78vh,740px); overflow:hidden; }
+    .hero-img img { height:100%; }
+    section { padding:5rem 1.3rem; }
+    .wrap { max-width:1120px; margin:0 auto; }
+    h2 { font-family:var(--serif); font-weight:400; font-size:clamp(2rem,4.5vw,3.3rem); line-height:1.1; }
+    .film { display:flex; gap:.55rem; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:.8rem; -webkit-overflow-scrolling:touch; }
+    .film a { flex:0 0 70%; scroll-snap-align:start; }
+    .film img { height:440px; }
+    .film p { margin-top:.55rem; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .about { display:grid; grid-template-columns:.85fr 1.15fr; gap:2.6rem; align-items:center; }
+    .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:2rem; }
+    .packs article { border:1px solid #e4ddd3; padding:1.4rem 1.2rem; background:#fff; }
+    .packs h3 { font-family:var(--serif); font-size:1.55rem; font-weight:400; }
+    .packs p { color:var(--mute); font-size:.9rem; margin-top:.45rem; }
+    .end { text-align:center; }
+    form { max-width:440px; margin:1.6rem auto 0; display:grid; gap:.65rem; text-align:left; }
+    input,textarea { width:100%; border:1px solid #d8d1c6; background:#fff; padding:.85rem 1rem; font:inherit; }
+    input:focus,textarea:focus { outline:1px solid var(--ink); }
+    .submit { background:var(--ink); color:var(--bg); border:0; padding:1rem; letter-spacing:.12em; font-size:.72rem; }
+    .ok { display:none; color:var(--clay); margin-top:1rem; }
+    footer { padding:1.6rem 1.3rem; display:flex; justify-content:space-between; color:var(--mute); font-size:.78rem; gap:1rem; flex-wrap:wrap; }
+    .float { display:none; position:fixed; bottom:1rem; left:1rem; right:1rem; z-index:25; }
+    .float a { display:block; text-align:center; background:var(--ink); color:var(--bg); padding:1rem; letter-spacing:.12em; }
+    .rv { opacity:0; transform:translateY(18px); transition:.75s ease; }
+    .rv.on { opacity:1; transform:none; }
+    @media (max-width:800px){
+      .links,.nav-cta { display:none; } .ham { display:block; }
+      .about,.packs { grid-template-columns:1fr; }
+      .film a { flex-basis:88%; } .film img { height:320px; }
+      .float { display:block; }
+      footer { padding-bottom:5.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .rv{opacity:1;transform:none;transition:none} }
+  </style>
+</head>
+<body>
+  <div class="bar"><span>Demo · Fotoğraf</span><a href="/#projects">← Portföy</a></div>
+  <nav>
+    <a class="logo" href="#hero">Kırık Işık</a>
+    <div class="links"><a href="#is">İŞLER</a><a href="#hak">HAKKINDA</a><a href="#paket">PAKET</a><a href="#yaz">YAZ</a></div>
+    <a class="btn nav-cta" href="#yaz">TARİH SOR</a>
+    <button class="ham" id="h" aria-label="Menü">☰</button>
+  </nav>
+  <div id="m"><a href="#is">İşler</a><a href="#hak">Hakkında</a><a href="#paket">Paket</a><a href="#yaz">Yaz</a></div>
+  <header id="hero">
+    <p style="letter-spacing:.2em;font-size:.7rem;text-transform:uppercase;color:var(--mute);margin-bottom:.85rem">Film + digital · Istanbul · Aegean</p>
+    <h1>Işığı <em>kıran</em><br>kadraj.</h1>
+    <div class="hero-img"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=2000&q=80" alt="Düğün — avlu, geç saat ışığı" /></div>
+  </header>
+  <section id="is">
+    <div class="wrap">
+      <h2 class="rv">Seçilmiş günler</h2>
+      <p style="color:var(--mute);margin:.6rem 0 0;max-width:32rem">Yatay kaydır. Az metin — iş kendini satar. Fotoğrafçı sitesinde galeri cüzdandır.</p>
+      <div class="film" style="margin-top:1.7rem">
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1100&q=80" alt="Alaçatı düğün" /><p>01 · Alaçatı, Eylül</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1100&q=80" alt="Cihangir çatı" /><p>02 · Cihangir çatı</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1100&q=80" alt="Editorial Pera" /><p>03 · Editorial, Pera</p></a>
+        <a href="#yaz"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1100&q=80" alt="Portre" /><p>04 · Portre, stüdyo</p></a>
+      </div>
+    </div>
+  </section>
+  <section id="hak">
+    <div class="wrap about">
+      <img class="rv" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=900&q=80" alt="35mm kamera" style="min-height:380px" />
+      <div class="rv">
+        <h2>Az kare.<br>Uzun bakış.</h2>
+        <p style="color:var(--mute);margin-top:1rem">Düğün, nişan, editorial. 35mm film ve sessiz dijital. Günde tek iş — kalabalık ajanda yok. Teslim 6–8 hafta, basılı bir defter ve dijital arşiv.</p>
+      </div>
+    </div>
+  </section>
+  <section id="paket">
+    <div class="wrap">
+      <h2 class="rv">Gün, değil koleksiyon.</h2>
+      <div class="packs">
+        <article class="rv"><h3>Nişan</h3><p>3 saat · 2 lokasyon · 80 seçki</p></article>
+        <article class="rv"><h3>Düğün</h3><p>10 saat · ikinci fotoğrafçı · albüm</p></article>
+        <article class="rv"><h3>Editorial</h3><p>Yarım gün · lookbook · film rulo</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="end" id="yaz">
+    <h2>Tarihinizi yazın.</h2>
+    <p style="color:var(--mute);margin:1rem auto 0;max-width:26rem">Ay ve şehir yeterli. Müsaitlik 48 saatte döner.</p>
+    <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('ok').style.display='block'">
+      <input required placeholder="Ad Soyad" />
+      <input type="email" required placeholder="E-posta" />
+      <input placeholder="Tarih / şehir" />
+      <textarea rows="3" placeholder="Kısaca gününüz"></textarea>
+      <button class="submit" type="submit">TARİH SOR</button>
+    </form>
+    <p class="ok" id="ok">İletildi — demo. Gerçek stüdyoda takvim açılır.</p>
+  </section>
+  <footer><span>© 2026 Kırık Işık</span><a href="/">Demo by dogusipeksac</a></footer>
+  <div class="float"><a href="#yaz">TARİH SOR</a></div>
+  <script>
+    document.getElementById('h').onclick=function(){document.getElementById('m').classList.toggle('open')};
+    document.querySelectorAll('#m a').forEach(function(a){a.onclick=function(){document.getElementById('m').classList.remove('open')}});
+    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  </script>
+</body>
+</html>

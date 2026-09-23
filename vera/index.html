@@ -1,0 +1,151 @@
+<!-- dogusipeksac - Vera Aesthetic Clinic Demo -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vera — Estetik Diş & Yüz Kliniği | Nişantaşı</title>
+  <meta name="description" content="Vera — Nişantaşı’nda estetik diş hekimliği ve yüz. Dijital gülüş tasarımı, şeffaf plak, sakin klinik." />
+  <link rel="canonical" href="https://dogusipeksac.com/vera/" />
+  <meta name="theme-color" content="#16302b" />
+  <meta property="og:title" content="Vera — Gülüş tasarlanır" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#eef3f1; --ink:#16302b; --mint:#2f6f64; --card:#fff; --mute:#5c6f6a; --serif:'Playfair Display',Georgia,serif; --sans:'Source Sans 3',sans-serif; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); line-height:1.65; overflow-x:hidden; }
+    img { width:100%; display:block; object-fit:cover; }
+    a { color:inherit; text-decoration:none; }
+    button { font-family:inherit; cursor:pointer; }
+    ::selection { background:var(--mint); color:#fff; }
+    .bar { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.5rem 1.3rem; display:flex; justify-content:space-between; background:var(--ink); color:#c5d4d0; }
+    .bar a { color:#8fd0c2; }
+    nav { position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.3rem; background:rgba(238,243,241,.93); backdrop-filter:blur(14px); }
+    .logo { font-family:var(--serif); font-size:1.55rem; }
+    .links { display:flex; gap:1.25rem; font-size:.72rem; letter-spacing:.14em; font-weight:600; }
+    .btn { background:var(--mint); color:#fff; padding:.75rem 1.2rem; font-size:.72rem; letter-spacing:.1em; font-weight:700; border-radius:999px; display:inline-block; border:0; }
+    .ham { display:none; border:0; background:none; font-size:1.25rem; }
+    #m { display:none; flex-direction:column; gap:1rem; padding:0 1.3rem 1.2rem; background:var(--bg); }
+    #m.open { display:flex; }
+    #hero { display:grid; grid-template-columns:1fr 1fr; min-height:calc(100svh - 6.4rem); }
+    .hero-copy { padding:4rem 2.2rem; display:flex; flex-direction:column; justify-content:center; }
+    .k { letter-spacing:.2em; font-size:.7rem; text-transform:uppercase; color:var(--mint); font-weight:700; }
+    h1 { font-family:var(--serif); font-weight:500; font-size:clamp(2.8rem,6vw,4.9rem); line-height:1.04; margin:.55rem 0 1rem; }
+    h1 em { font-style:italic; }
+    .hero-copy p { color:var(--mute); max-width:28rem; margin-bottom:1.6rem; }
+    .hero-photo img { height:100%; min-height:calc(100svh - 6.4rem); }
+    section { padding:5.2rem 1.3rem; }
+    .wrap { max-width:1080px; margin:0 auto; }
+    h2 { font-family:var(--serif); font-weight:500; font-size:clamp(2rem,4vw,3.3rem); line-height:1.12; }
+    .svc { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.9rem; }
+    .svc article { background:var(--card); padding:1.55rem; border-radius:18px; }
+    .svc h3 { font-family:var(--serif); font-size:1.4rem; margin-bottom:.4rem; }
+    .svc p { color:var(--mute); font-size:.92rem; }
+    .trust { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:2rem; text-align:center; }
+    .trust b { display:block; font-family:var(--serif); font-size:2.3rem; font-weight:500; }
+    .faq { max-width:720px; margin:1.8rem auto 0; }
+    details { background:#fff; border-radius:12px; padding:1rem 1.15rem; margin-bottom:.55rem; }
+    summary { cursor:pointer; font-weight:700; }
+    details p { color:var(--mute); margin-top:.45rem; font-size:.92rem; }
+    .book { background:var(--ink); color:#eef3f1; text-align:center; }
+    form { max-width:440px; margin:1.5rem auto 0; display:grid; gap:.65rem; text-align:left; }
+    input,select { width:100%; background:#1e3d37; border:1px solid #2f564e; color:#eef3f1; padding:.85rem 1rem; font:inherit; border-radius:10px; }
+    input:focus,select:focus { outline:1px solid #8fd0c2; }
+    .ok { display:none; color:#8fd0c2; margin-top:1rem; }
+    footer { padding:1.6rem 1.3rem; display:flex; justify-content:space-between; color:var(--mute); font-size:.78rem; gap:1rem; flex-wrap:wrap; }
+    .float { display:none; position:fixed; bottom:1rem; left:1rem; right:1rem; gap:.5rem; z-index:25; }
+    .float a { flex:1; text-align:center; padding:1rem .5rem; border-radius:999px; font-size:.72rem; letter-spacing:.08em; font-weight:700; }
+    .float .a { background:var(--mint); color:#fff; }
+    .float .b { background:#25d366; color:#fff; }
+    .rv { opacity:0; transform:translateY(16px); transition:.75s ease; }
+    .rv.on { opacity:1; transform:none; }
+    @media (max-width:860px){
+      .links,.nav-cta { display:none; } .ham { display:block; }
+      #hero,.svc,.trust { grid-template-columns:1fr; }
+      .hero-copy { padding:2.4rem 1.3rem; }
+      .hero-photo img { min-height:48vh; }
+      .float { display:flex; }
+      footer { padding-bottom:5.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .rv{opacity:1;transform:none;transition:none} }
+  </style>
+</head>
+<body>
+  <div class="bar"><span>Demo · Estetik klinik</span><a href="/#projects">← Portföy</a></div>
+  <nav>
+    <a class="logo" href="#hero">Vera</a>
+    <div class="links"><a href="#hizmet">HİZMET</a><a href="#neden">KLİNİK</a><a href="#sss">SSS</a><a href="#randevu">RANDEVU</a></div>
+    <a class="btn nav-cta" href="#randevu">Randevu al</a>
+    <button class="ham" id="h" aria-label="Menü">☰</button>
+  </nav>
+  <div id="m"><a href="#hizmet">Hizmet</a><a href="#neden">Klinik</a><a href="#sss">SSS</a><a href="#randevu">Randevu</a></div>
+  <header id="hero">
+    <div class="hero-copy">
+      <p class="k">Nişantaşı · Aesthetic</p>
+      <h1>Gülüş<br><em>tasarlanır.</em></h1>
+      <p>Dijital gülüş tasarımı, şeffaf plak, lamina. İlk görüşmede 3D simülasyon — sürpriz yok, plan var. Klinikte site ilk muayenedir.</p>
+      <a class="btn" href="#randevu">Ücretsiz ön görüşme</a>
+    </div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1400&q=80" alt="Vera klinik — sakin muayene" /></div>
+  </header>
+  <section id="hizmet">
+    <div class="wrap">
+      <p class="k">Care</p>
+      <h2 class="rv">Sakin, net, ölçülü.</h2>
+      <div class="svc">
+        <article class="rv"><h3>Gülüş tasarımı</h3><p>Fotoğraf + tarama. Aynı gün dijital prova. Onay olmadan frez yok.</p></article>
+        <article class="rv"><h3>Şeffaf plak</h3><p>Yetişkin ortodonti. Kontrol 6–8 haftada bir. Gece plak seçeneği.</p></article>
+        <article class="rv"><h3>Yüz & cilt</h3><p>Doktor eşliğinde dolgu ve cilt protokolü. Abartısız, yüzünüze uygun.</p></article>
+      </div>
+    </div>
+  </section>
+  <section id="neden">
+    <div class="wrap">
+      <h2 class="rv">Güven, vitrinde değil<br>protokolde.</h2>
+      <div class="trust">
+        <div><b>12</b> yıl klinik</div>
+        <div><b>2.400+</b> gülüş</div>
+        <div><b>ISO</b> steril zincir</div>
+      </div>
+    </div>
+  </section>
+  <section id="sss">
+    <div class="wrap" style="text-align:center">
+      <p class="k">FAQ</p>
+      <h2 class="rv">Merak edilenler</h2>
+      <div class="faq">
+        <details open><summary>İlk randevu ne kadar sürer?</summary><p>20 dakika ön görüşme, gerekirse aynı gün tarama. Zorunlu işlem yok.</p></details>
+        <details><summary>Fiyat ilk mesajda netleşir mi?</summary><p>Hayır — ağız içi ve fotoğraf sonrası plan. Site fiyat değil, güven satar.</p></details>
+        <details><summary>Ağrı ve iyileşme?</summary><p>Lamina ve plak için günlük hayata aynı gün dönüş. Dolgu sonrası 24–48 saat hassasiyet normaldir.</p></details>
+      </div>
+    </div>
+  </section>
+  <section class="book" id="randevu">
+    <p class="k" style="color:#8fd0c2">Book</p>
+    <h2>20 dakikalık<br>ön görüşme.</h2>
+    <p style="color:#b7c9c4;margin:1rem 0 0">Teşvikiye · Valikonağı’na 4 dakika</p>
+    <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('ok').style.display='block'">
+      <input required placeholder="Ad Soyad" />
+      <input type="tel" required placeholder="Telefon" />
+      <select required><option value="">Hizmet</option><option>Gülüş tasarımı</option><option>Şeffaf plak</option><option>Yüz & cilt</option></select>
+      <button class="btn" type="submit" style="width:100%">RANDEVU TALEBİ</button>
+    </form>
+    <p class="ok" id="ok">Talebiniz alındı — demo. Gerçek klinikte asistan 2 saat içinde arar.</p>
+  </section>
+  <footer><span>© 2026 Vera Klinik</span><a href="/">Demo by dogusipeksac</a></footer>
+  <div class="float">
+    <a class="a" href="tel:+905551112233">ARA</a>
+    <a class="b" href="https://wa.me/905551112233">WhatsApp</a>
+  </div>
+  <script>
+    document.getElementById('h').onclick=function(){document.getElementById('m').classList.toggle('open')};
+    document.querySelectorAll('#m a').forEach(function(a){a.onclick=function(){document.getElementById('m').classList.remove('open')}});
+    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  </script>
+</body>
+</html>
