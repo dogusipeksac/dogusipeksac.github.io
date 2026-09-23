@@ -6,7 +6,11 @@ import {
   toWhatsAppLink,
 } from '../utils/geo'
 import { openStatusLabel } from '../utils/openingHours'
-import { formatRatingLabel, formatStars } from '../utils/rating'
+import {
+  formatRatingLabel,
+  formatStars,
+  googleMapsSearchUrl,
+} from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
 interface BusinessCardProps {
@@ -37,6 +41,7 @@ export function BusinessCard({
   const tel = primary ? toTelHref(primary) : null
   const wa = primary ? toWhatsAppLink(primary) : null
   const hasPublicRating = b.rating != null || b.reviewCount != null
+  const googleUrl = googleMapsSearchUrl(b.name, b.lat, b.lng)
 
   return (
     <article
@@ -69,7 +74,7 @@ export function BusinessCard({
 
       <div
         className={`mt-3 rounded-xl px-3 py-2 text-sm ${
-          hasPublicRating ? 'bg-amber-50 text-amber-900' : 'bg-slate-50 text-slate-500'
+          hasPublicRating ? 'bg-amber-50 text-amber-900' : 'bg-slate-50 text-slate-600'
         }`}
       >
         {hasPublicRating ? (
@@ -84,9 +89,20 @@ export function BusinessCard({
                 · {b.reviewCount.toLocaleString('tr-TR')} yorum
               </span>
             )}
+            <span className="text-xs text-amber-700/70">(OSM)</span>
           </div>
         ) : (
-          <span>⭐ Puan / yorum: OSM’de kayıt yok</span>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-slate-500">⭐ OSM’de puan yok (Google’da olabilir)</span>
+            <a
+              href={googleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-teal-800 shadow-sm ring-1 ring-slate-200 hover:bg-teal-50"
+            >
+              Google’da bak →
+            </a>
+          </div>
         )}
       </div>
 
@@ -165,6 +181,14 @@ export function BusinessCard({
         >
           Detay
         </button>
+        <a
+          href={googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-900 hover:bg-amber-100"
+        >
+          Google yorum
+        </a>
         {wa && (
           <a
             href={wa}

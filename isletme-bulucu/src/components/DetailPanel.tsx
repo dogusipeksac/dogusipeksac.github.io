@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { Business } from '../types/business'
 import { formatDistance, formatPhoneDisplay, toTelHref, toWhatsAppLink } from '../utils/geo'
 import { openStatusLabel } from '../utils/openingHours'
-import { formatStars } from '../utils/rating'
+import { formatStars, googleMapsSearchUrl } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
 interface DetailPanelProps {
@@ -102,10 +102,10 @@ export function DetailPanel({
               b.rating != null ? (
                 <span>
                   <span className="text-amber-600">{formatStars(b.rating)}</span>{' '}
-                  {b.rating.toFixed(1)} / 5
+                  {b.rating.toFixed(1)} / 5 <span className="text-slate-400">(OSM)</span>
                 </span>
               ) : (
-                'OSM’de kayıt yok'
+                'OSM’de yok — Google’da olabilir'
               )
             }
           />
@@ -114,7 +114,20 @@ export function DetailPanel({
             value={
               b.reviewCount != null
                 ? b.reviewCount.toLocaleString('tr-TR')
-                : 'OSM’de kayıt yok'
+                : 'OSM’de yok'
+            }
+          />
+          <Row
+            label="Google yorumları"
+            value={
+              <a
+                href={googleMapsSearchUrl(b.name, b.lat, b.lng)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-teal-700 underline"
+              >
+                Google Maps’te aç →
+              </a>
             }
           />
           <Row label="Açık / kapalı" value={openStatusLabel(b.openStatus)} />
