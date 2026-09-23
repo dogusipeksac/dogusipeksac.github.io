@@ -1,0 +1,757 @@
+<!-- dogusipeksac - Galata No5 Beauty Demo -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galata No5 Beauty — İstanbul Kuaför & Güzellik Salonu | Beyoğlu · Galata</title>
+  <meta name="description" content="Galata No5 Beauty — Galata Kulesi’nin yanında, 2012’den beri premium unisex kuaför ve güzellik stüdyosu. Saç, renk, makyaj, kaş, tırnak ve cilt bakımı. Beyoğlu, İstanbul." />
+  <link rel="canonical" href="https://dogusipeksac.com/galatano5/" />
+  <meta name="theme-color" content="#1A1A1A" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Galata No5 Beauty — Hair · Beauty · Experience" />
+  <meta property="og:description" content="Galata’nın kalbinde premium kuaför ve güzellik stüdyosu. 2012’den beri." />
+  <meta property="og:url" content="https://dogusipeksac.com/galatano5/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "Galata No5 Beauty",
+    "description": "Premium unisex hair salon and beauty studio near Galata Tower, Istanbul. Founded 2012.",
+    "url": "https://dogusipeksac.com/galatano5/",
+    "telephone": "+905398401120",
+    "email": "info@galatano5.com",
+    "foundingDate": "2012",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Müeyyedzade Mah. Galip Dede Cd. No: 99/A",
+      "addressLocality": "Beyoğlu",
+      "addressRegion": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 41.0256, "longitude": 28.9744 },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "21:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:30", "closes": "20:30" }
+    ],
+    "sameAs": ["https://galatano5beauty.com/"]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ivory: #F7F4F0;
+      --ink: #1A1A1A;
+      --gold: #B8955A;
+      --beige: #D8D0C5;
+      --muted: #6b6560;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Manrope', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--ivory); color: var(--ink); line-height: 1.65; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font-family: inherit; }
+    ::selection { background: var(--gold); color: #fff; }
+
+    .demo-bar {
+      position: relative; z-index: 120;
+      background: var(--ink); color: var(--ivory);
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.45rem 1.25rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .demo-bar a { color: var(--gold); text-decoration: none; }
+
+    header.nav {
+      position: sticky; top: 0; z-index: 100;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 1rem 2rem;
+      background: rgba(247,244,240,0.86); backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    header.nav.scrolled { border-bottom-color: var(--beige); }
+    .logo { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0.18em; text-decoration: none; font-weight: 500; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.72rem; letter-spacing: 0.16em; font-weight: 600; color: var(--ink); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 0.85rem; }
+    .lang { display: flex; gap: 0.25rem; border: 1px solid var(--beige); }
+    .lang button {
+      border: 0; background: transparent; padding: 0.3rem 0.5rem;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; cursor: pointer; color: var(--muted);
+    }
+    .lang button.on { background: var(--ink); color: var(--ivory); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.5rem; text-decoration: none; letter-spacing: 0.14em;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; border: 1px solid var(--ink);
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .btn-dark { background: var(--ink); color: var(--ivory); }
+    .btn-dark:hover { background: var(--gold); border-color: var(--gold); }
+    .btn-ghost { background: transparent; color: var(--ivory); border-color: rgba(247,244,240,0.45); }
+    .btn-ghost:hover { background: var(--ivory); color: var(--ink); }
+    .btn-line { background: transparent; color: var(--ink); }
+    .btn-line:hover { background: var(--ink); color: var(--ivory); }
+    .ham { display: none; width: 36px; height: 36px; border: 0; background: none; cursor: pointer; }
+    .ham span { display: block; height: 1px; background: var(--ink); margin: 7px 0; transition: 0.25s; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 99; background: var(--ivory);
+      padding: 6rem 2rem 2rem; flex-direction: column; gap: 1.4rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: 2rem; text-decoration: none; }
+
+    #hero { position: relative; min-height: 100vh; color: var(--ivory); overflow: hidden; }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); animation: heroZoom 22s ease-in-out infinite alternate; }
+    @keyframes heroZoom { to { transform: scale(1.14); } }
+    .hero-shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(26,26,26,0.28) 0%, rgba(26,26,26,0.45) 55%, rgba(26,26,26,0.72) 100%);
+    }
+    .hero-copy {
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 7rem 2.5rem 5rem; max-width: 820px;
+    }
+    .hero-kicker { font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .hero-title { font-family: var(--serif); font-weight: 400; font-size: clamp(4rem, 12vw, 8.4rem); line-height: 0.86; letter-spacing: -0.02em; }
+    .hero-title em { font-style: italic; color: #efe6d6; }
+    .hero-line { margin: 1.4rem 0 0.4rem; font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 1.9rem); font-style: italic; }
+    .hero-sub { letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.72rem; color: var(--beige); margin-bottom: 2rem; }
+    .hero-ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .scroll-ind {
+      position: absolute; bottom: 1.6rem; right: 2rem; z-index: 2;
+      writing-mode: vertical-rl; letter-spacing: 0.22em; font-size: 0.65rem; text-transform: uppercase; color: var(--beige);
+    }
+    .scroll-ind::after { content: ''; display: block; width: 1px; height: 42px; background: var(--gold); margin: 0.6rem auto 0; }
+
+    section { padding: 7rem 2rem; }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .eyebrow { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+    .display { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5.5vw, 4.4rem); line-height: 1.05; letter-spacing: -0.02em; }
+    .lede { color: var(--muted); max-width: 38rem; font-size: 1.02rem; }
+
+    .story { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+    .story-visual { position: relative; }
+    .story-visual img { width: 100%; height: 640px; object-fit: cover; }
+    .story-stamp {
+      position: absolute; left: -28px; bottom: 36px; background: var(--ink); color: var(--ivory);
+      padding: 1.4rem 1.5rem; text-align: center; min-width: 110px;
+    }
+    .story-stamp b { display: block; font-family: var(--serif); font-size: 2.4rem; font-weight: 400; }
+    .story-stamp span { font-size: 0.62rem; letter-spacing: 0.2em; }
+    .story p { margin: 1.2rem 0; color: var(--muted); }
+
+    .svc { padding-top: 0; }
+    .svc-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .svc-row {
+      display: grid; grid-template-columns: 0.42fr 1fr; min-height: 360px;
+      border-top: 1px solid var(--beige); overflow: hidden; text-decoration: none;
+    }
+    .svc-row:last-of-type { border-bottom: 1px solid var(--beige); }
+    .svc-img { overflow: hidden; }
+    .svc-img img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; transition: transform 1.1s ease; }
+    .svc-row:hover img { transform: scale(1.07); }
+    .svc-body { padding: 2.4rem 2.6rem; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .svc-no { font-family: var(--serif); font-size: 3.4rem; color: var(--beige); line-height: 1; transition: transform 0.5s ease, color 0.4s; }
+    .svc-row:hover .svc-no { transform: translateX(10px); color: var(--gold); }
+    .svc-body h3 { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; margin: 0.4rem 0 1rem; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; color: var(--muted); font-size: 0.86rem; }
+    .svc-go { position: absolute; right: 2rem; bottom: 2rem; opacity: 0; transform: translateX(-8px); transition: 0.35s; letter-spacing: 0.16em; font-size: 0.7rem; color: var(--gold); }
+    .svc-row:hover .svc-go { opacity: 1; transform: none; }
+
+    .ba { background: var(--ink); color: var(--ivory); }
+    .ba .lede { color: #b8b2aa; }
+    .ba-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2rem 0 1.5rem; }
+    .ba-tabs button {
+      border: 1px solid #3a3530; background: transparent; color: #cfc8be;
+      padding: 0.45rem 0.9rem; letter-spacing: 0.12em; font-size: 0.68rem; cursor: pointer;
+    }
+    .ba-tabs button.on { border-color: var(--gold); color: var(--gold); }
+    .slider {
+      position: relative; height: min(68vh, 620px); overflow: hidden; cursor: ew-resize; user-select: none;
+    }
+    .slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .slider .after { clip-path: inset(0 50% 0 0); }
+    .slider-bar {
+      position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--ivory);
+      transform: translateX(-50%); pointer-events: none;
+    }
+    .slider-knob {
+      position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid var(--ivory); background: rgba(26,26,26,0.35); backdrop-filter: blur(6px);
+      transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .slider-lbl {
+      position: absolute; top: 1rem; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+      background: rgba(26,26,26,0.45); padding: 0.3rem 0.55rem;
+    }
+    .slider-lbl.l { left: 1rem; } .slider-lbl.r { right: 1rem; }
+
+    .masonry { columns: 3; column-gap: 0.75rem; }
+    .masonry a { break-inside: avoid; display: block; margin-bottom: 0.75rem; position: relative; overflow: hidden; }
+    .masonry img { width: 100%; height: auto; transition: transform 0.8s ease; }
+    .masonry a:hover img { transform: scale(1.06); }
+    .masonry figcaption {
+      position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 1rem;
+      background: linear-gradient(transparent, rgba(26,26,26,0.62));
+      color: #fff; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .masonry a:hover figcaption { opacity: 1; }
+    .filters { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
+    .filters button { border: 0; background: none; cursor: pointer; letter-spacing: 0.16em; font-size: 0.7rem; color: var(--muted); }
+    .filters button.on { color: var(--ink); border-bottom: 1px solid var(--gold); }
+
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .team figure { overflow: hidden; }
+    .team img { width: 100%; height: 420px; object-fit: cover; filter: grayscale(0.25); transition: transform 0.8s, filter 0.5s; }
+    .team figure:hover img { transform: scale(1.05); filter: none; }
+    .team figcaption { padding: 1rem 0 0; }
+    .team h3 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; }
+    .team p { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    .reviews { background: #efeae3; }
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 2.4rem; }
+    .rev {
+      background: var(--ivory); padding: 1.6rem 1.5rem; border: 1px solid var(--beige);
+    }
+    .stars { color: var(--gold); letter-spacing: 0.12em; font-size: 0.85rem; margin-bottom: 0.8rem; }
+    .rev p { font-size: 0.94rem; color: #3b3733; min-height: 6.5rem; }
+    .rev b { display: block; margin-top: 1rem; font-size: 0.82rem; }
+    .g-logo { font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted); margin-top: 0.2rem; }
+
+    .ig { padding-bottom: 4rem; }
+    .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.4rem; margin: 2rem 0; }
+    .ig-grid a { overflow: hidden; aspect-ratio: 1; }
+    .ig-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+    .ig-grid a:hover img { transform: scale(1.08); }
+
+    .campaign {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; min-height: 520px;
+    }
+    .campaign img { width: 100%; height: 100%; object-fit: cover; min-height: 420px; }
+    .campaign-copy { background: var(--ink); color: var(--ivory); padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: center; }
+    .campaign-copy p { color: #b8b2aa; margin: 1.2rem 0 2rem; }
+
+    .book {
+      position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; color: var(--ivory); padding: 6rem 1.5rem;
+    }
+    .book img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .book::after { content: ''; position: absolute; inset: 0; background: rgba(26,26,26,0.58); }
+    .book-inner { position: relative; z-index: 1; }
+    .book .display { max-width: 16ch; margin: 0 auto 2rem; }
+
+    .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem; }
+    .contact a { color: var(--ink); }
+    .hours { margin-top: 1.4rem; font-size: 0.9rem; color: var(--muted); }
+    .transit { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+    .transit span { border: 1px solid var(--beige); padding: 0.35rem 0.7rem; font-size: 0.72rem; letter-spacing: 0.08em; }
+    .map iframe { width: 100%; height: 420px; border: 0; filter: grayscale(0.35) contrast(1.05); }
+
+    footer.site {
+      background: var(--ink); color: var(--ivory); padding: 3.5rem 2rem 2rem;
+    }
+    .ft { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 2rem; }
+    .ft .logo { color: var(--ivory); }
+    .ft p { color: #9a938a; margin: 0.7rem 0 1.2rem; font-size: 0.9rem; }
+    .ft a { color: #d8d0c5; text-decoration: none; display: block; font-size: 0.85rem; margin-bottom: 0.4rem; }
+    .copy { max-width: 1180px; margin: 2.2rem auto 0; padding-top: 1.2rem; border-top: 1px solid #2c2c2c; font-size: 0.75rem; color: #7a746c; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .copy a { color: var(--gold); text-decoration: none; }
+
+    .float-cta {
+      display: none; position: fixed; bottom: 1rem; left: 1rem; right: 1rem; z-index: 80; gap: 0.5rem;
+    }
+    .float-cta a { flex: 1; text-align: center; padding: 0.95rem 0.6rem; text-decoration: none; font-size: 0.7rem; letter-spacing: 0.12em; font-weight: 700; }
+    .wa { background: #25d366; color: #fff; }
+    .rev-cta { margin-top: 2rem; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      header.nav { grid-template-columns: 1fr auto auto; }
+      .nav-links { display: none; }
+      .ham { display: block; }
+      .story, .svc-row, .campaign, .contact-grid, .ft, .team-grid, .rev-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .masonry { columns: 2; }
+      .ig-grid { grid-template-columns: repeat(3, 1fr); }
+      .story-visual img, .svc-img img { min-height: 280px; height: 320px; }
+      .story-stamp { left: 12px; }
+      .float-cta { display: flex; }
+      .hero-copy { padding: 6rem 1.25rem 4.5rem; }
+    }
+    @media (max-width: 640px) {
+      header.nav { padding: 0.85rem 1rem; }
+      section { padding: 4.5rem 1.15rem; }
+      .masonry, .team-grid { columns: 1; grid-template-columns: 1fr; }
+      .nav-right .btn { padding: 0.65rem 0.85rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .hero-media img { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <span>Demo · Galata No5 Beauty</span>
+    <a href="/#projects">← dogusipeksac.com</a>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="logo" href="#hero">GALATA NO5</a>
+    <ul class="nav-links">
+      <li><a href="#hizmetler" data-i18n="navSvc">HİZMETLER</a></li>
+      <li><a href="#galeri" data-i18n="navGal">GALERİ</a></li>
+      <li><a href="#ekip" data-i18n="navTeam">EKİP</a></li>
+      <li><a href="#hikaye" data-i18n="navAbout">HAKKIMIZDA</a></li>
+      <li><a href="#iletisim" data-i18n="navContact">İLETİŞİM</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" class="on" data-lang="tr">TR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn btn-dark" href="#randevu" data-i18n="ctaBook">RANDEVU AL</a>
+      <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mnav">
+    <a href="#hizmetler" data-i18n="navSvc">HİZMETLER</a>
+    <a href="#galeri" data-i18n="navGal">GALERİ</a>
+    <a href="#ekip" data-i18n="navTeam">EKİP</a>
+    <a href="#hikaye" data-i18n="navAbout">HAKKIMIZDA</a>
+    <a href="#iletisim" data-i18n="navContact">İLETİŞİM</a>
+    <a class="btn btn-dark" href="#randevu" data-i18n="ctaBook">RANDEVU AL</a>
+  </div>
+
+  <section id="hero">
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=2000&q=80" alt="Galata No5 Beauty salon — premium hair styling" width="2000" height="1333" />
+    </div>
+    <div class="hero-shade"></div>
+    <div class="hero-copy">
+      <p class="hero-kicker">Beyoğlu · Galata · Since 2012</p>
+      <h1 class="hero-title">GALATA NO5<br><em>BEAUTY</em></h1>
+      <p class="hero-line" data-i18n="heroQuote">Güzelliğinize yeni bir yorum.</p>
+      <p class="hero-sub" data-i18n="heroSub">Saç • Güzellik • Bakım</p>
+      <div class="hero-ctas">
+        <a class="btn btn-dark" href="#randevu" data-i18n="ctaBook">RANDEVU AL</a>
+        <a class="btn btn-ghost" href="#hizmetler" data-i18n="ctaExplore">HİZMETLERİ KEŞFET</a>
+      </div>
+    </div>
+    <div class="scroll-ind">Scroll</div>
+  </section>
+
+  <section id="hikaye">
+    <div class="wrap story">
+      <div class="story-visual reveal">
+        <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1400&q=80" alt="Galata Kulesi, Beyoğlu İstanbul" width="1400" height="900" loading="lazy" />
+        <div class="story-stamp"><b>2012</b><span>SINCE</span></div>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="storyEyebrow">Galata’nın kalbi</p>
+        <h2 class="display" data-i18n-html="storyTitle">Galata’nın kalbinde,<br>güzelliğin yeni hali.</h2>
+        <p data-i18n="storyP1">Galata No5 Beauty, Galata Kulesi’ne birkaç adım mesafede — Müeyyedzade’de, Galip Dede Caddesi’nde. 2012’den beri unisex bir kuaför ve güzellik stüdyosu olarak İstanbul’u ve şehri ziyaret edenleri ağırlıyor.</p>
+        <p data-i18n="storyP2">2012’den beri güzelliğin içinde. Profesyonel eller, seçilmiş ürünler ve sakin, editorial bir atmosfer: saç, renk, makyaj, kaş, tırnak ve cilt — hepsi tek stüdyoda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc" id="hizmetler">
+    <div class="wrap">
+      <div class="svc-head">
+        <div>
+          <p class="eyebrow" data-i18n="svcEyebrow">Atelier</p>
+          <h2 class="display reveal" data-i18n="svcTitle">Hizmetler</h2>
+        </div>
+        <a class="btn btn-line" href="#randevu" data-i18n="svcAll">Tüm Hizmetleri Gör</a>
+      </div>
+
+      <a class="svc-row reveal" href="#randevu">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1100&q=80" alt="Saç kesimi ve renk — Galata No5" loading="lazy" /></div>
+        <div class="svc-body">
+          <div class="svc-no">01</div>
+          <h3 data-i18n="svcHair">SAÇ</h3>
+          <div class="svc-tags">
+            <span>Haircuts</span><span>Hair Coloring</span><span>Balayage</span><span>Ombre</span><span>Sombre</span><span>Root Shadow</span><span>Hair Styling</span><span>Blow Dry</span><span>Hair Extensions</span><span>Keratin</span><span>Hair Botox</span><span>Hair Treatments</span>
+          </div>
+          <span class="svc-go">→ RANDEVU</span>
+        </div>
+      </a>
+      <a class="svc-row reveal" href="#randevu">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1100&q=80" alt="Manikür ve tırnak sanatı" loading="lazy" /></div>
+        <div class="svc-body">
+          <div class="svc-no">02</div>
+          <h3 data-i18n="svcNail">TIRNAK</h3>
+          <div class="svc-tags"><span>Manicure</span><span>Pedicure</span><span>Nail Art</span><span>Gel / Extensions</span></div>
+          <span class="svc-go">→ RANDEVU</span>
+        </div>
+      </a>
+      <a class="svc-row reveal" href="#randevu">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1100&q=80" alt="Kaş, kirpik ve makyaj" loading="lazy" /></div>
+        <div class="svc-body">
+          <div class="svc-no">03</div>
+          <h3 data-i18n="svcMake">KAŞ • KİRPİK • MAKYAJ</h3>
+          <div class="svc-tags">
+            <span>Brow Design</span><span>Brow Lamination</span><span>Lash Lift</span><span>Eyelash Extensions</span><span>Microblading</span><span>Day Makeup</span><span>Evening Makeup</span><span>Bridal Makeup</span>
+          </div>
+          <span class="svc-go">→ RANDEVU</span>
+        </div>
+      </a>
+      <a class="svc-row reveal" href="#randevu">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1100&q=80" alt="Cilt bakımı" loading="lazy" /></div>
+        <div class="svc-body">
+          <div class="svc-no">04</div>
+          <h3 data-i18n="svcSkin">CİLT</h3>
+          <div class="svc-tags">
+            <span>Skin Care</span><span>Skin Analysis</span><span>Peeling</span><span>Anti-Aging</span><span>Acne Care</span><span>Detox</span><span>Aromatherapy</span>
+          </div>
+          <span class="svc-go">→ RANDEVU</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="ba" id="donusum">
+    <div class="wrap">
+      <p class="eyebrow">Atelier</p>
+      <h2 class="display reveal" data-i18n="baTitle">Dokunuşun farkını görün.</h2>
+      <p class="lede" data-i18n="baSub">Saç, renk, makyaj, kaş ve tırnak — kaydırarak önce ve sonrayı karşılaştırın.</p>
+      <div class="ba-tabs" id="baTabs">
+        <button class="on" data-ba="hair">Hair</button>
+        <button data-ba="color">Color</button>
+        <button data-ba="makeup">Makeup</button>
+        <button data-ba="brows">Brows</button>
+        <button data-ba="nails">Nails</button>
+      </div>
+      <div class="slider" id="baSlider" aria-label="Before after">
+        <img class="before" id="baBefore" src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=1600&q=80" alt="Önce" />
+        <img class="after" id="baAfter" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1600&q=80" alt="Sonra" />
+        <div class="slider-bar" id="baBar"></div>
+        <div class="slider-knob"></div>
+        <span class="slider-lbl l">Before</span>
+        <span class="slider-lbl r">After</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeri">
+    <div class="wrap">
+      <p class="eyebrow">Lookbook</p>
+      <h2 class="display reveal" data-i18n="galTitle">Our work</h2>
+      <div class="filters" id="galFilters">
+        <button class="on" data-f="all">ALL</button>
+        <button data-f="hair">HAIR</button>
+        <button data-f="color">COLOR</button>
+        <button data-f="makeup">MAKEUP</button>
+        <button data-f="nails">NAILS</button>
+        <button data-f="beauty">BEAUTY</button>
+      </div>
+      <div class="masonry" id="masonry">
+        <a data-cat="hair" href="#randevu"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt="Hair styling" loading="lazy" /><figcaption>Hair</figcaption></a>
+        <a data-cat="color" href="#randevu"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Hair color" loading="lazy" /><figcaption>Color</figcaption></a>
+        <a data-cat="makeup" href="#randevu"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&q=80" alt="Makeup" loading="lazy" /><figcaption>Makeup</figcaption></a>
+        <a data-cat="nails" href="#randevu"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=800&q=80" alt="Nail art" loading="lazy" /><figcaption>Nails</figcaption></a>
+        <a data-cat="beauty" href="#randevu"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" alt="Skin care" loading="lazy" /><figcaption>Beauty</figcaption></a>
+        <a data-cat="hair" href="#randevu"><img src="https://images.unsplash.com/photo-1595475884562-073c2d399728?w=800&q=80" alt="Blow dry" loading="lazy" /><figcaption>Hair</figcaption></a>
+        <a data-cat="color" href="#randevu"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80" alt="Balayage" loading="lazy" /><figcaption>Color</figcaption></a>
+        <a data-cat="makeup" href="#randevu"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80" alt="Editorial makeup" loading="lazy" /><figcaption>Makeup</figcaption></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="team" id="ekip">
+    <div class="wrap">
+      <p class="eyebrow">Studio</p>
+      <h2 class="display reveal" data-i18n-html="teamTitle">Uzman eller,<br>kişisel dokunuş.</h2>
+      <div class="team-grid">
+        <figure class="reveal">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80" alt="Boris — Founder" loading="lazy" />
+          <figcaption><h3>Boris</h3><p data-i18n="roleFounder">Founder</p></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80" alt="Gamze Öksel" loading="lazy" />
+          <figcaption><h3>Gamze Öksel</h3><p data-i18n="roleMgr">Manager / Beauty Specialist</p></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="Gül Çankır" loading="lazy" />
+          <figcaption><h3>Gül Çankır</h3><p data-i18n="roleHair">Hair Designer / Beauty Specialist</p></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80" alt="Erhan Kabalak" loading="lazy" />
+          <figcaption><h3>Erhan Kabalak</h3><p data-i18n="roleHair2">Hair Designer</p></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="yorumlar">
+    <div class="wrap">
+      <p class="eyebrow">Google</p>
+      <h2 class="display reveal" data-i18n="revTitle">Misafirlerimizin deneyimi.</h2>
+      <div class="rev-grid">
+        <article class="rev reveal">
+          <div class="stars">★★★★★</div>
+          <p>Ahmet ve Kıymet saçlarım ve tırnaklarım üzerinde harika bir iş çıkardılar. Bir dahaki sefere İstanbul'da olduğumda kesinlikle geri döneceğim.</p>
+          <b>Roma Patel</b>
+          <div class="g-logo">Google</div>
+        </article>
+        <article class="rev reveal">
+          <div class="stars">★★★★★</div>
+          <p>Saç kesimi ve saç bakımı yaptırdı. Kesinlikle Erhan'ı tavsiye ederim — gerçek bir profesyonel.</p>
+          <b>Ksenia Rakhimova</b>
+          <div class="g-logo">Google</div>
+        </article>
+        <article class="rev reveal">
+          <div class="stars">★★★★★</div>
+          <p>Hayatımda gittiğim en güzel kuaför. Anneme harika bir saç ve makyaj, bana da çok güzel saç yaptılar. İşlerinde çok profesyoneller.</p>
+          <b>Başak Kara</b>
+          <div class="g-logo">Google</div>
+        </article>
+      </div>
+      <a class="btn btn-line rev-cta" href="https://galatano5beauty.com/" target="_blank" rel="noopener" data-i18n="revAll">Google’da tüm yorumları gör</a>
+    </div>
+  </section>
+
+  <section class="ig">
+    <div class="wrap">
+      <p class="eyebrow">Social</p>
+      <h2 class="display reveal">Follow the beauty.</h2>
+      <div class="ig-grid">
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=70" alt="Salon" loading="lazy" /></a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=70" alt="Hair" loading="lazy" /></a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=70" alt="Nails" loading="lazy" /></a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&q=70" alt="Makeup" loading="lazy" /></a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1595475884562-073c2d399728?w=500&q=70" alt="Blow dry" loading="lazy" /></a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=70" alt="Skin" loading="lazy" /></a>
+      </div>
+      <a class="btn btn-line" href="https://galatano5beauty.com/" target="_blank" rel="noopener" data-i18n="igCta">INSTAGRAM’DA BİZİ TAKİP ET</a>
+    </div>
+  </section>
+
+  <div class="campaign" id="kampanya">
+    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1400&q=80" alt="Kampanya — saç bakımı" loading="lazy" />
+    <div class="campaign-copy">
+      <p class="eyebrow">Season</p>
+      <h2 class="display" data-i18n="campTitle">Güzelliğinize küçük bir dokunuş.</h2>
+      <p data-i18n="campP">Belirli dönemlerde sakin, seçilmiş bakım davetleri. Güncel detay için stüdyoyu arayın veya yazın — bağırgan kampanya dili yok, yalnızca davet.</p>
+      <a class="btn btn-ghost" href="#randevu" data-i18n="ctaBook">RANDEVU AL</a>
+    </div>
+  </div>
+
+  <section class="book" id="randevu">
+    <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=1800&q=80" alt="Galata No5 stüdyo" />
+    <div class="book-inner">
+      <h2 class="display" data-i18n-html="bookTitle">Yeni görünümünüz için<br>hazır mısınız?</h2>
+      <div class="hero-ctas" style="justify-content:center">
+        <a class="btn btn-dark" href="tel:+905398401120" data-i18n="ctaBook">RANDEVU AL</a>
+        <a class="btn btn-ghost" href="https://wa.me/905398401120" target="_blank" rel="noopener" data-i18n="ctaWa">WHATSAPP’TAN ULAŞ</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="iletisim">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Visit</p>
+        <h2 class="display" data-i18n="contactTitle">İletişim</h2>
+        <p class="lede" style="margin:1rem 0 1.4rem" data-i18n="contactLede">İstanbul’un kalbinde, Galata Kulesi’ne birkaç adım.</p>
+        <p><strong>Müeyyedzade Mah. Galip Dede Cd. No: 99/A</strong><br>Beyoğlu / İstanbul</p>
+        <p style="margin-top:1rem"><a href="tel:+905398401120">0539 840 11 20</a><br><a href="mailto:info@galatano5.com">info@galatano5.com</a></p>
+        <div class="hours" data-i18n-html="hours">Pazartesi–Cumartesi 09:00–21:00<br>Pazar 09:30–20:30</div>
+        <div class="transit">
+          <span>Şişhane Metro</span><span>Galata Tower</span><span>Karaköy</span><span>Tünel</span>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe title="Galata No5 Beauty harita" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=M%C3%BCeyyedzade%20Mah.%20Galip%20Dede%20Cd.%20No:%2099/A%20Beyo%C4%9Flu&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="ft">
+      <div>
+        <a class="logo" href="#hero">GALATA NO5 BEAUTY</a>
+        <p>Hair • Beauty • Experience</p>
+      </div>
+      <div>
+        <a href="#hizmetler" data-i18n="navSvc">Hizmetler</a>
+        <a href="#galeri" data-i18n="navGal">Galeri</a>
+        <a href="#ekip" data-i18n="navTeam">Ekibimiz</a>
+        <a href="#hikaye" data-i18n="navAbout">Hakkımızda</a>
+        <a href="#iletisim" data-i18n="navContact">İletişim</a>
+        <a href="#randevu" data-i18n="ctaBook">Randevu</a>
+      </div>
+      <div>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://galatano5beauty.com/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 Galata No5 Beauty</span>
+      <a href="/">Demo by dogusipeksac</a>
+    </div>
+  </footer>
+
+  <div class="float-cta" aria-hidden="false">
+    <a class="btn-dark" href="tel:+905398401120">RANDEVU AL</a>
+    <a class="wa" href="https://wa.me/905398401120" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var nav = document.getElementById('nav');
+      var ham = document.getElementById('ham');
+      var mnav = document.getElementById('mnav');
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+      ham.addEventListener('click', function () { mnav.classList.toggle('open'); });
+      mnav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { mnav.classList.remove('open'); });
+      });
+
+      if (!reduce && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (ents) {
+          ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('on'); });
+      }
+
+      var pairs = {
+        hair: ['https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=1600&q=80', 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1600&q=80'],
+        color: ['https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1600&q=80', 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80'],
+        makeup: ['https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1600&q=80', 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600&q=80'],
+        brows: ['https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=80', 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1600&q=80'],
+        nails: ['https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80', 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=1600&q=80']
+      };
+      var slider = document.getElementById('baSlider');
+      var after = document.getElementById('baAfter');
+      var bar = document.getElementById('baBar');
+      var pct = 50;
+      function paint() {
+        after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+        bar.style.left = pct + '%';
+        slider.querySelector('.slider-knob').style.left = pct + '%';
+      }
+      function setFromEvent(e) {
+        var r = slider.getBoundingClientRect();
+        var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+        pct = Math.max(4, Math.min(96, (x / r.width) * 100));
+        paint();
+      }
+      var drag = false;
+      slider.addEventListener('pointerdown', function (e) { drag = true; slider.setPointerCapture(e.pointerId); setFromEvent(e); });
+      slider.addEventListener('pointermove', function (e) { if (drag) setFromEvent(e); });
+      slider.addEventListener('pointerup', function () { drag = false; });
+      document.querySelectorAll('#baTabs button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('#baTabs button').forEach(function (b) { b.classList.remove('on'); });
+          btn.classList.add('on');
+          var p = pairs[btn.getAttribute('data-ba')];
+          document.getElementById('baBefore').src = p[0];
+          after.src = p[1];
+          pct = 50; paint();
+        });
+      });
+
+      document.querySelectorAll('#galFilters button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('#galFilters button').forEach(function (b) { b.classList.remove('on'); });
+          btn.classList.add('on');
+          var f = btn.getAttribute('data-f');
+          document.querySelectorAll('#masonry a').forEach(function (a) {
+            a.style.display = (f === 'all' || a.getAttribute('data-cat') === f) ? '' : 'none';
+          });
+        });
+      });
+
+      var I18N = {
+        tr: {
+          navSvc: 'HİZMETLER', navGal: 'GALERİ', navTeam: 'EKİP', navAbout: 'HAKKIMIZDA', navContact: 'İLETİŞİM',
+          ctaBook: 'RANDEVU AL', ctaExplore: 'HİZMETLERİ KEŞFET', ctaWa: 'WHATSAPP’TAN ULAŞ',
+          heroQuote: 'Güzelliğinize yeni bir yorum.', heroSub: 'Saç • Güzellik • Bakım',
+          storyEyebrow: 'Galata’nın kalbi',
+          storyTitle: 'Galata’nın kalbinde,<br>güzelliğin yeni hali.',
+          storyP1: 'Galata No5 Beauty, Galata Kulesi’ne birkaç adım mesafede — Müeyyedzade’de, Galip Dede Caddesi’nde. 2012’den beri unisex bir kuaför ve güzellik stüdyosu olarak İstanbul’u ve şehri ziyaret edenleri ağırlıyor.',
+          storyP2: '2012’den beri güzelliğin içinde. Profesyonel eller, seçilmiş ürünler ve sakin, editorial bir atmosfer: saç, renk, makyaj, kaş, tırnak ve cilt — hepsi tek stüdyoda.',
+          svcEyebrow: 'Atelier', svcTitle: 'Hizmetler', svcAll: 'Tüm Hizmetleri Gör',
+          svcHair: 'SAÇ', svcNail: 'TIRNAK', svcMake: 'KAŞ • KİRPİK • MAKYAJ', svcSkin: 'CİLT',
+          baTitle: 'Dokunuşun farkını görün.', baSub: 'Saç, renk, makyaj, kaş ve tırnak — kaydırarak önce ve sonrayı karşılaştırın.',
+          galTitle: 'Our work',
+          teamTitle: 'Uzman eller,<br>kişisel dokunuş.',
+          roleFounder: 'Founder', roleMgr: 'Yönetici / Güzellik Uzmanı', roleHair: 'Hair Designer / Beauty Specialist', roleHair2: 'Hair Designer',
+          revTitle: 'Misafirlerimizin deneyimi.', revAll: 'Google’da tüm yorumları gör',
+          igCta: 'INSTAGRAM’DA BİZİ TAKİP ET',
+          campTitle: 'Güzelliğinize küçük bir dokunuş.',
+          campP: 'Belirli dönemlerde sakin, seçilmiş bakım davetleri. Güncel detay için stüdyoyu arayın veya yazın — bağırgan kampanya dili yok, yalnızca davet.',
+          bookTitle: 'Yeni görünümünüz için<br>hazır mısınız?',
+          contactTitle: 'İletişim', contactLede: 'İstanbul’un kalbinde, Galata Kulesi’ne birkaç adım.',
+          hours: 'Pazartesi–Cumartesi 09:00–21:00<br>Pazar 09:30–20:30'
+        },
+        en: {
+          navSvc: 'SERVICES', navGal: 'GALLERY', navTeam: 'TEAM', navAbout: 'ABOUT', navContact: 'CONTACT',
+          ctaBook: 'BOOK NOW', ctaExplore: 'EXPLORE SERVICES', ctaWa: 'WHATSAPP US',
+          heroQuote: 'A new reading of your beauty.', heroSub: 'Hair • Beauty • Care',
+          storyEyebrow: 'Heart of Galata',
+          storyTitle: 'In the heart of Galata,<br>beauty, rewritten.',
+          storyP1: 'Galata No5 Beauty sits a few steps from Galata Tower — on Galip Dede Street, Müeyyedzade. A unisex hair salon and beauty studio since 2012, for Istanbul and those just passing through.',
+          storyP2: 'Inside beauty since 2012. Considered hands, chosen products, a quiet editorial room: hair, colour, makeup, brows, nails and skin — one studio.',
+          svcEyebrow: 'Atelier', svcTitle: 'Services', svcAll: 'View all services',
+          svcHair: 'HAIR', svcNail: 'NAILS', svcMake: 'BROW • LASH • MAKEUP', svcSkin: 'SKIN',
+          baTitle: 'See the difference of a touch.', baSub: 'Hair, colour, makeup, brows and nails — drag to compare before and after.',
+          galTitle: 'Our work',
+          teamTitle: 'Expert hands,<br>a personal touch.',
+          roleFounder: 'Founder', roleMgr: 'Manager / Beauty Specialist', roleHair: 'Hair Designer / Beauty Specialist', roleHair2: 'Hair Designer',
+          revTitle: 'What our guests say.', revAll: 'See all Google reviews',
+          igCta: 'FOLLOW US ON INSTAGRAM',
+          campTitle: 'A small touch for your beauty.',
+          campP: 'From time to time, a quiet invitation. Call or write the studio for what is current — no shouting, only an offer.',
+          bookTitle: 'Ready for<br>your new look?',
+          contactTitle: 'Visit', contactLede: 'In the heart of Istanbul, a few steps from Galata Tower.',
+          hours: 'Monday–Saturday 09:00–21:00<br>Sunday 09:30–20:30'
+        }
+      };
+      var lang = 'tr';
+      function applyLang() {
+        var pack = I18N[lang];
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var k = el.getAttribute('data-i18n');
+          if (pack[k]) el.textContent = pack[k];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+          var k = el.getAttribute('data-i18n-html');
+          if (pack[k]) el.innerHTML = pack[k];
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (b) {
+          b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+        });
+      }
+      document.querySelectorAll('[data-lang]').forEach(function (b) {
+        b.addEventListener('click', function () { lang = b.getAttribute('data-lang'); applyLang(); });
+      });
+    })();
+  </script>
+</body>
+</html>
