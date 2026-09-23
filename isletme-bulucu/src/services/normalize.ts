@@ -93,6 +93,54 @@ function pickSocial(tags: Record<string, string>): string {
   ).trim()
 }
 
+/** Parse OSM rating/stars into 0–5. Never invent. */
+export function pickRating(tags: Record<string, string>): number | null {
+  const raw =
+    tags.stars ||
+    tags.rating ||
+    tags['rating:stars'] ||
+    tags['stars:rating'] ||
+    tags['guest_house:stars'] ||
+    tags['hotel:stars'] ||
+    ''
+  if (!raw.trim()) return null
+
+  // "4", "4.5", "4/5", "★★★★"
+  const starChars = (raw.match(/★|⭐/g) || []).length
+  if (starChars > 0) return Math.min(5, starChars)
+
+  const fraction = raw.match(/(\d+[.,]?\d*)\s*\/\s*(\d+)/)
+  if (fraction) {
+    const n = parseFloat(fraction[1].replace(',', '.'))
+    const d = parseFloat(fraction[2].replace(',', '.'))
+    if (d > 0 && Number.isFinite(n)) return Math.min(5, Math.round((n / d) * 5 * 10) / 10)
+  }
+
+  const num = parseFloat(raw.replace(',', '.').replace(/[^\d.]/g, ''))
+  if (!Number.isFinite(num)) return null
+  // Some tags use 0–10 or 0–100
+  if (num > 5 && num <= 10) return Math.round((num / 2) * 10) / 10
+  if (num > 10 && num <= 100) return Math.round((num / 20) * 10) / 10
+  if (num < 0 || num > 5) return null
+  return Math.round(num * 10) / 10
+}
+
+/** Parse OSM review count. Never invent. */
+export function pickReviewCount(tags: Record<string, string>): number | null {
+  const raw =
+    tags.reviews ||
+    tags.review_count ||
+    tags['review:count'] ||
+    tags['reviews:count'] ||
+    tags['rating:count'] ||
+    tags['stars:count'] ||
+    ''
+  if (!raw.trim()) return null
+  const n = parseInt(raw.replace(/\D/g, ''), 10)
+  if (!Number.isFinite(n) || n < 0) return null
+  return n
+}
+
 function detectCategory(tags: Record<string, string>): {
   id: BusinessCategoryId
   label: string
@@ -168,6 +216,8 @@ export function normalizeOverpassElements(
     const phone = phones.join(' · ')
     const address = buildAddress(tags)
     const social = pickSocial(tags)
+    const rating = pickRating(tags)
+    const reviewCount = pickReviewCount(tags)
     const hasWebsite = Boolean(website)
     const { id: categoryId, label: categoryLabel } = detectCategory(tags)
     const distanceMeters = haversineMeters(user, coords)
@@ -192,6 +242,8 @@ export function normalizeOverpassElements(
       website,
       social,
       hasWebsite,
+      rating,
+      reviewCount,
       lat: coords.lat,
       lng: coords.lng,
       distanceMeters,

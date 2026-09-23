@@ -37,6 +37,17 @@ export function filterAndSortBusinesses(
         return a.distanceMeters - b.distanceMeters
       })
       break
+    case 'rating':
+      list.sort((a, b) => {
+        const ar = a.rating ?? -1
+        const br = b.rating ?? -1
+        if (br !== ar) return br - ar
+        const arc = a.reviewCount ?? -1
+        const brc = b.reviewCount ?? -1
+        if (brc !== arc) return brc - arc
+        return a.distanceMeters - b.distanceMeters
+      })
+      break
   }
 
   return list

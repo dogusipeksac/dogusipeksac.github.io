@@ -20,6 +20,7 @@ export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'farthest', label: 'En uzak' },
   { value: 'no_website', label: 'Web sitesi olmayanlar' },
   { value: 'lead_score', label: 'Potansiyel müşteri puanı' },
+  { value: 'rating', label: 'En yüksek puan' },
 ]
 
 /** Filter UI categories (broader groups) */

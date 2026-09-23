@@ -17,7 +17,7 @@ export type BusinessCategoryId =
   | 'other'
 
 export type WebsiteFilter = 'all' | 'missing' | 'present'
-export type SortOption = 'nearest' | 'farthest' | 'no_website' | 'lead_score'
+export type SortOption = 'nearest' | 'farthest' | 'no_website' | 'lead_score' | 'rating'
 export type DistanceKm = 1 | 3 | 5 | 10
 
 export type LeadTier = 'very_high' | 'high' | 'medium' | 'low'
@@ -39,6 +39,10 @@ export interface Business {
   website: string
   social: string
   hasWebsite: boolean
+  /** OSM yıldız/puan (varsa), 0–5. Uydurulmaz. */
+  rating: number | null
+  /** OSM yorum/review sayısı (varsa). Uydurulmaz. */
+  reviewCount: number | null
   lat: number
   lng: number
   distanceMeters: number

@@ -5,6 +5,7 @@ import {
   toTelHref,
   toWhatsAppLink,
 } from '../utils/geo'
+import { formatRatingLabel, formatStars } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
 interface BusinessCardProps {
@@ -23,6 +24,7 @@ export function BusinessCard({
   const primary = (b.phone.split('·')[0] || b.phone).trim()
   const tel = primary ? toTelHref(primary) : null
   const wa = primary ? toWhatsAppLink(primary) : null
+  const hasPublicRating = b.rating != null || b.reviewCount != null
 
   return (
     <article
@@ -44,6 +46,29 @@ export function BusinessCard({
         >
           {b.hasWebsite ? 'Web Sitesi Var' : 'Web Sitesi Yok'}
         </span>
+      </div>
+
+      <div
+        className={`mt-3 rounded-xl px-3 py-2 text-sm ${
+          hasPublicRating ? 'bg-amber-50 text-amber-900' : 'bg-slate-50 text-slate-500'
+        }`}
+      >
+        {hasPublicRating ? (
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {b.rating != null && (
+              <span className="font-semibold tracking-tight text-amber-700">
+                {formatStars(b.rating)} {b.rating.toFixed(1)}
+              </span>
+            )}
+            {b.reviewCount != null && (
+              <span className="text-amber-800/80">
+                · {b.reviewCount.toLocaleString('tr-TR')} yorum
+              </span>
+            )}
+          </div>
+        ) : (
+          <span>⭐ Puan / yorum: OSM’de kayıt yok</span>
+        )}
       </div>
 
       <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
@@ -90,12 +115,17 @@ export function BusinessCard({
         </li>
       </ul>
 
-      <div className="mt-3">
+      <div className="mt-3 flex flex-wrap gap-2">
         <span
           className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${leadTierColor(b.leadTier)}`}
         >
-          {b.leadScore} · {leadTierLabel(b.leadTier)}
+          Satış {b.leadScore} · {leadTierLabel(b.leadTier)}
         </span>
+        {hasPublicRating && (
+          <span className="inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800">
+            {formatRatingLabel(b.rating, b.reviewCount)}
+          </span>
+        )}
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">

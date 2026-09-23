@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Business } from '../types/business'
 import { formatDistance, formatPhoneDisplay, toTelHref, toWhatsAppLink } from '../utils/geo'
+import { formatStars } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
 interface DetailPanelProps {
@@ -92,6 +93,27 @@ export function DetailPanel({
               ) : (
                 'Yok'
               )
+            }
+          />
+          <Row
+            label="Müşteri puanı"
+            value={
+              b.rating != null ? (
+                <span>
+                  <span className="text-amber-600">{formatStars(b.rating)}</span>{' '}
+                  {b.rating.toFixed(1)} / 5
+                </span>
+              ) : (
+                'OSM’de kayıt yok'
+              )
+            }
+          />
+          <Row
+            label="Yorum sayısı"
+            value={
+              b.reviewCount != null
+                ? b.reviewCount.toLocaleString('tr-TR')
+                : 'OSM’de kayıt yok'
             }
           />
           <Row label="Mesafe" value={formatDistance(b.distanceMeters)} />

@@ -70,6 +70,8 @@ export function businessesToCsv(items: Business[]): string {
     'longitude',
     'website_status',
     'lead_score',
+    'rating',
+    'review_count',
   ].join(',')
 
   const rows = items.map((b) =>
@@ -84,6 +86,8 @@ export function businessesToCsv(items: Business[]): string {
       String(b.lng),
       b.hasWebsite ? 'present' : 'missing',
       String(b.leadScore),
+      b.rating != null ? String(b.rating) : '',
+      b.reviewCount != null ? String(b.reviewCount) : '',
     ].join(','),
   )
 
