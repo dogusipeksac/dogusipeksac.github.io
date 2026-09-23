@@ -1,19 +1,31 @@
 import type { Business, FiltersState } from '../types/business'
 
+const SALON_IDS = new Set(['hairdresser', 'beauty', 'salon'])
+
+function matchesCategory(b: Business, category: FiltersState['category']): boolean {
+  if (category === 'all') return true
+  if (category === 'salon') return SALON_IDS.has(b.categoryId)
+  return b.categoryId === category
+}
+
 export function filterAndSortBusinesses(
   items: Business[],
   filters: FiltersState,
 ): Business[] {
   let list = [...items]
 
-  if (filters.category !== 'all') {
-    list = list.filter((b) => b.categoryId === filters.category)
-  }
+  list = list.filter((b) => matchesCategory(b, filters.category))
 
   if (filters.website === 'missing') {
     list = list.filter((b) => !b.hasWebsite)
   } else if (filters.website === 'present') {
     list = list.filter((b) => b.hasWebsite)
+  }
+
+  if (filters.openNow === 'open') {
+    list = list.filter((b) => b.openStatus === 'open')
+  } else if (filters.openNow === 'closed') {
+    list = list.filter((b) => b.openStatus === 'closed')
   }
 
   list = list.filter((b) => b.distanceMeters <= filters.distanceKm * 1000)

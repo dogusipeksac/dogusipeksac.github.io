@@ -4,7 +4,7 @@ import { BusinessMap } from '../components/BusinessMap'
 import { DetailPanel } from '../components/DetailPanel'
 import { FilterPanel } from '../components/FilterPanel'
 import { StatsBar } from '../components/StatsBar'
-import { DEFAULT_RADIUS_KM } from '../constants/categories'
+import { DEFAULT_CATEGORY, DEFAULT_RADIUS_KM } from '../constants/categories'
 import { useBusinesses } from '../hooks/useBusinesses'
 import { useGeolocation } from '../hooks/useGeolocation'
 import type { Business, FiltersState, LatLng } from '../types/business'
@@ -12,9 +12,10 @@ import { computeStats, filterAndSortBusinesses } from '../utils/filters'
 import { businessesToCsv, downloadCsv } from '../utils/scoring'
 
 const initialFilters: FiltersState = {
-  category: 'all',
+  category: DEFAULT_CATEGORY,
   distanceKm: DEFAULT_RADIUS_KM,
   website: 'missing',
+  openNow: 'all',
   sort: 'no_website',
 }
 

@@ -1,6 +1,14 @@
-import type { BusinessCategoryId, DistanceKm, SortOption, WebsiteFilter } from '../types/business'
+import type {
+  BusinessCategoryId,
+  DistanceKm,
+  OpenFilter,
+  SortOption,
+  WebsiteFilter,
+} from '../types/business'
 
-export const DEFAULT_RADIUS_KM: DistanceKm = 5
+/** Hızlı varsayılan: dar kategori + makul yarıçap */
+export const DEFAULT_RADIUS_KM: DistanceKm = 3
+export const DEFAULT_CATEGORY: BusinessCategoryId = 'salon'
 
 export const DISTANCE_OPTIONS: { value: DistanceKm; label: string }[] = [
   { value: 1, label: '1 km' },
@@ -15,6 +23,12 @@ export const WEBSITE_FILTERS: { value: WebsiteFilter; label: string }[] = [
   { value: 'present', label: 'Web sitesi olanlar' },
 ]
 
+export const OPEN_FILTERS: { value: OpenFilter; label: string }[] = [
+  { value: 'all', label: 'Tümü' },
+  { value: 'open', label: 'Şu an açık' },
+  { value: 'closed', label: 'Şu an kapalı' },
+]
+
 export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'nearest', label: 'En yakın' },
   { value: 'farthest', label: 'En uzak' },
@@ -23,21 +37,10 @@ export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'rating', label: 'En yüksek puan' },
 ]
 
-/** Filter UI categories (broader groups) */
-export const FILTER_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
-  { value: 'all', label: 'Tümü' },
-  { value: 'hairdresser', label: 'Kuaför' },
-  { value: 'beauty', label: 'Güzellik' },
-  { value: 'restaurant', label: 'Restoran' },
-  { value: 'cafe', label: 'Kafe' },
-  { value: 'car_repair', label: 'Oto' },
-  { value: 'estate', label: 'Emlak' },
-  { value: 'other', label: 'Diğer' },
-]
-
 /** Full category list for search / Overpass mapping */
 export const ALL_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
-  { value: 'all', label: 'Tümü' },
+  { value: 'salon', label: 'Kuaför & Güzellik (hızlı)' },
+  { value: 'all', label: 'Tümü (yavaş)' },
   { value: 'hairdresser', label: 'Kuaför' },
   { value: 'beauty', label: 'Güzellik merkezi' },
   { value: 'restaurant', label: 'Restoran' },
@@ -57,10 +60,18 @@ export const ALL_CATEGORIES: { value: BusinessCategoryId; label: string }[] = [
 
 /**
  * Overpass tag selectors per category.
+ * "salon" = kuaför + güzellik (varsayılan, hızlı).
  * "all" unions the core commercial set.
- * "other" = remaining common local businesses not in the named list.
  */
 export const CATEGORY_OVERPASS: Record<Exclude<BusinessCategoryId, 'all'>, string[]> = {
+  salon: [
+    'node["amenity"="hairdresser"]',
+    'way["amenity"="hairdresser"]',
+    'node["shop"="beauty"]',
+    'way["shop"="beauty"]',
+    'node["shop"="cosmetics"]',
+    'way["shop"="cosmetics"]',
+  ],
   hairdresser: ['node["amenity"="hairdresser"]', 'way["amenity"="hairdresser"]'],
   beauty: [
     'node["shop"="beauty"]',

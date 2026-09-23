@@ -5,6 +5,7 @@ import {
   toTelHref,
   toWhatsAppLink,
 } from '../utils/geo'
+import { openStatusLabel } from '../utils/openingHours'
 import { formatRatingLabel, formatStars } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
@@ -13,6 +14,17 @@ interface BusinessCardProps {
   selected?: boolean
   onShowOnMap: (b: Business) => void
   onDetails: (b: Business) => void
+}
+
+function openBadgeClass(status: Business['openStatus']): string {
+  switch (status) {
+    case 'open':
+      return 'bg-emerald-50 text-emerald-700'
+    case 'closed':
+      return 'bg-slate-100 text-slate-500'
+    default:
+      return 'bg-slate-50 text-slate-400'
+  }
 }
 
 export function BusinessCard({
@@ -37,15 +49,22 @@ export function BusinessCard({
           <h3 className="text-base font-semibold text-slate-900">{b.name}</h3>
           <p className="mt-0.5 text-sm text-slate-500">⭐ {b.categoryLabel}</p>
         </div>
-        <span
-          className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
-            b.hasWebsite
-              ? 'bg-slate-100 text-slate-600'
-              : 'bg-rose-50 text-rose-700'
-          }`}
-        >
-          {b.hasWebsite ? 'Web Sitesi Var' : 'Web Sitesi Yok'}
-        </span>
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <span
+            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
+              b.hasWebsite
+                ? 'bg-slate-100 text-slate-600'
+                : 'bg-rose-50 text-rose-700'
+            }`}
+          >
+            {b.hasWebsite ? 'Web Sitesi Var' : 'Web Sitesi Yok'}
+          </span>
+          <span
+            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${openBadgeClass(b.openStatus)}`}
+          >
+            {openStatusLabel(b.openStatus)}
+          </span>
+        </div>
       </div>
 
       <div
@@ -74,6 +93,9 @@ export function BusinessCard({
       <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
         <li>📍 {formatDistance(b.distanceMeters)}</li>
         <li>📍 {b.address || 'Adres yok'}</li>
+        {b.openingHours && (
+          <li className="text-slate-500">🕒 {b.openingHours}</li>
+        )}
         <li className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <span>📞</span>
           {tel ? (

@@ -6,6 +6,7 @@ import type {
   OverpassElement,
 } from '../types/business'
 import { haversineMeters } from '../utils/geo'
+import { resolveOpenStatus } from '../utils/openingHours'
 import { computeLeadScore } from '../utils/scoring'
 
 function buildAddress(tags: Record<string, string>): string {
@@ -219,6 +220,9 @@ export function normalizeOverpassElements(
     const rating = pickRating(tags)
     const reviewCount = pickReviewCount(tags)
     const hasWebsite = Boolean(website)
+    const { status: openStatus, raw: openingHours } = resolveOpenStatus(
+      tags.opening_hours || tags['opening_hours:covid19'],
+    )
     const { id: categoryId, label: categoryLabel } = detectCategory(tags)
     const distanceMeters = haversineMeters(user, coords)
     const { score, tier } = computeLeadScore({
@@ -244,6 +248,8 @@ export function normalizeOverpassElements(
       hasWebsite,
       rating,
       reviewCount,
+      openingHours,
+      openStatus,
       lat: coords.lat,
       lng: coords.lng,
       distanceMeters,

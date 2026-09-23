@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Business, BusinessCategoryId, DistanceKm, LatLng } from '../types/business'
+import {
+  businessCacheKey,
+  readBusinessCache,
+  writeBusinessCache,
+} from '../services/cache'
 import { fetchNearbyBusinesses, OverpassError } from '../services/overpass'
 
 interface UseBusinessesOptions {
@@ -7,6 +12,13 @@ interface UseBusinessesOptions {
   radiusKm: DistanceKm
   category: BusinessCategoryId
   enabled: boolean
+}
+
+function mergeById(primary: Business[], extra: Business[]): Business[] {
+  const map = new Map<string, Business>()
+  for (const b of primary) map.set(b.id, b)
+  for (const b of extra) map.set(b.id, b)
+  return Array.from(map.values())
 }
 
 export function useBusinesses({ user, radiusKm, category, enabled }: UseBusinessesOptions) {
@@ -26,31 +38,70 @@ export function useBusinesses({ user, radiusKm, category, enabled }: UseBusiness
       const controller = new AbortController()
       abortRef.current = controller
 
+      const cacheKey = businessCacheKey(user, radiusKm, category)
+      const cached = readBusinessCache(cacheKey)
+      if (cached) {
+        setItems(cached)
+        setLoading(false)
+        setError(null)
+        return
+      }
+
       setLoading(true)
       setError(null)
+      setItems([])
 
-      fetchNearbyBusinesses({
-        user,
-        radiusKm,
-        category,
-        signal: controller.signal,
-      })
-        .then((data) => {
-          if (!controller.signal.aborted) {
-            setItems(data)
-            setLoading(false)
-          }
-        })
-        .catch((err: unknown) => {
+      const run = async () => {
+        let near: Business[] = []
+        try {
+          // 1) Hızlı ilk sonuç: 1 km
+          near = await fetchNearbyBusinesses({
+            user,
+            radiusKm: 1,
+            category,
+            signal: controller.signal,
+          })
           if (controller.signal.aborted) return
-          setItems([])
+          setItems(near)
           setLoading(false)
+
+          // 2) Tam yarıçap (1 km ise bitti)
+          if (radiusKm <= 1) {
+            writeBusinessCache(cacheKey, near)
+            return
+          }
+
+          const full = await fetchNearbyBusinesses({
+            user,
+            radiusKm,
+            category,
+            signal: controller.signal,
+          })
+          if (controller.signal.aborted) return
+          const merged = mergeById(near, full)
+          setItems(merged)
+          writeBusinessCache(cacheKey, merged)
+        } catch (err: unknown) {
+          if (controller.signal.aborted) return
+          setLoading(false)
+          if (near.length) {
+            // Yakın sonuçlar kalsın; tam yarıçap başarısız olduysa sessizce devam
+            writeBusinessCache(
+              businessCacheKey(user, 1, category),
+              near,
+            )
+            return
+          }
+          setItems([])
           setError(
             err instanceof OverpassError
               ? err.message
               : 'İşletmeler yüklenirken bir hata oluştu.',
           )
-        })
+        }
+      }
+
+      void run()
     }, 350)
 
     return () => {

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Business } from '../types/business'
 import { formatDistance, formatPhoneDisplay, toTelHref, toWhatsAppLink } from '../utils/geo'
+import { openStatusLabel } from '../utils/openingHours'
 import { formatStars } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
@@ -115,6 +116,11 @@ export function DetailPanel({
                 ? b.reviewCount.toLocaleString('tr-TR')
                 : 'OSM’de kayıt yok'
             }
+          />
+          <Row label="Açık / kapalı" value={openStatusLabel(b.openStatus)} />
+          <Row
+            label="Çalışma saatleri"
+            value={b.openingHours || 'OSM’de kayıt yok'}
           />
           <Row label="Mesafe" value={formatDistance(b.distanceMeters)} />
           <Row label="Latitude" value={b.lat.toFixed(6)} />

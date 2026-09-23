@@ -1,6 +1,7 @@
 import {
   ALL_CATEGORIES,
   DISTANCE_OPTIONS,
+  OPEN_FILTERS,
   SORT_OPTIONS,
   WEBSITE_FILTERS,
 } from '../constants/categories'
@@ -8,6 +9,7 @@ import type {
   BusinessCategoryId,
   DistanceKm,
   FiltersState,
+  OpenFilter,
   SortOption,
   WebsiteFilter,
 } from '../types/business'
@@ -67,6 +69,12 @@ export function FilterPanel({ filters, onChange, compact }: FilterPanelProps) {
         value={filters.website}
         options={WEBSITE_FILTERS}
         onChange={(website) => onChange({ website: website as WebsiteFilter })}
+      />
+      <SelectField
+        label="Açık / kapalı"
+        value={filters.openNow}
+        options={OPEN_FILTERS}
+        onChange={(openNow) => onChange({ openNow: openNow as OpenFilter })}
       />
       <SelectField
         label="Sıralama"
