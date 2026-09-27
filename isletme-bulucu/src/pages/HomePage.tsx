@@ -5,6 +5,7 @@ import { DetailPanel } from '../components/DetailPanel'
 import { FilterPanel } from '../components/FilterPanel'
 import { LocationPicker } from '../components/LocationPicker'
 import { Pagination } from '../components/Pagination'
+import { QuickFilters } from '../components/QuickFilters'
 import { StatsBar } from '../components/StatsBar'
 import {
   DEFAULT_CATEGORY,
@@ -20,9 +21,11 @@ import { businessesToCsv, downloadCsv } from '../utils/scoring'
 const initialFilters: FiltersState = {
   category: DEFAULT_CATEGORY,
   distanceKm: DEFAULT_RADIUS_KM,
-  website: 'all',
+  website: 'missing',
   openNow: 'all',
-  sort: 'no_website',
+  sort: 'lead_score',
+  query: '',
+  hasPhone: false,
 }
 
 export function HomePage() {
@@ -33,6 +36,8 @@ export function HomePage() {
   const [detail, setDetail] = useState<Business | null>(null)
   const [demoMsg, setDemoMsg] = useState<string | null>(null)
   const [page, setPage] = useState(1)
+  const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list')
+  const [showAdvanced, setShowAdvanced] = useState(false)
   const lastSearchKey = useRef<string | null>(null)
 
   const {
@@ -78,6 +83,7 @@ export function HomePage() {
   const showOnMap = (b: Business) => {
     setSelectedId(b.id)
     setFocus({ lat: b.lat, lng: b.lng })
+    setMobileTab('map')
   }
 
   const exportCsv = () => {
@@ -102,7 +108,6 @@ export function HomePage() {
     void search(pos, filters.distanceKm, filters.category)
   }
 
-  // Konum ilk kez (GPS) gelince otomatik ara
   useEffect(() => {
     if (!geo.position || geo.source !== 'gps') return
     const key = `${geo.position.lat.toFixed(4)},${geo.position.lng.toFixed(4)}`
@@ -121,66 +126,193 @@ export function HomePage() {
         ? `${geo.position.lat.toFixed(4)}, ${geo.position.lng.toFixed(4)}`
         : 'Konum seçilmedi')
 
+  const listPanel = (
+    <section className="flex max-h-[70vh] flex-col rounded-2xl border border-slate-200 bg-white shadow-sm lg:max-h-[calc(100vh-200px)]">
+      <div className="border-b border-slate-100 px-3 py-3">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="text-sm font-semibold text-slate-800">
+            Lead listesi{' '}
+            <span className="font-normal text-slate-400">({filtered.length})</span>
+          </h2>
+          {(loading || loadingMore) && (
+            <span className="text-xs font-medium text-teal-700">Yükleniyor…</span>
+          )}
+        </div>
+        <input
+          type="search"
+          value={filters.query}
+          onChange={(e) => updateFilters({ query: e.target.value })}
+          placeholder="İsim, telefon veya adres ara…"
+          className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100"
+        />
+      </div>
+
+      <div className="flex-1 space-y-2.5 overflow-y-auto p-3 scrollbar-thin">
+        {error && (
+          <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-3 text-sm text-rose-700">
+            {error}
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="mt-2 block font-semibold underline"
+            >
+              Tekrar dene
+            </button>
+          </div>
+        )}
+
+        {loading && items.length === 0 && (
+          <div className="rounded-xl border border-dashed border-teal-200 bg-teal-50/50 px-4 py-10 text-center text-sm text-teal-800">
+            İşletmeler aranıyor… (~10 sn)
+          </div>
+        )}
+
+        {!loading && !error && geo.position && hasSearched && filtered.length === 0 && (
+          <div className="rounded-xl border border-dashed border-slate-200 px-4 py-8 text-center text-sm text-slate-500">
+            {items.length > 0 ? (
+              <>
+                Filtreye uyan yok. Üstteki chip’lerden{' '}
+                <button
+                  type="button"
+                  className="font-semibold text-teal-700 underline"
+                  onClick={() =>
+                    updateFilters({
+                      website: 'all',
+                      hasPhone: false,
+                      openNow: 'all',
+                      query: '',
+                    })
+                  }
+                >
+                  Tümü
+                </button>{' '}
+                deneyin.
+              </>
+            ) : (
+              <>Bu alanda sonuç yok. Konumu değiştirin veya “Daha fazla yükle”.</>
+            )}
+          </div>
+        )}
+
+        {!geo.position && !loading && (
+          <div className="rounded-xl border border-dashed border-slate-200 px-4 py-8 text-center text-sm text-slate-500">
+            Soldan / üstten konum seçin veya haritaya tıklayın.
+          </div>
+        )}
+
+        {pageItems.map((b) => (
+          <BusinessCard
+            key={b.id}
+            business={b}
+            selected={selectedId === b.id}
+            onShowOnMap={showOnMap}
+            onDetails={(biz) => setDetail(biz)}
+          />
+        ))}
+
+        {canLoadMore && nextKm && (
+          <button
+            type="button"
+            onClick={() => void loadMore(filters.distanceKm)}
+            disabled={loadingMore}
+            className="w-full rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-800 hover:bg-teal-100 disabled:opacity-50"
+          >
+            {loadingMore ? `${nextKm} km…` : `Daha fazla yükle (${nextKm} km)`}
+          </button>
+        )}
+      </div>
+
+      <Pagination
+        page={pageSafe}
+        totalPages={totalPages}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+        onChange={setPage}
+      />
+    </section>
+  )
+
+  const mapPanel = (
+    <section className="h-[360px] lg:h-[calc(100vh-200px)] lg:min-h-[520px]">
+      <BusinessMap
+        user={geo.position}
+        businesses={filtered}
+        focus={focus}
+        pickMode
+        placeLabel={geo.placeLabel}
+        onPickLocation={(pos) => handlePickLocation(pos)}
+        onSelectBusiness={(id) => {
+          setSelectedId(id)
+          const b =
+            filtered.find((x) => x.id === id) || items.find((x) => x.id === id)
+          if (b) setDetail(b)
+        }}
+      />
+    </section>
+  )
+
   return (
     <div className="min-h-full bg-[#f4f6f9]">
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">
-              OpenStreetMap · Overpass · Leaflet
-            </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-              Yakınımdaki İşletmeleri Bul
+            <h1 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">
+              Lead bulucu
             </h1>
-            <p className="mt-1 max-w-2xl text-sm text-slate-500 sm:text-base">
-              Web sitesi olmayan işletmeleri keşfet — istediğin semtte ara.
+            <p className="mt-0.5 text-sm text-slate-500">
+              Websitesiz işletmeleri bul · ara · WhatsApp’la
             </p>
-            <p className="mt-2 text-sm font-medium text-slate-700">
-              📍 {locationHint}
-            </p>
-            {geo.error && (
-              <p className="mt-1 text-sm text-amber-700">{geo.error}</p>
-            )}
-            {loadedKm != null && (
-              <p className="mt-1 text-xs text-slate-500">
-                Yüklü alan: {loadedKm} km
-                {filters.distanceKm > loadedKm
-                  ? ` · Hedef: ${filters.distanceKm} km`
-                  : ''}
-              </p>
-            )}
+            <p className="mt-1 text-xs font-medium text-slate-600">📍 {locationHint}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={handleSearch}
               disabled={!geo.position || loading}
-              className="rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
             >
-              {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+              {loading ? 'Aranıyor…' : 'Yeniden ara'}
             </button>
             <button
               type="button"
               onClick={exportCsv}
               disabled={!filtered.length}
-              className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
             >
-              CSV olarak dışa aktar
+              CSV ({filtered.length})
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1600px] px-4 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto max-w-[1600px] space-y-4 px-4 py-4 sm:px-6 sm:py-5">
         <StatsBar
           total={stats.total}
           noWebsite={stats.noWebsite}
-          withWebsite={stats.withWebsite}
+          withPhone={stats.withPhone}
           withinRadius={stats.withinRadius}
-          radiusLabel={`${loadedKm ?? filters.distanceKm} km İçinde`}
+          radiusLabel={`${loadedKm ?? filters.distanceKm} km`}
+          onFilterAll={() =>
+            updateFilters({ website: 'all', hasPhone: false, openNow: 'all', query: '' })
+          }
+          onFilterNoWebsite={() =>
+            updateFilters({ website: 'missing', sort: 'lead_score' })
+          }
+          onFilterPhone={() => updateFilters({ hasPhone: true })}
         />
 
-        <div className="mt-4 space-y-4 lg:hidden">
+        <QuickFilters
+          filters={filters}
+          counts={{
+            total: stats.total,
+            noWebsite: stats.noWebsite,
+            withPhone: stats.withPhone,
+          }}
+          onChange={updateFilters}
+        />
+
+        {/* Mobile location + advanced */}
+        <div className="space-y-3 lg:hidden">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <LocationPicker
               position={geo.position}
@@ -191,21 +323,44 @@ export function HomePage() {
               gpsLoading={geo.status === 'loading'}
             />
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <FilterPanel filters={filters} onChange={updateFilters} compact />
+          <button
+            type="button"
+            onClick={() => setShowAdvanced((v) => !v)}
+            className="text-xs font-semibold text-teal-700"
+          >
+            {showAdvanced ? 'Gelişmiş filtreleri gizle' : 'Gelişmiş filtreler'}
+          </button>
+          {showAdvanced && (
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <FilterPanel filters={filters} onChange={updateFilters} compact />
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-200/60 p-1">
             <button
               type="button"
-              onClick={handleSearch}
-              disabled={!geo.position || loading}
-              className="mt-3 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
+              onClick={() => setMobileTab('list')}
+              className={`rounded-lg py-2 text-sm font-semibold ${
+                mobileTab === 'list' ? 'bg-white text-slate-900 shadow' : 'text-slate-600'
+              }`}
             >
-              {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+              Liste ({filtered.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileTab('map')}
+              className={`rounded-lg py-2 text-sm font-semibold ${
+                mobileTab === 'map' ? 'bg-white text-slate-900 shadow' : 'text-slate-600'
+              }`}
+            >
+              Harita
             </button>
           </div>
+          {mobileTab === 'list' ? listPanel : mapPanel}
         </div>
 
-        <div className="mt-4 grid gap-4 lg:grid-cols-[280px_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
-          <aside className="hidden space-y-4 lg:block">
+        {/* Desktop */}
+        <div className="hidden gap-4 lg:grid lg:grid-cols-[270px_minmax(0,1.15fr)_minmax(0,1fr)]">
+          <aside className="space-y-4">
             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
               <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
                 Konum
@@ -230,121 +385,13 @@ export function HomePage() {
                 disabled={!geo.position || loading}
                 className="mt-4 w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-40"
               >
-                {loading ? 'Yükleniyor…' : 'Ara / Yükle'}
+                {loading ? 'Aranıyor…' : 'Yeniden ara'}
               </button>
-              <p className="mt-4 text-xs leading-relaxed text-slate-400">
-                Başka şehir/semt için adres yazın veya haritaya tıklayın. Önce 1 km
-                yüklenir; “Daha fazla” ile genişletilir.
-              </p>
             </div>
           </aside>
 
-          <section className="h-[360px] lg:h-[calc(100vh-220px)] lg:min-h-[520px]">
-            <BusinessMap
-              user={geo.position}
-              businesses={filtered}
-              focus={focus}
-              pickMode
-              placeLabel={geo.placeLabel}
-              onPickLocation={(pos) => handlePickLocation(pos)}
-              onSelectBusiness={(id) => {
-                setSelectedId(id)
-                const b =
-                  filtered.find((x) => x.id === id) || items.find((x) => x.id === id)
-                if (b) setDetail(b)
-              }}
-            />
-          </section>
-
-          <section className="flex max-h-[70vh] flex-col rounded-2xl border border-slate-200 bg-white shadow-sm lg:max-h-[calc(100vh-220px)]">
-            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
-              <h2 className="text-sm font-semibold text-slate-800">
-                İşletmeler{' '}
-                <span className="font-normal text-slate-400">
-                  ({filtered.length}
-                  {items.length !== filtered.length ? ` / ${items.length}` : ''})
-                </span>
-              </h2>
-              {(loading || loadingMore) && (
-                <span className="text-xs font-medium text-teal-700">Yükleniyor…</span>
-              )}
-            </div>
-
-            <div className="flex-1 space-y-3 overflow-y-auto p-3 scrollbar-thin">
-              {error && (
-                <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-3 text-sm text-rose-700">
-                  {error}
-                  <button
-                    type="button"
-                    onClick={handleSearch}
-                    className="mt-2 block font-semibold underline"
-                  >
-                    Tekrar dene
-                  </button>
-                </div>
-              )}
-
-              {loading && items.length === 0 && (
-                <div className="rounded-xl border border-dashed border-teal-200 bg-teal-50/50 px-4 py-10 text-center text-sm text-teal-800">
-                  Yakındaki işletmeler aranıyor… (en fazla ~10 sn)
-                </div>
-              )}
-
-              {!loading && !error && geo.position && hasSearched && filtered.length === 0 && (
-                <div className="rounded-xl border border-dashed border-slate-200 px-4 py-10 text-center text-sm text-slate-500">
-                  {items.length > 0 ? (
-                    <>
-                      {items.length} işletme geldi ama filtreler hepsini gizliyor.
-                      <br />
-                      Web sitesi / açık-kapalı filtresini “Tümü” yapın.
-                    </>
-                  ) : (
-                    <>
-                      Bu alanda işletme bulunamadı. Mesafeyi artırın veya başka konum
-                      seçin.
-                    </>
-                  )}
-                </div>
-              )}
-
-              {!geo.position && !loading && (
-                <div className="rounded-xl border border-dashed border-slate-200 px-4 py-10 text-center text-sm text-slate-500">
-                  Konum seçin: adres yazın, şehir butonuna basın veya haritaya tıklayın.
-                </div>
-              )}
-
-              {pageItems.map((b) => (
-                <BusinessCard
-                  key={b.id}
-                  business={b}
-                  selected={selectedId === b.id}
-                  onShowOnMap={showOnMap}
-                  onDetails={(biz) => setDetail(biz)}
-                />
-              ))}
-
-              {canLoadMore && nextKm && (
-                <button
-                  type="button"
-                  onClick={() => void loadMore(filters.distanceKm)}
-                  disabled={loadingMore}
-                  className="w-full rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-800 hover:bg-teal-100 disabled:opacity-50"
-                >
-                  {loadingMore
-                    ? `${nextKm} km yükleniyor…`
-                    : `Daha fazla yükle (${nextKm} km)`}
-                </button>
-              )}
-            </div>
-
-            <Pagination
-              page={pageSafe}
-              totalPages={totalPages}
-              totalItems={filtered.length}
-              pageSize={PAGE_SIZE}
-              onChange={setPage}
-            />
-          </section>
+          {mapPanel}
+          {listPanel}
         </div>
       </main>
 
@@ -357,10 +404,8 @@ export function HomePage() {
             setDetail(null)
           }}
           onCreateWebsite={(b) => {
-            setDemoMsg(
-              `Demo: “${b.name}” için web sitesi oluşturma akışı yakında. (AI yok)`,
-            )
-            setTimeout(() => setDemoMsg(null), 4000)
+            setDemoMsg(`Demo: “${b.name}” için web sitesi akışı yakında.`)
+            setTimeout(() => setDemoMsg(null), 3500)
           }}
         />
       )}

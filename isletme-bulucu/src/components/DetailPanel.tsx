@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Business } from '../types/business'
 import { formatDistance, formatPhoneDisplay, toTelHref, toWhatsAppLink } from '../utils/geo'
-import { openStatusLabel } from '../utils/openingHours'
+import { formatOpeningHoursTr, openStatusLabel } from '../utils/openingHours'
 import { formatStars, googleMapsSearchUrl } from '../utils/rating'
 import { leadTierColor, leadTierLabel } from '../utils/scoring'
 
@@ -133,7 +133,15 @@ export function DetailPanel({
           <Row label="Açık / kapalı" value={openStatusLabel(b.openStatus)} />
           <Row
             label="Çalışma saatleri"
-            value={b.openingHours || 'OSM’de kayıt yok'}
+            value={
+              b.openingHours ? (
+                <span className="text-right leading-relaxed">
+                  {formatOpeningHoursTr(b.openingHours)}
+                </span>
+              ) : (
+                'OSM’de kayıt yok'
+              )
+            }
           />
           <Row label="Mesafe" value={formatDistance(b.distanceMeters)} />
           <Row label="Latitude" value={b.lat.toFixed(6)} />

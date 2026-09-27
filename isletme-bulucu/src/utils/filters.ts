@@ -8,22 +8,34 @@ function matchesCategory(b: Business, category: FiltersState['category']): boole
   return b.categoryId === category
 }
 
+function matchesQuery(b: Business, query: string): boolean {
+  const q = query.trim().toLocaleLowerCase('tr-TR')
+  if (!q) return true
+  const hay = [b.name, b.address, b.phone, b.categoryLabel, b.website]
+    .join(' ')
+    .toLocaleLowerCase('tr-TR')
+  return hay.includes(q)
+}
+
 export function filterAndSortBusinesses(
   items: Business[],
   filters: FiltersState,
 ): Business[] {
   let list = [...items]
 
-  // Mesafe filtresi client-side; henüz yüklenmemiş halkalar zaten listede yok
   const maxMeters = filters.distanceKm * 1000
   list = list.filter((b) => b.distanceMeters <= maxMeters)
-
   list = list.filter((b) => matchesCategory(b, filters.category))
+  list = list.filter((b) => matchesQuery(b, filters.query))
 
   if (filters.website === 'missing') {
     list = list.filter((b) => !b.hasWebsite)
   } else if (filters.website === 'present') {
     list = list.filter((b) => b.hasWebsite)
+  }
+
+  if (filters.hasPhone) {
+    list = list.filter((b) => Boolean(b.phone.trim()))
   }
 
   if (filters.openNow === 'open') {
@@ -42,12 +54,16 @@ export function filterAndSortBusinesses(
     case 'no_website':
       list.sort((a, b) => {
         if (a.hasWebsite !== b.hasWebsite) return a.hasWebsite ? 1 : -1
+        const ap = b.phone ? 1 : 0
+        const bp = a.phone ? 1 : 0
+        if (ap !== bp) return ap - bp
         return a.distanceMeters - b.distanceMeters
       })
       break
     case 'lead_score':
       list.sort((a, b) => {
         if (b.leadScore !== a.leadScore) return b.leadScore - a.leadScore
+        if (Boolean(b.phone) !== Boolean(a.phone)) return b.phone ? 1 : -1
         return a.distanceMeters - b.distanceMeters
       })
       break
@@ -71,6 +87,7 @@ export function computeStats(items: Business[], radiusKm = 5) {
   const total = items.length
   const noWebsite = items.filter((b) => !b.hasWebsite).length
   const withWebsite = total - noWebsite
+  const withPhone = items.filter((b) => Boolean(b.phone.trim())).length
   const withinRadius = items.filter((b) => b.distanceMeters <= radiusKm * 1000).length
-  return { total, noWebsite, withWebsite, withinRadius }
+  return { total, noWebsite, withWebsite, withPhone, withinRadius }
 }

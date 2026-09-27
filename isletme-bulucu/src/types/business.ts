@@ -62,6 +62,10 @@ export interface FiltersState {
   website: WebsiteFilter
   openNow: OpenFilter
   sort: SortOption
+  /** İsim / adres / telefon araması (client) */
+  query: string
+  /** Sadece telefonu olanlar */
+  hasPhone: boolean
 }
 
 export interface OverpassElement {
