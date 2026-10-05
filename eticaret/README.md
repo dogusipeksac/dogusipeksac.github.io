@@ -4,8 +4,8 @@ Araba aksesuarları girişiminin aşama, görev, ürün, finans, rakip, tedarik�
 
 Veri tarayıcıda `localStorage` anahtarı `eticaret-os-v1` içinde durur. Backend yok.
 
-Canlı yol: `https://dogusipeksac.com/eticaret/`  
-Üretim derlemesi `base: /eticaret/` kullanır. Asset yolları bu öneke göredir.
+Canlı yol: `https://dogusipeksac.com/eticaret/dist/`  
+Üretim derlemesi `base: /eticaret/dist/` kullanır. Asset yolları bu öneke göredir.
 
 ## Çalıştırma
 
@@ -22,7 +22,7 @@ npm run build
 npm run preview
 ```
 
-`dist/` içeriği `/eticaret/` altına konduğunda sayfa açılır.
+Canlı sayfa `eticaret/dist/` klasöründen yayınlanır.
 
 ## Sonraki adım
 
