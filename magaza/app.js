@@ -1,5 +1,26 @@
 const CART_KEY = "kort-sepet";
 
+/** Ürün karesinde yazıyla aynı bölge kalsın diye kadraj. */
+const FOCUS = {
+  "mac-tisort": "center 42%",
+  "mac-sort": "center 72%",
+  "bilek-bandi": "center 36%",
+  "overgrip": "center 48%",
+  damper: "18% 28%",
+  "antrenman-filesi": "center 48%",
+  "direnc-bandi": "center 40%",
+  "ic-saha-forma": "center 30%",
+  "fg-krampon": "78% 55%",
+  "hali-krampon": "center 48%",
+  tekmelik: "center 78%",
+  "basket-forma": "center 34%",
+  "basket-sort": "center 68%",
+  "indoor-ayakkabi": "center 90%",
+  "kosu-sort": "center 58%",
+  "kosu-corap": "center 90%",
+  "bel-cantasi": "center 28%",
+};
+
 const money = (n) =>
   new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
 
@@ -62,7 +83,7 @@ function grid(list) {
     .map(
       (p) => `
       <a class="card" href="#/urun/${p.id}">
-        <div class="swatch${p.ink ? " ink" : ""}" style="background:${p.tone};${p.ink ? `color:${p.ink}` : ""}">${p.mark}</div>
+        <div class="swatch">${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.name)}"${FOCUS[p.id] ? ` style="object-position:${FOCUS[p.id]}"` : ""}>` : escapeHtml(p.mark)}</div>
         <div class="meta">
           <h2>${p.name}</h2>
           <p>${p.blurb}</p>
@@ -82,7 +103,7 @@ function sportChips(active) {
 function worlds() {
   return `<div class="worlds">${SPORTS.map(
     (s) => `
-      <button class="world w-${s.id}" data-sport="${s.id}">
+      <button class="world w-${s.id}" data-sport="${s.id}" style="${s.image ? `background-image:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.55)),url('${s.image}')` : ""}">
         <span>${s.kicker}</span>
         <strong>${s.name}</strong>
         <em>${s.panel}</em>
@@ -105,7 +126,7 @@ function home(query, cat, sport) {
             <h1>Arama.</h1>
             <p class="lede">“${escapeHtml(query)}” için bütün sahalar.</p>
           </div>
-          <div class="hero-panel is-genel"><p>Dört spor. Tek sepet.</p></div>
+          <div class="hero-panel is-genel"><p>Beş spor. Tek sepet.</p></div>
         </section>
         ${grid(list)}
       `;
@@ -115,9 +136,9 @@ function home(query, cat, sport) {
         <div>
           <div class="kicker">${SHOP.line}</div>
           <h1>Hangi sahadasın?</h1>
-          <p class="lede">Tenis, futbol, koşu, basketbol. Bir spor seçince renk, zemin ve vitrin o sahaya döner. Sepet ve ödeme bu demoda simülasyondur.</p>
+          <p class="lede">Tenis, futbol, koşu, basketbol, fitness. Bir spor seçince renk, zemin ve vitrin o sahaya döner. Sepet ve ödeme bu demoda simülasyondur.</p>
         </div>
-        <div class="hero-panel is-genel"><p>Dört spor. Tek sepet.</p></div>
+        <div class="hero-panel is-genel"><p>Beş spor. Tek sepet.</p></div>
       </section>
       ${worlds()}
     `;
@@ -151,7 +172,7 @@ function detail(id) {
   return `
     <a class="back" href="#/?spor=${p.sport}">← ${sportMeta ? sportMeta.name : "Vitrin"}</a>
     <article class="product">
-      <div class="swatch${p.ink ? " ink" : ""}" style="background:${p.tone};${p.ink ? `color:${p.ink}` : ""}">${p.mark}</div>
+      <div class="swatch">${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.name)}"${FOCUS[p.id] ? ` style="object-position:${FOCUS[p.id]}"` : ""}>` : escapeHtml(p.mark)}</div>
       <div>
         <div class="kicker">${cat ? cat.name : ""}</div>
         <h1>${p.name}</h1>
