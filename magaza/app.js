@@ -12,7 +12,7 @@ const FOCUS = {
   "ic-saha-forma": "center 30%",
   "fg-krampon": "78% 55%",
   "hali-krampon": "center 48%",
-  tekmelik: "center 78%",
+  tekmelik: "72% 100%",
   "basket-forma": "center 34%",
   "basket-sort": "center 68%",
   "indoor-ayakkabi": "center 90%",
