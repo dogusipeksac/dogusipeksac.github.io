@@ -1,4 +1,4 @@
-const CART_KEY = "rota-sepet";
+const CART_KEY = "kort-sepet";
 
 const money = (n) =>
   new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
@@ -43,9 +43,9 @@ function header(query) {
   return `
     <header class="top">
       <a class="brand" href="#/"><strong>${SHOP.name}</strong><span>${SHOP.line}</span></a>
-      <input class="search" id="q" placeholder="Ürün ara" value="${escapeHtml(query)}" />
+      <input class="search" id="q" placeholder="Raket, top, ayakkabı ara" value="${escapeHtml(query)}" />
       <nav class="nav">
-        <a href="#/">Vitrin</a>
+        <a href="#/">Kort</a>
         <button class="cart-btn" id="open-cart">Sepet ${count()}</button>
       </nav>
     </header>`;
@@ -57,7 +57,7 @@ function grid(list) {
     .map(
       (p) => `
       <a class="card" href="#/urun/${p.id}">
-        <div class="swatch" style="background:${p.tone}">${p.mark}</div>
+        <div class="swatch${p.ink ? " ink" : ""}" style="background:${p.tone};${p.ink ? `color:${p.ink}` : ""}">${p.mark}</div>
         <div class="meta">
           <h2>${p.name}</h2>
           <p>${p.blurb}</p>
@@ -68,27 +68,37 @@ function grid(list) {
     .join("")}</div>`;
 }
 
-function home(query, cat) {
+function home(query, cat, sport) {
+  const activeSport = sport || "tenis";
+  const sportMeta = SPORTS.find((s) => s.id === activeSport) || SPORTS[0];
   const q = query.trim().toLocaleLowerCase("tr");
-  let list = PRODUCTS.filter((p) => !q || p.name.toLocaleLowerCase("tr").includes(q) || p.blurb.toLocaleLowerCase("tr").includes(q));
+  let list = PRODUCTS.filter((p) => (p.sport || "tenis") === activeSport);
+  list = list.filter((p) => !q || p.name.toLocaleLowerCase("tr").includes(q) || p.blurb.toLocaleLowerCase("tr").includes(q));
   if (cat) list = list.filter((p) => p.category === cat);
+  const sportChips = SPORTS.map(
+    (s) =>
+      `<button class="sport ${s.id === activeSport ? "on" : ""} ${s.soon ? "soon" : ""}" data-sport="${s.id}">${s.name}${s.soon ? " · yakında" : ""}</button>`,
+  ).join("");
   const chips = [{ id: "", name: "Tümü" }, ...CATEGORIES]
     .map(
       (c) =>
         `<button class="chip ${c.id === cat ? "on" : ""}" data-cat="${c.id}">${c.name}</button>`,
     )
     .join("");
+  const body = sportMeta.soon
+    ? `<section class="soon"><h2>${sportMeta.name} sırada</h2><p>Kort şimdilik tenisle açık. ${sportMeta.name} vitrini eklenince burada duracak. Bu arada raket ve topa bak.</p></section>`
+    : `<div class="cats">${chips}</div>${grid(list)}`;
   return `
     <section class="hero">
       <div>
         <div class="kicker">${SHOP.line}</div>
-        <h1>Arabada her gün kullanılan parçalar.</h1>
-        <p class="lede">Tutucu, düzen, ışık, kamera ve bakım. Şimdilik yalnızca araç aksesuarı. Sepet ve ödeme bu demoda simülasyondur.</p>
+        <h1>Önce kort.</h1>
+        <p class="lede">Raket, ayakkabı, top ve maç ekipmanı. Spor mağazası tenisle başlıyor; diğer sahalar sırada. Sepet ve ödeme bu demoda simülasyondur.</p>
       </div>
-      <div class="hero-panel"><p>Seç, sepete ekle, siparişi dene.</p></div>
+      <div class="hero-panel"><p>Servis. Ralli. Maç.</p></div>
     </section>
-    <div class="cats">${chips}</div>
-    ${grid(list)}
+    <div class="sports">${sportChips}</div>
+    ${body}
   `;
 }
 
@@ -97,9 +107,9 @@ function detail(id) {
   if (!p) return `<p class="empty">Ürün yok.</p>`;
   const cat = CATEGORIES.find((c) => c.id === p.category);
   return `
-    <a class="back" href="#/">← Vitrin</a>
+    <a class="back" href="#/">← Korta dön</a>
     <article class="product">
-      <div class="swatch" style="background:${p.tone}">${p.mark}</div>
+      <div class="swatch${p.ink ? " ink" : ""}" style="background:${p.tone};${p.ink ? `color:${p.ink}` : ""}">${p.mark}</div>
       <div>
         <div class="kicker">${cat ? cat.name : ""}</div>
         <h1>${p.name}</h1>
@@ -118,7 +128,7 @@ function cartView() {
   const rows = cart()
     .map((i) => ({ ...i, product: productById(i.id) }))
     .filter((i) => i.product);
-  if (!rows.length) return `<h1>Sepet boş</h1><p class="empty"><a href="#/">Vitrine dön</a></p>`;
+  if (!rows.length) return `<h1>Sepet boş</h1><p class="empty"><a href="#/">Korta dön</a></p>`;
   const total = rows.reduce((s, i) => s + i.product.price * i.qty, 0);
   return `
     <h1>Sepet</h1>
@@ -147,7 +157,7 @@ function cartView() {
 
 function checkout() {
   const rows = cart().filter((i) => productById(i.id));
-  if (!rows.length) return `<p class="empty">Sepet boş. <a href="#/">Vitrin</a></p>`;
+  if (!rows.length) return `<p class="empty">Sepet boş. <a href="#/">Kort</a></p>`;
   return `
     <h1>Teslimat</h1>
     <p class="note">Bu bir demo. Bilgiler kaydedilmez, ödeme alınmaz.</p>
@@ -160,7 +170,7 @@ function checkout() {
 }
 
 function thanks() {
-  return `<h1>Sipariş alındı</h1><p class="lede">Demoda kargo çıkmaz. Sepet temizlendi.</p><p><a href="#/">Vitrine dön</a></p>`;
+  return `<h1>Sipariş alındı</h1><p class="lede">Demoda kargo çıkmaz. Sepet temizlendi.</p><p><a href="#/">Korta dön</a></p>`;
 }
 
 function escapeHtml(s) {
@@ -171,17 +181,27 @@ function render() {
   const { a, b, params } = parse();
   const query = params.get("q") || "";
   const cat = a === "kategori" ? b : params.get("kat") || "";
+  const sport = params.get("spor") || "";
   const root = document.getElementById("app");
-  let body = home(query, cat);
+  let body = home(query, cat, sport);
   if (a === "urun") body = detail(b);
   if (a === "sepet") body = cartView();
   if (a === "odeme") body = checkout();
   if (a === "tesekkur") body = thanks();
   root.innerHTML = header(query) + `<main class="wrap">${body}</main>`;
-  bind(query, cat);
+  bind(query, cat, sport);
 }
 
-function bind(query, cat) {
+function shopHash(query, cat, sport) {
+  const next = new URLSearchParams();
+  if (query) next.set("q", query);
+  if (sport && sport !== "tenis") next.set("spor", sport);
+  if (cat) next.set("kat", cat);
+  const s = next.toString();
+  return s ? `#/?${s}` : "#/";
+}
+
+function bind(query, cat, sport) {
   const q = document.getElementById("q");
   if (q) {
     q.addEventListener("change", () => {
@@ -191,14 +211,16 @@ function bind(query, cat) {
   document.getElementById("open-cart")?.addEventListener("click", () => {
     location.hash = "#/sepet";
   });
+  document.querySelectorAll("[data-sport]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-sport");
+      location.hash = shopHash(query, "", id);
+    });
+  });
   document.querySelectorAll("[data-cat]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const id = btn.getAttribute("data-cat");
-      const next = new URLSearchParams();
-      if (query) next.set("q", query);
-      if (id) next.set("kat", id);
-      const s = next.toString();
-      location.hash = s ? `#/?${s}` : "#/";
+      location.hash = shopHash(query, id, sport || "tenis");
     });
   });
   document.getElementById("add")?.addEventListener("click", () => {
@@ -227,6 +249,7 @@ function bind(query, cat) {
     location.hash = "#/tesekkur";
   });
   void cat;
+  void sport;
 }
 
 window.addEventListener("hashchange", render);
