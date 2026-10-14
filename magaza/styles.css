@@ -1,12 +1,12 @@
 :root {
-  --bg: #e7efe4;
-  --ink: #10241c;
-  --muted: #5c6b62;
-  --line: #c9d7cc;
-  --card: #f7fbf4;
-  --court: #12352a;
-  --ball: #d6f25c;
-  --clay: #d4652f;
+  --bg: #f3f4f6;
+  --ink: #14171c;
+  --muted: #5e656e;
+  --line: #d8dce2;
+  --card: #ffffff;
+  --court: #14171c;
+  --ball: #e8ff47;
+  --clay: #ff5a1f;
   --display: "Oswald", Impact, sans-serif;
   --sans: "Outfit", system-ui, sans-serif;
 }
@@ -16,10 +16,8 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
 body {
   font-family: var(--sans);
   min-height: 100vh;
-  background-image:
-    linear-gradient(rgba(18, 53, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 53, 42, 0.05) 1px, transparent 1px);
-  background-size: 72px 48px;
+  background-color: var(--bg);
+  background-image: none;
 }
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
@@ -33,7 +31,7 @@ img { max-width: 100%; }
   align-items: center;
   gap: 16px;
   padding: 14px 22px;
-  background: rgba(18, 53, 42, 0.94);
+  background: color-mix(in srgb, var(--court) 94%, transparent);
   color: #f4f7f2;
   backdrop-filter: blur(10px);
   border-bottom: 3px solid var(--ball);
@@ -103,39 +101,83 @@ img { max-width: 100%; }
   border-radius: 28px;
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(#f4f7f2, #f4f7f2) center 46% / 100% 3px no-repeat,
-    linear-gradient(90deg, transparent 49.2%, #f4f7f2 49.2% 50.8%, transparent 50.8%) center / 100% 100% no-repeat,
-    linear-gradient(160deg, #1b4332, #0e241c 70%);
+  background: linear-gradient(160deg, #1c2128, #2a313b 70%);
   color: #f6f1ea;
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  box-shadow: inset 0 0 0 8px rgba(214, 242, 92, 0.18);
 }
-.hero-panel::before {
-  content: "";
-  position: absolute;
-  width: 92px;
-  height: 92px;
-  right: 28px;
-  top: 28px;
-  border-radius: 50%;
+.hero-panel::before, .hero-panel::after { content: ""; position: absolute; }
+.hero-panel.is-genel::before {
+  width: 120px; height: 120px; right: -20px; top: -30px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,255,71,0.9), transparent 68%);
+}
+.hero-panel.is-tenis {
   background:
-    radial-gradient(circle at 35% 35%, #f4ffb0, #d6f25c 42%, #b6d63a 70%);
+    linear-gradient(#f4f7f2, #f4f7f2) center 46% / 100% 3px no-repeat,
+    linear-gradient(90deg, transparent 49.2%, #f4f7f2 49.2% 50.8%, transparent 50.8%) center / 100% 100% no-repeat,
+    linear-gradient(160deg, #1b4332, #0e241c 70%);
+  box-shadow: inset 0 0 0 8px rgba(214, 242, 92, 0.22);
+}
+.hero-panel.is-tenis::before {
+  width: 92px; height: 92px; right: 28px; top: 28px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f4ffb0, #d6f25c 42%, #b6d63a 70%);
   box-shadow: inset -8px -10px 0 rgba(18, 53, 42, 0.18);
 }
-.hero-panel::after {
-  content: "";
-  position: absolute;
-  width: 92px;
-  height: 2px;
-  right: 28px;
-  top: 73px;
-  background: rgba(18, 53, 42, 0.45);
-  transform: rotate(-28deg);
+.hero-panel.is-tenis::after {
+  width: 92px; height: 2px; right: 28px; top: 73px; background: rgba(18,53,42,0.45); transform: rotate(-28deg);
 }
+.hero-panel.is-futbol {
+  background:
+    linear-gradient(#fff, #fff) center 48% / 100% 3px no-repeat,
+    linear-gradient(#fff, #fff) center / 3px 100% no-repeat,
+    repeating-linear-gradient(90deg, #146b32 0 64px, #187a3a 64px 128px);
+  box-shadow: inset 0 0 0 8px rgba(255,255,255,0.28);
+}
+.hero-panel.is-futbol::before {
+  width: 88px; height: 88px; right: 26px; top: 22px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 38%, #111 39% 42%, transparent 43%),
+    conic-gradient(#111 0 20%, #f4f4f4 0 40%, #111 0 60%, #f4f4f4 0 80%, #111 0 100%);
+}
+.hero-panel.is-kosu {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,0.55) 46px 50px),
+    linear-gradient(180deg, #2a2a2a, #111 70%);
+  box-shadow: inset 0 0 0 8px rgba(255, 77, 28, 0.35);
+}
+.hero-panel.is-kosu::before {
+  width: 0; height: 0; right: 48px; top: 36px;
+  border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 28px solid #ff4d1c;
+  transform: rotate(90deg);
+}
+.hero-panel.is-basketbol {
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 18px, transparent 18px 36px),
+    linear-gradient(160deg, #c47a3a, #8c4e1d 60%, #5c3212);
+  box-shadow: inset 0 0 0 8px rgba(12, 35, 64, 0.45);
+}
+.hero-panel.is-basketbol::before {
+  width: 92px; height: 92px; right: 24px; top: 22px; border-radius: 50%;
+  background:
+    linear-gradient(#111, #111) center / 100% 3px no-repeat,
+    linear-gradient(#111, #111) center / 3px 100% no-repeat,
+    radial-gradient(circle at 35% 35%, #ffb067, #e85d04 55%, #9a3412);
+}
+
+.worlds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.world {
+  min-height: 210px; border: 0; border-radius: 24px; padding: 20px; text-align: left;
+  cursor: pointer; color: white; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+}
+.world span { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.8; }
+.world strong { font-family: var(--display); font-size: 36px; letter-spacing: 0.03em; text-transform: uppercase; line-height: 0.95; }
+.world em { font-style: normal; font-size: 14px; opacity: 0.9; }
+.w-tenis { background: linear-gradient(160deg, #1b4332, #0e241c); box-shadow: inset 0 0 0 3px rgba(214,242,92,0.35); }
+.w-futbol { background: repeating-linear-gradient(90deg, #146b32 0 28px, #187a3a 28px 56px); }
+.w-kosu { background: linear-gradient(160deg, #222, #111); box-shadow: inset 0 -8px 0 #ff4d1c; }
+.w-basketbol { background: linear-gradient(160deg, #0c2340, #1d3557); box-shadow: inset 0 -8px 0 #e85d04; }
 .hero-panel p { margin: 0; font-family: var(--display); font-size: 34px; line-height: 0.95; letter-spacing: 0.04em; text-transform: uppercase; position: relative; }
 
 .sports, .cats { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -237,8 +279,77 @@ ul.clean { padding-left: 18px; color: #24362d; }
 h1 { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
 
 @media (max-width: 800px) {
-  .hero, .product, .grid { grid-template-columns: 1fr; }
+  .hero, .product, .grid, .worlds { grid-template-columns: 1fr; }
   .search { display: none; }
   .top { padding: 12px; }
   .product .swatch { height: 240px; }
 }
+
+html[data-sport="tenis"] {
+  --bg: #e7efe4;
+  --ink: #10241c;
+  --muted: #5c6b62;
+  --line: #c9d7cc;
+  --card: #f7fbf4;
+  --court: #12352a;
+  --ball: #d6f25c;
+  --clay: #d4652f;
+}
+html[data-sport="tenis"] body {
+  background-image:
+    linear-gradient(rgba(18, 53, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 53, 42, 0.06) 1px, transparent 1px);
+  background-size: 72px 48px;
+}
+html[data-sport="futbol"] {
+  --bg: #e5f6ea;
+  --ink: #06210f;
+  --muted: #3e6248;
+  --line: #b7d7be;
+  --card: #f6fff8;
+  --court: #0d3b1e;
+  --ball: #f4fff6;
+  --clay: #c6f54a;
+}
+html[data-sport="futbol"] body {
+  background-image: repeating-linear-gradient(90deg, rgba(20, 122, 58, 0.07) 0 72px, rgba(13, 90, 40, 0.12) 72px 144px);
+}
+html[data-sport="kosu"] {
+  --bg: #f2f2f2;
+  --ink: #141414;
+  --muted: #5c5c5c;
+  --line: #d5d5d5;
+  --card: #fff;
+  --court: #111111;
+  --ball: #ff4d1c;
+  --clay: #ff4d1c;
+}
+html[data-sport="kosu"] body {
+  background-image: repeating-linear-gradient(90deg, transparent 0 88px, rgba(255, 77, 28, 0.14) 88px 92px);
+}
+html[data-sport="basketbol"] {
+  --bg: #f6ecdf;
+  --ink: #0c2340;
+  --muted: #6a543f;
+  --line: #e2cbb3;
+  --card: #fffaf4;
+  --court: #0c2340;
+  --ball: #e85d04;
+  --clay: #e85d04;
+}
+html[data-sport="basketbol"] body {
+  background-image: repeating-linear-gradient(90deg, rgba(196, 122, 58, 0.16) 0 22px, transparent 22px 44px);
+}
+html[data-sport="futbol"] .cart-btn,
+html[data-sport="futbol"] .buy button,
+html[data-sport="futbol"] .primary { color: #0d3b1e; }
+html[data-sport="kosu"] .cart-btn,
+html[data-sport="kosu"] .chip.on,
+html[data-sport="kosu"] .sport.on,
+html[data-sport="kosu"] .buy button,
+html[data-sport="kosu"] .primary,
+html[data-sport="basketbol"] .cart-btn,
+html[data-sport="basketbol"] .chip.on,
+html[data-sport="basketbol"] .sport.on,
+html[data-sport="basketbol"] .buy button,
+html[data-sport="basketbol"] .primary { color: #fff; }
