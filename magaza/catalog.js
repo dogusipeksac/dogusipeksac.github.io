@@ -1,7 +1,7 @@
 /** Genel spor vitrini. Her sporun kendi metni, kategorisi ve ürünleri var. */
 const SHOP = {
-  name: "Saha",
-  line: "Spor mağazası",
+  name: "Çizgi",
+  line: "Spor",
 };
 
 const SPORTS = [
@@ -26,7 +26,7 @@ const SPORTS = [
   {
     id: "futbol",
     name: "Futbol",
-    kicker: "Saha",
+    kicker: "Çim",
     title: "Maç günü.",
     lede: "Forma, krampon, top ve kaleci. Vitrin çim çizgisine göre kuruldu.",
     panel: "Pas. Şut. Gol.",
