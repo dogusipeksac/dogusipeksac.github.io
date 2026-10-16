@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kare — YouTube içerik panosu</title>
-  <meta name="description" content="Tek kanallı YouTube içerik Kanban’ı. Fikirden yayına, tarayıcıda kalır." />
+  <title>Kare — YouTube üretim panosu</title>
+  <meta name="description" content="Esnek YouTube içerik pipeline’ı. Özelleştirilebilir sütunlar, paketleme alanları, takvim ve kontrol listesi — tarayıcıda kalır." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,55 +16,189 @@
       <span class="brand-mark" aria-hidden="true"></span>
       <span>
         <strong>Kare</strong>
-        <em>YouTube</em>
+        <em>Pipeline</em>
       </span>
     </a>
+    <div class="top-search">
+      <input type="search" id="search" placeholder="Ara…  /" autocomplete="off" />
+    </div>
     <div class="top-actions">
+      <div class="seg" role="group" aria-label="Görünüm">
+        <button type="button" class="seg-btn on" data-view="board" id="viewBoard">Pano</button>
+        <button type="button" class="seg-btn" data-view="calendar" id="viewCal">Takvim</button>
+      </div>
+      <button type="button" class="ghost" id="btnColumns">Sütunlar</button>
       <button type="button" class="ghost" id="btnExport">Dışa aktar</button>
       <label class="ghost file-btn">
         İçe aktar
         <input type="file" id="importFile" accept="application/json,.json" hidden />
       </label>
       <a class="ghost" href="/#tools">← Araçlar</a>
-      <button type="button" class="primary" id="btnNew">+ Fikir</button>
+      <button type="button" class="primary" id="btnNew">+ Video</button>
     </div>
   </header>
 
-  <section class="stats" id="stats" aria-live="polite"></section>
+  <section class="toolbar">
+    <div class="stats" id="stats" aria-live="polite"></div>
+    <div class="filters">
+      <select id="filterFormat" aria-label="Format">
+        <option value="">Tüm formatlar</option>
+        <option value="long">Uzun video</option>
+        <option value="short">Shorts</option>
+      </select>
+      <select id="filterPriority" aria-label="Öncelik">
+        <option value="">Tüm öncelikler</option>
+        <option value="high">Yüksek</option>
+        <option value="med">Orta</option>
+        <option value="low">Düşük</option>
+      </select>
+      <label class="check-inline">
+        <input type="checkbox" id="filterArchive" />
+        Arşivi göster
+      </label>
+    </div>
+  </section>
 
   <main class="board" id="board" aria-label="İçerik panosu"></main>
+  <main class="calendar" id="calendar" hidden aria-label="Yayın takvimi"></main>
 
-  <div class="modal-backdrop" id="modal" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <header class="modal-head">
-        <h2 id="modalTitle">Fikir</h2>
+  <!-- Card editor -->
+  <div class="drawer-backdrop" id="drawer" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <header class="drawer-head">
+        <div>
+          <p class="eyebrow" id="drawerEyebrow">Video kartı</p>
+          <h2 id="drawerTitle">Yeni video</h2>
+        </div>
         <button type="button" class="icon-btn" id="btnClose" aria-label="Kapat">×</button>
       </header>
-      <form id="cardForm" class="modal-body">
-        <label>
-          Başlık
-          <input type="text" id="fieldTitle" required maxlength="160" placeholder="Örn. Android’de NFC ile ödeme" />
-        </label>
-        <label>
-          Sütun
-          <select id="fieldStatus"></select>
-        </label>
-        <label>
-          Etiketler
-          <input type="text" id="fieldTags" placeholder="android, tip, nfc" />
-        </label>
-        <label>
-          Notlar
-          <textarea id="fieldNotes" rows="10" placeholder="Outline, senaryo, açıklama, yayın notu…"></textarea>
-        </label>
-        <div class="modal-foot">
+
+      <nav class="tabs" id="tabs">
+        <button type="button" class="tab on" data-tab="genel">Paket</button>
+        <button type="button" class="tab" data-tab="metin">Metin</button>
+        <button type="button" class="tab" data-tab="yayin">Yayın</button>
+      </nav>
+
+      <form id="cardForm" class="drawer-body">
+        <input type="hidden" id="fieldId" />
+
+        <div class="tab-panel on" data-panel="genel">
+          <label>
+            Çalışma başlığı
+            <input type="text" id="fieldTitle" required maxlength="120" placeholder="Örn. Android’de NFC ile ödeme" />
+            <span class="hint" id="titleCount">0 / 100</span>
+          </label>
+          <div class="row-2">
+            <label>
+              Sütun
+              <select id="fieldStatus"></select>
+            </label>
+            <label>
+              Format
+              <select id="fieldFormat">
+                <option value="long">Uzun video</option>
+                <option value="short">Shorts</option>
+              </select>
+            </label>
+          </div>
+          <div class="row-2">
+            <label>
+              Öncelik
+              <select id="fieldPriority">
+                <option value="med">Orta</option>
+                <option value="high">Yüksek</option>
+                <option value="low">Düşük</option>
+              </select>
+            </label>
+            <label>
+              Hedef anahtar kelime
+              <input type="text" id="fieldKeyword" maxlength="80" placeholder="nfc ödeme android" />
+            </label>
+          </div>
+          <label>
+            Hook (ilk 15 sn)
+            <textarea id="fieldHook" rows="3" placeholder="İzleyiciyi tutan açılış cümlesi…"></textarea>
+          </label>
+          <label>
+            Başlık alternatifleri
+            <textarea id="fieldTitles" rows="3" placeholder="Her satıra bir başlık varyasyonu"></textarea>
+          </label>
+          <label>
+            Thumbnail notu
+            <textarea id="fieldThumb" rows="2" placeholder="Yüz ifadesi, metin, renk, kontrast…"></textarea>
+          </label>
+          <label>
+            CTA
+            <input type="text" id="fieldCta" maxlength="160" placeholder="Abone ol / sonraki video / link" />
+          </label>
+        </div>
+
+        <div class="tab-panel" data-panel="metin">
+          <label>
+            Outline / notlar
+            <textarea id="fieldNotes" rows="5" placeholder="Ana maddeler, araştırma…"></textarea>
+          </label>
+          <label>
+            Senaryo
+            <textarea id="fieldScript" rows="12" placeholder="Konuşma metni, çekim sırası…"></textarea>
+          </label>
+          <label>
+            Açıklama (description)
+            <textarea id="fieldDesc" rows="6" placeholder="İlk 150 karakter kritik. Linkler, chapters, sponsor…"></textarea>
+            <span class="hint" id="descCount">0 karakter</span>
+          </label>
+          <label>
+            Etiketler
+            <input type="text" id="fieldTags" placeholder="android, tip, nfc" />
+          </label>
+        </div>
+
+        <div class="tab-panel" data-panel="yayin">
+          <label>
+            Yayın tarihi
+            <input type="date" id="fieldPublish" />
+          </label>
+          <div class="checklist-block">
+            <div class="checklist-head">
+              <strong>Yayın öncesi kontrol</strong>
+              <button type="button" class="ghost tiny" id="btnAddCheck">+ Madde</button>
+            </div>
+            <ul class="checklist" id="checklist"></ul>
+          </div>
+          <label class="check-inline drawer-archive">
+            <input type="checkbox" id="fieldArchive" />
+            Arşivle (panodan gizle)
+          </label>
+        </div>
+
+        <div class="drawer-foot">
           <button type="button" class="danger" id="btnDelete" hidden>Sil</button>
+          <button type="button" class="ghost" id="btnDup" hidden>Çoğalt</button>
           <div class="spacer"></div>
           <button type="button" class="ghost" id="btnCancel">Vazgeç</button>
           <button type="submit" class="primary">Kaydet</button>
         </div>
       </form>
-    </div>
+    </aside>
+  </div>
+
+  <!-- Columns manager -->
+  <div class="drawer-backdrop" id="colDrawer" hidden>
+    <aside class="drawer narrow" role="dialog" aria-modal="true" aria-labelledby="colTitle">
+      <header class="drawer-head">
+        <div>
+          <p class="eyebrow">Pipeline</p>
+          <h2 id="colTitle">Sütunlar</h2>
+        </div>
+        <button type="button" class="icon-btn" id="btnColClose" aria-label="Kapat">×</button>
+      </header>
+      <div class="drawer-body">
+        <p class="lede">Sürükle ile sırala. Silinen sütundaki kartlar ilk sütuna taşınır.</p>
+        <ul class="col-list" id="colList"></ul>
+        <button type="button" class="primary block" id="btnAddCol">+ Sütun ekle</button>
+        <button type="button" class="ghost block" id="btnResetCols">Varsayılan pipeline’a dön</button>
+      </div>
+    </aside>
   </div>
 
   <script src="app.js"></script>
