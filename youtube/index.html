@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kare — YouTube içerik panosu</title>
+  <meta name="description" content="Tek kanallı YouTube içerik Kanban’ı. Fikirden yayına, tarayıcıda kalır." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/youtube/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <strong>Kare</strong>
+        <em>YouTube</em>
+      </span>
+    </a>
+    <div class="top-actions">
+      <button type="button" class="ghost" id="btnExport">Dışa aktar</button>
+      <label class="ghost file-btn">
+        İçe aktar
+        <input type="file" id="importFile" accept="application/json,.json" hidden />
+      </label>
+      <a class="ghost" href="/#tools">← Araçlar</a>
+      <button type="button" class="primary" id="btnNew">+ Fikir</button>
+    </div>
+  </header>
+
+  <section class="stats" id="stats" aria-live="polite"></section>
+
+  <main class="board" id="board" aria-label="İçerik panosu"></main>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header class="modal-head">
+        <h2 id="modalTitle">Fikir</h2>
+        <button type="button" class="icon-btn" id="btnClose" aria-label="Kapat">×</button>
+      </header>
+      <form id="cardForm" class="modal-body">
+        <label>
+          Başlık
+          <input type="text" id="fieldTitle" required maxlength="160" placeholder="Örn. Android’de NFC ile ödeme" />
+        </label>
+        <label>
+          Sütun
+          <select id="fieldStatus"></select>
+        </label>
+        <label>
+          Etiketler
+          <input type="text" id="fieldTags" placeholder="android, tip, nfc" />
+        </label>
+        <label>
+          Notlar
+          <textarea id="fieldNotes" rows="10" placeholder="Outline, senaryo, açıklama, yayın notu…"></textarea>
+        </label>
+        <div class="modal-foot">
+          <button type="button" class="danger" id="btnDelete" hidden>Sil</button>
+          <div class="spacer"></div>
+          <button type="button" class="ghost" id="btnCancel">Vazgeç</button>
+          <button type="submit" class="primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
