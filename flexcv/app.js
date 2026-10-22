@@ -24,6 +24,7 @@
   const PAGE_W = 794, PAGE_H = 1123;
   const STORE_KEY = 'flexcv:project:v2026-apps';
   const RECENT_KEY = 'flexcv:recent';
+  const PROJ_PREFIX = 'flexcv:proj:';
   const PREFS_KEY = 'flexcv:prefs';
 
   const FONTS = ['Inter', 'Poppins', 'Roboto', 'Open Sans', 'Montserrat', 'Lato', 'Playfair Display'];
@@ -543,6 +544,11 @@
       }
     } else if (drag.mode === 'move' && drag.moved) {
       clearGuides(); commit();
+    } else if (drag.mode === 'move' && !drag.moved && drag.items?.length === 1) {
+      const el = getEl(drag.items[0].id);
+      if (el && (el.type === 'photo' || el.type === 'image') && !el.locked && !el.data.src) {
+        uploadImageFor(el);
+      }
     } else if (drag.mode === 'resize' || drag.mode === 'rotate') {
       commit();
     }
@@ -731,7 +737,8 @@
     if (history[hIndex] === snap) return;
     history = history.slice(0, hIndex + 1);
     history.push(snap);
-    if (history.length > 60) history.shift();
+    const max = snap.length > 350000 ? 8 : 60;
+    while (history.length > max) history.shift();
     hIndex = history.length - 1;
     updateUndoRedo();
   }
@@ -758,13 +765,38 @@
   function actualSave() {
     if (!autosaveDirty) return;
     project.updatedAt = now();
-    localStorage.setItem(STORE_KEY, JSON.stringify(project));
-    // recent
-    let recent = loadRecent();
-    recent = recent.filter(r => r.id !== project.id);
-    recent.unshift({ id: project.id, name: project.name, updatedAt: project.updatedAt, data: project });
-    recent = recent.slice(0, 8);
-    localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+    const payload = JSON.stringify(project);
+    const writeMain = () => {
+      localStorage.setItem(STORE_KEY, payload);
+      localStorage.setItem(PROJ_PREFIX + project.id, payload);
+    };
+    try {
+      writeMain();
+    } catch (err) {
+      try {
+        Object.keys(localStorage)
+          .filter(k => k.startsWith(PROJ_PREFIX) && k !== PROJ_PREFIX + project.id)
+          .forEach(k => localStorage.removeItem(k));
+        localStorage.removeItem(RECENT_KEY);
+        writeMain();
+        toast('Depolama doluydu — eski kopyalar temizlendi');
+      } catch (err2) {
+        autosaveDirty = false;
+        setSaved('saved');
+        toast('Kayıt başarısız: görsel çok büyük');
+        return;
+      }
+    }
+    try {
+      let recent = loadRecent().filter(r => r.id !== project.id);
+      recent.unshift({ id: project.id, name: project.name, updatedAt: project.updatedAt });
+      recent = recent.slice(0, 8);
+      const keep = new Set(recent.map(r => r.id));
+      Object.keys(localStorage)
+        .filter(k => k.startsWith(PROJ_PREFIX) && !keep.has(k.slice(PROJ_PREFIX.length)))
+        .forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+    } catch (e) { /* recent is optional */ }
     autosaveDirty = false;
     setSaved('saved');
   }
@@ -1074,12 +1106,64 @@
 
   /* ========================= IMAGE UPLOAD ========================= */
   let uploadTarget = null;
-  function uploadImageFor(el) { uploadTarget = el; $('#imageFileInput').click(); }
-  $('#imageFileInput').addEventListener('change', function () {
-    const f = this.files[0]; if (!f || !uploadTarget) return;
-    const reader = new FileReader();
-    reader.onload = e => { uploadTarget.data.src = e.target.result; rerenderNode(uploadTarget); commit(); toast('Görsel eklendi'); this.value = ''; };
-    reader.readAsDataURL(f);
+  function uploadImageFor(el) {
+    if (!el || el.locked) return;
+    uploadTarget = el;
+    const input = $('#imageFileInput');
+    if (!input) { toast('Dosya seçici bulunamadı'); return; }
+    input.value = '';
+    input.click();
+  }
+
+  function compressImageFile(file, maxSide, quality) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Dosya okunamadı'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.naturalWidth || img.width;
+          let h = img.naturalHeight || img.height;
+          if (!w || !h) { reject(new Error('Geçersiz görsel')); return; }
+          const scale = Math.min(1, maxSide / Math.max(w, h));
+          w = Math.max(1, Math.round(w * scale));
+          h = Math.max(1, Math.round(h * scale));
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          try {
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          } catch (e) {
+            reject(e);
+          }
+        };
+        img.onerror = () => reject(new Error('Görsel açılamadı'));
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  $('#imageFileInput').addEventListener('change', async function () {
+    const f = this.files && this.files[0];
+    const target = uploadTarget;
+    this.value = '';
+    if (!f || !target) return;
+    if (!f.type.startsWith('image/')) { toast('Lütfen bir görsel seçin'); return; }
+    try {
+      const maxSide = target.type === 'photo' ? 512 : 900;
+      const dataUrl = await compressImageFile(f, maxSide, 0.82);
+      target.data.src = dataUrl;
+      rerenderNode(target);
+      commit();
+      toast('Görsel eklendi');
+    } catch (err) {
+      console.error(err);
+      toast('Görsel yüklenemedi');
+    }
   });
 
   /* ========================= COMPONENT LIBRARY (drag) ========================= */
@@ -1220,7 +1304,11 @@
     list.querySelectorAll('[data-load]').forEach(b => b.addEventListener('click', () => {
       const r = loadRecent().find(x => x.id === b.dataset.load); if (!r) return;
       actualSave();
-      project = r.data; selection.clear(); history = []; hIndex = -1;
+      let data = null;
+      try { data = JSON.parse(localStorage.getItem(PROJ_PREFIX + r.id)); } catch (e) {}
+      if (!data && r.data) data = r.data;
+      if (!data) { toast('Proje bulunamadı'); return; }
+      project = data; selection.clear(); history = []; hIndex = -1;
       renderAll(); afterSelect(); syncThemeControls(); $('#projectName').value = project.name; commit();
       closeModal(); toast('Proje açıldı');
     }));
