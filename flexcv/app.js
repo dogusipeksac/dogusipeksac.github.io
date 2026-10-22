@@ -1260,7 +1260,8 @@
   });
   $('#exportMenu').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
-    exportImage(b.dataset.export);
+    if (b.dataset.cvLang) { exportCanvasPdf(b.dataset.cvLang); return; }
+    if (b.dataset.export) exportImage(b.dataset.export);
   });
 
   $('#projectName').addEventListener('input', e => { project.name = e.target.value || 'Adsız CV'; commitDebounced(); });
@@ -1661,30 +1662,16 @@
     };
   }
 
-  function applyDogusLang(lang) {
-    const t = tplDogus({ ...DOGUS_THEME, lang });
-    project.name = lang === 'tr' ? 'Doğuş İpeksaç — 2026 (TR)' : 'Doğuş İpeksaç — 2026 (EN)';
-    project.theme = t.theme; project.page = t.page;
-    project.elements = inflate(t.defs, t.theme);
-    selection.clear(); renderAll(); afterSelect(); syncThemeControls();
-    const nameInput = $('#projectName');
-    if (nameInput) nameInput.value = project.name;
-    commit();
-  }
-
-  async function downloadOwnerCv(lang) {
-    const btnEn = $('#dlCvEn');
-    const btnTr = $('#dlCvTr');
-    const busy = (on) => {
-      if (btnEn) btnEn.disabled = on;
-      if (btnTr) btnTr.disabled = on;
-    };
-    busy(true);
+  /** Export the current canvas as PDF (keeps all edits). lang only affects filename suffix. */
+  let exportBusy = false;
+  async function exportCanvasPdf(lang) {
+    if (exportBusy) return;
+    exportBusy = true;
+    const btn = $('#exportMenuBtn');
+    if (btn) btn.disabled = true;
     try {
-      applyDogusLang(lang);
       if (document.fonts?.ready) await document.fonts.ready;
       await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-      await new Promise((r) => setTimeout(r, 80));
       window.__cvLangSuffix = lang === 'tr' ? 'TR' : 'EN';
       await exportImage('pdf');
     } catch (e) {
@@ -1692,20 +1679,8 @@
       toast('İndirme başarısız — tekrar dene');
     } finally {
       window.__cvLangSuffix = '';
-      busy(false);
-    }
-  }
-
-  function bindOwnerCvDownloads() {
-    const en = $('#dlCvEn');
-    const tr = $('#dlCvTr');
-    if (en && !en.dataset.bound) {
-      en.dataset.bound = '1';
-      en.addEventListener('click', (e) => { e.preventDefault(); downloadOwnerCv('en'); });
-    }
-    if (tr && !tr.dataset.bound) {
-      tr.dataset.bound = '1';
-      tr.addEventListener('click', (e) => { e.preventDefault(); downloadOwnerCv('tr'); });
+      exportBusy = false;
+      if (btn) btn.disabled = false;
     }
   }
 
@@ -1814,7 +1789,6 @@
     pushHistory();
     updateUndoRedo();
     setSaved('saved');
-    bindOwnerCvDownloads();
 
     // if somehow empty, offer template gallery
     if (!project.elements.length) setTimeout(openGallery, 400);

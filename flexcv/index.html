@@ -66,11 +66,6 @@
       </div>
 
       <div class="tb-right">
-        <div class="tb-cv-dl" title="Doğuş İpeksaç CV — hazır PDF">
-          <button type="button" class="tb-btn cv-dl" id="dlCvEn">EN İndir</button>
-          <button type="button" class="tb-btn cv-dl" id="dlCvTr">TR İndir</button>
-        </div>
-        <span class="tb-sep"></span>
         <button class="tb-btn" id="helpBtn" title="Yardım">?</button>
         <button class="tb-btn" id="shortcutsBtn" title="Kısayollar">⌨</button>
         <button class="tb-btn" id="themeBtn" title="Tema">🌙</button>
@@ -90,6 +85,9 @@
           <button class="tb-btn primary" id="exportMenuBtn">⤓ Dışa Aktar ▾</button>
           <div class="tb-dropdown right" id="exportMenu">
             <button data-export="pdf">📄 PDF olarak indir</button>
+            <button data-cv-lang="en">İngilizce aktar</button>
+            <button data-cv-lang="tr">Türkçe aktar</button>
+            <div class="dd-sep"></div>
             <button data-export="png">🖼️ PNG olarak indir</button>
             <button data-export="jpeg">🖼️ JPEG olarak indir</button>
           </div>
@@ -244,7 +242,7 @@
         <li>Hazır başlamak için <b>Şablon Galerisi</b>'nden bir tasarım seçin.</li>
       </ol>
       <h4>Dışa Aktarma</h4>
-      <p>Sağ üstten <b>PDF / PNG / JPEG</b> olarak indirebilirsiniz. Çıktı tuvalin birebir aynısıdır.</p>
+      <p><b>Dışa Aktar</b> menüsünden PDF, <b>İngilizce aktar</b>, <b>Türkçe aktar</b>, PNG veya JPEG seçin. Hepsi tuvaldeki güncel düzenlemenizi indirir; çalışma silinmez.</p>
       <h4>Kaydetme</h4>
       <p>Çalışmanız her 2 saniyede bir otomatik olarak tarayıcınıza kaydedilir. JSON olarak dışa/içe aktarabilirsiniz.</p>
     </div>
@@ -255,6 +253,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="app.js?v=20261022photo"></script>
+  <script src="app.js?v=20261022export"></script>
 </body>
 </html>

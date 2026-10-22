@@ -104,17 +104,6 @@ input, select, textarea { font-family: inherit; }
 .tb-btn.toggle.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 .tb-btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: #fff; padding: 0 0.85rem; }
 .tb-btn.primary:hover { filter: brightness(1.08); }
-.tb-cv-dl { display: inline-flex; gap: 4px; }
-.tb-btn.cv-dl {
-  padding: 0 0.65rem;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
-  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-  color: var(--text);
-}
-.tb-btn.cv-dl:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
 .tb-btn.ghost { background: transparent; }
 .tb-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .tb-sep { width: 1px; height: 22px; background: var(--border); margin: 0 0.25rem; }
