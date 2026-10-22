@@ -1179,9 +1179,6 @@
     exportImage(b.dataset.export);
   });
 
-  $('#dlCvEn')?.addEventListener('click', () => downloadOwnerCv('en'));
-  $('#dlCvTr')?.addEventListener('click', () => downloadOwnerCv('tr'));
-
   $('#projectName').addEventListener('input', e => { project.name = e.target.value || 'Adsız CV'; commitDebounced(); });
 
   /* ===== JSON import/export ===== */
@@ -1299,13 +1296,11 @@
         const img = canvas.toDataURL('image/jpeg', 0.95);
         pdf.addImage(img, 'JPEG', 0, 0, 210, 297);
         links.forEach(l => pdf.link(l.x * 210, l.y * 297, l.w * 210, l.h * 297, { url: l.url }));
-        pdf.save(fname + '.pdf');
+        triggerDownload(pdf.output('blob'), fname + '.pdf', 'application/pdf');
       } else {
         const mime = kind === 'png' ? 'image/png' : 'image/jpeg';
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL(mime, 0.95);
-        a.download = fname + '.' + kind;
-        a.click();
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, mime, 0.95));
+        triggerDownload(blob, fname + '.' + kind, mime);
       }
       toast(kind.toUpperCase() + ' indirildi');
     } catch (e) { console.error(e); toast('Dışa aktarma başarısız'); }
@@ -1313,14 +1308,32 @@
     selection = wasSel; afterSelect();
   }
 
+  function triggerDownload(blob, filename, mime) {
+    if (!blob) throw new Error('Boş dosya');
+    const url = URL.createObjectURL(blob instanceof Blob ? blob : new Blob([blob], { type: mime || 'application/octet-stream' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+
   function fileBase() {
-    const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    const MONTHS = ['Ocak','Subat','Mart','Nisan','Mayis','Haziran','Temmuz','Agustos','Eylul','Ekim','Kasim','Aralik'];
     const nameEl = project.elements.find(e => e.type === 'name');
     let nm = nameEl ? stripHtml(nameEl.content) : project.name;
     nm = (nm || 'CV').trim() || 'CV';
+    // ASCII-safe filename (Safari / bazı tarayıcılar Unicode dosya adında takılıyor)
+    nm = nm.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ğ/g, 'g').replace(/Ğ/g, 'G')
+      .replace(/ü/g, 'u').replace(/Ü/g, 'U').replace(/ş/g, 's').replace(/Ş/g, 'S')
+      .replace(/ı/g, 'i').replace(/İ/g, 'I').replace(/ö/g, 'o').replace(/Ö/g, 'O')
+      .replace(/ç/g, 'c').replace(/Ç/g, 'C');
     const d = new Date();
-    const lang = window.__cvLangSuffix ? ` ${window.__cvLangSuffix}` : '';
-    return `${nm}${lang} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, ' ').trim();
+    const lang = window.__cvLangSuffix ? `-${window.__cvLangSuffix}` : '';
+    return `${nm}${lang}-${MONTHS[d.getMonth()]}-${d.getFullYear()}`.replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
   }
   function stripHtml(h) { const d = document.createElement('div'); d.innerHTML = h; return d.textContent || ''; }
 
@@ -1427,7 +1440,7 @@
       eduMeta: '2017 – 2021 · GPA 3.43 / 4.0',
       certDates: ['Nis 2022', 'Kas 2021', 'Ara 2021', 'Kas 2021', 'Oca 2020'],
       certEnglish: 'İngilizce (C1)',
-      about: 'Ölçeklenebilir ve sürdürülebilir mobil uygulamalar üreten <b>5+ yıl</b> deneyimli Kıdemli Android Geliştirici. <b>Kotlin, Jetpack Compose, MVVM, Hilt, Coroutines</b>, Clean Architecture ve modüler geliştirmede güçlü. Retrofit ile REST; Room ve DataStore ile yerel veri; offline-first. JUnit, Mockito ve Espresso ile test. GitHub Actions ve Bitrise ile CI/CD. Mentorluk, kod incelemesi ve kendi Flutter / Android ürünlerini yayınlama — ayrıca VeriPark’ta bankacılık uygulamaları.',
+      about: "Ölçeklenebilir ve sürdürülebilir mobil uygulamalar üreten <b>5+ yıl</b> deneyimli Kıdemli Android Geliştirici. <b>Kotlin, Jetpack Compose, MVVM, Hilt, Coroutines</b>, Clean Architecture ve modüler geliştirmede güçlü. Retrofit ile REST; Room ve DataStore ile yerel veri; offline-first. JUnit, Mockito ve Espresso ile test. GitHub Actions ve Bitrise ile CI/CD. Mentorluk, kod incelemesi ve kendi Flutter / Android ürünlerini yayınlama — ayrıca VeriPark'ta bankacılık uygulamaları.",
       pills: ['5+ yıl Android', 'VeriPark · Bankacılık', 'Flutter', 'Açık kaynak'],
       engLabel: 'Mühendislik',
       roleSenior: 'Kıdemli Android Geliştirici', roleAndroid: 'Android Geliştirici',
@@ -1572,11 +1585,40 @@
   }
 
   async function downloadOwnerCv(lang) {
-    applyDogusLang(lang);
-    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-    window.__cvLangSuffix = lang === 'tr' ? 'TR' : 'EN';
-    try { await exportImage('pdf'); }
-    finally { window.__cvLangSuffix = ''; }
+    const btnEn = $('#dlCvEn');
+    const btnTr = $('#dlCvTr');
+    const busy = (on) => {
+      if (btnEn) btnEn.disabled = on;
+      if (btnTr) btnTr.disabled = on;
+    };
+    busy(true);
+    try {
+      applyDogusLang(lang);
+      if (document.fonts?.ready) await document.fonts.ready;
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      await new Promise((r) => setTimeout(r, 80));
+      window.__cvLangSuffix = lang === 'tr' ? 'TR' : 'EN';
+      await exportImage('pdf');
+    } catch (e) {
+      console.error(e);
+      toast('İndirme başarısız — tekrar dene');
+    } finally {
+      window.__cvLangSuffix = '';
+      busy(false);
+    }
+  }
+
+  function bindOwnerCvDownloads() {
+    const en = $('#dlCvEn');
+    const tr = $('#dlCvTr');
+    if (en && !en.dataset.bound) {
+      en.dataset.bound = '1';
+      en.addEventListener('click', (e) => { e.preventDefault(); downloadOwnerCv('en'); });
+    }
+    if (tr && !tr.dataset.bound) {
+      tr.dataset.bound = '1';
+      tr.addEventListener('click', (e) => { e.preventDefault(); downloadOwnerCv('tr'); });
+    }
   }
 
   function seedProject() {
@@ -1684,6 +1726,7 @@
     pushHistory();
     updateUndoRedo();
     setSaved('saved');
+    bindOwnerCvDownloads();
 
     // if somehow empty, offer template gallery
     if (!project.elements.length) setTimeout(openGallery, 400);
