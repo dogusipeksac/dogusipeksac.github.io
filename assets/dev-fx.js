@@ -192,82 +192,13 @@
     bin.innerHTML = '<span>' + bits + bits + '</span>';
   }
 
-  /* Heading character scramble (Original 1427def, guaranteed visible) */
-  var GLYPHS = '@#$%<>/{}[]01ABCDEFGHKLMNPRSTUVWXYZ';
-  var headingIo = null;
-
-  function splitTitle(el) {
-    var text = el.dataset.final || el.textContent;
-    el.dataset.final = text;
-    el.classList.add('decoded');
-    el.innerHTML = '';
-    text.split('').forEach(function (ch, i) {
-      var s = document.createElement('span');
-      s.className = 'ch';
-      s.textContent = ch === ' ' ? '\u00A0' : ch;
-      s.style.animationDelay = (i * 0.022) + 's';
-      el.appendChild(s);
-    });
-  }
-
-  function scrambleTitle(el) {
-    if (reduce) { el.classList.add('decoded'); return; }
-    var final = el.dataset.final || '';
-    var chars = el.querySelectorAll('.ch');
-    if (!chars.length) return;
-    var frame = 0;
-    var max = 12;
-    (function tick() {
-      for (var i = 0; i < chars.length; i++) {
-        if (frame > i + 2) {
-          chars[i].textContent = final[i] === ' ' ? '\u00A0' : final[i];
-        } else {
-          chars[i].textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-        }
-      }
-      frame++;
-      if (frame < max + chars.length) requestAnimationFrame(tick);
-      else el.classList.add('decoded');
-    })();
-  }
-
-  function enhanceHeadings() {
-    document.querySelectorAll('.section-title').forEach(function (el) {
-      if (el.querySelector('.ch')) {
-        el.textContent = el.dataset.final || el.textContent;
-      }
-      el.dataset.scrambled = '';
-      el.dataset.final = el.textContent;
-      splitTitle(el);
-      if ('IntersectionObserver' in window) {
-        if (!headingIo) {
-          headingIo = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (!e.isIntersecting) return;
-              var node = e.target;
-              if (node.dataset.scrambled !== '1') {
-                node.dataset.scrambled = '1';
-                scrambleTitle(node);
-              }
-              headingIo.unobserve(node);
-            });
-          }, { threshold: 0.15 });
-        }
-        headingIo.observe(el);
-      }
-    });
-  }
-  setTimeout(enhanceHeadings, 20);
-  window.addEventListener('site-lang-change', function () {
-    setTimeout(enhanceHeadings, 40);
-  });
-
   /* ========================================================================
      2. HERO NESTED 3D MOBILE PORTAL (Built ON TOP OF Original 3-Column Hero)
      ======================================================================== */
   var stageTrack = $('#hero');
   var heroCopy = $('#heroCopy');
   var mobPhone = $('#mobHeroPhone');
+  var codeTokens = $$('#hero .code-token, #hero .float-chips');
   var layers = [$('#mobLayer1'), $('#mobLayer2'), $('#mobLayer3')];
   var nestPhones = [$('#nestPhone1'), $('#nestPhone2'), $('#nestPhone3')];
   var vsBtns = $$('#stageSwitch .vs-btn');
@@ -286,10 +217,10 @@
       return;
     }
 
-    var scale = lerp(0.24, 1, enter) * lerp(1, 2.5, exit);
+    var scale = lerp(0.28, 1, enter) * lerp(1, 2.2, exit);
     var rad = lerp(42, 0, enter);
-    var op = enter * (1 - seg(exit, 0.35, 1));
-    var activeInteractive = enter > 0.7 && exit < 0.3;
+    var op = enter * (1 - seg(exit, 0.3, 1));
+    var activeInteractive = enter > 0.65 && exit < 0.35;
 
     st(layerEl, 'visibility', 'visible');
     st(layerEl, 'opacity', op.toFixed(3));
@@ -298,9 +229,9 @@
     st(layerEl, 'pointerEvents', activeInteractive ? 'auto' : 'none');
 
     if (nestPhoneEl) {
-      var phTilt = lerp(-14, 0, enter);
-      var phZoom = lerp(1, 2.15, exit);
-      var phX = lerp(0, -16, exit);
+      var phTilt = lerp(-12, 0, enter);
+      var phZoom = lerp(1, 2.0, exit);
+      var phX = lerp(0, -14, exit);
       st(
         nestPhoneEl,
         'transform',
@@ -312,6 +243,7 @@
   function renderHeroStage(p) {
     if (window.innerWidth <= 960) {
       st(heroCopy, 'opacity', '1');
+      st(heroCopy, 'visibility', 'visible');
       st(heroCopy, 'transform', 'none');
       st(heroCopy, 'pointerEvents', 'auto');
       return;
@@ -321,24 +253,30 @@
     var activePhase = 0;
     if (p >= 0.72) activePhase = 3;
     else if (p >= 0.45) activePhase = 2;
-    else if (p >= 0.18) activePhase = 1;
+    else if (p >= 0.16) activePhase = 1;
     vsBtns.forEach(function (btn, idx) {
       btn.classList.toggle('act', idx === activePhase);
     });
 
-    /* Original 3-Column Hero fades & zooms into the 3D Phone as p goes 0.04 -> 0.24 */
-    var dive = seg(p, 0.03, 0.24, eio3);
-    var heroOp = 1 - seg(p, 0.12, 0.25, eo3);
-    var heroScale = lerp(1, 1.18, dive);
+    /* Original 3-Column Hero fades & zooms into the 3D Phone as p goes 0.02 -> 0.18 */
+    var dive = seg(p, 0.02, 0.18, eio3);
+    var heroOp = 1 - seg(p, 0.05, 0.18, eo3);
+    var heroScale = lerp(1, 1.12, dive);
     st(heroCopy, 'opacity', heroOp.toFixed(3));
+    st(heroCopy, 'visibility', heroOp <= 0.01 ? 'hidden' : 'visible');
     st(heroCopy, 'transform', 'scale(' + heroScale.toFixed(3) + ')');
-    st(heroCopy, 'pointerEvents', p > 0.18 ? 'none' : 'auto');
+    st(heroCopy, 'pointerEvents', p > 0.14 ? 'none' : 'auto');
+
+    codeTokens.forEach(function (tok) {
+      st(tok, 'opacity', heroOp.toFixed(3));
+      st(tok, 'visibility', heroOp <= 0.01 ? 'hidden' : 'visible');
+    });
 
     if (mobPhone) {
-      var phScale = lerp(1, 3.2, dive);
+      var phScale = lerp(1, 2.6, dive);
       var phRx = lerp(4, 0, dive);
       var phRy = lerp(-10, 0, dive);
-      var phTx = lerp(0, -180, dive);
+      var phTx = lerp(0, -140, dive);
       st(
         mobPhone,
         'transform',
@@ -347,7 +285,7 @@
     }
 
     /* 3 Recursive Nested Mobile Worlds Unfolding From Inside The Phone */
-    renderNestedLayer(layers[0], nestPhones[0], p, 0.16, 0.27, 0.43, 0.54, false);
+    renderNestedLayer(layers[0], nestPhones[0], p, 0.14, 0.25, 0.43, 0.54, false);
     renderNestedLayer(layers[1], nestPhones[1], p, 0.45, 0.56, 0.70, 0.81, false);
     renderNestedLayer(layers[2], nestPhones[2], p, 0.72, 0.83, 1.00, 1.00, true);
   }
@@ -506,14 +444,25 @@
   function tickScroll() {
     if (stageTrack) {
       var targetP = getTrackProgress(stageTrack);
-      var k = coarse ? 0.28 : 0.16;
-      stageSmoothP += (targetP - stageSmoothP) * k;
-      if (Math.abs(targetP - stageSmoothP) < 0.0003) stageSmoothP = targetP;
+      var k = coarse ? 0.5 : 0.42;
+      if (Math.abs(targetP - stageSmoothP) > 0.25) {
+        stageSmoothP = targetP;
+      } else {
+        stageSmoothP += (targetP - stageSmoothP) * k;
+      }
+      if (Math.abs(targetP - stageSmoothP) < 0.0005) stageSmoothP = targetP;
       if (!reduce) renderHeroStage(stageSmoothP);
     }
     updateAbout3d();
     requestAnimationFrame(tickScroll);
   }
+  window.addEventListener('scroll', function () {
+    if (stageTrack && !reduce) {
+      var targetP = getTrackProgress(stageTrack);
+      stageSmoothP = targetP;
+      renderHeroStage(stageSmoothP);
+    }
+  }, { passive: true });
   renderHeroStage(0);
   requestAnimationFrame(tickScroll);
 })();

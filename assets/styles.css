@@ -71,13 +71,13 @@
       left: 50%; top: 30%; transition: opacity 0.4s; will-change: left, top; }
 
     /* ===== NAV ===== */
-    nav {
+    nav#nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
       background: rgba(10, 10, 15, 0); border-bottom: 1px solid transparent;
       transition: background 0.35s var(--ease), border-color 0.35s var(--ease), padding 0.35s var(--ease), backdrop-filter 0.35s;
     }
-    nav.scrolled { background: rgba(10, 10, 15, 0.72); backdrop-filter: blur(20px) saturate(140%); border-bottom: 1px solid var(--border); padding: 0.7rem 2rem; }
+    nav#nav.scrolled { background: rgba(10, 10, 15, 0.72); backdrop-filter: blur(20px) saturate(140%); border-bottom: 1px solid var(--border); padding: 0.7rem 2rem; }
     .nav-logo { font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em;
       background: linear-gradient(135deg, var(--accent2), #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; cursor: pointer; }
     .nav-links { display: flex; gap: 0.35rem; list-style: none; }
@@ -331,33 +331,20 @@
     .to-top:hover { border-color: var(--accent2); background: var(--surface2); transform: translateY(-3px); }
 
     /* ===== REVEAL ANIMATIONS ===== */
-    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); will-change: opacity, transform; }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-    .reveal-left.visible { opacity: 1; transform: none; }
-    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-    .reveal-right.visible { opacity: 1; transform: none; }
-    .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-    .reveal-scale.visible { opacity: 1; transform: none; }
-    .reveal-d1 { transition-delay: 0.08s; }
-    .reveal-d2 { transition-delay: 0.16s; }
-    .reveal-d3 { transition-delay: 0.24s; }
-    .reveal-d4 { transition-delay: 0.32s; }
-    .reveal-d5 { transition-delay: 0.40s; }
+    .reveal, .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left, .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right, .reveal-right.visible { opacity: 1; transform: none; }
+    .reveal-scale, .reveal-scale.visible { opacity: 1; transform: none; }
+    .reveal-d1, .reveal-d2, .reveal-d3, .reveal-d4, .reveal-d5 { transition-delay: 0s; }
 
     /* hero entrance stagger */
-    .hero-anim { opacity: 0; transform: translateY(28px); animation: heroUp 0.9s var(--ease) forwards; }
-    .hero-anim.d1 { animation-delay: 0.15s; }
-    .hero-anim.d2 { animation-delay: 0.3s; }
-    .hero-anim.d3 { animation-delay: 0.45s; }
-    .hero-anim.d4 { animation-delay: 0.6s; }
-    .hero-anim.d5 { animation-delay: 0.78s; }
+    .hero-anim { opacity: 1; transform: none; }
     @keyframes heroUp { to { opacity: 1; transform: none; } }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      nav { padding: 0.9rem 1.25rem; }
-      nav.scrolled { padding: 0.7rem 1.25rem; }
+      nav#nav { padding: 0.9rem 1.25rem; }
+      nav#nav.scrolled { padding: 0.7rem 1.25rem; }
       .nav-links { display: none !important; }
       .hamburger { display: flex; }
       .lang-switch { margin-right: 0.35rem; }
@@ -397,8 +384,7 @@
     @keyframes titleShine { from { background-position: 180% center; } to { background-position: -20% center; } }
 
     /* ===== Reveal blur variant ===== */
-    .reveal-blur { opacity: 0; filter: blur(14px); transform: translateY(24px) scale(0.98); transition: opacity 0.8s var(--ease), filter 0.8s var(--ease), transform 0.8s var(--ease); }
-    .reveal-blur.visible { opacity: 1; filter: none; transform: none; }
+    .reveal-blur, .reveal-blur.visible { opacity: 1; filter: none; transform: none; }
 
     /* ===== Ripple ===== */
     .ripple-host { position: relative; overflow: hidden; }

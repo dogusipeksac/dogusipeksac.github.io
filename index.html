@@ -123,17 +123,6 @@
       <span class="code-token t5" aria-hidden="true"><span class="f">StateFlow</span> &lt;UiState&gt;</span>
       <span class="code-token t6" aria-hidden="true"><span class="s">./gradlew</span> assemble</span>
 
-      <!-- Original Orbiting Tech Ring -->
-      <div class="dev-orbit" aria-hidden="true">
-        <div class="dev-orbit-ring"></div>
-        <div class="dev-orbit-ring inner"></div>
-        <div class="dev-orbit-item a" data-r="250" data-s="0.22" data-a="0">A</div>
-        <div class="dev-orbit-item k" data-r="250" data-s="0.22" data-a="1.26">K</div>
-        <div class="dev-orbit-item f" data-r="250" data-s="0.22" data-a="2.51">F</div>
-        <div class="dev-orbit-item s" data-r="180" data-s="-0.28" data-a="0.6">S</div>
-        <div class="dev-orbit-item u" data-r="180" data-s="-0.28" data-a="3.7">U</div>
-      </div>
-
       <!-- Quick Stage Phase Bar (Bottom of Sticky Hero) -->
       <div class="vswitch on" id="stageSwitch">
         <button type="button" class="vs-btn act" data-stage-p="0.00" data-i18n="stageStep1">01 · Mobil Sahne</button>
@@ -145,9 +134,9 @@
 
       <!-- ORIGINAL 3-COLUMN HERO STAGE (Left IDE + Center Bio/Terminal + Right 3D Phone) -->
       <div class="hero-stage" id="heroCopy">
-        <!-- LEFT COLUMN: Android Studio IDE + 3 App Quick Pills -->
+        <!-- LEFT COLUMN: Android Studio IDE -->
         <div class="hero-left-col" id="mobWingLeft">
-          <div class="dev-ide hero-anim d2" aria-hidden="true">
+          <div class="dev-ide" aria-hidden="true">
             <div class="dev-ide-bar">
               <span class="dev-ide-dot r"></span>
               <span class="dev-ide-dot y"></span>
@@ -155,34 +144,6 @@
               <span class="dev-ide-title">HomeScreen.kt — Android Studio</span>
             </div>
             <div class="dev-ide-body" id="devIdeBody"></div>
-          </div>
-
-          <div class="hero-mini-apps">
-            <div class="hma-label">📱 MAĞAZADAKİ UYGULAMALARIM (1–3)</div>
-            <a href="/ydskelime/" class="hma-item is-new">
-              <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
-              <div>
-                <strong>YDS Kelime KitApp</strong>
-                <span>iOS Yayında · Flutter &amp; SRS</span>
-              </div>
-              <em>Site →</em>
-            </a>
-            <a href="/mydiary/" class="hma-item">
-              <img src="/assets/apps/mydiary.png" alt="My Diary" />
-              <div>
-                <strong>My Diary</strong>
-                <span>Android &amp; iOS · Compose</span>
-              </div>
-              <em>Site →</em>
-            </a>
-            <a href="/kuberush/" class="hma-item">
-              <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-              <div>
-                <strong>Kube Rush</strong>
-                <span>Android &amp; iOS · Unity 3D</span>
-              </div>
-              <em>Site →</em>
-            </a>
           </div>
         </div>
 
@@ -217,9 +178,19 @@
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: 3D Phone Mockup (Zooms Open On Scroll) + 3 App Quick Pills -->
+        <!-- RIGHT COLUMN: 3D Phone Mockup (Zooms Open On Scroll) + Orbiting Tech Ring -->
         <div class="hero-right-col" id="mobWingRight">
-          <div class="dev-phone-wrap hero-anim d3" id="mobHeroStage">
+          <div class="dev-phone-wrap" id="mobHeroStage">
+            <!-- Original Orbiting Tech Ring Around Mobile Phone -->
+            <div class="dev-orbit" aria-hidden="true">
+              <div class="dev-orbit-ring"></div>
+              <div class="dev-orbit-ring inner"></div>
+              <div class="dev-orbit-item a" data-r="155" data-s="0.24" data-a="0">A</div>
+              <div class="dev-orbit-item k" data-r="155" data-s="0.24" data-a="1.26">K</div>
+              <div class="dev-orbit-item f" data-r="155" data-s="0.24" data-a="2.51">F</div>
+              <div class="dev-orbit-item s" data-r="122" data-s="-0.30" data-a="0.6">S</div>
+              <div class="dev-orbit-item u" data-r="122" data-s="-0.30" data-a="3.7">U</div>
+            </div>
             <div class="dev-phone" id="mobHeroPhone">
               <div class="dev-phone-screen">
                 <div class="dev-phone-scan"></div>
@@ -284,34 +255,6 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="hero-mini-apps">
-            <div class="hma-label">🚀 AI, KAMERA &amp; SAĞLIK (4–6)</div>
-            <a href="/appplaka/" class="hma-item">
-              <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
-              <div>
-                <strong>App Plaka Kontrol</strong>
-                <span>Android &amp; iOS · 7 Kriter AI</span>
-              </div>
-              <em>Site →</em>
-            </a>
-            <a href="/aniyakala/" class="hma-item">
-              <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
-              <div>
-                <strong>Anı Yakala</strong>
-                <span>Android &amp; iOS · GPS Kamera</span>
-              </div>
-              <em>Site →</em>
-            </a>
-            <a href="/suicme/" class="hma-item">
-              <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
-              <div>
-                <strong>Su İçme Hatırlatıcısı</strong>
-                <span>Android &amp; iOS · Sağlık</span>
-              </div>
-              <em>Site →</em>
-            </a>
           </div>
         </div>
       </div>
@@ -527,10 +470,10 @@
   <section id="stats">
     <div class="container">
       <div class="stats-grid">
-        <div class="stat reveal glow-card"><div class="stat-num" data-count="5" data-suffix="+">0</div><div class="stat-label" data-i18n="statYears">Yıl Deneyim</div></div>
-        <div class="stat reveal reveal-d1 glow-card"><div class="stat-num" data-count="12" data-suffix="+">0</div><div class="stat-label" data-i18n="statApps">Yayınlanan Uygulama</div></div>
-        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="11" data-suffix="">0</div><div class="stat-label" data-i18n="statTools">Web Aracı</div></div>
-        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">0</div><div class="stat-label" data-i18n="statPassion">Tutku &amp; Özen</div></div>
+        <div class="stat reveal glow-card"><div class="stat-num" data-count="5" data-suffix="+">5+</div><div class="stat-label" data-i18n="statYears">Yıl Deneyim</div></div>
+        <div class="stat reveal reveal-d1 glow-card"><div class="stat-num" data-count="12" data-suffix="+">12+</div><div class="stat-label" data-i18n="statApps">Yayınlanan Uygulama</div></div>
+        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="11" data-suffix="">11</div><div class="stat-label" data-i18n="statTools">Web Aracı</div></div>
+        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">100%</div><div class="stat-label" data-i18n="statPassion">Tutku &amp; Özen</div></div>
       </div>
     </div>
   </section>
@@ -551,14 +494,27 @@
           <div class="about-avatar-inner">
             <div class="dev-workstation" aria-hidden="true">
               <div class="dev-laptop">
+                <div class="dev-laptop-bar">
+                  <span class="r"></span><span class="y"></span><span class="g"></span>
+                  <b>MainActivity.kt</b>
+                </div>
                 <div class="dev-laptop-code">
                   <span class="k">@Composable</span><br>
-                  fun App() {<br>
-                  &nbsp;&nbsp;HomeScreen()<br>
+                  <span class="fn">fun</span> <span class="hi">App</span>() {<br>
+                  &nbsp;&nbsp;<span class="hi">HomeScreen</span>(<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;apps = <span class="st">6</span><br>
+                  &nbsp;&nbsp;)<br>
                   }
                 </div>
               </div>
-              <div class="dev-mini-phone"></div>
+              <div class="dev-mini-phone">
+                <div class="dmp-screen">
+                  <div class="dmp-pill"></div>
+                  <div class="dmp-card"></div>
+                  <div class="dmp-card s"></div>
+                  <div class="dmp-fab"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -647,11 +603,11 @@
       <!-- Original 1427def Git Commit Graph -->
       <div class="dev-git reveal" aria-hidden="true">
         <div class="dev-git-line"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
+        <div class="dev-commit" data-branch="main"></div>
+        <div class="dev-commit" data-branch="android · compose"></div>
+        <div class="dev-commit" data-branch="flutter · ios"></div>
+        <div class="dev-commit" data-branch="unity 3d"></div>
+        <div class="dev-commit" data-branch="release ✓"></div>
       </div>
 
       <!-- Original Skills Grid Enhanced with 3D Depth & Tech Chips -->
