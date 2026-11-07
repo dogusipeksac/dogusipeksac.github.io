@@ -156,7 +156,7 @@
 
       /* 3D Flagship Smartphone Centerpiece Dive */
       if (el.mobStage && el.mobPhone) {
-        var topPct = lerp(70, 50, dive);
+        var topPct = lerp(61, 50, dive);
         var rx = lerp(14, 0, dive);
         var ry = lerp(-14, 0, dive);
         var sc = lerp(0.84, 1, enter) * lerp(0.92, 5.4, dive);
@@ -317,43 +317,68 @@
   }
 
   /* ========================================================================
-     5. PINNED SECTION 03 (#svcPin / #apps) — Spark Burst + 3D Stacked Deck
+     5. PINNED SECTION 03 (#svcPin / #apps) — Spark Burst + 3D Stacked Deck + All-6 View
      ======================================================================== */
   var appsTrack = $('#apps');
+  var svcPinEl = $('#svcPin');
   var sparkEl = $('#spark'), burstEl = $('#burst'), svcHead = $('#svcHead');
   var svcCountB = $('#svcCount b'), svcBar = $('#svcBar');
   var svcCards = $$('#svcList .svc-card');
   var svcDots = $$('#svcNav .svc-dot');
+  var svcDockItems = $$('#svcAllDock .sad-item');
 
   function renderApps(p) {
     if (!svcCards.length) return;
-    /* Spark & Radial Portal Burst (0.0 -> 0.14) */
-    var spIn = seg(p, 0, 0.04, eo3);
-    var spOut = seg(p, 0.04, 0.08);
+    /* Spark & Radial Portal Burst (0.0 -> 0.10) */
+    var spIn = seg(p, 0, 0.03, eo3);
+    var spOut = seg(p, 0.03, 0.07);
     st(sparkEl, 'opacity', (spIn * (1 - spOut)).toFixed(3));
     st(sparkEl, 'transform', 'scale(' + lerp(0.2, 1.2, spIn).toFixed(2) + ')');
 
-    var bCircle = seg(p, 0.02, 0.10, ei3);
-    var bFade = seg(p, 0.09, 0.15, eo3);
+    var bCircle = seg(p, 0.01, 0.08, ei3);
+    var bFade = seg(p, 0.07, 0.12, eo3);
     st(burstEl, 'clipPath', 'circle(' + (bCircle * 150).toFixed(1) + '% at 50% 50%)');
-    st(burstEl, 'opacity', (bCircle > 0 ? (1 - bFade) * 0.45 : 0).toFixed(3));
+    st(burstEl, 'opacity', (bCircle > 0 ? (1 - bFade) * 0.4 : 0).toFixed(3));
 
-    var hIn = seg(p, 0.04, 0.14, eo3);
-    st(svcHead, 'opacity', hIn.toFixed(3));
-    st(svcHead, 'transform', 'translateY(' + lerp(32, 0, hIn).toFixed(1) + 'px)');
+    st(svcHead, 'opacity', '1');
+    st(svcHead, 'transform', 'none');
     st(svcBar, 'transform', 'scaleX(' + p.toFixed(4) + ')');
 
-    /* 5 Stacked 3D App Cards (0.08 -> 0.96) */
+    /* At p >= 0.82, switch to All-6-Apps Simultaneous Grid Mode! */
+    var isAllView = p >= 0.82;
+    if (svcPinEl) {
+      svcPinEl.classList.toggle('is-all-view', isAllView);
+    }
+
+    if (isAllView) {
+      if (svcCountB && svcCountB.textContent !== '06') svcCountB.textContent = '06';
+      svcDots.forEach(function (d) {
+        d.classList.toggle('active', d.getAttribute('data-app-idx') === 'all');
+      });
+      svcCards.forEach(function (card) {
+        st(card, 'opacity', '1');
+        st(card, 'filter', 'none');
+        st(card, 'pointerEvents', 'auto');
+        st(card, 'transform', 'none');
+      });
+      return;
+    }
+
+    /* 6 Stacked 3D App Cards (0.04 -> 0.78) + Always-Visible 6-App Bottom Dock */
     var n = svcCards.length;
-    var deckP = clamp((p - 0.08) / 0.86, 0, 1) * (n - 1);
+    var deckP = clamp((p - 0.04) / 0.74, 0, 1) * (n - 1);
     var activeIdx = Math.round(deckP);
 
     if (svcCountB) {
       var numStr = String(activeIdx + 1).padStart(2, '0');
       if (svcCountB.textContent !== numStr) svcCountB.textContent = numStr;
     }
-    svcDots.forEach(function (d, idx) {
-      d.classList.toggle('active', idx === activeIdx);
+    svcDots.forEach(function (d) {
+      var attr = d.getAttribute('data-app-idx');
+      d.classList.toggle('active', attr !== 'all' && parseInt(attr || '0', 10) === activeIdx);
+    });
+    svcDockItems.forEach(function (item, idx) {
+      item.classList.toggle('active', idx === activeIdx);
     });
 
     svcCards.forEach(function (card, i) {
@@ -393,12 +418,20 @@
   svcDots.forEach(function (dot) {
     dot.addEventListener('click', function () {
       if (!appsTrack) return;
-      var idx = parseInt(dot.getAttribute('data-app-idx') || '0', 10);
-      var n = Math.max(1, svcCards.length - 1);
-      var targetP = 0.08 + (idx / n) * 0.84;
+      var raw = dot.getAttribute('data-app-idx') || '0';
       var rect = appsTrack.getBoundingClientRect();
       var trackTop = rect.top + window.scrollY;
       var maxScroll = Math.max(1, appsTrack.offsetHeight - window.innerHeight);
+      if (raw === 'all') {
+        window.scrollTo({
+          top: trackTop + 0.90 * maxScroll,
+          behavior: 'smooth'
+        });
+        return;
+      }
+      var idx = parseInt(raw, 10);
+      var n = Math.max(1, svcCards.length - 1);
+      var targetP = 0.04 + (idx / n) * 0.74;
       window.scrollTo({
         top: trackTop + targetP * maxScroll,
         behavior: 'smooth'

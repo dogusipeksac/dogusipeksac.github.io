@@ -31,10 +31,10 @@ window.SITE_I18N = {
     statTools: 'Açık Web Aracı',
     statPassion: 'Tutku & Mühendislik',
 
-    /* Portal Laptop Inner Pages */
-    scr1Eb: 'İSTANBUL · VERIPARK · SENIOR ANDROID',
-    scr1Title: 'Modern Android mimarisi ile <span class="cu">yüksek performans.</span>',
-    scr1Sub: 'Kotlin, Jetpack Compose, Coroutines ve Clean Architecture ile milyonlarca kullanıcının dokunduğu güvenli mobil ürünler.',
+    /* Portal Mobile Inner Pages */
+    scr1Eb: '02 · TÜM MOBİL UYGULAMALARIM (6 CANLI ÜRÜN)',
+    scr1Title: 'Modern Android &amp; iOS mimarisi ile <span class="cu">6 mağaza uygulaması.</span>',
+    scr1Sub: 'Hem hepsi bir arada karşında, hem de kaydırdıkça sağdaki telefonun içinden tek tek detaylarıyla açılıyor:',
     scr1Pill1: 'Uygulamaları Keşfet',
     scr1Pill2: 'Mimari & Stack',
     scr2Eb: 'ÇOKLU PLATFORM · TEK STANDART',
@@ -246,10 +246,10 @@ window.SITE_I18N = {
     statTools: 'Open Web Tools',
     statPassion: 'Craft & Engineering',
 
-    /* Portal Laptop Inner Pages */
-    scr1Eb: 'ISTANBUL · VERIPARK · SENIOR ANDROID',
-    scr1Title: 'High-performance <span class="cu">modern Android</span> architecture.',
-    scr1Sub: 'Secure, scalable mobile products built with Kotlin, Jetpack Compose, Coroutines, and Clean Architecture.',
+    /* Portal Mobile Inner Pages */
+    scr1Eb: '02 · ALL MY MOBILE APPS (6 LIVE PRODUCTS)',
+    scr1Title: 'Modern Android &amp; iOS architecture across <span class="cu">6 store apps.</span>',
+    scr1Sub: 'See all 6 apps together right here, and keep scrolling as each phone unfolds the next layer from within:',
     scr1Pill1: 'Explore Apps',
     scr1Pill2: 'Architecture & Stack',
     scr2Eb: 'MULTI-PLATFORM · ONE STANDARD',
