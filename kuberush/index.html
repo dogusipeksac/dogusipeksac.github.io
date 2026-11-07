@@ -1,308 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kube Rush — 3D Hypercasual Koşu & Refleks Oyunu | Android & iOS</title>
-  <meta name="description" content="Kube Rush — Unity ile geliştirilen 3D hypercasual koşu oyunu. Tek elle şerit değiştirin, küpü büyütüp küçülterek engellerden geçin, kristal toplayıp yeni skinlerin kilidini açın." />
-  <link rel="canonical" href="https://dogusipeksac.com/kuberush/" />
-  <meta name="theme-color" content="#a3e635" />
-  <meta property="og:title" content="Kube Rush — 3D Hypercasual Runner (Android & iOS)" />
-  <meta property="og:description" content="Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç ve rekor kır!" />
-  <meta property="og:url" content="https://dogusipeksac.com/kuberush/" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0C1113" />
+  <title>Kube Rush — Volt Arcade 3D Ölçekli Küp Koşusu | Resmi Oyun Sitesi</title>
+  <meta name="description" content="Kube Rush: Parmağını kaydırarak 3D küpünü anlık büyütüp küçülttüğün, 6 farklı engel tipini aştığın ve 6 ikonik Volt skin açtığın 60 FPS mobil arcade oyunu." />
+  <link rel="canonical" href="https://dogusipeksac.com.tr/kuberush/" />
+  <link rel="icon" href="/assets/apps/kuberush.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
 </head>
-<body class="app-landing app-qr-page" data-app-slug="kuberush">
-  <div class="app-qr-bg" aria-hidden="true"></div>
+<body class="app-site-body" data-app-slug="kuberush" style="--app-accent:#B4FF39; --app-accent-2:#35E3C6;">
 
-  <!-- STICKY PRODUCT NAVBAR -->
-  <header class="app-site-nav">
-    <div class="asn-left">
-      <a href="/#apps" class="asn-back">← Tüm Uygulamalar</a>
-      <a href="/kuberush/" class="asn-brand">
-        <img src="/assets/apps/kuberush.png" alt="" />
-        <span>Kube Rush</span>
+  <header class="app-topbar">
+    <div class="app-topbar-inner">
+      <a class="app-brand" href="/kuberush/">
+        <img src="/assets/apps/kuberush.png" alt="Kube Rush İkon" />
+        <div class="app-brand-txt">
+          <strong>Kube Rush</strong>
+          <span>Unity 6 URP · Volt Arcade 3D</span>
+        </div>
       </a>
-    </div>
-    <nav class="asn-links" aria-label="Sayfa bölümleri">
-      <a href="#ozellikler">Oynanış &amp; Özellikler</a>
-      <a href="#ekranlar">Oyun Mekanikleri</a>
-      <a href="#mimari">Unity Motoru &amp; SSS</a>
-      <a href="#qr">QR &amp; İndir</a>
-      <a href="/kuberush/story/">Instagram Story</a>
-    </nav>
-    <div class="asn-actions">
-      <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" target="_blank" rel="noopener noreferrer" class="app-btn ios">App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">Google Play</a>
+      <nav class="app-topnav">
+        <a href="#canli-deneyim">Canlı Küp Simülatörü</a>
+        <a href="#ozellikler">6 Engel &amp; Skinler</a>
+        <a href="#ekranlar">Oyun Mimarisi</a>
+        <a href="#indir">İndir</a>
+        <a class="app-back-hub" href="/#app-sites">← Tüm Uygulamalar</a>
+      </nav>
     </div>
   </header>
 
-  <main class="app-qr-page-main">
-    <!-- 3D HERO + SMARTPHONE STAGE -->
-    <section class="app-hero-sec">
+  <main class="app-shell">
+    <section class="app-hero">
       <div class="app-hero-copy">
-        <div class="app-status-row">
-          <span class="app-status-pill live"><i></i> Android · Google Play’de Yayında</span>
-          <span class="app-status-pill live"><i></i> iOS · App Store’da Yayında</span>
+        <div class="app-badge-row">
+          <span class="app-pill live"><span class="dot"></span> App Store &amp; Google Play’de Yayında</span>
+          <span class="app-pill">Unity 6000 URP · 60 FPS</span>
+          <span class="app-pill">6 Volt Skin · Prosedürel Pist</span>
         </div>
 
-        <div class="app-hero-title-row">
-          <div class="app-landing-icon kube has-logo" aria-hidden="true"><img src="/assets/apps/kuberush.png" width="112" height="112" alt="Kube Rush İkon" /></div>
-          <div>
-            <div class="app-hero-kicker">Casual · 3D Hypercasual Runner · Unity</div>
-            <h1>Kube Rush</h1>
-          </div>
-        </div>
+        <h1>Boyutunu değiştir,<br /><span class="grad">her engelden sıyrıl.</span></h1>
 
-        <p class="app-hero-lead">
-          Hızlı tempolu, tek elle oynanan <strong>3D hypercasual refleks ve koşu oyunu</strong>. Küpünüz neon pist üzerinde hızla ilerlerken sağa-sola kaydırarak şerit değiştirin, <strong>yukarı-aşağı hareketlerle küpü büyütüp küçülterek</strong> dar geçitlerden süzülün, kristalleri toplayın ve skin mağazasında yeni tasarımların kilidini açın!
+        <p class="app-lead">
+          <strong>Kube Rush</strong>, volt-neon atmosferli minimalist bir 3D sonsuz koşu (arcade runner) oyunudur.
+          Parmağını kaydırarak küpünü anlık olarak <strong>inceltip uzat</strong> veya <strong>yassılaştırıp alçalt</strong>;
+          düşük duvarların altından kay, dar sütunların ve bölünmüş kapıların arasından milimetrik reflekslerle geç!
         </p>
 
-        <div class="app-stat-grid">
-          <div class="app-stat-box"><b>60 FPS</b><span>Akıcı 3D Fizik</span></div>
-          <div class="app-stat-box"><b>Tek El</b><span>Kaydır &amp; Boyutlandır</span></div>
-          <div class="app-stat-box"><b>Skin Shop</b><span>Kristal &amp; Kozmetik</span></div>
-          <div class="app-stat-box"><b>Offline</b><span>Her Yerde Oyna</span></div>
+        <!-- Authentic SkinCatalog Swatches from Kube 2026 -->
+        <div class="app-palette-strip" aria-label="Kube Rush Skin Kataloğu">
+          <span class="app-palette-label">Skin Kataloğu:</span>
+          <button type="button" class="app-swatch active" data-theme-json='{"--app-accent":"#B4FF39","--app-accent-2":"#35E3C6","--app-bg-1":"#0C1113","--app-bg-2":"#121C1A","--phone-bg-top":"#0C1113","--phone-bg-bot":"#141B1E"}' style="--sw:#B4FF39" title="VOLT (Varsayılan)">VOLT</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#35E3C6","--app-accent-2":"#B4FF39","--app-bg-1":"#091619","--app-bg-2":"#0E2226","--phone-bg-top":"#091619","--phone-bg-bot":"#112529"}' style="--sw:#35E3C6" title="AQUA (500 Gem)">AQUA</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#FF4D9A","--app-accent-2":"#35E3C6","--app-bg-1":"#180B13","--app-bg-2":"#24111D","--phone-bg-top":"#180B13","--phone-bg-bot":"#24111D"}' style="--sw:#FF4D9A" title="ROSE (800 Gem)">ROSE</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#FF8C35","--app-accent-2":"#B4FF39","--app-bg-1":"#19110A","--app-bg-2":"#26180E","--phone-bg-top":"#19110A","--phone-bg-bot":"#24170D"}' style="--sw:#FF8C35" title="FLARE (1200 Gem)">FLARE</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#EAF2F1","--app-accent-2":"#35E3C6","--app-bg-1":"#101518","--app-bg-2":"#1A2226","--phone-bg-top":"#101518","--phone-bg-bot":"#1A2226"}' style="--sw:#EAF2F1" title="GHOST (1500 Gem)">GHOST</button>
         </div>
 
-        <div class="app-landing-btns">
-          <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
-            Google Play
+        <div class="app-store-Row" id="indir">
+          <a class="store-btn primary" href="https://apps.apple.com/tr/app/kube-rush/id6761354945?l=tr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
+            <div class="store-btn-txt">
+              <small>App Store’dan İndir</small>
+              <strong>iOS &amp; iPadOS</strong>
+            </div>
           </a>
-          <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" target="_blank" rel="noopener noreferrer" class="app-btn ios">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
+
+          <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/></svg>
+            <div class="store-btn-txt">
+              <small>Google Play’den İndir</small>
+              <strong>Android Telefon &amp; Tablet</strong>
+            </div>
           </a>
-          <a href="#qr" class="app-btn qr">📱 QR Kod ile İndir</a>
-          <a href="/kuberush/story/" class="app-btn qr">📸 Instagram Story</a>
+
+          <a class="store-btn" href="/story/kuberush.html">
+            <div class="store-btn-txt">
+              <small>Tanıtım Kartı</small>
+              <strong>Story Modunda Gör ↗</strong>
+            </div>
+          </a>
+        </div>
+
+        <div class="app-metrics">
+          <div class="app-metric">
+            <strong>60 FPS</strong>
+            <span>Sabit URP Performansı</span>
+          </div>
+          <div class="app-metric">
+            <strong>6 Engel</strong>
+            <span>Prosedürel Zorluk Eğrisi</span>
+          </div>
+          <div class="app-metric">
+            <strong>6 Skin</strong>
+            <span>Volt · Aqua · Rose · Flare · Ghost · Void</span>
+          </div>
         </div>
       </div>
 
-      <div class="app-phone-3d-wrap">
-        <div class="app-phone-glow" aria-hidden="true"></div>
-        <div class="app-wing left">
-          <span>DİNAMİK MEKANİK</span>
-          <b>Büyüt &amp; Küçült</b>
-          <p>Alçak kapılardan küçülerek geçin, yüksek bariyerleri büyüyerek aşın.</p>
-        </div>
-        <div class="app-wing right">
-          <span>SKIN MARKETİ</span>
-          <b>Kristal Topla</b>
-          <p>Parkurdaki kristallerle yeni küp görünümleri ve efektler açın.</p>
-        </div>
-        <div class="app-phone-3d">
-          <div class="app-phone-screen">
-            <div class="app-phone-island"></div>
-            <div class="aps-head">
-              <span>KUBE RUSH · 3D</span>
-              <b>💎 2,480</b>
-            </div>
-            <div class="aps-hero-card">
-              <h4>REKOR SKOR: 14,850 m</h4>
-              <p>Hız Çarpanı: <strong>x3.4 Turbo</strong> &nbsp;|&nbsp; Aktif Skin: <strong>Neon Cyber Cube</strong></p>
-            </div>
-            <div class="aps-list">
-              <div class="aps-item">
-                <div><b>↔️ 3 Şeritli Hızlı Kaçış</b><span>Anlık swipe tepkimesi</span></div>
-                <i>60 FPS</i>
+      <!-- 3D Interactive Phone Showcase with 4 Real Volt Screens -->
+      <div class="app-phone-stage">
+        <div class="app-phone-3d-wrap">
+          <div class="phone-tabs" role="tablist">
+            <button type="button" class="phone-tab active" data-phone-tab="menu">1. Volt Menü</button>
+            <button type="button" class="phone-tab" data-phone-tab="run">2. 60 FPS Koşu</button>
+            <button type="button" class="phone-tab" data-phone-tab="skins">3. Skin Market</button>
+            <button type="button" class="phone-tab" data-phone-tab="stats">4. Profil &amp; Rekor</button>
+          </div>
+
+          <div class="app-phone-3d">
+            <div class="app-phone-notch"></div>
+            <div class="app-phone-screen">
+              <div class="aps-status">
+                <span>9:41</span>
+                <span>KUBE RUSH · 60 FPS</span>
               </div>
-              <div class="aps-item">
-                <div><b>↕️ Ölçek Değiştirme (Scale)</b><span>Mikro küp &amp; dev küp geçişleri</span></div>
-                <i>Fizik</i>
-              </div>
-              <div class="aps-item">
-                <div><b>🎨 12+ Özel Küp Kaplaması</b><span>Kristallerle açılan skin mağazası</span></div>
-                <i>Market</i>
+
+              <div class="aps-body">
+                <!-- PANE 1: Volt Main Menu -->
+                <div class="aps-pane active" data-phone-pane="menu">
+                  <div class="aps-app-head">
+                    <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
+                    <div class="aps-app-head-txt">
+                      <strong>KUBE RUSH</strong>
+                      <span>VOLT EDITION · UNITY 6</span>
+                    </div>
+                  </div>
+                  <div class="aps-card" style="text-align:center; padding:18px 12px;">
+                    <small>EN YÜKSEK SKOR (HIGH SCORE)</small>
+                    <strong style="font-size:1.75rem; font-family:'JetBrains Mono',monospace; color:var(--app-accent);">1,840m</strong>
+                    <div class="aps-progress"><span style="width:84%"></span></div>
+                    <div class="aps-chip-row" style="justify-content:center; margin-top:10px;">
+                      <span class="aps-chip active">💎 1,240 AQUA GEM</span>
+                      <span class="aps-chip">⚡ VOLT SKIN</span>
+                    </div>
+                  </div>
+                  <div class="aps-card">
+                    <small>OYUNCU SEVİYESİ · LV. 9</small>
+                    <strong>Hız Çarpanı: 1.45x · Combo Maks: x8</strong>
+                  </div>
+                  <div class="aps-cta">DOKUN VE KOŞUYA BAŞLA ▶</div>
+                </div>
+
+                <!-- PANE 2: Live Runner HUD -->
+                <div class="aps-pane" data-phone-pane="run">
+                  <div class="aps-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <small>MESAFE</small>
+                      <strong style="font-family:'JetBrains Mono',monospace; font-size:1.2rem;">642m</strong>
+                    </div>
+                    <span class="aps-chip active">COMBO x5</span>
+                  </div>
+                  <div class="aps-card" style="height:175px; display:flex; flex-direction:column; justify-content:space-between; align-items:center; background:linear-gradient(180deg,#090D0F,#141F22);">
+                    <small style="color:#35E3C6;">YAKLAŞAN ENGEL: BÖLÜNMÜŞ KAPI</small>
+                    <div style="width:52px; height:84px; border-radius:10px; background:var(--app-accent); box-shadow:0 0 24px var(--app-accent); border:2px solid #fff;"></div>
+                    <small style="font-family:'JetBrains Mono',monospace;">ÖLÇEK: YÜKSEK &amp; İNCE (1.45x)</small>
+                  </div>
+                  <div class="aps-card">
+                    <small>ANLIK HAPTİK GERİ BİLDİRİM</small>
+                    <strong>Yakın Geçiş (Near-Miss) +25 Bonus!</strong>
+                  </div>
+                  <div class="aps-cta">KAYDIRARAK BOYUT DEĞİŞTİR ↕</div>
+                </div>
+
+                <!-- PANE 3: Skin Catalog -->
+                <div class="aps-pane" data-phone-pane="skins">
+                  <div class="aps-card">
+                    <small>SKIN CATALOG · 6 ÖZEL GÖRÜNÜM</small>
+                    <strong>💎 1,240 Gem Mevcut</strong>
+                  </div>
+                  <div class="aps-grid-2">
+                    <div class="aps-mini" style="border-color:#B4FF39;">
+                      <strong style="color:#B4FF39;">VOLT</strong>
+                      <span>Varsayılan · Aktif</span>
+                    </div>
+                    <div class="aps-mini" style="border-color:#35E3C6;">
+                      <strong style="color:#35E3C6;">AQUA</strong>
+                      <span>500 💎 · Açık</span>
+                    </div>
+                    <div class="aps-mini" style="border-color:#FF4D9A;">
+                      <strong style="color:#FF4D9A;">ROSE</strong>
+                      <span>800 💎 · Açık</span>
+                    </div>
+                    <div class="aps-mini" style="border-color:#FF8C35;">
+                      <strong style="color:#FF8C35;">FLARE</strong>
+                      <span>1200 💎 · Açık</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong style="color:#EAF2F1;">GHOST</strong>
+                      <span>1500 💎 · Kilitli</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong style="color:#94A3B8;">VOID</strong>
+                      <span>2000 💎 · Kilitli</span>
+                    </div>
+                  </div>
+                  <div class="aps-cta">SKIN SEÇ VE KUŞAN ⚡</div>
+                </div>
+
+                <!-- PANE 4: Player Stats -->
+                <div class="aps-pane" data-phone-pane="stats">
+                  <div class="aps-card">
+                    <small>PROFİL İSTATİSTİKLERİ</small>
+                    <strong>Seviye 9 · Deneyimli Refleks</strong>
+                    <div class="aps-progress"><span style="width:72%"></span></div>
+                  </div>
+                  <div class="aps-grid-2">
+                    <div class="aps-mini">
+                      <strong>142</strong>
+                      <span>Toplam Koşu</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>1,840m</strong>
+                      <span>En İyi Rekor</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>4,680</strong>
+                      <span>Toplanan Gem</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>4 / 6</strong>
+                      <span>Açılan Skin</span>
+                    </div>
+                  </div>
+                  <div class="aps-cta">REKORUNU PAYLAŞ 🏆</div>
+                </div>
               </div>
             </div>
-            <div class="aps-bottom-pill">▶ Hemen Koşuya Başla</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 1: 6 CORE FEATURES -->
-    <section class="app-sec" id="ozellikler">
+    <!-- LIVE INTERACTIVE CUBE SCALE & OBSTACLE SIMULATOR -->
+    <section class="app-live-studio" id="canli-deneyim">
+      <div class="als-head">
+        <div>
+          <span class="app-pill" style="margin-bottom:8px;">🎮 Canlı Oyun Mekaniği Deneyimi</span>
+          <h3>3D Küp Ölçekleme &amp; 6 Engel Simülatörü</h3>
+          <p>Sürgüyü kaydırarak veya hazır engel modlarına tıklayarak küpün hacmini koruyup nasıl şekil değiştirdiğini test edin.</p>
+        </div>
+      </div>
+
+      <div class="als-stage">
+        <div class="als-card">
+          <small style="color:var(--app-accent); font-weight:700;">ENGEL SENARYOSU SEÇİN VEYA SÜRGÜYÜ KAYDIRIN</small>
+          <div class="als-btn-row" style="margin:12px 0;">
+            <button type="button" class="als-btn" data-kube-preset="0.55">⬇ Düşük Duvar (Yassı 0.55x)</button>
+            <button type="button" class="als-btn active" data-kube-preset="1.00">⚡ Tünel &amp; Kapı (Dengeli 1.00x)</button>
+            <button type="button" class="als-btn" data-kube-preset="1.55">⬆ Dar Sütun &amp; Yüksek Bar (İnce 1.55x)</button>
+          </div>
+
+          <label for="kubeScaleSlider" style="display:flex; justify-content:space-between; font-size:0.84rem; margin-top:12px;">
+            <span>Yassı &amp; Geniş (0.45x)</span>
+            <strong id="kubeScaleLabel" style="color:var(--app-accent); font-family:'JetBrains Mono',monospace;">Ölçek: 1.00x</strong>
+            <span>İnce &amp; Uzun (1.70x)</span>
+          </label>
+          <input id="kubeScaleSlider" type="range" min="0.45" max="1.70" step="0.05" value="1.00" style="width:100%; margin:10px 0 14px; accent-color:var(--app-accent);" />
+
+          <div id="kubeObsStatus" class="als-card" style="padding:12px; font-size:0.88rem; border-color:var(--app-accent);">
+            ⚡ Dengeli Boyut (1.00x): Tünel ve bölünmüş kapılar için ideal merkez ölçeği.
+          </div>
+        </div>
+
+        <div class="als-card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:230px; position:relative; overflow:hidden;">
+          <small style="position:absolute; top:12px; left:14px; font-family:'JetBrains Mono',monospace; opacity:0.75;">PROSEDÜREL PİST · CANLI ÖNİZLEME</small>
+          <div style="height:150px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:10px;">
+            <div id="kubeLiveBox" style="width:76px; height:76px; background:var(--app-accent); border:2px solid #ffffff; border-radius:14px; box-shadow:0 0 34px var(--app-accent); transition:width 0.12s ease, height 0.12s ease, background 0.25s ease;"></div>
+          </div>
+          <div style="width:85%; height:4px; border-radius:999px; background:linear-gradient(90deg,transparent,var(--app-accent-2),transparent);"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-section" id="ozellikler">
       <div class="app-sec-head">
-        <span class="app-sec-kicker">OYNANIŞ &amp; ÖZELLİKLER</span>
-        <h2>Saniyeler İçinde Öğrenilen, Ustalaşması Heyecan Veren Mekanik</h2>
-        <p>Klasik sonsuz koşu oyunlarına boyut değiştirme (scale) fiziği katan dinamik parkur tasarımı.</p>
+        <div>
+          <h2>Kube Rush’ı Bağımlılık Yapan Nedir?</h2>
+          <p>Unity 6 URP üzerinde prosedürel olarak üretilen 6 farklı engel tipi ve akıcı fizik motoru.</p>
+        </div>
       </div>
 
       <div class="app-feat-grid">
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">👆</span><span class="afc-num">01</span></div>
-          <h3>Tek Elle Sezgisel Kontrol</h3>
-          <p>Toplu taşımada veya molada tek başparmağınızla hem şerit değiştirin hem de küpün boyutunu anlık olarak kontrol edin.</p>
+          <div class="app-feat-ic">📐</div>
+          <h3>Hacim Koruyucu Ölçekleme</h3>
+          <p>Parmağını yukarı/aşağı sürüklediğinde küpün yüksekliği ve genişliği ters orantılı değişir; fiziksel çarpışma kutusu (collider) anlık güncellenir.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">📐</span><span class="afc-num">02</span></div>
-          <h3>Büyüme &amp; Küçülme Bulmacası</h3>
-          <p>Karşınıza çıkan dar tünellerden küçülerek geçin, geniş boşlukları ve bariyerleri küpünüzü büyüterek aşın.</p>
+          <div class="app-feat-ic">🚧</div>
+          <h3>6 Farklı Engel Arketipi</h3>
+          <p>Düşük duvar, yüksek bar, dikey sütun, bölünmüş kapı, kalın duvar ve dar tünel kombinasyonlarıyla her koşu benzersizdir.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">💎</span><span class="afc-num">03</span></div>
-          <h3>Kristal Ekonomisi &amp; Skin Marketi</h3>
-          <p>Koşu sırasında topladığınız kristallerle mağazadan farklı renk, doku ve iz efektlerine sahip yeni küpler açın.</p>
+          <div class="app-feat-ic">💎</div>
+          <h3>Aqua Gem &amp; 6 Volt Skin</h3>
+          <p>Pist üzerindeki turkuaz (#35E3C6) gemleri toplayarak VOLT, AQUA, ROSE, FLARE, GHOST ve VOID skinlerinin kilidini aç.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🚀</span><span class="afc-num">04</span></div>
-          <h3>Giderek Hızlanan Prosedürel Pist</h3>
-          <p>Mesafe ilerledikçe hızlanan tempo ve her seferinde farklı dizilen engel kombinasyonlarıyla reflekslerinizi test edin.</p>
+          <div class="app-feat-ic">⚡</div>
+          <h3>Combo &amp; Near-Miss Sistemi</h3>
+          <p>Engelleri son anda doğru ölçekle aşarak combo sayacını katla, kamera sarsıntısı ve haptik titreşimle hızı hisset.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">✨</span><span class="afc-num">05</span></div>
-          <h3>60 FPS Unity Görsel Efektler</h3>
-          <p>Akıcı gölgeler, parçacık patlamaları, hız çizgileri ve tatmin edici ses/titreşim geri bildirimleriyle yüksek oyun hissi.</p>
+          <div class="app-feat-ic">📈</div>
+          <h3>Oyuncu Seviyesi &amp; İstatistik</h3>
+          <p>Toplam koşu, en yüksek skor, toplanan gem ve açılan skin sayısına göre otomatik yükselen oyuncu seviyesi (Lv.1–Lv.10+).</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🏆</span><span class="afc-num">06</span></div>
-          <h3>Çevrimdışı Rekor Mücadelesi</h3>
-          <p>İnternet bağlantısı gerektirmeden her yerde oynayın ve kişisel en yüksek skorunuzu sürekli yukarı taşıyın.</p>
+          <div class="app-feat-ic">🚀</div>
+          <h3>Sıfır Bekleme, Anında Yeniden Başlat</h3>
+          <p>Çarpışma sonrası <code style="color:var(--app-accent);">GameOver</code> ekranından tek dokunuşla milisaniyeler içinde yeni koşuya başla.</p>
         </article>
       </div>
     </section>
 
-    <!-- SECTION 2: 3D MULTI-SCREEN WORKFLOW -->
-    <section class="app-sec" id="ekranlar">
+    <section class="app-section" id="ekranlar">
       <div class="app-sec-head">
-        <span class="app-sec-kicker">OYUN DÖNGÜSÜ</span>
-        <h2>Kaydır, Boyutlandır ve Rekoru Kır</h2>
-        <p>Unity 3D fizik motoruyla optimize edilmiş kesintisiz aksiyon.</p>
-      </div>
-
-      <div class="app-screens-grid">
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">SAHNE 01 · NEON PARKUR</span>
-            <div class="asc-ui-box">
-              <b>Şerit &amp; Engel Okuma</b>
-              <span>Renk kodlu kapılar hangi boyutta geçmeniz gerektiğini gösterir.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Sıfır Gecikme</b>
-              <span>Dokunmatik ekranda milisaniyelik tepki süresi.</span>
-            </div>
-          </div>
-          <h3>1. Engelleri Oku</h3>
-          <p>İleriden gelen engel tipini fark edin ve küpünüzü doğru şeride ve doğru boyuta getirin.</p>
-        </article>
-
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">SAHNE 02 · KRİSTAL KOMBO</span>
-            <div class="asc-ui-box">
-              <b>Seri Kristal Toplama</b>
-              <span>Arka arkaya kusursuz geçişlerle skor çarpanını artırın.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Parçacık Efektleri</b>
-              <span>Her kristal ve kapı geçişinde dinamik görsel geri bildirim.</span>
-            </div>
-          </div>
-          <h3>2. Kristalleri Topla</h3>
-          <p>Riskli şeritlerdeki kristal dizilerini toplayarak hem skorunuzu hem de cüzdanınızı büyütün.</p>
-        </article>
-
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">SAHNE 03 · SKIN MAĞAZASI</span>
-            <div class="asc-ui-box">
-              <b>Küp Koleksiyonu</b>
-              <span>Neon, altın, plazma ve minimalist küp tasarımları.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Kişisel Rekor Tablosu</b>
-              <span>En yüksek skor ve toplam toplanan kristal istatistiği.</span>
-            </div>
-          </div>
-          <h3>3. Tarzını Seç</h3>
-          <p>Kazandığınız kristallerle yeni görünümler açın ve piste kendi stilinizle çıkın.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- SECTION 3: ARCHITECTURE & FAQ -->
-    <section class="app-sec" id="mimari">
-      <div class="app-arch-faq">
-        <div class="app-arch-box">
-          <span class="app-sec-kicker">OYUN MOTORU &amp; MİMARİ</span>
-          <h3>Unity 3D &amp; C# ile Hafif, Pil Dostu Performans</h3>
-          <p>
-            Kube Rush; nesne havuzlama (Object Pooling), özel gölgelendiriciler (Custom Shaders) ve hafif fizik çarpışma katmanlarıyla hem giriş seviyesi hem de amiral gemisi Android/iOS cihazlarda sabit 60 FPS çalışır.
-          </p>
-          <div class="app-arch-tags">
-            <span>Unity 3D</span>
-            <span>C#</span>
-            <span>Object Pooling</span>
-            <span>60 FPS Mobile</span>
-            <span>Android &amp; iOS</span>
-          </div>
+        <div>
+          <h2>Teknik Mimari &amp; Volt Tasarım Sistemi</h2>
+          <p>Saf kod tabanlı <code style="color:var(--app-accent);">VoltTheme</code> UI sistemi ve modüler Unity C# mimarisi.</p>
         </div>
+      </div>
 
-        <div class="app-faq-list" id="sss">
-          <details open>
-            <summary>Oyun ücretsiz mi?</summary>
-            <p>Evet, Kube Rush hem Google Play Store hem de Apple App Store’dan tamamen ücretsiz olarak indirilebilir ve oynanabilir.</p>
-          </details>
-          <details>
-            <summary>İnternet bağlantısı gerekiyor mu?</summary>
-            <p>Hayır, oyunu uçakta, metroda veya internetin olmadığı her yerde çevrimdışı olarak oynayabilirsiniz.</p>
-          </details>
-          <details>
-            <summary>Nasıl oynanır?</summary>
-            <p>Parmağınızı sağa-sola kaydırarak şerit değiştirebilir, yukarı-aşağı kaydırarak küpün boyutunu büyütüp küçültebilirsiniz.</p>
-          </details>
+      <div class="app-flow-strip">
+        <div class="app-flow-step">
+          <span class="step-no">MODÜL 01</span>
+          <strong>PlayerController</strong>
+          <p>Dokunmatik/mouse sürükleme ile küp ölçekleme, hızlanma ve çarpışma algılama.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">MODÜL 02</span>
+          <strong>TrackManager</strong>
+          <p>6 engel tipini mesafe ve zorluk eğrisine göre prosedürel olarak piste yerleştiren motor.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">MODÜL 03</span>
+          <strong>SkinCatalog &amp; VoltTheme</strong>
+          <p>6 özel renk paleti, gem ekonomisi ve 1080×1920 referanslı kod tabanlı keskin arayüz.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">MODÜL 04</span>
+          <strong>Audio &amp; CameraFollow</strong>
+          <p>Prosedürel ses efektleri (SFX), hız çizgileri ve çarpışma anında dinamik kamera sarsıntısı.</p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: QR CODES -->
-    <section class="app-qr-showcase" id="qr" aria-label="QR kodları">
-      <h2 class="app-qr-showcase-title">QR Kod ile İndir (Android &amp; iOS)</h2>
-      <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan mağaza sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
-      <div class="app-qr-grid">
-        <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" class="store-qr-card android" target="_blank" rel="noopener noreferrer" title="Android — Google Play">
-          <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>
-          <p class="store-qr-card-store">Google Play</p>
-          <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.dogusipeksac.kuberush" width="300" height="300" alt="Kube Rush Android QR" />
-          </div>
-          <span class="store-qr-card-link">Google Play’e git →</span>
-        </a>
-        <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" class="store-qr-card ios" target="_blank" rel="noopener noreferrer" title="iOS — App Store">
-          <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>
-          <p class="store-qr-card-store">App Store</p>
-          <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fapps.apple.com%2Fus%2Fapp%2Fkube-rush%2Fid6790684293" width="300" height="300" alt="Kube Rush iOS QR" />
-          </div>
-          <span class="store-qr-card-link">App Store’a git →</span>
-        </a>
+    <section class="app-cta-banner">
+      <div>
+        <h2>Reflekslerini test etmeye hazır mısın?</h2>
+        <p>Kube Rush’ı iOS App Store veya Google Play Store’dan ücretsiz indir, en yüksek mesafe rekorunu kır!</p>
       </div>
-      <p class="app-qr-hint">QR okunmuyorsa yukarıdaki mağaza butonlarını kullanın.</p>
-    </section>
-
-    <!-- SECTION 5: OTHER APPS SWITCHER -->
-    <section class="app-other-sec">
-      <div class="app-sec-head" style="margin-bottom:1rem">
-        <span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>
-        <h2>Diğer Mobil Uygulamalarımız</h2>
-      </div>
-      <div class="app-other-grid">
-        <a href="/ydskelime/" class="app-other-item"><span class="ao-emo">📚</span><div>YDS Kelime KitApp<small>Eğitim · Kelime</small></div></a>
-        <a href="/mydiary/" class="app-other-item"><span class="ao-emo">📔</span><div>My Diary<small>Günlük · Not &amp; PDF</small></div></a>
-        <a href="/aniyakala/" class="app-other-item"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>
-        <a href="/appplaka/" class="app-other-item"><span class="ao-emo">🚗</span><div>App Plaka Kontrol<small>Yapay Zekâ · OCR</small></div></a>
-        <a href="/kuberush/" class="app-other-item active"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>
-        <a href="/suicme/" class="app-other-item"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>
+      <div class="app-store-Row" style="margin:0;">
+        <a class="store-btn primary" href="https://apps.apple.com/tr/app/kube-rush/id6761354945?l=tr" target="_blank" rel="noopener">
+          <div class="store-btn-txt">
+            <small>App Store</small>
+            <strong>iOS için İndir</strong>
+          </div>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener">
+          <div class="store-btn-txt">
+            <small>Google Play</small>
+            <strong>Android için İndir</strong>
+          </div>
+        </a>
       </div>
     </section>
   </main>
+
+  <footer class="app-footer">
+    <div class="app-footer-inner">
+      <span>© 2026 Doğuş İpeksaç · Kube Rush Resmi Oyun Sayfası</span>
+      <div class="app-footer-links">
+        <a href="/">Ana Sayfa</a>
+        <a href="/#app-sites">Diğer Uygulamalar</a>
+        <a href="/story/kuberush.html">Instagram Story Kartı</a>
+        <a href="/privacy.html">Gizlilik Politikası</a>
+      </div>
+    </div>
+  </footer>
 
   <script src="/assets/app-site.js" defer></script>
 </body>

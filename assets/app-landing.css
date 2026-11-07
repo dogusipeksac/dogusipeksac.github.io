@@ -355,26 +355,159 @@
 }
 
 /* ==========================================================================
-   FULL PRODUCT WEBSITE EXTENSION FOR MOBILE APPS (3D Hero, Features, Screens,
-   Architecture, FAQ, Store QR & App Switcher)
+   FULL PRODUCT WEBSITE EXTENSION FOR MOBILE APPS (Authentic Per-App Color
+   Palettes, Interactive 4-Screen 3D Phone, Live App Simulator & Store QR)
    ========================================================================== */
 :root {
   --app-cu: #d4884a;
   --app-cu-hi: #f6c08a;
-  --app-accent: #d4884a;
-  --app-accent-2: #a855f7;
+  --app-accent: #38bdf8;
+  --app-accent-2: #6366f1;
+  --app-accent-ink: #071018;
+  --app-bg-1: #090d16;
+  --app-bg-2: #111827;
+  --app-bg-3: #0b1320;
+  --app-card-bg: rgba(20, 27, 40, 0.88);
+  --app-card-border: rgba(255, 255, 255, 0.1);
+  --app-glow: rgba(56, 189, 248, 0.28);
+  --phone-bg-top: #111726;
+  --phone-bg-bot: #090d16;
+  --phone-surface: rgba(255, 255, 255, 0.06);
+  --phone-ink: #f8fafc;
+  --phone-sub: rgba(241, 245, 249, 0.68);
 }
 
-body[data-app-slug="ydskelime"] { --app-accent: #f59e0b; --app-accent-2: #ea580c; }
-body[data-app-slug="mydiary"]   { --app-accent: #a855f7; --app-accent-2: #6366f1; }
-body[data-app-slug="aniyakala"] { --app-accent: #22d3ee; --app-accent-2: #fb7185; }
-body[data-app-slug="appplaka"]  { --app-accent: #06b6d4; --app-accent-2: #3b82f6; }
-body[data-app-slug="kuberush"]  { --app-accent: #a3e635; --app-accent-2: #10b981; }
-body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb; }
+/* 1. YDS KELİME KİTAPP — Authentic AppTokens (Navy #1C2A4E + Teal #2F7A72 + Book Paper #F8F7F4) */
+body[data-app-slug="ydskelime"] {
+  --app-accent: #38b2a6;
+  --app-accent-2: #2f7a72;
+  --app-accent-ink: #ffffff;
+  --app-cu-hi: #7ee8dc;
+  --app-bg-1: #0e172a;
+  --app-bg-2: #1c2a4e;
+  --app-bg-3: #132a2e;
+  --app-card-bg: rgba(24, 38, 66, 0.86);
+  --app-card-border: rgba(56, 178, 166, 0.24);
+  --app-glow: rgba(47, 122, 114, 0.42);
+  --phone-bg-top: #e6f0ee;
+  --phone-bg-bot: #f8f7f4;
+  --phone-surface: #ffffff;
+  --phone-ink: #1c2a4e;
+  --phone-sub: #4d5873;
+}
+
+/* 2. MY DIARY — Authentic AppThemes (Warm Leather / Espresso #E6C7A8 & #6B4A32 + 8 Live Themes) */
+body[data-app-slug="mydiary"] {
+  --app-accent: #e6c7a8;
+  --app-accent-2: #c4a484;
+  --app-accent-ink: #2c241c;
+  --app-cu-hi: #f3e6d4;
+  --app-bg-1: #1c1612;
+  --app-bg-2: #2a221c;
+  --app-bg-3: #231b16;
+  --app-card-bg: rgba(46, 36, 29, 0.88);
+  --app-card-border: rgba(230, 199, 168, 0.22);
+  --app-glow: rgba(215, 184, 153, 0.32);
+  --phone-bg-top: #f6f1e7;
+  --phone-bg-bot: #fffbf4;
+  --phone-surface: #ffffff;
+  --phone-ink: #2c241c;
+  --phone-sub: #6b5746;
+}
+
+/* 3. KUBE RUSH — Authentic VoltTheme (BG #0C1113, Panel #141B1E, VOLT #B4FF39, Gem #35E3C6) */
+body[data-app-slug="kuberush"] {
+  --app-accent: #b4ff39;
+  --app-accent-2: #35e3c6;
+  --app-accent-ink: #0c1113;
+  --app-cu-hi: #b4ff39;
+  --app-bg-1: #0c1113;
+  --app-bg-2: #141b1e;
+  --app-bg-3: #0f191d;
+  --app-card-bg: rgba(20, 27, 30, 0.92);
+  --app-card-border: rgba(180, 255, 57, 0.24);
+  --app-glow: rgba(180, 255, 57, 0.32);
+  --phone-bg-top: #0c1113;
+  --phone-bg-bot: #141b1e;
+  --phone-surface: #1b2529;
+  --phone-ink: #eaf2f1;
+  --phone-sub: #7c8b8e;
+}
+
+/* 4. APP PLAKA KONTROL — Authentic PlakaKontrolApp (Royal Navy #1A237E + Teal #00695C + TR Blue) */
+body[data-app-slug="appplaka"] {
+  --app-accent: #38bdf8;
+  --app-accent-2: #1a237e;
+  --app-accent-ink: #081028;
+  --app-cu-hi: #7dd3fc;
+  --app-bg-1: #0b112c;
+  --app-bg-2: #1a237e;
+  --app-bg-3: #0b2434;
+  --app-card-bg: rgba(20, 30, 78, 0.84);
+  --app-card-border: rgba(56, 189, 248, 0.24);
+  --app-glow: rgba(40, 53, 147, 0.48);
+  --phone-bg-top: #1a237e;
+  --phone-bg-bot: #f5f5f5;
+  --phone-surface: #ffffff;
+  --phone-ink: #1a237e;
+  --phone-sub: #475569;
+}
+
+/* 5. ANI YAKALA — Authentic AniYakalaTokens (Obsidian #080808, Surface #0F0F1A, Sky #64C8FF, Pin Coral #FF5A3C) */
+body[data-app-slug="aniyakala"] {
+  --app-accent: #64c8ff;
+  --app-accent-2: #ff5a3c;
+  --app-accent-ink: #080808;
+  --app-cu-hi: #93dcff;
+  --app-bg-1: #080808;
+  --app-bg-2: #0f0f1a;
+  --app-bg-3: #1a1a2e;
+  --app-card-bg: rgba(22, 22, 38, 0.88);
+  --app-card-border: rgba(100, 200, 255, 0.22);
+  --app-glow: rgba(100, 200, 255, 0.32);
+  --phone-bg-top: #0f0f1a;
+  --phone-bg-bot: #1a1a2e;
+  --phone-surface: rgba(255, 255, 255, 0.06);
+  --phone-ink: #ffffff;
+  --phone-sub: rgba(255, 255, 255, 0.65);
+}
+
+/* 6. SU İÇME HATIRLATICISI — Authentic WaterDesignTokens (Ocean #0284C7, Aqua #00B4D8, Crest #38BDF8) */
+body[data-app-slug="suicme"] {
+  --app-accent: #38bdf8;
+  --app-accent-2: #00b4d8;
+  --app-accent-ink: #041322;
+  --app-cu-hi: #7dd3fc;
+  --app-bg-1: #051628;
+  --app-bg-2: #0a2a4a;
+  --app-bg-3: #06374a;
+  --app-card-bg: rgba(11, 38, 65, 0.86);
+  --app-card-border: rgba(56, 189, 248, 0.25);
+  --app-glow: rgba(0, 180, 216, 0.38);
+  --phone-bg-top: #e0f7fe;
+  --phone-bg-bot: #f0faff;
+  --phone-surface: #ffffff;
+  --phone-ink: #062846;
+  --phone-sub: #3b698c;
+}
+
+body.app-qr-page[data-app-slug] {
+  background:
+    radial-gradient(ellipse 90% 55% at 18% 8%, var(--app-glow), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 85% 22%, var(--app-glow), transparent 65%),
+    linear-gradient(165deg, var(--app-bg-1) 0%, var(--app-bg-2) 52%, var(--app-bg-3) 100%) !important;
+  background-attachment: fixed !important;
+}
+
+body.app-qr-page[data-app-slug] .app-qr-bg {
+  background:
+    radial-gradient(circle at 20% 20%, var(--app-glow) 0%, transparent 50%),
+    radial-gradient(circle at 80% 75%, var(--app-glow) 0%, transparent 55%) !important;
+}
 
 .app-landing-icon.yds {
-  background: linear-gradient(135deg, #f59e0b, #b45309);
-  box-shadow: 0 16px 48px rgba(245, 158, 11, 0.35);
+  background: linear-gradient(135deg, #1c2a4e, #2f7a72);
+  box-shadow: 0 16px 48px rgba(47, 122, 114, 0.45);
 }
 
 .app-site-nav {
@@ -627,21 +760,23 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   width: 100%;
   height: 100%;
   border-radius: 32px;
-  background: linear-gradient(180deg, #111622 0%, #090c12 100%);
+  background: linear-gradient(180deg, var(--phone-bg-top) 0%, var(--phone-bg-bot) 100%);
+  color: var(--phone-ink);
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1.1rem 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 .app-phone-island {
   width: 78px;
   height: 20px;
   border-radius: 999px;
-  background: #040507;
-  margin: 0 auto 0.9rem;
+  background: #05070a;
+  margin: 0 auto 0.75rem;
   flex-shrink: 0;
 }
 
@@ -649,39 +784,59 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
 }
 .aps-head span {
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--app-accent-2);
+}
+body[data-app-slug="kuberush"] .aps-head span,
+body[data-app-slug="aniyakala"] .aps-head span {
   color: var(--app-accent);
 }
 .aps-head b {
-  font-size: 0.68rem;
-  padding: 0.18rem 0.5rem;
+  font-size: 0.66rem;
+  padding: 0.18rem 0.52rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
+  background: var(--app-accent);
+  color: var(--app-accent-ink);
+  font-weight: 800;
+}
+
+.aps-pane {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  animation: apsFade 0.28s ease;
+}
+.aps-pane.active {
+  display: flex;
+}
+@keyframes apsFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .aps-hero-card {
-  padding: 0.95rem;
+  padding: 0.88rem;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  margin-bottom: 0.75rem;
+  background: var(--phone-surface);
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.65rem;
 }
 .aps-hero-card h4 {
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   font-weight: 800;
-  color: #fff;
-  margin: 0 0 0.3rem;
+  color: var(--phone-ink);
+  margin: 0 0 0.28rem;
 }
 .aps-hero-card p {
-  font-size: 0.72rem;
-  color: rgba(241, 245, 249, 0.72);
+  font-size: 0.71rem;
+  color: var(--phone-sub);
   margin: 0;
   line-height: 1.45;
 }
@@ -689,14 +844,15 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
 .aps-list {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.5rem;
   flex: 1;
 }
 .aps-item {
-  padding: 0.7rem 0.8rem;
+  padding: 0.64rem 0.75rem;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--phone-surface);
+  border: 1px solid rgba(128, 128, 128, 0.14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -704,32 +860,83 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
 }
 .aps-item div b {
   display: block;
-  font-size: 0.76rem;
-  color: #fff;
+  font-size: 0.74rem;
+  color: var(--phone-ink);
 }
 .aps-item div span {
-  font-size: 0.65rem;
-  color: rgba(241, 245, 249, 0.6);
+  font-size: 0.63rem;
+  color: var(--phone-sub);
 }
 .aps-item i {
   font-style: normal;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 800;
-  color: var(--app-accent);
-  padding: 0.22rem 0.5rem;
+  color: var(--app-accent-2);
+  padding: 0.2rem 0.48rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(128, 128, 128, 0.12);
+  white-space: nowrap;
+}
+body[data-app-slug="kuberush"] .aps-item i,
+body[data-app-slug="aniyakala"] .aps-item i {
+  color: var(--app-accent);
 }
 
 .aps-bottom-pill {
   margin-top: auto;
-  padding: 0.65rem;
+  padding: 0.62rem;
   border-radius: 14px;
-  background: var(--app-accent);
-  color: #090c12;
+  background: linear-gradient(135deg, var(--app-accent), var(--app-accent-2));
+  color: var(--app-accent-ink);
   font-weight: 800;
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+body[data-app-slug="ydskelime"] .aps-bottom-pill {
+  background: linear-gradient(135deg, #1c2a4e, #2f7a72);
+  color: #ffffff;
+}
+body[data-app-slug="appplaka"] .aps-bottom-pill {
+  background: linear-gradient(135deg, #1a237e, #00695c);
+  color: #ffffff;
+}
+
+/* Phone Screen Switcher Tabs under 3D Phone */
+.app-phone-stage-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+.phone-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  z-index: 5;
+}
+.phone-tab {
+  appearance: none;
+  border: 1px solid var(--app-card-border);
+  background: var(--app-card-bg);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.phone-tab:hover {
+  border-color: var(--app-accent);
+  color: #fff;
+}
+.phone-tab.active {
+  background: var(--app-accent);
+  color: var(--app-accent-ink);
+  border-color: transparent;
+  box-shadow: 0 6px 20px var(--app-glow);
 }
 
 .app-wing {
@@ -820,15 +1027,17 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   position: relative;
   padding: 1.45rem 1.35rem;
   border-radius: 20px;
-  background: linear-gradient(160deg, rgba(24, 30, 42, 0.9), rgba(14, 18, 26, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
   transform-style: preserve-3d;
 }
 .app-feat-card:hover {
   transform: translateY(-6px) rotateX(4deg) rotateY(-3deg);
   border-color: var(--app-accent);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 28px var(--app-glow);
 }
 
 .afc-top {
@@ -841,7 +1050,8 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--app-card-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -878,25 +1088,28 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
 .app-screen-card {
   padding: 1.4rem;
   border-radius: 24px;
-  background: linear-gradient(170deg, rgba(20, 26, 38, 0.95), rgba(11, 14, 21, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
 }
 .app-screen-card:nth-child(1) { transform: rotateY(8deg); }
-.app-screen-card:nth-child(2) { transform: translateY(-10px) scale(1.02); border-color: rgba(255, 255, 255, 0.18); }
+.app-screen-card:nth-child(2) { transform: translateY(-10px) scale(1.02); border-color: var(--app-accent); }
 .app-screen-card:nth-child(3) { transform: rotateY(-8deg); }
 .app-screen-card:hover {
   transform: rotateY(0deg) translateY(-8px) scale(1.03);
   border-color: var(--app-accent);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 32px var(--app-glow);
 }
 
 .asc-mock {
   border-radius: 18px;
-  background: #090c12;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 8, 15, 0.55);
+  border: 1px solid var(--app-card-border);
   padding: 1rem;
   min-height: 190px;
   display: flex;
@@ -912,14 +1125,14 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   text-transform: uppercase;
   padding: 0.24rem 0.6rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--app-accent);
 }
 .asc-ui-box {
   margin-top: 0.75rem;
   padding: 0.85rem;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border-left: 3px solid var(--app-accent);
 }
 .asc-ui-box b {
@@ -946,6 +1159,183 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   margin: 0;
 }
 
+/* ==========================================================================
+   LIVE INTERACTIVE APP DEMO STUDIO (.app-live-studio)
+   ========================================================================== */
+.app-live-studio {
+  position: relative;
+  padding: clamp(1.6rem, 3.2vw, 2.5rem);
+  border-radius: 28px;
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45), 0 0 48px var(--app-glow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.als-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.als-title-wrap span {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--app-accent);
+  margin-bottom: 0.25rem;
+}
+.als-title-wrap h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+.als-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.als-tab {
+  appearance: none;
+  border: 1px solid var(--app-card-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.als-tab:hover {
+  border-color: var(--app-accent);
+  color: #fff;
+}
+.als-tab.active {
+  background: var(--app-accent);
+  color: var(--app-accent-ink);
+  border-color: transparent;
+  box-shadow: 0 8px 22px var(--app-glow);
+}
+.als-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+.als-stage {
+  padding: 1.45rem;
+  border-radius: 22px;
+  background: linear-gradient(165deg, var(--phone-bg-top), var(--phone-bg-bot));
+  color: var(--phone-ink);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+.als-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.als-panel {
+  padding: 1.2rem 1.25rem;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+.als-panel h4 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.55rem;
+}
+.als-panel p {
+  font-size: 0.82rem;
+  color: rgba(241, 245, 249, 0.76);
+  line-height: 1.55;
+  margin: 0;
+}
+.als-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.als-btn {
+  appearance: none;
+  border: 1px solid var(--app-card-border);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.52rem 0.9rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.als-btn:hover,
+.als-btn.active {
+  background: var(--app-accent);
+  color: var(--app-accent-ink);
+  border-color: transparent;
+}
+.als-btn.good {
+  background: #2f7a72;
+  color: #fff;
+  border-color: #38b2a6;
+}
+.als-btn.warn {
+  background: #b8402f;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+/* Color Palette Swatches Strip */
+.app-palette-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+.app-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.app-swatch:hover,
+.app-swatch.active {
+  transform: translateY(-2px);
+  border-color: var(--app-accent);
+}
+.app-swatch i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
 /* Architecture & FAQ Split */
 .app-arch-faq {
   display: grid;
@@ -957,8 +1347,8 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
 .app-arch-box {
   padding: 1.75rem;
   border-radius: 22px;
-  background: linear-gradient(155deg, rgba(24, 31, 44, 0.94), rgba(12, 16, 24, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--app-card-bg);
+  border: 1px solid var(--app-card-border);
 }
 .app-arch-box h3 {
   font-size: 1.35rem;
@@ -1120,7 +1510,8 @@ body[data-app-slug="suicme"]    { --app-accent: #38bdf8; --app-accent-2: #2563eb
   .app-stat-grid { grid-template-columns: repeat(2, 1fr); }
   .app-feat-grid,
   .app-screens-grid,
-  .app-arch-faq { grid-template-columns: 1fr; }
+  .app-arch-faq,
+  .als-grid { grid-template-columns: 1fr; }
   .app-screen-card { transform: none !important; }
   .app-wing { display: none; }
 }

@@ -1,308 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Su İçme Hatırlatıcısı — Günlük Su Takibi & Akıllı Hatırlatma Uygulaması | Android & iOS</title>
-  <meta name="description" content="Su İçme Hatırlatıcısı (Daily Hydrate) — kişisel günlük su hedefi, akıllı bildirimler, bardak/matara takibi ve haftalık ilerleme istatistikleri. Google Play ve App Store'da ücretsiz." />
-  <link rel="canonical" href="https://dogusipeksac.com/suicme/" />
-  <meta name="theme-color" content="#38bdf8" />
-  <meta property="og:title" content="Su İçme Hatırlatıcısı — Günlük Su & Hidrasyon Takibi" />
-  <meta property="og:description" content="Kişisel su hedefi, akıllı bildirimler ve ilerleme istatistikleriyle sağlıklı yaşam asistanınız." />
-  <meta property="og:url" content="https://dogusipeksac.com/suicme/" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#061826" />
+  <title>Su İçme Hatırlatıcısı — Günlük Su Takibi, Widget &amp; Bilimsel Hidrasyon</title>
+  <meta name="description" content="Su İçme Hatırlatıcısı: Kişiselleştirilmiş ml hedefi, uyku saatine duyarlı akıllı bildirimler, ana ekran widget halkası, seri (streak) rozetleri ve bilimsel su gerçekleriyle sağlıklı yaşam asistanı." />
+  <link rel="canonical" href="https://dogusipeksac.com.tr/suicme/" />
+  <link rel="icon" href="/assets/apps/suicme.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
 </head>
-<body class="app-landing app-qr-page" data-app-slug="suicme">
-  <div class="app-qr-bg" aria-hidden="true"></div>
+<body class="app-site-body" data-app-slug="suicme" style="--app-accent:#38BDF8; --app-accent-2:#00B4D8;">
 
-  <!-- STICKY PRODUCT NAVBAR -->
-  <header class="app-site-nav">
-    <div class="asn-left">
-      <a href="/#apps" class="asn-back">← Tüm Uygulamalar</a>
-      <a href="/suicme/" class="asn-brand">
-        <img src="/assets/apps/suicme.png" alt="" />
-        <span>Su İçme Hatırlatıcısı</span>
+  <header class="app-topbar">
+    <div class="app-topbar-inner">
+      <a class="app-brand" href="/suicme/">
+        <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı İkon" />
+        <div class="app-brand-txt">
+          <strong>Su İçme Hatırlatıcısı</strong>
+          <span>Ocean · Lagoon · Midnight Hidrasyon</span>
+        </div>
       </a>
-    </div>
-    <nav class="asn-links" aria-label="Sayfa bölümleri">
-      <a href="#ozellikler">Özellikler</a>
-      <a href="#ekranlar">Uygulama Deneyimi</a>
-      <a href="#mimari">Sağlık &amp; SSS</a>
-      <a href="#qr">QR &amp; İndir</a>
-      <a href="/suicme/story/">Instagram Story</a>
-    </nav>
-    <div class="asn-actions">
-      <a href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" target="_blank" rel="noopener noreferrer" class="app-btn ios">App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener noreferrer" class="app-btn">Google Play</a>
+      <nav class="app-topnav">
+        <a href="#canli-deneyim">Canlı Su Halkası</a>
+        <a href="#ozellikler">Özellikler</a>
+        <a href="#ekranlar">Widget &amp; Bilim</a>
+        <a href="#indir">İndir</a>
+        <a class="app-back-hub" href="/#app-sites">← Tüm Uygulamalar</a>
+      </nav>
     </div>
   </header>
 
-  <main class="app-qr-page-main">
-    <!-- 3D HERO + SMARTPHONE STAGE -->
-    <section class="app-hero-sec">
+  <main class="app-shell">
+    <section class="app-hero">
       <div class="app-hero-copy">
-        <div class="app-status-row">
-          <span class="app-status-pill live"><i></i> Android · Google Play’de Yayında</span>
-          <span class="app-status-pill live"><i></i> iOS · App Store’da Yayında</span>
+        <div class="app-badge-row">
+          <span class="app-pill live"><span class="dot"></span> Google Play’de Yayında</span>
+          <span class="app-pill">Ocean · Lagoon · Midnight Temaları</span>
+          <span class="app-pill">Ana Ekran Widget &amp; Streak</span>
         </div>
 
-        <div class="app-hero-title-row">
-          <div class="app-landing-icon hydrate has-logo" aria-hidden="true"><img src="/assets/apps/suicme.png" width="112" height="112" alt="Su İçme Hatırlatıcısı İkon" /></div>
-          <div>
-            <div class="app-hero-kicker">Health &amp; Wellness · Akıllı Hidrasyon Asistanı</div>
-            <h1>Su İçme Hatırlatıcısı</h1>
-          </div>
-        </div>
+        <h1>Vücudunun su dengesini<br /><span class="grad">zahmetsizce koru.</span></h1>
 
-        <p class="app-hero-lead">
-          Yoğun iş ve çalışma temposunda su içmeyi unutmayın. Kilonuza ve yaşam tarzınıza göre <strong>günlük ideal su hedefinizi</strong> belirleyen, gün boyu <strong>akıllı bildirimlerle</strong> hatırlatan ve haftalık/aylık hidrasyon istatistiklerinizi grafiklerle sunan modern sağlık uygulaması.
+        <p class="app-lead">
+          <strong>Su İçme Hatırlatıcısı</strong>, kilo ve aktivite düzeyine göre günlük su hedefini hesaplar;
+          uyku saatlerinde seni rahatsız etmeyen <strong>akıllı bildirimler</strong>, dalgalı ilerleme halkası,
+          <strong>ana ekran widget’ı</strong> ve bilimsel hidrasyon kartlarıyla su içmeyi kalıcı bir alışkanlığa dönüştürür.
         </p>
 
-        <div class="app-stat-grid">
-          <div class="app-stat-box"><b>Kişisel Hedef</b><span>ml &amp; Bardak Hesabı</span></div>
-          <div class="app-stat-box"><b>Akıllı Alarm</b><span>Uyku Saati Dostu</span></div>
-          <div class="app-stat-box"><b>İstatistik</b><span>Haftalık &amp; Aylık Grafik</span></div>
-          <div class="app-stat-box"><b>Android &amp; iOS</b><span>Açık &amp; Koyu Tema</span></div>
+        <!-- Authentic WaterDesignTokens Theme Variants: OCEAN, LAGOON, MIDNIGHT -->
+        <div class="app-palette-strip" aria-label="WaterDesignTokens Tema Seçenekleri">
+          <span class="app-palette-label">Uygulama Teması:</span>
+          <button type="button" class="app-swatch active" data-theme-json='{"--app-accent":"#38BDF8","--app-accent-2":"#0284C7","--app-bg-1":"#061826","--app-bg-2":"#0A273D","--phone-bg-top":"#0284C7","--phone-bg-bot":"#062338"}' style="--sw:#0284C7" title="OCEAN (#0284C7 → #38BDF8)">Ocean</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#10B981","--app-accent-2":"#00B894","--app-bg-1":"#051F1A","--app-bg-2":"#0A332B","--phone-bg-top":"#00B894","--phone-bg-bot":"#062922"}' style="--sw:#00B894" title="LAGOON (#00B894 → #10B981)">Lagoon</button>
+          <button type="button" class="app-swatch" data-theme-json='{"--app-accent":"#60A5FA","--app-accent-2":"#38BDF8","--app-bg-1":"#060D1A","--app-bg-2":"#0A192F","--phone-bg-top":"#0A192F","--phone-bg-bot":"#0F2547"}' style="--sw:#0A192F" title="MIDNIGHT (#0A192F → #38BDF8)">Midnight</button>
         </div>
 
-        <div class="app-landing-btns">
-          <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener noreferrer" class="app-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
-            Google Play
+        <div class="app-store-Row" id="indir">
+          <a class="store-btn primary" href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83"/></svg>
+            <div class="store-btn-txt">
+              <small>App Store’dan İndir</small>
+              <strong>iOS &amp; iPhone</strong>
+            </div>
           </a>
-          <a href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" target="_blank" rel="noopener noreferrer" class="app-btn ios">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
+
+          <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/></svg>
+            <div class="store-btn-txt">
+              <small>Google Play’den İndir</small>
+              <strong>Android Telefon &amp; Widget</strong>
+            </div>
           </a>
-          <a href="#qr" class="app-btn qr">📱 QR Kod ile İndir</a>
-          <a href="/suicme/story/" class="app-btn qr">📸 Instagram Story</a>
+
+          <a class="store-btn" href="/story/suicme.html">
+            <div class="store-btn-txt">
+              <small>Tanıtım Kartı</small>
+              <strong>Story Modunda Gör ↗</strong>
+            </div>
+          </a>
+        </div>
+
+        <div class="app-metrics">
+          <div class="app-metric">
+            <strong>200–500 ml</strong>
+            <span>Tek Dokunuşla Hızlı Bardak</span>
+          </div>
+          <div class="app-metric">
+            <strong>🔥 Seri &amp; Rozet</strong>
+            <span>Başarımlar &amp; Haftalık Grafik</span>
+          </div>
+          <div class="app-metric">
+            <strong>Ana Ekran Widget</strong>
+            <span>Uygulamayı Açmadan Su Ekle</span>
+          </div>
         </div>
       </div>
 
-      <div class="app-phone-3d-wrap">
-        <div class="app-phone-glow" aria-hidden="true"></div>
-        <div class="app-wing left">
-          <span>GÜNLÜK HEDEF</span>
-          <b>2,200 / 2,500 ml</b>
-          <p>Tek dokunuşla bardak, kupa veya matara ölçüsü ekleyin.</p>
-        </div>
-        <div class="app-wing right">
-          <span>AKILLI BİLDİRİM</span>
-          <b>Düzenli Hatırlatma</b>
-          <p>Sadece uyanık olduğunuz saatlerde nazik su içme bildirimleri.</p>
-        </div>
-        <div class="app-phone-3d">
-          <div class="app-phone-screen">
-            <div class="app-phone-island"></div>
-            <div class="aps-head">
-              <span>DAILY HYDRATE</span>
-              <b>💧 %88</b>
-            </div>
-            <div class="aps-hero-card">
-              <h4>Bugün: 2,200 ml / 2,500 ml</h4>
-              <p>Günlük hedefinize sadece <strong>1 su bardağı (300 ml)</strong> kaldı! Harika gidiyorsunuz.</p>
-            </div>
-            <div class="aps-list">
-              <div class="aps-item">
-                <div><b>🥛 Hızlı Bardak Ekle</b><span>+200 ml · +300 ml · +500 ml Matara</span></div>
-                <i>+ Ekle</i>
+      <!-- 3D Interactive Phone Showcase with 4 Real Screens -->
+      <div class="app-phone-stage">
+        <div class="app-phone-3d-wrap">
+          <div class="phone-tabs" role="tablist">
+            <button type="button" class="phone-tab active" data-phone-tab="ring">1. Su Halkası</button>
+            <button type="button" class="phone-tab" data-phone-tab="notif">2. Akıllı Bildirim</button>
+            <button type="button" class="phone-tab" data-phone-tab="stats">3. Seri &amp; Rozet</button>
+            <button type="button" class="phone-tab" data-phone-tab="science">4. Widget &amp; Bilim</button>
+          </div>
+
+          <div class="app-phone-3d">
+            <div class="app-phone-notch"></div>
+            <div class="app-phone-screen">
+              <div class="aps-status">
+                <span>9:41</span>
+                <span>🔥 12 GÜN SERİ</span>
               </div>
-              <div class="aps-item">
-                <div><b>📊 Haftalık Seri &amp; Grafik</b><span>Son 7 günde %94 hedef tamamlama</span></div>
-                <i>7 Gün 🔥</i>
-              </div>
-              <div class="aps-item">
-                <div><b>🔔 Bildirim Aralığı</b><span>09:00 – 22:00 arası her 90 dk</span></div>
-                <i>Aktif</i>
+
+              <div class="aps-body">
+                <!-- PANE 1: Wave Progress Ring -->
+                <div class="aps-pane active" data-phone-pane="ring">
+                  <div class="aps-app-head">
+                    <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
+                    <div class="aps-app-head-txt">
+                      <strong>Günlük Hidrasyon</strong>
+                      <span>Hedef: 2.500 ml · %74 Tamamlandı</span>
+                    </div>
+                  </div>
+                  <div class="aps-card" style="text-align:center;">
+                    <small>BUGÜN İÇİLEN SU</small>
+                    <strong style="font-size:1.55rem; font-family:'JetBrains Mono',monospace;">1.850 / 2.500 ml</strong>
+                    <div class="aps-progress"><span style="width:74%"></span></div>
+                    <div class="aps-chip-row" style="justify-content:center; margin-top:10px;">
+                      <span class="aps-chip active">+200 ml Bardak</span>
+                      <span class="aps-chip">+330 ml Şişe</span>
+                      <span class="aps-chip">+500 ml Matara</span>
+                    </div>
+                  </div>
+                  <div class="aps-card">
+                    <small>SON KAYITLAR</small>
+                    <strong>💧 14:30 · 250 ml Su · ☕ 11:15 · 200 ml</strong>
+                  </div>
+                  <div class="aps-cta">+250 ML SU EKLE 💧</div>
+                </div>
+
+                <!-- PANE 2: Sleep-Aware Smart Reminders -->
+                <div class="aps-pane" data-phone-pane="notif">
+                  <div class="aps-card">
+                    <small>UYKU SAATİNE DUYARLI BİLDİRİM</small>
+                    <strong>Aktif Pencere: 08:30 – 23:00</strong>
+                  </div>
+                  <div class="aps-grid-2">
+                    <div class="aps-mini">
+                      <strong>⏰ Her 90 dk</strong>
+                      <span>Hatırlatma Sıklığı</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>🌙 23:00–08:30</strong>
+                      <span>Gece Sessiz Mod</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>⚡ Akıllı Ertele</strong>
+                      <span>Az Önce İçtiysen Durur</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>🏃 Antrenman</strong>
+                      <span>+400 ml Ek Hedef</span>
+                    </div>
+                  </div>
+                  <div class="aps-cta">HATIRLATICIYI GÜNCELLE 🔔</div>
+                </div>
+
+                <!-- PANE 3: Achievements & Streak -->
+                <div class="aps-pane" data-phone-pane="stats">
+                  <div class="aps-card" style="border-color:#FF9F1C;">
+                    <small style="color:#FF9F1C;">🔥 AKTİF SERİ (STREAK)</small>
+                    <strong>12 Gün Aralıksız Hedefe Ulaşıldı!</strong>
+                    <div class="aps-progress"><span style="width:86%"></span></div>
+                  </div>
+                  <div class="aps-grid-2">
+                    <div class="aps-mini">
+                      <strong>🏆 8 / 12</strong>
+                      <span>Açılan Başarım Rozeti</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>2.420 ml</strong>
+                      <span>Haftalık Ortalama</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>%94</strong>
+                      <span>Aylık Düzenlilik</span>
+                    </div>
+                    <div class="aps-mini">
+                      <strong>54.2 L</strong>
+                      <span>Toplam İçilen Su</span>
+                    </div>
+                  </div>
+                  <div class="aps-cta">BAŞARIM ROZETLERİNİ GÖR 🏅</div>
+                </div>
+
+                <!-- PANE 4: Home Screen Widget & Science Facts -->
+                <div class="aps-pane" data-phone-pane="science">
+                  <div class="aps-card">
+                    <small>ANA EKRAN WIDGET ÖNİZLEMESİ</small>
+                    <strong>HomeWidgetRing · Tek Dokunuşla +250 ml</strong>
+                  </div>
+                  <div class="aps-card">
+                    <small>🧬 BİLİMSEL SU GERÇEKLERİ (SCIENCE FACTS)</small>
+                    <strong style="font-size:0.84rem;">Beyin dokusunun %75’i sudan oluşur; %2’lik hafif sıvı kaybı bile odaklanmayı ve kısa süreli hafızayı %15 azaltabilir.</strong>
+                  </div>
+                  <div class="aps-cta">ANA EKRANA WIDGET EKLE 📱</div>
+                </div>
               </div>
             </div>
-            <div class="aps-bottom-pill">💧 +250 ml Su İçtim</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 1: 6 CORE FEATURES -->
-    <section class="app-sec" id="ozellikler">
+    <!-- LIVE INTERACTIVE WATER RING & CUP SIMULATOR -->
+    <section class="app-live-studio" id="canli-deneyim">
+      <div class="als-head">
+        <div>
+          <span class="app-pill" style="margin-bottom:8px;">💧 Canlı Hidrasyon Halkası Simülatörü</span>
+          <h3>Tek Dokunuşla Bardak Ekle &amp; Dalgalı Halkayı Doldur</h3>
+          <p>Aşağıdaki hızlı bardak butonlarına tıklayarak günlük 2.500 ml hedefinizin nasıl dolduğunu canlı olarak deneyimleyin.</p>
+        </div>
+      </div>
+
+      <div class="als-stage">
+        <div class="als-card">
+          <small style="color:var(--app-accent); font-weight:700;">HIZLI BARDAK EKLE (QUICK ADD)</small>
+          <div class="als-btn-row" style="margin:12px 0 16px;">
+            <button type="button" class="als-btn" data-add-water="200">🥛 +200 ml Su Bardağı</button>
+            <button type="button" class="als-btn active" data-add-water="330">💧 +330 ml Cam Şişe</button>
+            <button type="button" class="als-btn" data-add-water="500">🍶 +500 ml Spor Matara</button>
+            <button type="button" class="als-btn" data-add-water="0">↺ Sıfırla</button>
+          </div>
+
+          <div class="als-card" style="padding:12px 14px; font-size:0.86rem;">
+            <strong>💡 Bilimsel İpucu:</strong> Suyu tek seferde çok yüksek miktarda içmek yerine gün içine yayarak (saatte 200–300 ml) tüketmek hücresel hidrasyonu maksimuma çıkarır.
+          </div>
+        </div>
+
+        <div class="als-card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;">
+          <div style="width:154px; height:154px; border-radius:50%; border:4px solid rgba(56,189,248,0.45); position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(4,18,32,0.75); box-shadow:0 0 36px rgba(56,189,248,0.22);">
+            <div id="waterLiveFill" style="position:absolute; left:0; right:0; bottom:0; height:66%; background:linear-gradient(180deg,var(--app-accent),var(--app-accent-2)); opacity:0.55; transition:height 0.35s cubic-bezier(0.22,1,0.36,1);"></div>
+            <strong id="waterLivePct" style="position:relative; z-index:2; font-size:1.35rem; font-family:'JetBrains Mono',monospace;">%66 Tamamlandı</strong>
+            <span id="waterLiveText" style="position:relative; z-index:2; font-size:0.78rem; opacity:0.9;">1650 / 2500 ml</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-section" id="ozellikler">
       <div class="app-sec-head">
-        <span class="app-sec-kicker">TEMEL ÖZELLİKLER</span>
-        <h2>Su İçmeyi Kalıcı Bir Alışkanlığa Dönüştüren 6 Özellik</h2>
-        <p>Karmaşık menüler olmadan, saniyeler içinde su eklemenizi ve günlük hidrasyon dengenizi korumanızı sağlar.</p>
+        <div>
+          <h2>Neden Su İçme Hatırlatıcısı?</h2>
+          <p>Jetpack Compose ve <code style="color:var(--app-accent);">WaterDesignTokens</code> tasarım sistemiyle geliştirilen modern sağlık asistanı.</p>
+        </div>
       </div>
 
       <div class="app-feat-grid">
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🎯</span><span class="afc-num">01</span></div>
-          <h3>Kişisel Günlük Hedef Hesaplama</h3>
-          <p>Kendi belirlediğiniz veya günlük ihtiyacınıza göre önerilen mililitre hedefini anlık yüzdelik doluluk halkasıyla takip edin.</p>
+          <div class="app-feat-ic">🎯</div>
+          <h3>Kişisel Hedef Hesaplayıcı</h3>
+          <p>Kilonuz, günlük hareketliliğiniz ve hava sıcaklığına göre vücudunuzun ihtiyaç duyduğu ideal mililitre hedefini belirler.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🔔</span><span class="afc-num">02</span></div>
-          <h3>Akıllı &amp; Esnek Hatırlatıcılar</h3>
-          <p>Uyanış ve uyku saatlerinizi tanımlayın; uygulama yalnızca aktif saatlerinizde belirlediğiniz aralıklarla hatırlatma göndersin.</p>
+          <div class="app-feat-ic">🔔</div>
+          <h3>Uyku Saatine Duyarlı Bildirimler</h3>
+          <p>Belirlediğiniz uyku ve uyanma saatleri arasında bildirimleri otomatik susturur; yalnızca gün içinde nazikçe hatırlatır.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🥤</span><span class="afc-num">03</span></div>
-          <h3>Özelleştirilebilir Bardak Ölçüleri</h3>
-          <p>200 ml su bardağı, 330 ml kupa, 500 ml sporcu matarası veya 750 ml şişe kısayollarıyla tek dokunuşta kayıt ekleyin.</p>
+          <div class="app-feat-ic">📱</div>
+          <h3>Ana Ekran Widget Halkası</h3>
+          <p>Uygulamayı açmanıza gerek kalmadan telefonunuzun ana ekranındaki widget üzerinden anlık ilerlemenizi görün ve su ekleyin.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">📈</span><span class="afc-num">04</span></div>
-          <h3>Günlük, Haftalık &amp; Aylık İstatistikler</h3>
-          <p>Hangi günlerde hedefinize ulaştığınızı, ortalama su tüketiminizi ve seri (streak) rekorunuzu görsel grafiklerle inceleyin.</p>
+          <div class="app-feat-ic">🔥</div>
+          <h3>Seri (Streak) &amp; Başarım Rozetleri</h3>
+          <p>Üst üste hedefe ulaştığınız günleri ateş serisiyle takip edin, özel hidrasyon rozetlerinin kilidini açın.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">🌗</span><span class="afc-num">05</span></div>
-          <h3>Açık &amp; Koyu (Dark) Tema</h3>
-          <p>Gündüz ferah su mavisi, gece ise göz yormayan koyu okyanus temasıyla her ortamda konforlu kullanım sunar.</p>
+          <div class="app-feat-ic">🧬</div>
+          <h3>Bilimsel Hidrasyon Kartları</h3>
+          <p>Suyun metabolizma, cilt sağlığı, odaklanma ve uyku kalitesi üzerindeki kanıtlanmış etkilerini özel bilgi kartlarıyla keşfedin.</p>
         </article>
         <article class="app-feat-card">
-          <div class="afc-top"><span class="afc-ico">⚡</span><span class="afc-num">06</span></div>
-          <h3>Sıfır Karmaşa &amp; Pil Dostu</h3>
-          <p>Arka planda pil tüketmeyen yerel bildirim motoru ve açılır açılmaz tek tıkla su ekleme imkânı.</p>
+          <div class="app-feat-ic">🎨</div>
+          <h3>Ocean, Lagoon &amp; Midnight Temaları</h3>
+          <p>Göz yormayan 3 özel su paleti ve akıcı dalga animasyonlarıyla her kullanımda ferah bir deneyim.</p>
         </article>
       </div>
     </section>
 
-    <!-- SECTION 2: 3D MULTI-SCREEN WORKFLOW -->
-    <section class="app-sec" id="ekranlar">
+    <section class="app-section" id="ekranlar">
       <div class="app-sec-head">
-        <span class="app-sec-kicker">UYGULAMA İÇİ DENEYİM</span>
-        <h2>Hedefini Belirle, Bildirim Al ve İlerlemeni Gör</h2>
-        <p>Hem iPhone hem Android cihazlarda sağlıklı yaşam rutininize eşlik eder.</p>
-      </div>
-
-      <div class="app-screens-grid">
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">ADIM 01 · GÜNLÜK PANEL</span>
-            <div class="asc-ui-box">
-              <b>Canlı Su Dalgası Halkası</b>
-              <span>İçtiğiniz her bardakla yükselen animasyonlu ilerleme göstergesi.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Hızlı Kısayollar</b>
-              <span>En sık kullandığınız bardak boyutları parmağınızın ucunda.</span>
-            </div>
-          </div>
-          <h3>1. Tek Dokunuşla Kaydet</h3>
-          <p>Uygulamayı açın ve içtiğiniz miktarı tek dokunuşla günlük toplamınıza ekleyin.</p>
-        </article>
-
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">ADIM 02 · ZAMANLAYICI</span>
-            <div class="asc-ui-box">
-              <b>Rahatsız Etmeyin Saatleri</b>
-              <span>Gece uykunuzda bildirimleri otomatik susturan akıllı takvim.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Özel Sıklık</b>
-              <span>1 saat, 1.5 saat veya 2 saatte bir hatırlatma.</span>
-            </div>
-          </div>
-          <h3>2. Rutinine Göre Ayarla</h3>
-          <p>Çalışma ve dinlenme saatlerinize uyum sağlayan bildirim planınızı saniyeler içinde kurun.</p>
-        </article>
-
-        <article class="app-screen-card">
-          <div class="asc-mock">
-            <span class="asc-badge">ADIM 03 · RAPOR &amp; SERİ</span>
-            <div class="asc-ui-box">
-              <b>Haftalık Tüketim Grafiği</b>
-              <span>Gün gün içilen ml miktarları ve hedef başarı oranı.</span>
-            </div>
-            <div class="asc-ui-box">
-              <b>Günlük Kayıt Geçmişi</b>
-              <span>Saat kaçta ne kadar su içtiğinizin detaylı zaman çizelgesi.</span>
-            </div>
-          </div>
-          <h3>3. Alışkanlığını Takip Et</h3>
-          <p>Düzenli su tüketiminin enerjinize ve sağlığınıza katkısını istatistiklerle izleyin.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- SECTION 3: ARCHITECTURE & FAQ -->
-    <section class="app-sec" id="mimari">
-      <div class="app-arch-faq">
-        <div class="app-arch-box">
-          <span class="app-sec-kicker">TEKNOLOJİ &amp; TASARIM</span>
-          <h3>Android &amp; iOS İçin Akıcı, Yerel ve Güvenli</h3>
-          <p>
-            Su İçme Hatırlatıcısı; cihaz içi yerel veritabanı ve işletim sistemi düzeyinde optimize edilmiş zamanlı bildirim apileriyle internet bağlantısına ihtiyaç duymadan çalışır.
-          </p>
-          <div class="app-arch-tags">
-            <span>Native Notifications</span>
-            <span>Local Storage</span>
-            <span>Custom Canvas Progress</span>
-            <span>Dark &amp; Light Theme</span>
-            <span>Android &amp; iOS</span>
-          </div>
+        <div>
+          <h2>4 Adımda Sağlıklı Su Alışkanlığı</h2>
+          <p>Kurulumu 30 saniye sürer, gün boyu size eşlik eder.</p>
         </div>
+      </div>
 
-        <div class="app-faq-list" id="sss">
-          <details open>
-            <summary>Gece uyurken bildirim gelir mi?</summary>
-            <p>Hayır. Belirlediğiniz uyku başlangıç ve bitiş saatleri arasında bildirimler otomatik olarak sessize alınır.</p>
-          </details>
-          <details>
-            <summary>Günlük su hedefimi kendim değiştirebilir miyim?</summary>
-            <p>Evet, ayarlar ekranından günlük mililitre hedefinizi ve bardak/şişe boyutlarınızı dilediğiniz zaman güncelleyebilirsiniz.</p>
-          </details>
-          <details>
-            <summary>Hem iPhone hem Android’de ücretsiz mi?</summary>
-            <p>Evet, Su İçme Hatırlatıcısı hem Google Play Store hem de Apple App Store’da ücretsiz olarak yayındadır.</p>
-          </details>
+      <div class="app-flow-strip">
+        <div class="app-flow-step">
+          <span class="step-no">ADIM 01</span>
+          <strong>Profilini Belirle</strong>
+          <p>Kilonu ve uyku saatlerini gir, sana özel günlük ml hedefin otomatik hesaplansın.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">ADIM 02</span>
+          <strong>Favori Bardağını Seç</strong>
+          <p>Kullandığın bardak, kupa veya matara ölçülerini (200ml, 330ml, 500ml) özelleştir.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">ADIM 03</span>
+          <strong>Tek Dokunuşla Kaydet</strong>
+          <p>Bildirimden veya ana ekran widget’ından tek dokunuşla içtiğin suyu ekle.</p>
+        </div>
+        <div class="app-flow-step">
+          <span class="step-no">ADIM 04</span>
+          <strong>Serini Koru</strong>
+          <p>Haftalık ve aylık grafiklerle gelişimini izle, hidrasyon serini bozma!</p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: QR CODES -->
-    <section class="app-qr-showcase" id="qr" aria-label="QR kodları">
-      <h2 class="app-qr-showcase-title">QR Kod ile İndir (Android &amp; iOS)</h2>
-      <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan mağaza sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
-      <div class="app-qr-grid">
-        <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" class="store-qr-card android" target="_blank" rel="noopener noreferrer" title="Android — Google Play">
-          <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>
-          <p class="store-qr-card-store">Google Play</p>
-          <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.dogusipeksac.dailyhydrate" width="300" height="300" alt="Su İçme Android QR" />
-          </div>
-          <span class="store-qr-card-link">Google Play’e git →</span>
-        </a>
-        <a href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" class="store-qr-card ios" target="_blank" rel="noopener noreferrer" title="iOS — App Store">
-          <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>
-          <p class="store-qr-card-store">App Store</p>
-          <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fapps.apple.com%2Fus%2Fapp%2Fsu-i-%25C3%25A7me-hat%25C4%25B1rlatmac%25C4%25B1s%25C4%25B1%2Fid6764664946" width="300" height="300" alt="Su İçme iOS QR" />
-          </div>
-          <span class="store-qr-card-link">App Store’a git →</span>
-        </a>
+    <section class="app-cta-banner">
+      <div>
+        <h2>Bugün kendin için bir bardak su iç</h2>
+        <p>Su İçme Hatırlatıcısı’nı Google Play Store’dan ücretsiz indir, sağlıklı su içme alışkanlığına hemen başla.</p>
       </div>
-      <p class="app-qr-hint">QR okunmuyorsa yukarıdaki mağaza butonlarını kullanın.</p>
-    </section>
-
-    <!-- SECTION 5: OTHER APPS SWITCHER -->
-    <section class="app-other-sec">
-      <div class="app-sec-head" style="margin-bottom:1rem">
-        <span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>
-        <h2>Diğer Mobil Uygulamalarımız</h2>
-      </div>
-      <div class="app-other-grid">
-        <a href="/ydskelime/" class="app-other-item"><span class="ao-emo">📚</span><div>YDS Kelime KitApp<small>Eğitim · Kelime</small></div></a>
-        <a href="/mydiary/" class="app-other-item"><span class="ao-emo">📔</span><div>My Diary<small>Günlük · Not &amp; PDF</small></div></a>
-        <a href="/aniyakala/" class="app-other-item"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>
-        <a href="/appplaka/" class="app-other-item"><span class="ao-emo">🚗</span><div>App Plaka Kontrol<small>Yapay Zekâ · OCR</small></div></a>
-        <a href="/kuberush/" class="app-other-item"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>
-        <a href="/suicme/" class="app-other-item active"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>
+      <div class="app-store-Row" style="margin:0;">
+        <a class="store-btn primary" href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" target="_blank" rel="noopener">
+          <div class="store-btn-txt">
+            <small>App Store</small>
+            <strong>iOS için İndir</strong>
+          </div>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener">
+          <div class="store-btn-txt">
+            <small>Google Play</small>
+            <strong>Android için İndir</strong>
+          </div>
+        </a>
       </div>
     </section>
   </main>
+
+  <footer class="app-footer">
+    <div class="app-footer-inner">
+      <span>© 2026 Doğuş İpeksaç · Su İçme Hatırlatıcısı Resmi Uygulama Sayfası</span>
+      <div class="app-footer-links">
+        <a href="/">Ana Sayfa</a>
+        <a href="/#app-sites">Diğer Uygulamalar</a>
+        <a href="/story/suicme.html">Instagram Story Kartı</a>
+        <a href="/privacy.html">Gizlilik Politikası</a>
+      </div>
+    </div>
+  </footer>
 
   <script src="/assets/app-site.js" defer></script>
 </body>
