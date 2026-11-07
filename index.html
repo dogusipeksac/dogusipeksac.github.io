@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doğuş İpeksaç — Senior Android Developer &amp; Bilgisayar Mühendisi</title>
+  <title>Doğuş İpeksaç — Senior Android Developer</title>
   <meta name="description" content="Doğuş İpeksaç — Bilgisayar Mühendisi &amp; Senior Android Developer. Android, Jetpack Compose, Flutter, Swift ve Unity deneyimi; İstanbul." />
   <link rel="canonical" href="https://dogusipeksac.com/" />
-  <meta name="theme-color" content="#0b0e13" />
+  <meta name="theme-color" content="#0a0a0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
   <link rel="stylesheet" href="/assets/dev-fx.css" />
@@ -20,14 +20,14 @@
   <!-- Preloader -->
   <div id="preloader">
     <div class="pre-logo">Dİ</div>
-    <div class="pre-term"><span class="kw">./gradlew</span> :app:assembleRelease · <span class="ok">PORTAL READY</span></div>
+    <div class="pre-term"><span class="kw">./gradlew</span> :app:assembleRelease · <span class="ok">BUILD</span></div>
     <div class="pre-bar"><span></span></div>
   </div>
 
   <!-- Scroll progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Ambient background -->
+  <!-- Animated background (Original 1427def FX) -->
   <div class="bg-fx" aria-hidden="true">
     <div class="orb o1"></div>
     <div class="orb o2"></div>
@@ -36,6 +36,27 @@
   <div class="bg-grid" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
   <canvas id="codeRain" aria-hidden="true"></canvas>
+  <div class="dev-circuits" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7c3aed" />
+          <stop offset="50%" stop-color="#38bdf8" />
+          <stop offset="100%" stop-color="#10b981" />
+        </linearGradient>
+      </defs>
+      <path class="dev-trace" d="M0 180 H220 L280 240 H520 L580 180 H900 L960 260 H1440" />
+      <path class="dev-trace t2" d="M0 720 H180 L240 640 H480 L540 700 H820 L900 620 H1440" />
+      <path class="dev-trace" d="M80 0 V220 L140 280 V520 L80 580 V900" />
+      <path class="dev-trace t2" d="M1360 0 V160 L1280 240 V480 L1360 560 V900" />
+      <circle class="dev-node" cx="280" cy="240" r="3.5" />
+      <circle class="dev-node n2" cx="580" cy="180" r="3.5" />
+      <circle class="dev-node n3" cx="960" cy="260" r="3.5" />
+      <circle class="dev-node n2" cx="240" cy="640" r="3.5" />
+      <circle class="dev-node" cx="140" cy="280" r="3.5" />
+      <circle class="dev-node n3" cx="1280" cy="240" r="3.5" />
+    </svg>
+  </div>
   <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
   <!-- Custom cursor -->
@@ -44,14 +65,11 @@
 
   <!-- Navigation -->
   <nav id="nav">
-    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-      <span class="logo-mark">Dİ</span>
-      <span class="logo-text">dogusipeksac</span>
-    </div>
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">dogusipeksac</div>
     <ul class="nav-links">
       <li><a href="#about" data-i18n="navAbout">Hakkımda</a></li>
-      <li><a href="#apps" data-i18n="navApps">Uygulamalar</a></li>
       <li><a href="#skills" data-i18n="navSkills">Yetenekler</a></li>
+      <li><a href="#apps" data-i18n="navApps">Uygulamalar</a></li>
       <li><a href="#projects" data-i18n="navProjects">Projeler</a></li>
       <li><a href="#tools" data-i18n="navTools">Araçlar</a></li>
       <li><a href="#youtube" data-i18n="navYoutube">YouTube</a></li>
@@ -75,8 +93,8 @@
       <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
     </div>
     <a href="#about" onclick="closeMobile()" data-i18n="navAbout">Hakkımda</a>
-    <a href="#apps" onclick="closeMobile()" data-i18n="navApps">Uygulamalar</a>
     <a href="#skills" onclick="closeMobile()" data-i18n="navSkills">Yetenekler</a>
+    <a href="#apps" onclick="closeMobile()" data-i18n="navApps">Uygulamalar</a>
     <a href="#projects" onclick="closeMobile()" data-i18n="navProjects">Projeler</a>
     <a href="#tools" onclick="closeMobile()" data-i18n="navTools">Araçlar</a>
     <a href="#youtube" onclick="closeMobile()" data-i18n="navYoutube">YouTube</a>
@@ -84,190 +102,232 @@
   </div>
 
   <!-- =====================================================================
-       SECTION 01 · CREATIVE NESTED MOBILE PORTAL STAGE
-       (3D Flagship Phone -> Dive Inside Mobile Screen -> 4 Nested Mobile Worlds)
+       HERO: ESKİ YAPININ TAMAMI (IDE + ORBIT + TERMINAL + 3D TELEFON)
+       + KAYDIRDIKÇA TELEFONUN İÇİNDEN AÇILAN YARATICI 3D MOBİL DÜNYALAR
        ===================================================================== -->
   <section id="hero" class="stage-track" aria-label="Doğuş İpeksaç Mobil İnteraktif Sahne">
     <div class="stage" id="stage">
-      <div class="stage-glow"></div>
-      <div class="bg-word" id="bgWord" aria-hidden="true">COMPOSE</div>
+      <div class="stage-glow" aria-hidden="true"></div>
 
-      <!-- Stage Phase Bar -->
+      <!-- Original Floating Chips & Code Tokens -->
+      <div class="float-chips" aria-hidden="true">
+        <div class="chip c1"><i>🟣</i> Kotlin</div>
+        <div class="chip c2"><i>🎨</i> Compose</div>
+        <div class="chip c3"><i>💙</i> Flutter</div>
+        <div class="chip c4"><i>🍎</i> Swift</div>
+      </div>
+      <span class="code-token t1" aria-hidden="true"><span class="p">@Composable</span></span>
+      <span class="code-token t2" aria-hidden="true"><span class="f">fun</span> HomeScreen()</span>
+      <span class="code-token t3" aria-hidden="true"><span class="s">Modifier</span>.fillMaxSize()</span>
+      <span class="code-token t4" aria-hidden="true"><span class="p">LaunchedEffect</span>(Unit)</span>
+      <span class="code-token t5" aria-hidden="true"><span class="f">StateFlow</span> &lt;UiState&gt;</span>
+      <span class="code-token t6" aria-hidden="true"><span class="s">./gradlew</span> assemble</span>
+
+      <!-- Original Orbiting Tech Ring -->
+      <div class="dev-orbit" aria-hidden="true">
+        <div class="dev-orbit-ring"></div>
+        <div class="dev-orbit-ring inner"></div>
+        <div class="dev-orbit-item a" data-r="250" data-s="0.22" data-a="0">A</div>
+        <div class="dev-orbit-item k" data-r="250" data-s="0.22" data-a="1.26">K</div>
+        <div class="dev-orbit-item f" data-r="250" data-s="0.22" data-a="2.51">F</div>
+        <div class="dev-orbit-item s" data-r="180" data-s="-0.28" data-a="0.6">S</div>
+        <div class="dev-orbit-item u" data-r="180" data-s="-0.28" data-a="3.7">U</div>
+      </div>
+
+      <!-- Quick Stage Phase Bar (Bottom of Sticky Hero) -->
       <div class="vswitch on" id="stageSwitch">
-        <button type="button" class="vs-btn act" data-stage-p="0.00" data-i18n="stageStep1">01 · Mobil Cihaz</button>
-        <button type="button" class="vs-btn" data-stage-p="0.28" data-i18n="stageStep2">02 · Mobil Mimari</button>
-        <button type="button" class="vs-btn" data-stage-p="0.52" data-i18n="stageStep3">03 · Oyun &amp; Compose</button>
-        <button type="button" class="vs-btn" data-stage-p="0.74" data-i18n="stageStep4">04 · AI &amp; Kamera</button>
-        <button type="button" class="vs-btn" data-stage-p="0.94" data-i18n="stageStep5">05 · Fintech &amp; NFC</button>
-        <a href="#apps" class="vs-skip" data-i18n="stageSkip">Uygulamalara Geç ↓</a>
+        <button type="button" class="vs-btn act" data-stage-p="0.00" data-i18n="stageStep1">01 · Mobil Sahne</button>
+        <button type="button" class="vs-btn" data-stage-p="0.34" data-i18n="stageStep2">02 · Tüm 6 Uygulama</button>
+        <button type="button" class="vs-btn" data-stage-p="0.64" data-i18n="stageStep3">03 · Oyun &amp; Eğitim</button>
+        <button type="button" class="vs-btn" data-stage-p="0.92" data-i18n="stageStep4">04 · AI &amp; Fintech</button>
+        <a href="#about" class="vs-skip" data-i18n="stageSkip">Hakkımda ↓</a>
       </div>
 
-      <!-- Hero Copy (Top of Stage) -->
-      <div class="hero-copy" id="heroCopy">
-        <div class="hero-badge"><span class="dot"></span> <span data-i18n="heroBadge">Senior Android Developer · Veripark</span></div>
-        <h1 class="hero-name" id="heroName" data-text="Doğuş İpeksaç">
-          <span class="h1-top" data-i18n="heroTop">MOBİL YAZILIM MÜHENDİSİ · İSTANBUL</span>
-          Doğuş <span class="cu">İpeksaç</span>
-        </h1>
-        <p class="hero-title"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
-        <p class="lead hero-bio" data-i18n="heroBio">Android, Jetpack Compose, Flutter, Swift ve Unity ile ölçeklenebilir mobil uygulamalar, fintech güvenlik katmanları ve oyunlar geliştiren bilgisayar mühendisi.</p>
-        <div class="hero-links">
-          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="hero-link primary magnetic">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="#apps" class="hero-link secondary" data-i18n="heroApps">📱 Uygulamalarım</a>
-          <a href="#projects" class="hero-link secondary" data-i18n="heroProjects">🚀 Projelerim</a>
-          <a href="#contact" class="hero-link secondary" data-i18n="heroContact">✉️ İletişim</a>
-        </div>
-      </div>
+      <!-- ORIGINAL 3-COLUMN HERO STAGE (Left IDE + Center Bio/Terminal + Right 3D Phone) -->
+      <div class="hero-stage" id="heroCopy">
+        <!-- LEFT COLUMN: Android Studio IDE + 3 App Quick Pills -->
+        <div class="hero-left-col" id="mobWingLeft">
+          <div class="dev-ide hero-anim d2" aria-hidden="true">
+            <div class="dev-ide-bar">
+              <span class="dev-ide-dot r"></span>
+              <span class="dev-ide-dot y"></span>
+              <span class="dev-ide-dot g"></span>
+              <span class="dev-ide-title">HomeScreen.kt — Android Studio</span>
+            </div>
+            <div class="dev-ide-body" id="devIdeBody"></div>
+          </div>
 
-      <!-- Floating 3D Mobile App Wings (All 6 Apps Visible Around Center Phone at Hero Start) -->
-      <div class="mob-wings" id="mobWings">
-        <div class="mob-wing left" id="mobWingLeft">
-          <div class="mw-head-pill">📱 GOOGLE PLAY &amp; APP STORE (1–3)</div>
-          <a href="/ydskelime/" class="mw-app-card is-hot">
-            <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
-            <div>
-              <strong>YDS Kelime KitApp</strong>
-              <span>iOS Yayında · Flutter &amp; SRS</span>
-            </div>
-            <em>Site →</em>
-          </a>
-          <a href="/mydiary/" class="mw-app-card">
-            <img src="/assets/apps/mydiary.png" alt="My Diary" />
-            <div>
-              <strong>My Diary</strong>
-              <span>Android &amp; iOS · Compose &amp; Swift</span>
-            </div>
-            <em>Site →</em>
-          </a>
-          <a href="/kuberush/" class="mw-app-card">
-            <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-            <div>
-              <strong>Kube Rush · 3D Runner</strong>
-              <span>Android &amp; iOS · Unity 60 FPS</span>
-            </div>
-            <em>Site →</em>
-          </a>
-          <div class="mw-chips">
-            <span>🟣 Kotlin 2.1</span>
-            <span>🎨 Jetpack Compose</span>
-            <span>💙 Flutter</span>
+          <div class="hero-mini-apps">
+            <div class="hma-label">📱 MAĞAZADAKİ UYGULAMALARIM (1–3)</div>
+            <a href="/ydskelime/" class="hma-item is-new">
+              <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
+              <div>
+                <strong>YDS Kelime KitApp</strong>
+                <span>iOS Yayında · Flutter &amp; SRS</span>
+              </div>
+              <em>Site →</em>
+            </a>
+            <a href="/mydiary/" class="hma-item">
+              <img src="/assets/apps/mydiary.png" alt="My Diary" />
+              <div>
+                <strong>My Diary</strong>
+                <span>Android &amp; iOS · Compose</span>
+              </div>
+              <em>Site →</em>
+            </a>
+            <a href="/kuberush/" class="hma-item">
+              <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
+              <div>
+                <strong>Kube Rush</strong>
+                <span>Android &amp; iOS · Unity 3D</span>
+              </div>
+              <em>Site →</em>
+            </a>
           </div>
         </div>
 
-        <div class="mob-wing right" id="mobWingRight">
-          <div class="mw-head-pill">🚀 AI, KAMERA &amp; SAĞLIK (4–6)</div>
-          <a href="/appplaka/" class="mw-app-card">
-            <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
-            <div>
-              <strong>App Plaka Kontrol</strong>
-              <span>Android &amp; iOS · 7 Kriter AI</span>
+        <!-- CENTER COLUMN: Original Hero Content + Live Gradle Terminal -->
+        <div class="hero-content">
+          <div class="hero-badge hero-anim d1"><span class="dot"></span> <span data-i18n="heroBadge">Senior Android Developer · Veripark</span></div>
+          <h1 class="hero-name hero-anim d2" id="heroName" data-text="Doğuş İpeksaç">Doğuş <span>İpeksaç</span></h1>
+          <p class="hero-title hero-anim d3"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
+          <p class="hero-bio hero-anim d4" data-i18n="heroBio">Android, Jetpack Compose, Flutter, Swift ve Unity ile mobil ve oyun geliştirmede deneyimli bilgisayar mühendisi. İstanbul merkezli.</p>
+          <div class="hero-links hero-anim d5">
+            <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="hero-link primary magnetic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="#about" class="hero-link secondary" data-i18n="navAbout">👨‍💻 Hakkımda</a>
+            <a href="#apps" class="hero-link secondary" data-i18n="heroApps">📱 Uygulamalarım</a>
+            <a href="#projects" class="hero-link secondary" data-i18n="heroProjects">🚀 Projelerim</a>
+            <a href="#contact" class="hero-link secondary" data-i18n="heroContact">✉️ İletişim</a>
+          </div>
+          <div class="dev-term hero-anim d5" aria-hidden="true">
+            <div class="dev-term-bar">
+              <span class="dev-ide-dot r"></span>
+              <span class="dev-ide-dot y"></span>
+              <span class="dev-ide-dot g"></span>
+              zsh — gradle
             </div>
-            <em>Site →</em>
-          </a>
-          <a href="/aniyakala/" class="mw-app-card">
-            <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
-            <div>
-              <strong>Anı Yakala · GPS Kamera</strong>
-              <span>Android &amp; iOS · Harita &amp; Damga</span>
-            </div>
-            <em>Site →</em>
-          </a>
-          <a href="/suicme/" class="mw-app-card">
-            <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
-            <div>
-              <strong>Su İçme Hatırlatıcısı</strong>
-              <span>Android &amp; iOS · Akıllı Hedef</span>
-            </div>
-            <em>Site →</em>
-          </a>
-          <div class="mw-chips">
-            <span>🍎 SwiftUI / iOS</span>
-            <span>🎮 Unity 3D</span>
-            <span>🛡️ NFC &amp; SSL Pinning</span>
+            <div class="dev-term-body" id="devTermOut"></div>
+          </div>
+          <div class="hero-scroll hero-anim d5" id="hint">
+            <div class="hero-scroll-line"></div>
+            <span data-i18n="heroScroll">Kaydır · Telefonun İçinden Katmanlar Açılsın</span>
           </div>
         </div>
-      </div>
 
-      <!-- OUTER 3D FLAGSHIP MOBILE PHONE (Centerpiece that zooms open as you scroll) -->
-      <div class="mob-hero-stage" id="mobHeroStage">
-        <div class="mob-orbit-rings" id="mobOrbitRings" aria-hidden="true">
-          <div class="mor r1"><span>A</span><span>K</span></div>
-          <div class="mor r2"><span>F</span><span>S</span><span>U</span></div>
-        </div>
-
-        <div class="mob-device-3d" id="mobHeroPhone">
-          <div class="mob-bezel">
-            <div class="mob-island">
-              <span class="mi-cam"></span>
-              <span class="mi-pill">LIVE · 60 FPS</span>
-            </div>
-            <div class="mob-statusbar">
-              <span>9:41</span>
-              <span>5G · 6 MAĞAZA APP</span>
-            </div>
-
-            <div class="mob-os-screen" id="mobOsScreen">
-              <div class="mos-header">
-                <span class="mos-tag">@Composable · Mobile Hub</span>
-                <strong>6 Canlı Mobil Uygulama</strong>
-                <small>Tekerleği kaydır — telefonun içine dal ↓</small>
+        <!-- RIGHT COLUMN: 3D Phone Mockup (Zooms Open On Scroll) + 3 App Quick Pills -->
+        <div class="hero-right-col" id="mobWingRight">
+          <div class="dev-phone-wrap hero-anim d3" id="mobHeroStage">
+            <div class="dev-phone" id="mobHeroPhone">
+              <div class="dev-phone-screen">
+                <div class="dev-phone-scan"></div>
+                <div class="dev-status">
+                  <span>9:41</span>
+                  <span class="sig"><i></i><i></i><i></i><i></i></span>
+                </div>
+                <div class="dev-screens">
+                  <!-- Screen 1: All 6 Apps Launcher + Inner Portal -->
+                  <div class="dev-screen active">
+                    <div class="dev-appbar">📱 6 Canlı Uygulama</div>
+                    <div class="dev-phone-appgrid">
+                      <a href="/ydskelime/" class="dpa-item"><img src="/assets/apps/ydskelime.png" alt="YDS" /><span>YDS</span></a>
+                      <a href="/mydiary/" class="dpa-item"><img src="/assets/apps/mydiary.png" alt="Diary" /><span>Diary</span></a>
+                      <a href="/kuberush/" class="dpa-item"><img src="/assets/apps/kuberush.png" alt="Kube" /><span>Kube</span></a>
+                      <a href="/appplaka/" class="dpa-item"><img src="/assets/apps/appplaka.png" alt="Plaka" /><span>Plaka</span></a>
+                      <a href="/aniyakala/" class="dpa-item"><img src="/assets/apps/aniyakala.png" alt="Anı" /><span>Anı</span></a>
+                      <a href="/suicme/" class="dpa-item"><img src="/assets/apps/suicme.png" alt="Su" /><span>Su İçme</span></a>
+                    </div>
+                    <div class="mos-inner-portal" id="mosInnerPortal">
+                      <span class="mip-kicker">İÇ İÇE MOBİL PORTAL</span>
+                      <strong>Kaydır · İçine Gir ↓</strong>
+                    </div>
+                    <div class="dev-nav"><span class="on"></span><span></span><span></span></div>
+                  </div>
+                  <!-- Screen 2: Original Compose Preview -->
+                  <div class="dev-screen">
+                    <div class="dev-toast"><b>Compose Preview</b> HomeScreen recomposed</div>
+                    <div class="dev-appbar">Compose Preview</div>
+                    <div class="dev-chip-row">
+                      <span class="dev-mini-chip">Kotlin</span>
+                      <span class="dev-mini-chip">Hilt</span>
+                      <span class="dev-mini-chip">Room</span>
+                    </div>
+                    <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
+                    <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
+                    <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
+                    <div class="dev-fab"></div>
+                    <div class="dev-nav"><span class="on"></span><span></span><span></span></div>
+                  </div>
+                  <!-- Screen 3: Original HomeScreen.kt -->
+                  <div class="dev-screen">
+                    <div class="dev-appbar">HomeScreen.kt</div>
+                    <div class="dev-code-line"><span class="an">@Composable</span></div>
+                    <div class="dev-code-line"><span class="k">fun</span> <span class="fn">Home</span>() {</div>
+                    <div class="dev-code-line">&nbsp;&nbsp;<span class="fn">Column</span> {</div>
+                    <div class="dev-code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">TopBar</span>()</div>
+                    <div class="dev-code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">AppList</span>()</div>
+                    <div class="dev-code-line">&nbsp;&nbsp;}</div>
+                    <div class="dev-code-line">}</div>
+                  </div>
+                  <!-- Screen 4: Original Gradle Build -->
+                  <div class="dev-screen">
+                    <div class="dev-appbar">Gradle</div>
+                    <div class="dev-build">
+                      <div class="task">&gt; :app:compileKotlin</div>
+                      <div class="dev-build-bar"><span></span></div>
+                      <div class="task">&gt; :app:packageRelease</div>
+                      <div class="ok">BUILD SUCCESSFUL</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div class="mos-app-grid">
-                <a href="/ydskelime/" class="mos-app">
-                  <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
-                  <span>YDS Kelime</span>
-                </a>
-                <a href="/mydiary/" class="mos-app">
-                  <img src="/assets/apps/mydiary.png" alt="My Diary" />
-                  <span>My Diary</span>
-                </a>
-                <a href="/kuberush/" class="mos-app">
-                  <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-                  <span>Kube Rush</span>
-                </a>
-                <a href="/appplaka/" class="mos-app">
-                  <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
-                  <span>App Plaka</span>
-                </a>
-                <a href="/aniyakala/" class="mos-app">
-                  <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
-                  <span>Anı Yakala</span>
-                </a>
-                <a href="/suicme/" class="mos-app">
-                  <img src="/assets/apps/suicme.png" alt="Su İçme" />
-                  <span>Su İçme</span>
-                </a>
-              </div>
-
-              <!-- Inner Portal Window inside the phone that expands into Layer 1 -->
-              <div class="mos-inner-portal" id="mosInnerPortal">
-                <span class="mip-kicker">İÇ İÇE MOBİL PORTAL · 01</span>
-                <strong>Telefon İçinden Telefon</strong>
-                <span>Kaydırdıkça 6 uygulama katman katman açılır</span>
-              </div>
             </div>
+          </div>
 
-            <div class="mob-home-bar"></div>
+          <div class="hero-mini-apps">
+            <div class="hma-label">🚀 AI, KAMERA &amp; SAĞLIK (4–6)</div>
+            <a href="/appplaka/" class="hma-item">
+              <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
+              <div>
+                <strong>App Plaka Kontrol</strong>
+                <span>Android &amp; iOS · 7 Kriter AI</span>
+              </div>
+              <em>Site →</em>
+            </a>
+            <a href="/aniyakala/" class="hma-item">
+              <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
+              <div>
+                <strong>Anı Yakala</strong>
+                <span>Android &amp; iOS · GPS Kamera</span>
+              </div>
+              <em>Site →</em>
+            </a>
+            <a href="/suicme/" class="hma-item">
+              <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
+              <div>
+                <strong>Su İçme Hatırlatıcısı</strong>
+                <span>Android &amp; iOS · Sağlık</span>
+              </div>
+              <em>Site →</em>
+            </a>
           </div>
         </div>
       </div>
 
       <!-- =================================================================
-           NESTED MOBILE WORLDS (Unfolding From Inside The Mobile Phone!)
+           NESTED 3D MOBILE WORLDS UNFOLDING FROM INSIDE THE PHONE ON SCROLL
            ================================================================= -->
       <div class="mob-nested-viewport" id="mobNestedViewport" aria-hidden="true">
 
-        <!-- LAYER 1: 02 · TÜM 6 UYGULAMA BİR ARADA & MOBİL MİMARİ -->
+        <!-- LAYER 1: 02 · TÜM 6 MOBİL UYGULAMAM BİR ARADA -->
         <div class="mob-layer" id="mobLayer1">
           <div class="ml-shell">
             <div class="ml-left">
-              <span class="ml-kicker" data-i18n="scr1Eb">02 · TÜM MOBİL UYGULAMALARIM (6 CANLI ÜRÜN)</span>
+              <span class="ml-kicker" data-i18n="scr1Eb">02 · TELEFON İÇİNDEN AÇILAN KATMAN · TÜM 6 UYGULAMA</span>
               <h2 class="ml-title" data-i18n-html="scr1Title">Modern Android &amp; iOS mimarisi ile <span class="cu">6 mağaza uygulaması.</span></h2>
-              <p class="ml-desc" data-i18n="scr1Sub">Hem hepsi bir arada karşında, hem de kaydırdıkça sağdaki telefonun içinden tek tek detaylarıyla açılıyor:</p>
+              <p class="ml-desc" data-i18n="scr1Sub">Hem 6 uygulamanın tamamı tek ekranda karşında, hem de kaydırdıkça sağdaki telefonun içinden bir sonraki mobil katman açılıyor:</p>
               <div class="ml-app-cards six-grid">
                 <a href="/ydskelime/" class="ml-app-card">
                   <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
@@ -314,7 +374,6 @@
               </div>
             </div>
 
-            <!-- Nested Phone inside Layer 1 that expands into Layer 2 -->
             <div class="ml-center-phone" id="nestPhone1">
               <div class="mcp-frame">
                 <div class="mcp-notch"></div>
@@ -372,14 +431,13 @@
               </div>
             </div>
 
-            <!-- Nested Phone inside Layer 2 that expands into Layer 3 -->
             <div class="ml-center-phone" id="nestPhone2">
               <div class="mcp-frame">
                 <div class="mcp-notch"></div>
                 <div class="mcp-body">
                   <span class="mcp-tag">SONRAKİ MOBİL KATMAN · 04</span>
-                  <strong>AI Vision &amp; GPS Kamera</strong>
-                  <p>App Plaka Kontrol · Anı Yakala · Su İçme</p>
+                  <strong>AI Vision, Kamera &amp; Fintech</strong>
+                  <p>App Plaka · Anı Yakala · Su İçme · NFC</p>
                   <div class="mcp-icons">
                     <img src="/assets/apps/appplaka.png" alt="App Plaka" />
                     <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
@@ -392,13 +450,13 @@
           </div>
         </div>
 
-        <!-- LAYER 3: 04 · AI PLAKA DENETİMİ, KAMERA & SAĞLIK -->
+        <!-- LAYER 3: 04 · AI PLAKA, KAMERA, SAĞLIK & FINTECH GÜVENLİK -->
         <div class="mob-layer" id="mobLayer3">
           <div class="ml-shell">
             <div class="ml-left">
-              <span class="ml-kicker">04 · CİHAZ İÇİ YAPAY ZEKÂ, KAMERA &amp; SAĞLIK</span>
+              <span class="ml-kicker">04 · AI VISION, KAMERA &amp; FINTECH GÜVENLİK</span>
               <h2 class="ml-title">App Plaka AI, Anı Yakala &amp; <span class="cu">Su İçme Hatırlatıcısı.</span></h2>
-              <p class="ml-desc">7 kriterde APP/Standart plaka analizi yapan AI motoru, canlı GPS/hava durumu filigranlı anı kamerası ve akıllı günlük su tüketim asistanı.</p>
+              <p class="ml-desc">7 kriterde APP/Standart plaka analizi yapan AI motoru, canlı GPS/hava durumu filigranlı anı kamerası, su takip asistanı ve Veripark fintech güvenlik katmanları.</p>
               <div class="ml-app-cards">
                 <a href="/appplaka/" class="ml-app-card">
                   <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
@@ -430,87 +488,14 @@
               </div>
             </div>
 
-            <!-- Nested Phone inside Layer 3 that expands into Layer 4 -->
             <div class="ml-center-phone" id="nestPhone3">
-              <div class="mcp-frame">
-                <div class="mcp-notch"></div>
-                <div class="mcp-body">
-                  <span class="mcp-tag">SONRAKİ MOBİL KATMAN · 05</span>
-                  <strong>Fintech, NFC &amp; Tüm 6 App</strong>
-                  <p>Veripark Güvenlik · 6 Uygulama · 11 Araç</p>
-                  <div class="mcp-icons">
-                    <img src="/assets/apps/ydskelime.png" alt="YDS Kelime" />
-                    <img src="/assets/apps/mydiary.png" alt="My Diary" />
-                    <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-                  </div>
-                  <span class="mcp-hint">Son katmanı aç ↓</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- LAYER 4: 05 · FINTECH GÜVENLİK & TÜM 6 UYGULAMA TAM VİTRİN -->
-        <div class="mob-layer" id="mobLayer4">
-          <div class="ml-shell">
-            <div class="ml-left">
-              <span class="ml-kicker">05 · BANKACILIK ÖLÇEĞİNDE GÜVENLİK &amp; 6 UYGULAMA VİTRİNİ</span>
-              <h2 class="ml-title">NFC / HCE Ödeme, SSL Pinning &amp; <span class="cu">Tüm Mobil Ürünlerim.</span></h2>
-              <p class="ml-desc">Veripark bünyesinde finansal mobil uygulamalar için temassız NFC/HCE ödeme, Samsung Pay SDK ve SSL Pinning katmanları + mağazadaki 6 bağımsız uygulamam:</p>
-              <div class="ml-app-cards six-grid">
-                <a href="/ydskelime/" class="ml-app-card">
-                  <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
-                  <div>
-                    <strong>YDS Kelime KitApp</strong>
-                    <span>iOS Yayında · Flutter &amp; SRS</span>
-                  </div>
-                </a>
-                <a href="/mydiary/" class="ml-app-card">
-                  <img src="/assets/apps/mydiary.png" alt="My Diary" />
-                  <div>
-                    <strong>My Diary</strong>
-                    <span>Android &amp; iOS · Compose</span>
-                  </div>
-                </a>
-                <a href="/kuberush/" class="ml-app-card">
-                  <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-                  <div>
-                    <strong>Kube Rush</strong>
-                    <span>Android &amp; iOS · Unity 3D</span>
-                  </div>
-                </a>
-                <a href="/appplaka/" class="ml-app-card">
-                  <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
-                  <div>
-                    <strong>App Plaka Kontrol</strong>
-                    <span>Android &amp; iOS · 7 Kriter AI</span>
-                  </div>
-                </a>
-                <a href="/aniyakala/" class="ml-app-card">
-                  <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
-                  <div>
-                    <strong>Anı Yakala</strong>
-                    <span>Android &amp; iOS · GPS Kamera</span>
-                  </div>
-                </a>
-                <a href="/suicme/" class="ml-app-card">
-                  <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
-                  <div>
-                    <strong>Su İçme Hatırlatıcısı</strong>
-                    <span>Android &amp; iOS · Sağlık</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="ml-center-phone">
               <div class="mcp-frame final">
                 <div class="mcp-notch"></div>
                 <div class="mcp-body">
-                  <span class="mcp-tag">MOBİL EKOSİSTEM HAZIR</span>
-                  <strong>6 App · 11 Araç · 12 Vitrin</strong>
-                  <p>Aşağı kaydırarak tüm detayları keşfet</p>
-                  <div class="ml-pills" style="justify-content:center; margin-top:0.6rem;">
+                  <span class="mcp-tag">MOBİL PORTAL TAMAMLANDI</span>
+                  <strong>Hakkımda &amp; Tüm Detaylar</strong>
+                  <p>Aşağı kaydırarak Hakkımda, Yetenekler ve tüm projeleri incele</p>
+                  <div class="ml-pills" style="justify-content:center; margin-top:0.55rem;">
                     <span class="ml-pill hot">NFC / HCE</span>
                     <span class="ml-pill">SSL Pinning</span>
                     <span class="ml-pill">Samsung Pay</span>
@@ -522,8 +507,6 @@
         </div>
 
       </div>
-
-      <div class="scroll-hint" id="hint"><span data-i18n="heroScroll">TEKERLEĞİ KAYDIR · MOBİLİN İÇİNE GİR</span></div>
     </div>
   </section>
 
@@ -546,26 +529,43 @@
       <div class="stats-grid">
         <div class="stat reveal glow-card"><div class="stat-num" data-count="5" data-suffix="+">0</div><div class="stat-label" data-i18n="statYears">Yıl Deneyim</div></div>
         <div class="stat reveal reveal-d1 glow-card"><div class="stat-num" data-count="12" data-suffix="+">0</div><div class="stat-label" data-i18n="statApps">Yayınlanan Uygulama</div></div>
-        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="11" data-suffix="">0</div><div class="stat-label" data-i18n="statTools">Açık Web Aracı</div></div>
-        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">0</div><div class="stat-label" data-i18n="statPassion">Tutku &amp; Mühendislik</div></div>
+        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="11" data-suffix="">0</div><div class="stat-label" data-i18n="statTools">Web Aracı</div></div>
+        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">0</div><div class="stat-label" data-i18n="statPassion">Tutku &amp; Özen</div></div>
       </div>
     </div>
   </section>
 
   <!-- =====================================================================
-       SECTION 02 · HAKKIMDA (Pinned 3D Wing Cards Unfolding Around Center)
+       ABOUT (HAKKIMDA): ESKİ YAPININ TAMAMI (.about-grid + .dev-workstation)
+       + ÜSTÜNE EKLENEN YARATICI 3D MÜHENDİSLİK KARTLARI (.about-3d-deck)
        ===================================================================== -->
-  <section class="about-track" id="about" aria-labelledby="h-about">
-    <div class="about-pin" id="aboutPin">
-      <div class="about-grid-3d">
-        <div class="about-center" id="aboutCenter">
-          <span class="section-label" data-i18n="aboutLabel">whoami · 01</span>
-          <h2 id="h-about" data-i18n-html="aboutHeadline">Mühendislik disipliniyle <span class="cu">üretim odaklı</span> geliştirme.</h2>
-          <div class="about-bio-box">
-            <p data-i18n-html="aboutP1"><strong>Doğuş İpeksaç</strong>, bilgisayar mühendisi ve <strong>Veripark</strong>'ta Senior Android Developer. Kotlin, Java ve Jetpack Compose ile kurumsal ve tüketici odaklı native Android uygulamaları geliştiriyor.</p>
-            <p data-i18n-html="aboutP2"><strong>Android</strong>, <strong>Jetpack Compose</strong>, <strong>Flutter</strong>, <strong>Swift / iOS</strong> ve <strong>Unity</strong> üzerinde uçtan uca üretim deneyimine sahip. Fintech dünyasında NFC, Samsung Pay SDK ve SSL Pinning gibi kritik güvenlik entegrasyonlarını yönetiyor.</p>
-            <p class="about-p3" data-i18n-html="aboutP3">İstanbul'da yaşıyor; bağımsız mobil uygulamalar, tarayıcı içi geliştirici araçları ve seyahat/finans/teknoloji üzerine YouTube içerikleri üretiyor.</p>
+  <section id="about">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="aboutLabel">whoami</span>
+      <h2 class="section-title reveal" data-i18n="aboutTitle">Hakkımda</h2>
+      <div class="section-divider reveal"></div>
+
+      <!-- Original 1427def About Grid (Workstation Laptop + Mini Phone + Bio + Tags) -->
+      <div class="about-grid">
+        <div class="about-avatar reveal-left">
+          <div class="about-avatar-inner">
+            <div class="dev-workstation" aria-hidden="true">
+              <div class="dev-laptop">
+                <div class="dev-laptop-code">
+                  <span class="k">@Composable</span><br>
+                  fun App() {<br>
+                  &nbsp;&nbsp;HomeScreen()<br>
+                  }
+                </div>
+              </div>
+              <div class="dev-mini-phone"></div>
+            </div>
           </div>
+        </div>
+        <div class="about-text reveal-right">
+          <p data-i18n-html="aboutP1"><strong>Doğuş İpeksaç</strong>, bilgisayar mühendisi ve <strong>Veripark</strong>'ta Senior Android Developer. Kotlin, Java ve Jetpack Compose ile native Android uygulamaları geliştiriyor; ürün mimarisi, performans ve kullanıcı deneyimine odaklanıyor.</p>
+          <p data-i18n-html="aboutP2"><strong>Android</strong>, <strong>Jetpack Compose</strong>, <strong>Flutter</strong>, <strong>Swift / iOS</strong> ve <strong>Unity</strong> üzerinde uygulamalı deneyim sahibi. Cross-platform, native mobil ve oyun projelerinde bu teknolojileri aktif olarak kullanıyor. Fintech alanında NFC, Samsung Pay SDK ve SSL Pinning gibi güvenlik odaklı entegrasyonlarda çalışıyor.</p>
+          <p data-i18n-html="aboutP3">İstanbul'da yaşıyor. Mobil güvenlik ve uygulama güvenliğine ilgi duyuyor; seyahat, kişisel finans ve teknoloji konularında içerik üretiyor.</p>
           <div class="about-tags">
             <span class="about-tag h" data-i18n="tagLocation">📍 İstanbul, Türkiye</span>
             <span class="about-tag h">🏢 Veripark</span>
@@ -578,8 +578,11 @@
             <span class="about-tag">Fintech</span>
           </div>
         </div>
+      </div>
 
-        <article class="ab ab-l1" style="--i:0">
+      <!-- Creative 3D Nested Engineering Deck Built ON TOP OF Original About -->
+      <div class="about-3d-deck" id="about3dDeck">
+        <article class="ab glow-card">
           <span class="fig" aria-hidden="true" data-i18n="ab1Fig">5+</span>
           <span class="k" data-i18n="ab1K">01 · DENEYİM</span>
           <h3 data-i18n="ab1H">Kurumsal &amp; Bağımsız Mobil Mühendislik</h3>
@@ -591,7 +594,7 @@
           </ul>
         </article>
 
-        <article class="ab ab-r1" style="--i:1">
+        <article class="ab glow-card">
           <span class="fig" aria-hidden="true" data-i18n="ab2Fig">5x</span>
           <span class="k" data-i18n="ab2K">02 · EKOSİSTEM</span>
           <h3 data-i18n="ab2H">Native, Cross-Platform ve Oyun Motoru</h3>
@@ -603,7 +606,7 @@
           </ul>
         </article>
 
-        <article class="ab ab-l2" style="--i:2">
+        <article class="ab glow-card">
           <span class="fig" aria-hidden="true" data-i18n="ab3Fig">NFC</span>
           <span class="k" data-i18n="ab3K">03 · FINTECH &amp; GÜVENLİK</span>
           <h3 data-i18n="ab3H">Uygulama Güvenliği ve Ödeme Sistemleri</h3>
@@ -615,7 +618,7 @@
           </ul>
         </article>
 
-        <article class="ab ab-r2" style="--i:3">
+        <article class="ab glow-card">
           <span class="fig" aria-hidden="true" data-i18n="ab4Fig">20+</span>
           <span class="k" data-i18n="ab4K">04 · ÜRETİM &amp; TOPLULUK</span>
           <h3 data-i18n="ab4H">Fikirden Mağazaya Bağımsız Ürünler</h3>
@@ -631,92 +634,351 @@
   </section>
 
   <!-- =====================================================================
-       SECTION 03 · UYGULAMALARIM (Pinned Spark Burst + 3D Stacked Card Deck)
+       SKILLS (YETENEKLER): ESKİ YAPININ TAMAMI (.dev-git + .skills-grid)
+       + ÜSTÜNE EKLENEN 3D DERİNLİK VE TEKNOLOJİ ETİKETLERİ
        ===================================================================== -->
-  <section class="svc-track" id="apps" aria-labelledby="h-apps">
-    <div class="svc-pin" id="svcPin">
-      <div class="spark" id="spark" aria-hidden="true"></div>
-      <div class="burst" id="burst" aria-hidden="true"></div>
+  <section id="skills">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="skillsLabel">cat ./stack</span>
+      <h2 class="section-title reveal" data-i18n="skillsTitle">Yetenekler</h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-sub reveal" data-i18n="skillsSub">Kotlin’den Unity’ye — üretim hattında her gün açtığım silahlar. Native, cross-platform, oyun.</p>
 
-      <div class="svc-head" id="svcHead">
-        <span class="section-label" data-i18n="appsLabel">@Composable · 02</span>
-        <h2 id="h-apps" data-i18n="appsTitle">Mağazadaki Uygulamalarım</h2>
-        <p class="svc-sub" data-i18n-html="appsSub">Kaydırdıkça 3B katmanlar halinde açılan mobil ürünler. Uygulamaya tıklayarak <strong>özel web sitesine</strong> gidin, <strong>QR Kod</strong> ile indirin veya story paylaşın.</p>
+      <!-- Original 1427def Git Commit Graph -->
+      <div class="dev-git reveal" aria-hidden="true">
+        <div class="dev-git-line"></div>
+        <div class="dev-commit"></div>
+        <div class="dev-commit"></div>
+        <div class="dev-commit"></div>
+        <div class="dev-commit"></div>
+        <div class="dev-commit"></div>
       </div>
 
-      <div class="svc-right-ui">
-        <div class="svc-nav" id="svcNav" role="tablist" aria-label="Uygulama seçici">
-          <button type="button" class="svc-dot active" data-app-idx="0">01 · Kube Rush</button>
-          <button type="button" class="svc-dot" data-app-idx="1">02 · My Diary</button>
-          <button type="button" class="svc-dot" data-app-idx="2">03 · YDS Kelime</button>
-          <button type="button" class="svc-dot" data-app-idx="3">04 · Plaka Kontrol</button>
-          <button type="button" class="svc-dot" data-app-idx="4">05 · Anı Yakala</button>
-          <button type="button" class="svc-dot" data-app-idx="5">06 · Su İçme</button>
-          <button type="button" class="svc-dot svc-dot-all" data-app-idx="all">📱 Tümü (6)</button>
+      <!-- Original Skills Grid Enhanced with 3D Depth & Tech Chips -->
+      <div class="skills-grid" id="skills3dGrid">
+        <div class="skill-card glow-card reveal-scale">
+          <span class="skill-icon">🤖</span>
+          <div class="skill-name">Android</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>SDK</span><span>Hilt</span><span>Room</span></div>
         </div>
-        <div class="svc-count" id="svcCount"><b>01</b> / 06</div>
+        <div class="skill-card glow-card reveal-scale reveal-d1">
+          <span class="skill-icon">🟣</span>
+          <div class="skill-name">Kotlin</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>Coroutines</span><span>Flow</span><span>KMP</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d2">
+          <span class="skill-icon">🎨</span>
+          <div class="skill-name">Jetpack Compose</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>Material 3</span><span>Canvas</span><span>60fps</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d3">
+          <span class="skill-icon">💙</span>
+          <div class="skill-name">Flutter</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>Dart</span><span>Drift</span><span>iOS/Android</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale">
+          <span class="skill-icon">🍎</span>
+          <div class="skill-name">Swift / iOS</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>SwiftUI</span><span>UIKit</span><span>App Store</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d1">
+          <span class="skill-icon">🎮</span>
+          <div class="skill-name">Unity</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>C#</span><span>3D / 2D</span><span>URP</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d2">
+          <span class="skill-icon">☕</span>
+          <div class="skill-name">Java</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>JVM</span><span>Enterprise</span><span>JNI</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d3">
+          <span class="skill-icon">🔥</span>
+          <div class="skill-name">Firebase</div>
+          <div class="skill-level" data-i18n="experienced">Deneyimli</div>
+          <div class="skill-chips"><span>Crashlytics</span><span>Firestore</span><span>FCM</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale">
+          <span class="skill-icon">🔧</span>
+          <div class="skill-name">Git / Azure DevOps</div>
+          <div class="skill-level">CI/CD &amp; VCS</div>
+          <div class="skill-chips"><span>Pipelines</span><span>Gradle</span><span>Fastlane</span></div>
+        </div>
+        <div class="skill-card glow-card reveal-scale reveal-d1">
+          <span class="skill-icon">🛡️</span>
+          <div class="skill-name" data-i18n="mobileSec">Mobil Güvenlik</div>
+          <div class="skill-level">Pentest &amp; SSL Pinning</div>
+          <div class="skill-chips"><span>NFC / HCE</span><span>SSL Pin</span><span>Samsung Pay</span></div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <ol class="svc-list" id="svcList">
-        <!-- App 01: Kube Rush -->
-        <li class="svc-card app-card" data-app-href="/kuberush/">
-          <span class="no" aria-hidden="true">01</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/kuberush/" class="app-icon kube has-logo" aria-label="Kube Rush Web Sitesi"><img src="/assets/apps/kuberush.png" width="64" height="64" alt="Kube Rush" /></a>
-              <div>
-                <div class="app-platform">ANDROID · iOS · UNITY 3D</div>
-                <h3 class="app-name"><a href="/kuberush/">Kube Rush</a></h3>
+  <!-- =====================================================================
+       APPS (UYGULAMALARIM):
+       1) ÜSTTE İNTERAKTİF 3D TEKİL UYGULAMA VİTRİNİ (1 Uygulama 3D Sahne)
+       2) HEMEN ALTINDA TÜM 6 UYGULAMA TAM VİTRİN GRID (.apps-grid — Hepsi Bir Arada)
+       ===================================================================== -->
+  <section id="apps">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="appsLabel">@Composable</span>
+      <h2 class="section-title reveal" data-i18n="appsTitle">Uygulamalarım</h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-sub reveal" data-i18n-html="appsSub">Store’da yayında. Uygulamaya tıklayarak <strong>özel web sitesine</strong> gidin, <strong>QR Kod</strong> ile indirin veya story ile paylaşın — Android ve iOS.</p>
+
+      <!-- PART 1: CREATIVE 3D INTERACTIVE SINGLE-APP STAGE (Built on top of Apps section) -->
+      <div class="apps-3d-showcase" id="apps3dShowcase">
+        <div class="a3d-topbar">
+          <div class="a3d-title-pill">
+            <span class="dot"></span>
+            <strong>3D İNTERAKTİF UYGULAMA SAHNESİ</strong>
+            <span id="svcCount"><b>01</b> / 06</span>
+          </div>
+          <div class="svc-nav" id="svcNav" role="tablist" aria-label="Uygulama seçici">
+            <button type="button" class="svc-dot active" data-app-idx="0">01 · YDS Kelime</button>
+            <button type="button" class="svc-dot" data-app-idx="1">02 · My Diary</button>
+            <button type="button" class="svc-dot" data-app-idx="2">03 · Kube Rush</button>
+            <button type="button" class="svc-dot" data-app-idx="3">04 · App Plaka</button>
+            <button type="button" class="svc-dot" data-app-idx="4">05 · Anı Yakala</button>
+            <button type="button" class="svc-dot" data-app-idx="5">06 · Su İçme</button>
+          </div>
+        </div>
+
+        <ol class="a3d-deck" id="svcList">
+          <!-- Spotlight 01: YDS Kelime KitApp -->
+          <li class="a3d-card active" data-app-href="/ydskelime/">
+            <span class="no" aria-hidden="true">01</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/ydskelime/" class="app-icon yds has-logo"><img src="/assets/apps/ydskelime.png" width="64" height="64" alt="YDS Kelime KitApp" /></a>
+                <div>
+                  <div class="app-platform">iOS YAYINDA · ANDROID (YAKINDA) · FLUTTER &amp; DRIFT</div>
+                  <h3 class="app-name"><a href="/ydskelime/">YDS Kelime KitApp</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appYds">YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar (SRS), seviye bazlı dersler, interaktif quizler ve %100 çevrimdışı kelime kartları. iOS App Store’da yayında, Android yakında.</p>
+              <div class="tags">
+                <span>YDS · YÖKDİL · YDT</span>
+                <span>Aralıklı Tekrar (SRS)</span>
+                <span>Drift SQLite</span>
+                <span>Offline Sözlük</span>
+              </div>
+              <div class="app-btns">
+                <a href="/ydskelime/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS App Store</a>
+                <span class="app-btn pending" data-i18n="androidPending">⏳ Android (Yakında)</span>
+                <a href="/ydskelime/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/ydskelime/story/" class="app-btn qr ig-story">📸 Story</a>
               </div>
             </div>
-            <p class="app-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</p>
-            <div class="tags">
-              <span>Unity 3D</span>
-              <span>Hypercasual</span>
-              <span>60 FPS</span>
-              <span>Skin Market</span>
+            <a href="/ydskelime/" class="viz" aria-label="YDS Kelime KitApp Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" /></div>
+            </a>
+          </li>
+
+          <!-- Spotlight 02: My Diary -->
+          <li class="a3d-card" data-app-href="/mydiary/">
+            <span class="no" aria-hidden="true">02</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/mydiary/" class="app-icon has-logo"><img src="/assets/apps/mydiary.png" width="64" height="64" alt="My Diary" /></a>
+                <div>
+                  <div class="app-platform">ANDROID · iOS · JETPACK COMPOSE &amp; SWIFT</div>
+                  <h3 class="app-name"><a href="/mydiary/">My Diary</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Android (Jetpack Compose) ve iOS’ta yayında! Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</p>
+              <div class="tags">
+                <span>Jetpack Compose</span>
+                <span>iOS App Store</span>
+                <span>Ses Kaydı</span>
+                <span>PDF Export</span>
+              </div>
+              <div class="app-btns">
+                <a href="/mydiary/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">▶ Android</a>
+                <a href="https://apps.apple.com/us/app/my-diary/id6824458504" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS</a>
+                <a href="/mydiary/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/mydiary/story/" class="app-btn qr ig-story">📸 Story</a>
+              </div>
             </div>
+            <a href="/mydiary/" class="viz" aria-label="My Diary Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/mydiary.png" alt="My Diary" /></div>
+            </a>
+          </li>
+
+          <!-- Spotlight 03: Kube Rush -->
+          <li class="a3d-card" data-app-href="/kuberush/">
+            <span class="no" aria-hidden="true">03</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/kuberush/" class="app-icon kube has-logo"><img src="/assets/apps/kuberush.png" width="64" height="64" alt="Kube Rush" /></a>
+                <div>
+                  <div class="app-platform">ANDROID · iOS · UNITY 3D</div>
+                  <h3 class="app-name"><a href="/kuberush/">Kube Rush</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</p>
+              <div class="tags">
+                <span>Unity 3D</span>
+                <span>Hypercasual</span>
+                <span>60 FPS</span>
+                <span>Skin Market</span>
+              </div>
+              <div class="app-btns">
+                <a href="/kuberush/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">▶ Android</a>
+                <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS</a>
+                <a href="/kuberush/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/kuberush/story/" class="app-btn qr ig-story">📸 Story</a>
+              </div>
+            </div>
+            <a href="/kuberush/" class="viz" aria-label="Kube Rush Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/kuberush.png" alt="Kube Rush" /></div>
+            </a>
+          </li>
+
+          <!-- Spotlight 04: App Plaka Kontrol -->
+          <li class="a3d-card" data-app-href="/appplaka/">
+            <span class="no" aria-hidden="true">04</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/appplaka/" class="app-icon plaka has-logo"><img src="/assets/apps/appplaka.png" width="64" height="64" alt="App Plaka Kontrol" /></a>
+                <div>
+                  <div class="app-platform">ANDROID · iOS · AI 7-KRİTER DENETİM</div>
+                  <h3 class="app-name"><a href="/appplaka/">App Plaka Kontrol</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appPlaka">APP plaka mı, standart plaka mı? DIN 1451 font, TR hologram, soğuk mühür ve 2024+ QR kod dahil 7 kriterde AI plaka uygunluk analizi.</p>
+              <div class="tags">
+                <span>7 Kriter AI Analiz</span>
+                <span>DIN 1451 vs APP</span>
+                <span>QR &amp; Soğuk Mühür</span>
+              </div>
+              <div class="app-btns">
+                <a href="/appplaka/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">▶ Android</a>
+                <a href="https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS</a>
+                <a href="/appplaka/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/appplaka/story/" class="app-btn qr ig-story">📸 Story</a>
+              </div>
+            </div>
+            <a href="/appplaka/" class="viz" aria-label="App Plaka Kontrol Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" /></div>
+            </a>
+          </li>
+
+          <!-- Spotlight 05: Anı Yakala -->
+          <li class="a3d-card" data-app-href="/aniyakala/">
+            <span class="no" aria-hidden="true">05</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/aniyakala/" class="app-icon moment has-logo"><img src="/assets/apps/aniyakala.png" width="64" height="64" alt="Anı Yakala" /></a>
+                <div>
+                  <div class="app-platform">ANDROID · iOS · GPS CAMERA</div>
+                  <h3 class="app-name"><a href="/aniyakala/">Anı Yakala / Moment Capture</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</p>
+              <div class="tags">
+                <span>GPS Damgası</span>
+                <span>Canlı Harita</span>
+                <span>Özel Filigran</span>
+              </div>
+              <div class="app-btns">
+                <a href="/aniyakala/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">▶ Android</a>
+                <a href="https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS</a>
+                <a href="/aniyakala/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/aniyakala/story/" class="app-btn qr ig-story">📸 Story</a>
+              </div>
+            </div>
+            <a href="/aniyakala/" class="viz" aria-label="Anı Yakala Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/aniyakala.png" alt="Anı Yakala" /></div>
+            </a>
+          </li>
+
+          <!-- Spotlight 06: Su İçme Hatırlatıcısı -->
+          <li class="a3d-card" data-app-href="/suicme/">
+            <span class="no" aria-hidden="true">06</span>
+            <div class="tx">
+              <div class="svc-app-head">
+                <a href="/suicme/" class="app-icon hydrate has-logo"><img src="/assets/apps/suicme.png" width="64" height="64" alt="Su İçme Hatırlatıcısı" /></a>
+                <div>
+                  <div class="app-platform">ANDROID · iOS · HEALTH &amp; HABIT</div>
+                  <h3 class="app-name"><a href="/suicme/" data-i18n="appHydrateName">Su İçme Hatırlatıcısı</a></h3>
+                </div>
+              </div>
+              <p class="app-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</p>
+              <div class="tags">
+                <span>Akıllı Bildirim</span>
+                <span>Günlük Hedef</span>
+                <span>İstatistik Grafikleri</span>
+              </div>
+              <div class="app-btns">
+                <a href="/suicme/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener noreferrer" class="app-btn">▶ Android</a>
+                <a href="https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946" target="_blank" rel="noopener noreferrer" class="app-btn ios">🍎 iOS</a>
+                <a href="/suicme/#qr" class="app-btn qr"><span data-i18n="qrCode">QR Kod</span></a>
+                <a href="/suicme/story/" class="app-btn qr ig-story">📸 Story</a>
+              </div>
+            </div>
+            <a href="/suicme/" class="viz" aria-label="Su İçme Hatırlatıcısı Web Sitesi">
+              <i></i><i></i><i></i>
+              <div class="viz-core"><img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" /></div>
+            </a>
+          </li>
+        </ol>
+      </div>
+
+      <!-- PART 2: TÜM 6 UYGULAMA BİR ARADA (Original 1427def .apps-grid with all 6 apps!) -->
+      <div class="apps-all-header">
+        <span class="aah-pill">📱 TÜM UYGULAMALARIM BİR ARADA (6 / 6)</span>
+        <h3>Tüm Mobil Uygulamalar ve Özel Web Siteleri</h3>
+      </div>
+
+      <div class="apps-grid">
+        <!-- 1. YDS Kelime KitApp -->
+        <div class="app-card glow-card reveal" data-app-card-idx="0">
+          <a href="/ydskelime/" class="app-icon yds has-logo"><img src="/assets/apps/ydskelime.png" width="64" height="64" alt="YDS Kelime KitApp" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/ydskelime/" style="color:inherit;text-decoration:none">YDS Kelime KitApp</a></div>
+            <div class="app-platform">iOS Yayında · Android (Yakında)</div>
+            <div class="app-desc" data-i18n="appYds">YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar (SRS), seviye bazlı dersler, interaktif quizler ve %100 çevrimdışı kelime kartları. iOS App Store’da yayında, Android yakında.</div>
             <div class="app-btns">
-              <a href="/kuberush/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
-              <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
-                Android
-              </a>
-              <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" target="_blank" rel="noopener noreferrer" class="app-btn ios">
+              <a href="/ydskelime/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+              <a href="https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129" target="_blank" rel="noopener noreferrer" class="app-btn ios">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                 iOS
               </a>
-              <a href="/kuberush/#qr" class="app-btn qr">
+              <span class="app-btn pending" data-i18n="androidPending">⏳ Android (Yakında)</span>
+              <a href="/ydskelime/#qr" class="app-btn qr">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h2v2h-2zM18 14h3v3h-3zM14 18h2v3h-2zM18 21h3v-3h-3zM21 18v3"/></svg>
                 <span data-i18n="qrCode">QR Kod</span>
               </a>
-              <a href="/kuberush/story/" class="app-btn qr ig-story">📸 Story</a>
+              <a href="/ydskelime/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/kuberush/" class="viz" aria-label="Kube Rush Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/kuberush.png" alt="Kube Rush" /></div>
-          </a>
-        </li>
+        </div>
 
-        <!-- App 02: My Diary -->
-        <li class="svc-card app-card" data-app-href="/mydiary/">
-          <span class="no" aria-hidden="true">02</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/mydiary/" class="app-icon has-logo" aria-label="My Diary Web Sitesi"><img src="/assets/apps/mydiary.png" width="64" height="64" alt="My Diary" /></a>
-              <div>
-                <div class="app-platform">ANDROID · iOS · JETPACK COMPOSE</div>
-                <h3 class="app-name"><a href="/mydiary/">My Diary</a></h3>
-              </div>
-            </div>
-            <p class="app-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Android (Jetpack Compose) ve iOS’ta yayında! Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</p>
-            <div class="tags">
-              <span>Jetpack Compose</span>
-              <span>iOS App Store</span>
-              <span>Ses Kaydı</span>
-              <span>PDF Export</span>
-            </div>
+        <!-- 2. My Diary -->
+        <div class="app-card glow-card reveal reveal-d1" data-app-card-idx="1">
+          <a href="/mydiary/" class="app-icon has-logo"><img src="/assets/apps/mydiary.png" width="64" height="64" alt="My Diary" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/mydiary/" style="color:inherit;text-decoration:none">My Diary</a></div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Android (Jetpack Compose) ve iOS’ta yayında! Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</div>
             <div class="app-btns">
               <a href="/mydiary/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
               <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">
@@ -734,67 +996,41 @@
               <a href="/mydiary/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/mydiary/" class="viz" aria-label="My Diary Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/mydiary.png" alt="My Diary" /></div>
-          </a>
-        </li>
+        </div>
 
-        <!-- App 03: YDS Kelime KitApp (NEW!) -->
-        <li class="svc-card app-card" data-app-href="/ydskelime/">
-          <span class="no" aria-hidden="true">03</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/ydskelime/" class="app-icon yds has-logo" aria-label="YDS Kelime KitApp Web Sitesi"><img src="/assets/apps/ydskelime.png" width="64" height="64" alt="YDS Kelime KitApp" /></a>
-              <div>
-                <div class="app-platform">iOS · ANDROID (YAKINDA) · FLUTTER &amp; DRIFT</div>
-                <h3 class="app-name"><a href="/ydskelime/">YDS Kelime KitApp</a></h3>
-              </div>
-            </div>
-            <p class="app-desc" data-i18n="appYds">YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar (SRS), seviye bazlı dersler, interaktif quizler ve %100 çevrimdışı kelime kartları. iOS App Store’da yayında, Android yakında.</p>
-            <div class="tags">
-              <span>YDS · YÖKDİL · YDT</span>
-              <span>Aralıklı Tekrar (SRS)</span>
-              <span>Drift SQLite</span>
-              <span>Offline Sözlük</span>
-            </div>
+        <!-- 3. Kube Rush -->
+        <div class="app-card glow-card reveal reveal-d2" data-app-card-idx="2">
+          <a href="/kuberush/" class="app-icon kube has-logo"><img src="/assets/apps/kuberush.png" width="64" height="64" alt="Kube Rush" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/kuberush/" style="color:inherit;text-decoration:none">Kube Rush</a></div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</div>
             <div class="app-btns">
-              <a href="/ydskelime/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
-              <a href="https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129" target="_blank" rel="noopener noreferrer" class="app-btn ios">
+              <a href="/kuberush/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
+              <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
+                Android
+              </a>
+              <a href="https://apps.apple.com/us/app/kube-rush/id6790684293" target="_blank" rel="noopener noreferrer" class="app-btn ios">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                 iOS
               </a>
-              <span class="app-btn pending" data-i18n="androidPending">⏳ Android (Yakında)</span>
-              <a href="/ydskelime/#qr" class="app-btn qr">
+              <a href="/kuberush/#qr" class="app-btn qr">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h2v2h-2zM18 14h3v3h-3zM14 18h2v3h-2zM18 21h3v-3h-3zM21 18v3"/></svg>
                 <span data-i18n="qrCode">QR Kod</span>
               </a>
-              <a href="/ydskelime/story/" class="app-btn qr ig-story">📸 Story</a>
+              <a href="/kuberush/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/ydskelime/" class="viz" aria-label="YDS Kelime KitApp Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" /></div>
-          </a>
-        </li>
+        </div>
 
-        <!-- App 04: App Plaka Kontrol -->
-        <li class="svc-card app-card" data-app-href="/appplaka/">
-          <span class="no" aria-hidden="true">04</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/appplaka/" class="app-icon plaka has-logo" aria-label="App Plaka Kontrol Web Sitesi"><img src="/assets/apps/appplaka.png" width="64" height="64" alt="App Plaka Kontrol" /></a>
-              <div>
-                <div class="app-platform">ANDROID · iOS · AI 7-KRİTER DENETİM</div>
-                <h3 class="app-name"><a href="/appplaka/">App Plaka Kontrol</a></h3>
-              </div>
-            </div>
-            <p class="app-desc" data-i18n="appPlaka">APP plaka mı, standart plaka mı? DIN 1451 font, TR hologram, soğuk mühür ve 2024+ QR kod dahil 7 kriterde AI plaka uygunluk analizi.</p>
-            <div class="tags">
-              <span>7 Kriter AI Analiz</span>
-              <span>DIN 1451 vs APP</span>
-              <span>QR &amp; Soğuk Mühür</span>
-            </div>
+        <!-- 4. App Plaka Kontrol -->
+        <div class="app-card glow-card reveal reveal-d3" data-app-card-idx="3">
+          <a href="/appplaka/" class="app-icon plaka has-logo"><img src="/assets/apps/appplaka.png" width="64" height="64" alt="App Plaka Kontrol" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/appplaka/" style="color:inherit;text-decoration:none">App Plaka Kontrol</a></div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc" data-i18n="appPlaka">APP plaka mı, standart plaka mı? DIN 1451 font, TR hologram, soğuk mühür ve 2024+ QR kod dahil 7 kriterde AI plaka uygunluk analizi.</div>
             <div class="app-btns">
               <a href="/appplaka/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
               <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">
@@ -812,29 +1048,15 @@
               <a href="/appplaka/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/appplaka/" class="viz" aria-label="App Plaka Kontrol Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" /></div>
-          </a>
-        </li>
+        </div>
 
-        <!-- App 05: Anı Yakala -->
-        <li class="svc-card app-card" data-app-href="/aniyakala/">
-          <span class="no" aria-hidden="true">05</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/aniyakala/" class="app-icon moment has-logo" aria-label="Anı Yakala Web Sitesi"><img src="/assets/apps/aniyakala.png" width="64" height="64" alt="Anı Yakala" /></a>
-              <div>
-                <div class="app-platform">ANDROID · iOS · GPS CAMERA</div>
-                <h3 class="app-name"><a href="/aniyakala/">Anı Yakala / Moment Capture</a></h3>
-              </div>
-            </div>
-            <p class="app-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</p>
-            <div class="tags">
-              <span>GPS Damgası</span>
-              <span>Canlı Harita</span>
-              <span>Özel Filigran</span>
-            </div>
+        <!-- 5. Anı Yakala / Moment Capture -->
+        <div class="app-card glow-card reveal" data-app-card-idx="4">
+          <a href="/aniyakala/" class="app-icon moment has-logo"><img src="/assets/apps/aniyakala.png" width="64" height="64" alt="Anı Yakala" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/aniyakala/" style="color:inherit;text-decoration:none">Anı Yakala / Moment Capture</a></div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</div>
             <div class="app-btns">
               <a href="/aniyakala/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
               <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">
@@ -852,29 +1074,15 @@
               <a href="/aniyakala/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/aniyakala/" class="viz" aria-label="Anı Yakala Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/aniyakala.png" alt="Anı Yakala" /></div>
-          </a>
-        </li>
+        </div>
 
-        <!-- App 06: Su İçme Hatırlatıcısı -->
-        <li class="svc-card app-card" data-app-href="/suicme/">
-          <span class="no" aria-hidden="true">06</span>
-          <div class="tx">
-            <div class="svc-app-head">
-              <a href="/suicme/" class="app-icon hydrate has-logo" aria-label="Su İçme Hatırlatıcısı Web Sitesi"><img src="/assets/apps/suicme.png" width="64" height="64" alt="Su İçme Hatırlatıcısı" /></a>
-              <div>
-                <div class="app-platform">ANDROID · iOS · HEALTH &amp; HABIT</div>
-                <h3 class="app-name"><a href="/suicme/" data-i18n="appHydrateName">Su İçme Hatırlatıcısı</a></h3>
-              </div>
-            </div>
-            <p class="app-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</p>
-            <div class="tags">
-              <span>Akıllı Bildirim</span>
-              <span>Günlük Hedef</span>
-              <span>İstatistik Grafikleri</span>
-            </div>
+        <!-- 6. Su İçme Hatırlatıcısı -->
+        <div class="app-card glow-card reveal reveal-d1" data-app-card-idx="5">
+          <a href="/suicme/" class="app-icon hydrate has-logo"><img src="/assets/apps/suicme.png" width="64" height="64" alt="Su İçme Hatırlatıcısı" /></a>
+          <div class="app-content">
+            <div class="app-name"><a href="/suicme/" style="color:inherit;text-decoration:none" data-i18n="appHydrateName">Su İçme Hatırlatıcısı</a></div>
+            <div class="app-platform">Android · iOS</div>
+            <div class="app-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</div>
             <div class="app-btns">
               <a href="/suicme/" class="app-btn site-btn" data-i18n="appSiteBtn">🌐 Uygulama Sitesi →</a>
               <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener noreferrer" class="app-btn">
@@ -892,832 +1100,342 @@
               <a href="/suicme/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-          <a href="/suicme/" class="viz" aria-label="Su İçme Hatırlatıcısı Web Sitesi">
-            <i></i><i></i><i></i>
-            <div class="viz-core"><img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" /></div>
-          </a>
-        </li>
-      </ol>
-
-      <!-- Always-Visible 6-App Live Dock at Bottom of #svcPin -->
-      <div class="svc-all-dock" id="svcAllDock" aria-label="Tüm 6 mobil uygulama hızlı erişim">
-        <a href="/kuberush/" class="sad-item active" data-dock-idx="0">
-          <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
-          <div>
-            <strong>Kube Rush</strong>
-            <span>Unity 3D · iOS &amp; Android</span>
-          </div>
-          <em>Site →</em>
-        </a>
-        <a href="/mydiary/" class="sad-item" data-dock-idx="1">
-          <img src="/assets/apps/mydiary.png" alt="My Diary" />
-          <div>
-            <strong>My Diary</strong>
-            <span>Compose · iOS &amp; Android</span>
-          </div>
-          <em>Site →</em>
-        </a>
-        <a href="/ydskelime/" class="sad-item" data-dock-idx="2">
-          <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
-          <div>
-            <strong>YDS Kelime KitApp</strong>
-            <span>SRS · iOS Yayında</span>
-          </div>
-          <em>Site →</em>
-        </a>
-        <a href="/appplaka/" class="sad-item" data-dock-idx="3">
-          <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
-          <div>
-            <strong>App Plaka Kontrol</strong>
-            <span>7 Kriter AI · iOS &amp; Android</span>
-          </div>
-          <em>Site →</em>
-        </a>
-        <a href="/aniyakala/" class="sad-item" data-dock-idx="4">
-          <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
-          <div>
-            <strong>Anı Yakala</strong>
-            <span>GPS Kamera · iOS &amp; Android</span>
-          </div>
-          <em>Site →</em>
-        </a>
-        <a href="/suicme/" class="sad-item" data-dock-idx="5">
-          <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
-          <div>
-            <strong>Su İçme Hatırlatıcısı</strong>
-            <span>Sağlık · iOS &amp; Android</span>
-          </div>
-          <em>Site →</em>
-        </a>
+        </div>
       </div>
-
-      <div class="svc-bar" id="svcBar"></div>
     </div>
   </section>
 
   <!-- =====================================================================
-       SECTION 03B · UYGULAMA ÖZEL WEB SİTELERİ VİTRİNİ (Direct Portal Grid)
+       PROJECTS (DEMO PROJELER): ESKİ YAPININ TAMAMI (.projects-grid)
+       + ÜSTÜNE EKLENEN 3 VERSİYONLU MÜŞTERİ SATIŞ & 3D PORTAL ÖNİZLEME
        ===================================================================== -->
-  <section class="app-sites-sec" id="app-sites" aria-labelledby="h-app-sites">
+  <section id="projects" data-web-ver="portal">
     <div class="container">
-      <div class="app-sites-head">
-        <span class="app-sites-badge" data-i18n="appSitesBadge">📱 UYGULAMA ÖZEL WEB SİTELERİ · 6 ÜRÜN PORTALI</span>
-        <h3 id="h-app-sites" data-i18n="appSitesTitle">Her Uygulamanın Kendi Özel Web Sitesini Keşfedin</h3>
-        <p data-i18n="appSitesSub">Ekran görüntüleri, teknik mimari, sıkça sorulan sorular, mağaza linkleri ve QR kodlar için istediğiniz uygulamaya tıklayın:</p>
-      </div>
-      <div class="app-sites-grid">
-        <a href="/ydskelime/" class="app-portal-card is-new">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" /></div>
-            <span class="apc-status pending" data-i18n="appStatusIosPending">iOS Yayında · Android Bekliyor</span>
-          </div>
-          <h4>YDS Kelime KitApp</h4>
-          <p class="apc-url">dogusipeksac.com.tr/ydskelime</p>
-          <p class="apc-desc" data-i18n="appYds">YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar (SRS), seviye bazlı dersler, interaktif quizler ve %100 çevrimdışı kelime kartları. iOS App Store’da yayında, Android yakında.</p>
-          <div class="apc-foot">
-            <span>Flutter · Drift SQLite · SRS</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
+      <span class="section-label reveal" data-i18n="projectsLabel">git checkout web</span>
+      <h2 class="section-title reveal" data-i18n="projectsTitle">Demo Projeler</h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-sub reveal" data-i18n-html="projectsSub">Müşteri demoları. Canlı, tıklanır, tarayıcıda çalışır — işletmeniz için <strong>3 farklı tasarım versiyonuyla</strong> markanıza uyarlanıp teslim edilir.</p>
 
-        <a href="/mydiary/" class="app-portal-card is-new">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/mydiary.png" alt="My Diary" /></div>
-            <span class="apc-status" data-i18n="appStatusBoth">Android · iOS Yayında</span>
-          </div>
-          <h4>My Diary</h4>
-          <p class="apc-url">dogusipeksac.com.tr/mydiary</p>
-          <p class="apc-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Android (Jetpack Compose) ve iOS’ta yayında! Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</p>
-          <div class="apc-foot">
-            <span>Compose · Swift · PDF</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
-
-        <a href="/kuberush/" class="app-portal-card">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/kuberush.png" alt="Kube Rush" /></div>
-            <span class="apc-status" data-i18n="appStatusBoth">Android · iOS Yayında</span>
-          </div>
-          <h4>Kube Rush</h4>
-          <p class="apc-url">dogusipeksac.com.tr/kuberush</p>
-          <p class="apc-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</p>
-          <div class="apc-foot">
-            <span>Unity 3D · 60 FPS</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
-
-        <a href="/appplaka/" class="app-portal-card">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" /></div>
-            <span class="apc-status" data-i18n="appStatusBoth">Android · iOS Yayında</span>
-          </div>
-          <h4>App Plaka Kontrol</h4>
-          <p class="apc-url">dogusipeksac.com.tr/appplaka</p>
-          <p class="apc-desc" data-i18n="appPlaka">APP plaka mı, standart plaka mı? DIN 1451 font, TR hologram, soğuk mühür ve 2024+ QR kod dahil 7 kriterde AI plaka uygunluk analizi.</p>
-          <div class="apc-foot">
-            <span>7 Kriter AI · DIN 1451 vs APP</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
-
-        <a href="/aniyakala/" class="app-portal-card">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/aniyakala.png" alt="Anı Yakala" /></div>
-            <span class="apc-status" data-i18n="appStatusBoth">Android · iOS Yayında</span>
-          </div>
-          <h4>Anı Yakala / Moment Capture</h4>
-          <p class="apc-url">dogusipeksac.com/aniyakala</p>
-          <p class="apc-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</p>
-          <div class="apc-foot">
-            <span>GPS Kamera · Canlı Harita</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
-
-        <a href="/suicme/" class="app-portal-card">
-          <div class="apc-top">
-            <div class="apc-icon"><img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" /></div>
-            <span class="apc-status" data-i18n="appStatusBoth">Android · iOS Yayında</span>
-          </div>
-          <h4 data-i18n="appHydrateName">Su İçme Hatırlatıcısı</h4>
-          <p class="apc-url">dogusipeksac.com/suicme</p>
-          <p class="apc-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</p>
-          <div class="apc-foot">
-            <span>Sağlık · Akıllı Bildirim</span>
-            <b data-i18n="appSiteGo">Siteye Git →</b>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 04 · YETENEKLER (Pinned 3D Depth Portal Grid — 2 Z-Space Waves)
-       ===================================================================== -->
-  <section class="pk-track" id="skills" aria-labelledby="h-skills">
-    <div class="pk-pin" id="pkPin">
-      <div class="pk-title">
-        <span class="section-label" data-i18n="skillsLabel">cat ./stack · 03</span>
-        <div class="pk-title-stack">
-          <div class="t" id="pkT1">
-            <h2 id="h-skills" data-i18n="skillsTitle">Teknoloji Cephaneliği</h2>
-            <p class="pk-sub" data-i18n="skillsWave1">01 · Core Mobile &amp; UI Mimarisi</p>
-          </div>
-          <div class="t" id="pkT2">
-            <h2 data-i18n="skillsTitle">Teknoloji Cephaneliği</h2>
-            <p class="pk-sub" data-i18n="skillsWave2">02 · Oyun, Bulut, DevOps &amp; Güvenlik</p>
-          </div>
-        </div>
-        <div class="pk-wave-switch">
-          <button type="button" class="pk-wbtn act" data-wave="0" data-i18n="skillsWaveBtn1">01 · Core Mobile</button>
-          <button type="button" class="pk-wbtn" data-wave="1" data-i18n="skillsWaveBtn2">02 · Oyun &amp; Güvenlik</button>
-        </div>
-      </div>
-
-      <!-- Wave 1: Core Mobile -->
-      <div class="pk-grid g1" id="pkG1">
-        <article class="pk-card hot skill-card">
-          <span class="badge">CORE</span>
-          <span class="skill-icon">🤖</span>
-          <h3 class="skill-name">Android SDK</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescAndroid">Native SDK, Jetpack, WorkManager, Room, Hilt ve derin sistem entegrasyonları.</p>
-          <div class="pk-tags"><span>Jetpack</span><span>Hilt</span><span>Room</span></div>
-        </article>
-        <article class="pk-card hot skill-card">
-          <span class="badge">PRIMARY</span>
-          <span class="skill-icon">🟣</span>
-          <h3 class="skill-name">Kotlin</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescKotlin">Coroutines, Flow, KMP hazırlığı, DSL tasarımı ve fonksiyonel mimari.</p>
-          <div class="pk-tags"><span>Coroutines</span><span>StateFlow</span><span>KMP</span></div>
-        </article>
-        <article class="pk-card hot skill-card">
-          <span class="badge">UI</span>
-          <span class="skill-icon">🎨</span>
-          <h3 class="skill-name">Jetpack Compose</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescCompose">Custom Layout, Canvas/Shader animasyonları, Recomposition optimizasyonu ve Material 3.</p>
-          <div class="pk-tags"><span>Material 3</span><span>Canvas</span><span>60 FPS</span></div>
-        </article>
-        <article class="pk-card skill-card">
-          <span class="skill-icon">💙</span>
-          <h3 class="skill-name">Flutter</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescFlutter">Tek kod tabanıyla iOS ve Android için 60fps akıcı, özel tasarım ürünler.</p>
-          <div class="pk-tags"><span>Dart</span><span>Cross-Platform</span><span>Custom UI</span></div>
-        </article>
-        <article class="pk-card skill-card">
-          <span class="skill-icon">🍎</span>
-          <h3 class="skill-name">Swift / iOS</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescSwift">SwiftUI &amp; UIKit ile App Store yayınına hazır native iOS uygulamaları.</p>
-          <div class="pk-tags"><span>SwiftUI</span><span>Keychain</span><span>App Store</span></div>
-        </article>
-      </div>
-
-      <!-- Wave 2: Game Engine, Cloud, DevOps & Security -->
-      <div class="pk-grid g2" id="pkG2">
-        <article class="pk-card hot skill-card">
-          <span class="badge">ENGINE</span>
-          <span class="skill-icon">🎮</span>
-          <h3 class="skill-name">Unity</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescUnity">C#, fizik mekanikleri, shader, reklam/IAP entegrasyonu ve hypercasual oyun döngüsü.</p>
-          <div class="pk-tags"><span>C#</span><span>3D / 2D</span><span>AdMob</span></div>
-        </article>
-        <article class="pk-card skill-card">
-          <span class="skill-icon">☕</span>
-          <h3 class="skill-name">Java</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescJava">Kurumsal legacy sistemler, JNI köprüleri ve çok katmanlı sağlam backend/mobil kod.</p>
-          <div class="pk-tags"><span>JVM</span><span>Enterprise</span><span>OOP</span></div>
-        </article>
-        <article class="pk-card skill-card">
-          <span class="skill-icon">🔥</span>
-          <h3 class="skill-name">Firebase</h3>
-          <p class="sub" data-i18n="experienced">İleri Seviye</p>
-          <p class="pk-desc" data-i18n="skDescFirebase">Firestore, Auth, Crashlytics, Remote Config, FCM ve gerçek zamanlı analitik.</p>
-          <div class="pk-tags"><span>Crashlytics</span><span>Firestore</span><span>FCM</span></div>
-        </article>
-        <article class="pk-card skill-card">
-          <span class="skill-icon">🔧</span>
-          <h3 class="skill-name">Git / Azure DevOps</h3>
-          <p class="sub">CI/CD &amp; VCS</p>
-          <p class="pk-desc" data-i18n="skDescDevops">Git akışları, Azure DevOps pipeline’ları, Fastlane ve otomatik mağaza dağıtımı.</p>
-          <div class="pk-tags"><span>Pipelines</span><span>Gradle</span><span>Fastlane</span></div>
-        </article>
-        <article class="pk-card hot skill-card">
-          <span class="badge">FINTECH</span>
-          <span class="skill-icon">🛡️</span>
-          <h3 class="skill-name" data-i18n="mobileSec">Mobil Güvenlik</h3>
-          <p class="sub">Pentest &amp; SSL Pinning</p>
-          <p class="pk-desc" data-i18n="skDescSec">SSL Pinning, NFC/HCE, Keystore/Keychain şifreleme ve tersine mühendislik koruması.</p>
-          <div class="pk-tags"><span>NFC / HCE</span><span>SSL Pinning</span><span>Samsung Pay</span></div>
-        </article>
-      </div>
-
-      <p class="pk-note" data-i18n="skillsSub">Kotlin’den Unity’ye — üretim hattında her gün açtığım silahlar. Kaydırdıkça katmanlar açılır.</p>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 05 · DEMO PROJELER (Sticky Split + Orbital + Interactive Filter)
-       ===================================================================== -->
-  <section id="projects" class="web-showcase-sec" data-web-ver="portal">
-    <!-- PART A: PINNED 3D NESTED WEB SHOWROOM & VERSION STUDIO -->
-    <div class="web-track" id="webPin">
-      <div class="web-pin-inner">
-        <div class="web-pin-head">
-          <div class="web-pin-titles">
-            <span class="section-label" data-i18n="projectsLabel">git checkout web · 04</span>
-            <h2 class="section-title" data-i18n="projectsTitle">Satışa Hazır Web Siteleri &amp; 3D Vitrin</h2>
-            <p class="section-sub" data-i18n-html="projectsSub">İşletmeniz için markanıza özel uyarlanıp teslim edilen, kaydırdıkça <strong>iç içe 3D açılan</strong> ve <strong>3 farklı tasarım versiyonuyla</strong> sunulan canlı müşteri siteleri.</p>
-          </div>
-
-          <div class="web-ver-bar" id="webVerSwitch" role="group" aria-label="Canlı Versiyon Seçici">
-            <span class="web-ver-lbl" data-i18n="webVerLabel">Canlı Versiyon Seç:</span>
+      <!-- Commercial Client Sales Banner + Live 3-Version Switcher -->
+      <div class="web-sale-banner reveal" style="margin-top:2rem;">
+        <div class="wsb-copy">
+          <span class="wsb-badge" data-i18n="webBannerBadge">💼 MÜŞTERİYE ÖZEL ANAHTAR TESLİM WEB PAKETLERİ · 3 VERSİYON</span>
+          <h3 data-i18n="webBannerTitle">Beğendiğiniz Web Sitesini Kendi Markanızla Satın Alın</h3>
+          <p data-i18n="webBannerDesc">Aşağıdaki 12 canlı web projesinin tamamı; logonuz, kurumsal renkleriniz, içerikleriniz ve kendi alan adınızla (.com / .com.tr) işletmenize uyarlanarak teslim edilir. Her projeyi 3 farklı tasarım versiyonuyla canlı inceleyebilirsiniz:</p>
+          <div class="web-ver-bar" id="webVerSwitch" role="group" aria-label="Canlı Versiyon Seçici" style="margin-top:1rem;">
+            <span class="web-ver-lbl" data-i18n="webVerLabel">Versiyon Seç:</span>
             <button type="button" class="wv-btn active" data-wver="portal" data-i18n="webVer1">V1 · 3D İnteraktif Portal</button>
             <button type="button" class="wv-btn" data-wver="editorial" data-i18n="webVer2">V2 · Editorial Klasik</button>
-            <button type="button" class="wv-btn" data-wver="luxe" data-i18n="webVer3">V3 · Bakır &amp; Gece Lüks</button>
+            <button type="button" class="wv-btn" data-wver="luxe" data-i18n="webVer3">V3 · Gece Lüks</button>
           </div>
-        </div>
-
-        <div class="web-stack" id="webStack">
-          <!-- DECK 01: BEAUTY & CLINIC -->
-          <article class="web-deck-card" data-idx="0">
-            <div class="wd-info">
-              <div class="wd-badges">
-                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-                <span class="wd-tag" data-i18n="webDeck1Tag">PAKET 01 · GÜZELLİK, ESTETİK &amp; KLİNİK</span>
-              </div>
-              <h3 class="wd-title" data-i18n="webDeck1Title">Galata No5 Beauty &amp; Vera Klinik</h3>
-              <p class="wd-desc" data-i18n="webDeck1Desc">Kuaför, güzellik stüdyosu, diş ve estetik klinikleri için randevu, önce/sonra karşılaştırma, uzman vitrini ve doğrudan WhatsApp dönüşüm kurgusu. 3 farklı versiyonla markanıza özel teslim.</p>
-              <div class="wd-vers-preview">
-                <a href="/galatano5/?v=portal" class="wd-vlink" data-base="/galatano5/">✦ Galata No5 (V1/V2/V3) →</a>
-                <a href="/vera/?v=portal" class="wd-vlink" data-base="/vera/">◇ Vera Klinik (V1/V2/V3) →</a>
-              </div>
-              <div class="wd-actions">
-                <a href="/galatano5/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/galatano5/" data-i18n="viewSite">Canlı Vitrin →</a>
-                <a href="mailto:dogusipeksac@gmail.com?subject=G%C3%BCzellik%20%26%20Klinik%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-              </div>
-            </div>
-
-            <div class="wd-stage">
-              <div class="wd-browser">
-                <div class="wd-b-top">
-                  <div class="wd-dots"><i></i><i></i><i></i></div>
-                  <span class="wd-url">https://dogusipeksac.com/galatano5 · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
-                </div>
-                <div class="wd-b-screen">
-                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80')">
-                    <div class="wd-inner-overlay">
-                      <span class="wd-io-k">GALATA NO5 · VERA CLINIC</span>
-                      <h4>Güzelliğinize &amp; Gülüşünüze Yeni Bir Yorum</h4>
-                      <p>Online Randevu · Önce/Sonra · Doktor &amp; Ekip · TR/EN</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80')">
-                <div class="wd-phone-notch"></div>
-                <div class="wd-phone-cap">
-                  <span>VERA KLİNİK</span>
-                  <b>Mobil Randevu</b>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- DECK 02: FINE DINING & QR MENU -->
-          <article class="web-deck-card" data-idx="1">
-            <div class="wd-info">
-              <div class="wd-badges">
-                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-                <span class="wd-tag" data-i18n="webDeck2Tag">PAKET 02 · RESTORAN, FINE DINING &amp; QR MENÜ</span>
-              </div>
-              <h3 class="wd-title" data-i18n="webDeck2Title">Sarnıç · Dem Kafe · Ocak Izgara</h3>
-              <p class="wd-desc" data-i18n="webDeck2Desc">Fine dining masa rezervasyonundan yeni nesil QR menülere: canlı ürün arama, tek tıkla Wi-Fi kopyalama, masadan garson ve hesap çağırma sistemi. 3 farklı versiyonla satışta.</p>
-              <div class="wd-vers-preview">
-                <a href="/sarnic/?v=portal" class="wd-vlink" data-base="/sarnic/">🍽 Sarnıç Fine Dining →</a>
-                <a href="/dem/?v=portal" class="wd-vlink" data-base="/dem/">☕ Dem QR Menü →</a>
-                <a href="/ocak/?v=portal" class="wd-vlink" data-base="/ocak/">🔥 Ocak QR Menü →</a>
-              </div>
-              <div class="wd-actions">
-                <a href="/sarnic/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/sarnic/" data-i18n="viewSite">Canlı Vitrin →</a>
-                <a href="mailto:dogusipeksac@gmail.com?subject=Restoran%20%26%20QR%20Men%C3%BC%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-              </div>
-            </div>
-
-            <div class="wd-stage">
-              <div class="wd-browser">
-                <div class="wd-b-top">
-                  <div class="wd-dots"><i></i><i></i><i></i></div>
-                  <span class="wd-url">https://dogusipeksac.com/sarnic · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
-                </div>
-                <div class="wd-b-screen">
-                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80')">
-                    <div class="wd-inner-overlay">
-                      <span class="wd-io-k">SARNIÇ · DEM · OCAK</span>
-                      <h4>Tek Menü. Tek Oda. Masadaki Akıllı QR.</h4>
-                      <p>Masa Rezervasyonu · Canlı QR Menü · Garson &amp; Hesap Çağır</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80')">
-                <div class="wd-phone-notch"></div>
-                <div class="wd-phone-cap">
-                  <span>DEM &amp; OCAK</span>
-                  <b>Canlı QR Menü</b>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- DECK 03: ARCHITECTURE, BOUTIQUE HOTEL & PHOTOGRAPHY -->
-          <article class="web-deck-card" data-idx="2">
-            <div class="wd-info">
-              <div class="wd-badges">
-                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-                <span class="wd-tag" data-i18n="webDeck3Tag">PAKET 03 · MİMARLIK, BUTİK OTEL &amp; STÜDYO</span>
-              </div>
-              <h3 class="wd-title" data-i18n="webDeck3Title">Atelier 41 · Pera House · Kırık Işık</h3>
-              <p class="wd-desc" data-i18n="webDeck3Desc">Mimarlık ofisleri, %0 komisyonlu butik oteller ve fotoğraf/prodüksiyon stüdyoları için iç içe açılan 3D proje galerisi, oda/tarih seçimi ve keşif talep formları.</p>
-              <div class="wd-vers-preview">
-                <a href="/atelier41/?v=portal" class="wd-vlink" data-base="/atelier41/">▣ Atelier 41 Mimarlık →</a>
-                <a href="/pera-house/?v=portal" class="wd-vlink" data-base="/pera-house/">⌂ Pera House Otel →</a>
-                <a href="/kirik-isik/?v=portal" class="wd-vlink" data-base="/kirik-isik/">◎ Kırık Işık Fotoğraf →</a>
-              </div>
-              <div class="wd-actions">
-                <a href="/atelier41/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/atelier41/" data-i18n="viewSite">Canlı Vitrin →</a>
-                <a href="mailto:dogusipeksac@gmail.com?subject=Mimarlik%20%26%20Butik%20Otel%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-              </div>
-            </div>
-
-            <div class="wd-stage">
-              <div class="wd-browser">
-                <div class="wd-b-top">
-                  <div class="wd-dots"><i></i><i></i><i></i></div>
-                  <span class="wd-url">https://dogusipeksac.com/atelier41 · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
-                </div>
-                <div class="wd-b-screen">
-                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80')">
-                    <div class="wd-inner-overlay">
-                      <span class="wd-io-k">ATELIER 41 · PERA HOUSE · KIRIK IŞIK</span>
-                      <h4>Mekânı Çizen Stüdyo &amp; Şehrin İçinde Bir Ev</h4>
-                      <p>3D Proje Galerisi · Komisyonsuz Oda Rezervasyonu · Lookbook</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80')">
-                <div class="wd-phone-notch"></div>
-                <div class="wd-phone-cap">
-                  <span>PERA HOUSE</span>
-                  <b>Oda &amp; Tarih Seç</b>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- DECK 04: DYNAMIC STOREFRONT & CORPORATE SERVICES -->
-          <article class="web-deck-card" data-idx="3">
-            <div class="wd-info">
-              <div class="wd-badges">
-                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-                <span class="wd-tag" data-i18n="webDeck4Tag">PAKET 04 · E-TİCARET, MAĞAZA &amp; KURUMSAL SERVİS</span>
-              </div>
-              <h3 class="wd-title" data-i18n="webDeck4Title">Çizgi Spor · AirFlow Klima · ProFix</h3>
-              <p class="wd-desc" data-i18n="webDeck4Desc">Seçilen kategoriye göre tüm teması canlı değişen dinamik mağaza vitrini ve 7/24 teknik servis / tadilat işletmeleri için yüksek dönüşümlü teklif toplama siteleri.</p>
-              <div class="wd-vers-preview">
-                <a href="/magaza/?v=portal" class="wd-vlink" data-base="/magaza/">🏟️ Çizgi Spor Mağaza →</a>
-                <a href="/aircondition/?v=portal" class="wd-vlink" data-base="/aircondition/">🌬️ AirFlow Klima →</a>
-                <a href="/tamirat/?v=portal" class="wd-vlink" data-base="/tamirat/">🔧 ProFix Tamirat →</a>
-              </div>
-              <div class="wd-actions">
-                <a href="/magaza/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/magaza/" data-i18n="viewSite">Canlı Vitrin →</a>
-                <a href="mailto:dogusipeksac@gmail.com?subject=E-Ticaret%20%26%20Kurumsal%20Servis%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-              </div>
-            </div>
-
-            <div class="wd-stage">
-              <div class="wd-browser">
-                <div class="wd-b-top">
-                  <div class="wd-dots"><i></i><i></i><i></i></div>
-                  <span class="wd-url">https://dogusipeksac.com/magaza · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
-                </div>
-                <div class="wd-b-screen">
-                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&q=80')">
-                    <div class="wd-inner-overlay">
-                      <span class="wd-io-k">ÇİZGİ SPOR · AIRFLOW · PROFIX</span>
-                      <h4>Branşa Göre Değişen Vitrin &amp; 7/24 Kurumsal Servis</h4>
-                      <p>Dinamik E-Ticaret Sepeti · Ücretsiz Keşif Formu · Acil Hat</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80')">
-                <div class="wd-phone-notch"></div>
-                <div class="wd-phone-cap">
-                  <span>PROFIX &amp; AIRFLOW</span>
-                  <b>7/24 Hızlı Teklif</b>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="web-progress">
-          <span id="webIdx">01</span>
-          <div class="web-bar"><i id="webBar"></i></div>
-          <span>04</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART B: COMMERCIAL CLIENT SALES BANNER + 12 MULTI-VERSION BROWSER PORTAL CARDS -->
-    <div class="corp">
-      <div class="corp-words" id="projWords" aria-hidden="true">READY TO SELL · 3 VERSIONS · 3D PORTAL</div>
-
-      <div class="web-sale-banner reveal">
-        <div class="wsb-copy">
-          <span class="wsb-badge" data-i18n="webBannerBadge">💼 MÜŞTERİYE ÖZEL ANAHTAR TESLİM WEB PAKETLERİ</span>
-          <h3 data-i18n="webBannerTitle">Beğendiğiniz Web Sitesini Kendi Markanızla Satın Alın</h3>
-          <p data-i18n="webBannerDesc">Aşağıdaki 12 canlı web projesinin tamamı; logonuz, kurumsal renkleriniz, içerikleriniz ve kendi alan adınızla (.com / .com.tr) işletmenize uyarlanarak teslim edilir. Her projeyi 3 farklı tasarım versiyonuyla (V1: 3D Portal, V2: Editorial, V3: Bakır Lüks) canlı inceleyebilirsiniz.</p>
         </div>
         <div class="wsb-cta">
-          <a href="mailto:dogusipeksac@gmail.com?subject=Kurumsal%20Web%20Sitesi%20Sat%C4%B1n%20Alma%20%2F%20Teklif%20Talebi" class="btn btn-primary" data-i18n="webBannerCta">💼 Web Sitesi Fiyat &amp; Teklif Al →</a>
+          <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Kurumsal%20Web%20Sitesi%20Sat%C4%B1n%20Alma%20%2F%20Teklif%20Talebi" class="btn btn-primary" data-i18n="webBannerCta">💼 Web Sitesi Fiyat &amp; Teklif Al →</a>
         </div>
       </div>
 
-      <div class="corp-wrap">
-        <div class="corp-sticky">
-          <span class="section-label reveal" data-i18n="projectsLabel">git checkout web · 04</span>
-          <h2 class="section-title reveal" data-i18n="projectsTitle">Satışa Hazır Web Siteleri &amp; 3D Vitrin</h2>
-          <div class="section-divider reveal"></div>
-          <p class="section-sub reveal" data-i18n-html="projectsSub">İşletmeniz için markanıza özel uyarlanıp teslim edilen, kaydırdıkça <strong>iç içe 3D açılan</strong> ve <strong>3 farklı tasarım versiyonuyla</strong> sunulan canlı müşteri siteleri.</p>
+      <!-- Filter Pills -->
+      <div class="filter-pills" id="projFilters" role="group" aria-label="Proje filtreleri" style="margin-bottom:1.5rem;">
+        <button type="button" class="f-pill active" data-filter="all" data-i18n="projFilterAll">Tümü (12)</button>
+        <button type="button" class="f-pill" data-filter="food" data-i18n="projFilterFood">Restoran &amp; Kafe</button>
+        <button type="button" class="f-pill" data-filter="studio" data-i18n="projFilterStudio">Stüdyo &amp; Butik</button>
+        <button type="button" class="f-pill" data-filter="service" data-i18n="projFilterService">Hizmet &amp; Oyun</button>
+      </div>
 
-          <div class="filter-pills" id="projFilters" role="group" aria-label="Proje filtreleri">
-            <button type="button" class="f-pill active" data-filter="all" data-i18n="projFilterAll">Tümü (12)</button>
-            <button type="button" class="f-pill" data-filter="food" data-i18n="projFilterFood">Restoran &amp; Kafe</button>
-            <button type="button" class="f-pill" data-filter="studio" data-i18n="projFilterStudio">Stüdyo &amp; Butik</button>
-            <button type="button" class="f-pill" data-filter="service" data-i18n="projFilterService">Hizmet &amp; Oyun</button>
+      <!-- All 12 Demo Projects Grid -->
+      <div class="projects-grid" id="projectsGrid">
+        <!-- 01 AirFlow Klima -->
+        <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/aircondition/">
+          <a href="/aircondition/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/aircondition/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/aircondition</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🌬️</div>
+            <span class="corp-tag">Kurumsal İklimlendirme</span>
           </div>
-
-          <div class="orbit" aria-hidden="true">
-            <i></i><i></i><i></i><b></b>
+          <div class="project-name">AirFlow Klima</div>
+          <div class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</div>
+          <div class="proj-ver-Row">
+            <a href="/aircondition/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/aircondition/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/aircondition/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/aircondition/?v=portal" class="project-link-label wd-dyn-link" data-base="/aircondition/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=AirFlow%20Klima%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
         </div>
 
-        <div class="corp-list projects-grid" id="projectsGrid">
-          <!-- 01 GALATA NO5 -->
-          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/galatano5/">
-            <span class="n">01</span>
-            <a href="/galatano5/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/galatano5/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/galatano5</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">✦</span>
-              <span class="corp-tag">Beauty &amp; Editorial</span>
+        <!-- 02 ProFix Tamirat -->
+        <div class="corp-item project-card glow-card reveal reveal-d1" data-cat="service" data-slug="/tamirat/">
+          <a href="/tamirat/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/tamirat/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/tamirat</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
             </div>
-            <h3 class="project-name">Galata No5 Beauty</h3>
-            <p class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</p>
-            <div class="proj-ver-Row">
-              <a href="/galatano5/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/galatano5/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/galatano5/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/galatano5/?v=portal" class="project-link-label wd-dyn-link" data-base="/galatano5/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Galata%20No5%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🔧</div>
+            <span class="corp-tag">Tadilat &amp; Servis</span>
           </div>
-
-          <!-- 02 ATELIER 41 -->
-          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/atelier41/">
-            <span class="n">02</span>
-            <a href="/atelier41/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/atelier41/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/atelier41</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">▣</span>
-              <span class="corp-tag">Architecture</span>
-            </div>
-            <h3 class="project-name">Atelier 41</h3>
-            <p class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</p>
-            <div class="proj-ver-Row">
-              <a href="/atelier41/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/atelier41/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/atelier41/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/atelier41/?v=portal" class="project-link-label wd-dyn-link" data-base="/atelier41/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Atelier%2041%20Mimarlik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="project-name">ProFix Tamirat</div>
+          <div class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</div>
+          <div class="proj-ver-Row">
+            <a href="/tamirat/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/tamirat/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/tamirat/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
           </div>
-
-          <!-- 03 SARNIÇ -->
-          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/sarnic/">
-            <span class="n">03</span>
-            <a href="/sarnic/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/sarnic/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/sarnic</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🍽</span>
-              <span class="corp-tag">Fine Dining</span>
-            </div>
-            <h3 class="project-name">Sarnıç</h3>
-            <p class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</p>
-            <div class="proj-ver-Row">
-              <a href="/sarnic/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/sarnic/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/sarnic/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/sarnic/?v=portal" class="project-link-label wd-dyn-link" data-base="/sarnic/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Sarnic%20Restoran%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="proj-card-foot">
+            <a href="/tamirat/?v=portal" class="project-link-label wd-dyn-link" data-base="/tamirat/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=ProFix%20Tamirat%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
+        </div>
 
-          <!-- 04 KIRIK IŞIK -->
-          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/kirik-isik/">
-            <span class="n">04</span>
-            <a href="/kirik-isik/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/kirik-isik/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/kirik-isik</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">◎</span>
-              <span class="corp-tag">Photography</span>
+        <!-- 03 MiniPlay Games -->
+        <div class="corp-item project-card glow-card reveal reveal-d2" data-cat="service" data-slug="/games/">
+          <a href="/games" class="proj-mini-portal">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/games</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">CANLI OYUN PLATFORMU</span>
             </div>
-            <h3 class="project-name">Kırık Işık</h3>
-            <p class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</p>
-            <div class="proj-ver-Row">
-              <a href="/kirik-isik/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/kirik-isik/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/kirik-isik/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/kirik-isik/?v=portal" class="project-link-label wd-dyn-link" data-base="/kirik-isik/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Kirik%20Isik%20Fotograf%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🎮</div>
+            <span class="corp-tag">Web Arcade</span>
           </div>
-
-          <!-- 05 PERA HOUSE -->
-          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/pera-house/">
-            <span class="n">05</span>
-            <a href="/pera-house/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/pera-house/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/pera-house</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">⌂</span>
-              <span class="corp-tag">Boutique Hotel</span>
-            </div>
-            <h3 class="project-name">Pera House</h3>
-            <p class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</p>
-            <div class="proj-ver-Row">
-              <a href="/pera-house/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/pera-house/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/pera-house/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/pera-house/?v=portal" class="project-link-label wd-dyn-link" data-base="/pera-house/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Pera%20House%20Butik%20Otel%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="project-name">MiniPlay Games</div>
+          <div class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</div>
+          <div class="proj-card-foot">
+            <a href="/games" class="project-link-label" data-i18n="play">Oyna →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=MiniPlay%20Oyun%20Platformu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
+        </div>
 
-          <!-- 06 VERA KLİNİK -->
-          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/vera/">
-            <span class="n">06</span>
-            <a href="/vera/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/vera/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/vera</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">◇</span>
-              <span class="corp-tag">Clinic &amp; Health</span>
+        <!-- 04 Galata No5 Beauty -->
+        <div class="corp-item project-card glow-card reveal reveal-d3" data-cat="studio" data-slug="/galatano5/">
+          <a href="/galatano5/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/galatano5/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/galatano5</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
             </div>
-            <h3 class="project-name">Vera Klinik</h3>
-            <p class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</p>
-            <div class="proj-ver-Row">
-              <a href="/vera/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/vera/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/vera/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/vera/?v=portal" class="project-link-label wd-dyn-link" data-base="/vera/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Vera%20Klinik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">✦</div>
+            <span class="corp-tag">Beauty &amp; Editorial</span>
           </div>
-
-          <!-- 07 DEM QR MENU -->
-          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/dem/">
-            <span class="n">07</span>
-            <a href="/dem/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/dem/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/dem</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">☕</span>
-              <span class="corp-tag">QR Menu · Cafe</span>
-            </div>
-            <h3 class="project-name">Dem</h3>
-            <p class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</p>
-            <div class="proj-ver-Row">
-              <a href="/dem/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/dem/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/dem/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/dem/?v=portal" class="project-link-label wd-dyn-link" data-base="/dem/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Dem%20Kafe%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="project-name">Galata No5 Beauty</div>
+          <div class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</div>
+          <div class="proj-ver-Row">
+            <a href="/galatano5/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/galatano5/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/galatano5/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
           </div>
-
-          <!-- 08 OCAK QR MENU -->
-          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/ocak/">
-            <span class="n">08</span>
-            <a href="/ocak/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/ocak/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/ocak</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🔥</span>
-              <span class="corp-tag">QR Menu · Grill</span>
-            </div>
-            <h3 class="project-name">Ocak</h3>
-            <p class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</p>
-            <div class="proj-ver-Row">
-              <a href="/ocak/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/ocak/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/ocak/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/ocak/?v=portal" class="project-link-label wd-dyn-link" data-base="/ocak/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Ocak%20Restoran%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="proj-card-foot">
+            <a href="/galatano5/?v=portal" class="project-link-label wd-dyn-link" data-base="/galatano5/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Galata%20No5%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
+        </div>
 
-          <!-- 09 ÇİZGİ SPOR MAĞAZASI -->
-          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/magaza/">
-            <span class="n">09</span>
-            <a href="/magaza/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/magaza/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/magaza</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🏟️</span>
-              <span class="corp-tag">Dynamic Storefront</span>
+        <!-- 05 Atelier 41 -->
+        <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/atelier41/">
+          <a href="/atelier41/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/atelier41/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/atelier41</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
             </div>
-            <h3 class="project-name">Çizgi</h3>
-            <p class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</p>
-            <div class="proj-ver-Row">
-              <a href="/magaza/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/magaza/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/magaza/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/magaza/?v=portal" class="project-link-label wd-dyn-link" data-base="/magaza/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Cizgi%20E-Ticaret%20Magaza%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">▣</div>
+            <span class="corp-tag">Mimarlık Stüdyosu</span>
           </div>
-
-          <!-- 10 AIRFLOW KLİMA -->
-          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/aircondition/">
-            <span class="n">10</span>
-            <a href="/aircondition/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/aircondition/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/aircondition</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🌬️</span>
-              <span class="corp-tag">Corporate HVAC</span>
-            </div>
-            <h3 class="project-name">AirFlow Klima</h3>
-            <p class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</p>
-            <div class="proj-ver-Row">
-              <a href="/aircondition/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/aircondition/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/aircondition/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/aircondition/?v=portal" class="project-link-label wd-dyn-link" data-base="/aircondition/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=AirFlow%20Kurumsal%20Servis%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="project-name">Atelier 41</div>
+          <div class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</div>
+          <div class="proj-ver-Row">
+            <a href="/atelier41/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/atelier41/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/atelier41/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
           </div>
-
-          <!-- 11 PROFIX TAMİRAT -->
-          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/tamirat/">
-            <span class="n">11</span>
-            <a href="/tamirat/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/tamirat/">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/tamirat</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🔧</span>
-              <span class="corp-tag">Home Services</span>
-            </div>
-            <h3 class="project-name">ProFix Tamirat</h3>
-            <p class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</p>
-            <div class="proj-ver-Row">
-              <a href="/tamirat/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
-              <a href="/tamirat/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
-              <a href="/tamirat/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
-            </div>
-            <div class="proj-card-foot">
-              <a href="/tamirat/?v=portal" class="project-link-label wd-dyn-link" data-base="/tamirat/" data-i18n="viewSite">Canlı Vitrin →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=ProFix%20Tadilat%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
-            </div>
+          <div class="proj-card-foot">
+            <a href="/atelier41/?v=portal" class="project-link-label wd-dyn-link" data-base="/atelier41/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Atelier%2041%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
+        </div>
 
-          <!-- 12 MINIPLAY GAMES -->
-          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/games/">
-            <span class="n">12</span>
-            <a href="/games" class="proj-mini-portal">
-              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/games</span></div>
-              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=700&q=75')">
-                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
-              </div>
-            </a>
-            <div class="corp-item-top">
-              <span class="project-emoji">🎮</span>
-              <span class="corp-tag">Web Arcade</span>
+        <!-- 06 Sarnıç -->
+        <div class="corp-item project-card glow-card reveal reveal-d1" data-cat="food" data-slug="/sarnic/">
+          <a href="/sarnic/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/sarnic/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/sarnic</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
             </div>
-            <h3 class="project-name">MiniPlay Games</h3>
-            <p class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</p>
-            <div class="proj-card-foot">
-              <a href="/games" class="project-link-label" data-i18n="play">Oyna →</a>
-              <a href="mailto:dogusipeksac@gmail.com?subject=Oyun%20Platformu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🍽</div>
+            <span class="corp-tag">Fine Dining</span>
+          </div>
+          <div class="project-name">Sarnıç</div>
+          <div class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</div>
+          <div class="proj-ver-Row">
+            <a href="/sarnic/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/sarnic/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/sarnic/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/sarnic/?v=portal" class="project-link-label wd-dyn-link" data-base="/sarnic/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Sarnic%20Restoran%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 07 Kırık Işık -->
+        <div class="corp-item project-card glow-card reveal reveal-d2" data-cat="studio" data-slug="/kirik-isik/">
+          <a href="/kirik-isik/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/kirik-isik/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/kirik-isik</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
             </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">◎</div>
+            <span class="corp-tag">Fotoğraf &amp; Film</span>
+          </div>
+          <div class="project-name">Kırık Işık</div>
+          <div class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</div>
+          <div class="proj-ver-Row">
+            <a href="/kirik-isik/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/kirik-isik/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/kirik-isik/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/kirik-isik/?v=portal" class="project-link-label wd-dyn-link" data-base="/kirik-isik/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Kirik%20Isik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 08 Pera House -->
+        <div class="corp-item project-card glow-card reveal reveal-d3" data-cat="studio" data-slug="/pera-house/">
+          <a href="/pera-house/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/pera-house/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/pera-house</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">⌂</div>
+            <span class="corp-tag">Butik Otel</span>
+          </div>
+          <div class="project-name">Pera House</div>
+          <div class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</div>
+          <div class="proj-ver-Row">
+            <a href="/pera-house/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/pera-house/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/pera-house/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/pera-house/?v=portal" class="project-link-label wd-dyn-link" data-base="/pera-house/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Pera%20House%20Otel%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 09 Vera Klinik -->
+        <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/vera/">
+          <a href="/vera/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/vera/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/vera</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">◇</div>
+            <span class="corp-tag">Estetik &amp; Diş Kliniği</span>
+          </div>
+          <div class="project-name">Vera Klinik</div>
+          <div class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</div>
+          <div class="proj-ver-Row">
+            <a href="/vera/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/vera/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/vera/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/vera/?v=portal" class="project-link-label wd-dyn-link" data-base="/vera/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Vera%20Klinik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 10 Dem Kafe QR Menü -->
+        <div class="corp-item project-card glow-card reveal reveal-d1" data-cat="food" data-slug="/dem/">
+          <a href="/dem/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/dem/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/dem</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">☕</div>
+            <span class="corp-tag">QR Menü · Kafe</span>
+          </div>
+          <div class="project-name">Dem</div>
+          <div class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</div>
+          <div class="proj-ver-Row">
+            <a href="/dem/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/dem/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/dem/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/dem/?v=portal" class="project-link-label wd-dyn-link" data-base="/dem/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Dem%20Kafe%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 11 Çizgi Spor Mağazası -->
+        <div class="corp-item project-card glow-card reveal reveal-d2" data-cat="studio" data-slug="/magaza/">
+          <a href="/magaza/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/magaza/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/magaza</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🏟️</div>
+            <span class="corp-tag">Dinamik Mağaza</span>
+          </div>
+          <div class="project-name">Çizgi</div>
+          <div class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</div>
+          <div class="proj-ver-Row">
+            <a href="/magaza/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/magaza/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/magaza/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/magaza/?v=portal" class="project-link-label wd-dyn-link" data-base="/magaza/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Cizgi%20Spor%20Magaza%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+          </div>
+        </div>
+
+        <!-- 12 Ocak Izgara QR Menü -->
+        <div class="corp-item project-card glow-card reveal reveal-d3" data-cat="food" data-slug="/ocak/">
+          <a href="/ocak/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/ocak/">
+            <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/ocak</span></div>
+            <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=75')">
+              <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+            </div>
+          </a>
+          <div class="corp-item-top">
+            <div class="project-emoji">🔥</div>
+            <span class="corp-tag">QR Menü · Ocakbaşı</span>
+          </div>
+          <div class="project-name">Ocak</div>
+          <div class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</div>
+          <div class="proj-ver-Row">
+            <a href="/ocak/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+            <a href="/ocak/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+            <a href="/ocak/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+          </div>
+          <div class="proj-card-foot">
+            <a href="/ocak/?v=portal" class="project-link-label wd-dyn-link" data-base="/ocak/" data-i18n="viewSite">Siteyi Gör →</a>
+            <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Ocak%20Restoran%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
           </div>
         </div>
       </div>
@@ -1725,182 +1443,142 @@
   </section>
 
   <!-- =====================================================================
-       SECTION 06 · FAYDALANILABİLECEK ARAÇLAR (Sticky Split + Orbital + Filter)
+       TOOLS (ARAÇLAR): ESKİ YAPININ TAMAMI (.tools-grid — 11 Ücretsiz Araç)
        ===================================================================== -->
-  <section id="tools" class="corp alt">
-    <div class="corp-words" id="toolWords" aria-hidden="true">BROWSER TOOLS · ZERO INSTALL · OPEN SUITE</div>
-    <div class="corp-wrap">
-      <div class="corp-sticky">
-        <span class="section-label reveal" data-i18n="toolsLabel">./tools --free · 05</span>
-        <h2 class="section-title reveal" data-i18n="toolsTitle">Tarayıcı İçi Araçlar</h2>
-        <div class="section-divider reveal"></div>
-        <p class="section-sub reveal" data-i18n="toolsSub">Kayıt yok. Kurulum yok. Aç, kullan, indir — tamamı istemci tarafında çalışan 11 açık araç.</p>
+  <section id="tools">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="toolsLabel">./tools --free</span>
+      <h2 class="section-title reveal" data-i18n="toolsTitle">Faydalanılabilecek Araçlar</h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-sub reveal" data-i18n="toolsSub">Kayıt yok. Kurulum yok. Aç, kullan, indir — hepsi tarayıcıda.</p>
 
-        <div class="filter-pills" id="toolFilters" role="group" aria-label="Araç filtreleri">
-          <button type="button" class="f-pill active" data-filter="all" data-i18n="toolFilterAll">Tümü (11)</button>
-          <button type="button" class="f-pill" data-filter="studio" data-i18n="toolFilterStudio">Stüdyo &amp; Tasarım</button>
-          <button type="button" class="f-pill" data-filter="biz" data-i18n="toolFilterBiz">İş &amp; Üretim</button>
-          <button type="button" class="f-pill" data-filter="dev" data-i18n="toolFilterDev">Metin &amp; Geliştirici</button>
-        </div>
-
-        <div class="orbit" aria-hidden="true">
-          <i></i><i></i><i></i><b></b>
-        </div>
+      <div class="filter-pills" id="toolFilters" role="group" aria-label="Araç filtreleri" style="margin-bottom:1.5rem;">
+        <button type="button" class="f-pill active" data-filter="all" data-i18n="toolFilterAll">Tümü (11)</button>
+        <button type="button" class="f-pill" data-filter="studio" data-i18n="toolFilterStudio">Stüdyo &amp; Tasarım</button>
+        <button type="button" class="f-pill" data-filter="biz" data-i18n="toolFilterBiz">İş &amp; Üretim</button>
+        <button type="button" class="f-pill" data-filter="dev" data-i18n="toolFilterDev">Metin &amp; Geliştirici</button>
       </div>
 
-      <div class="corp-list tools-grid" id="toolsGrid">
-        <a href="/flexcv/" class="corp-item tool-card glow-card reveal" data-cat="studio">
-          <span class="n">01</span>
-          <div class="tool-card-head">
-            <span class="tool-emoji">📐</span>
-            <span class="tool-badge" data-i18n="badgeStudio">Stüdyo</span>
-          </div>
-          <h3 class="tool-name">FlexCV Builder</h3>
-          <p class="tool-desc" data-i18n="toolFlex">Sürükle-bırak CV tasarım stüdyosu. 10 şablon, serbest yerleşim, katmanlar, hizalama, PDF/PNG/JPEG çıktı. Canva tarzı editör.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/flexcv</span>
-          </div>
-        </a>
-
-        <a href="/app-logo-generator/" class="corp-item tool-card glow-card reveal" data-cat="studio">
-          <span class="n">02</span>
-          <div class="tool-card-head">
-            <span class="tool-emoji">✨</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <h3 class="tool-name">IconForge — App Icon Builder</h3>
-          <p class="tool-desc" data-i18n="toolIcon">Play Store ve App Store görselleri, adaptive icon ve mağaza ekran görüntüleri için profesyonel ikon aracı.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/app-logo-generator</span>
-          </div>
-        </a>
-
+      <div class="tools-grid" id="toolsGrid">
         <a href="/youtube/" class="corp-item tool-card glow-card reveal" data-cat="biz">
-          <span class="n">03</span>
           <div class="tool-card-head">
             <span class="tool-emoji">▶️</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolYoutubeName">Kare</h3>
-          <p class="tool-desc" data-i18n="toolYoutube">YouTube üretim pipeline’ı. Özelleştirilebilir sütunlar, hook/başlık/açıklama, takvim, kontrol listesi — tarayıcıda kalır.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/youtube</span>
-          </div>
+          <div class="tool-name" data-i18n="toolYoutubeName">Kare</div>
+          <div class="tool-desc" data-i18n="toolYoutube">YouTube üretim pipeline’ı. Özelleştirilebilir sütunlar, hook/başlık/açıklama, takvim, kontrol listesi — tarayıcıda kalır.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/youtube</div>
         </a>
 
         <a href="/eticaret/dist/" class="corp-item tool-card glow-card reveal" data-cat="biz">
-          <span class="n">04</span>
           <div class="tool-card-head">
             <span class="tool-emoji">🛒</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolEcomName">E-Ticaret Paneli</h3>
-          <p class="tool-desc" data-i18n="toolEcom">Araba aksesuarları girişiminin aşama, görev, ürün ve finans takibi. Veriler tarayıcıda kalır.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/eticaret</span>
-          </div>
+          <div class="tool-name" data-i18n="toolEcomName">E-Ticaret Paneli</div>
+          <div class="tool-desc" data-i18n="toolEcom">Araba aksesuarları girişiminin aşama, görev, ürün ve finans takibi. Veriler tarayıcıda kalır.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/eticaret</div>
         </a>
 
         <a href="/isletme-bulucu/dist/" class="corp-item tool-card glow-card reveal" data-cat="biz">
-          <span class="n">05</span>
           <div class="tool-card-head">
             <span class="tool-emoji">📍</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolNearbyName">Yakınımdaki İşletmeler</h3>
-          <p class="tool-desc" data-i18n="toolNearby">Konumuna yakın işletmeleri OSM ile bul. Web sitesi olmayanları potansiyel müşteri olarak listele, CSV indir.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/isletme-bulucu</span>
-          </div>
+          <div class="tool-name" data-i18n="toolNearbyName">Yakınımdaki İşletmeler</div>
+          <div class="tool-desc" data-i18n="toolNearby">Konumuna yakın işletmeleri OSM ile bul. Web sitesi olmayanları potansiyel müşteri olarak listele, CSV indir.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/isletme-bulucu</div>
         </a>
 
-        <a href="/cv/" class="corp-item tool-card glow-card reveal" data-cat="studio">
-          <span class="n">06</span>
+        <a href="/flexcv/" class="corp-item tool-card glow-card reveal reveal-d1" data-cat="studio">
+          <div class="tool-card-head">
+            <span class="tool-emoji">📐</span>
+            <span class="tool-badge" data-i18n="badgeStudio">Stüdyo</span>
+          </div>
+          <div class="tool-name">FlexCV Builder</div>
+          <div class="tool-desc" data-i18n="toolFlex">Sürükle-bırak CV tasarım stüdyosu. 10 şablon, serbest yerleşim, katmanlar, hizalama, PDF/PNG/JPEG çıktı. Canva tarzı editör.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/flexcv</div>
+        </a>
+
+        <a href="/cv/" class="corp-item tool-card glow-card reveal reveal-d1" data-cat="studio">
           <div class="tool-card-head">
             <span class="tool-emoji">📄</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolCvName">CV Oluşturucu</h3>
-          <p class="tool-desc" data-i18n="toolCv">Esnek özgeçmiş oluşturucu. Hazır şablonlar, canlı önizleme, PDF ve Word çıktısı. Dosya adı otomatik "Ad Soyad Ay Yıl".</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/cv</span>
+          <div class="tool-name" data-i18n="toolCvName">CV Oluşturucu</div>
+          <div class="tool-desc" data-i18n="toolCv">Esnek özgeçmiş oluşturucu. Hazır şablonlar, canlı önizleme, PDF ve Word çıktısı. Dosya adı otomatik "Ad Soyad Ay Yıl".</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/cv</div>
+        </a>
+
+        <a href="/app-logo-generator/" class="corp-item tool-card glow-card reveal reveal-d2" data-cat="studio">
+          <div class="tool-card-head">
+            <span class="tool-emoji">✨</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
+          <div class="tool-name">IconForge — App Icon Builder</div>
+          <div class="tool-desc" data-i18n="toolIcon">Play Store ve App Store görselleri, adaptive icon ve mağaza ekran görüntüleri için profesyonel ikon aracı.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/app-logo-generator</div>
         </a>
 
         <a href="/sinavkagidi/" class="corp-item tool-card glow-card reveal" data-cat="biz">
-          <span class="n">07</span>
           <div class="tool-card-head">
             <span class="tool-emoji">📝</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolExamName">Sınav Kağıdı</h3>
-          <p class="tool-desc" data-i18n="toolExam">Soruları yazın; numaralı sınav kağıdını PDF veya Word olarak indirin.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/sinavkagidi</span>
-          </div>
+          <div class="tool-name" data-i18n="toolExamName">Sınav Kağıdı</div>
+          <div class="tool-desc" data-i18n="toolExam">Soruları yazın; numaralı sınav kağıdını PDF veya Word olarak indirin.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/sinavkagidi</div>
         </a>
 
-        <a href="/textdiff/" class="corp-item tool-card glow-card reveal" data-cat="dev">
-          <span class="n">08</span>
+        <a href="/textdiff/" class="corp-item tool-card glow-card reveal reveal-d1" data-cat="dev">
           <div class="tool-card-head">
             <span class="tool-emoji">🔍</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name">Text Diff</h3>
-          <p class="tool-desc" data-i18n="toolDiff">İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/textdiff</span>
-          </div>
+          <div class="tool-name">Text Diff</div>
+          <div class="tool-desc" data-i18n="toolDiff">İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/textdiff</div>
         </a>
 
-        <a href="/logcleaner/" class="corp-item tool-card glow-card reveal" data-cat="dev">
-          <span class="n">09</span>
+        <a href="/logcleaner/" class="corp-item tool-card glow-card reveal reveal-d2" data-cat="dev">
           <div class="tool-card-head">
             <span class="tool-emoji">🧹</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name">Logcleaner</h3>
-          <p class="tool-desc" data-i18n="toolLog">Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/logcleaner</span>
-          </div>
+          <div class="tool-name">Logcleaner</div>
+          <div class="tool-desc" data-i18n="toolLog">Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/logcleaner</div>
         </a>
 
         <a href="/txtconverter/" class="corp-item tool-card glow-card reveal" data-cat="dev">
-          <span class="n">10</span>
           <div class="tool-card-head">
             <span class="tool-emoji">📄</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name">TXT Converter</h3>
-          <p class="tool-desc" data-i18n="toolTxt">Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/txtconverter</span>
-          </div>
+          <div class="tool-name">TXT Converter</div>
+          <div class="tool-desc" data-i18n="toolTxt">Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/txtconverter</div>
         </a>
 
-        <a href="/template/" class="corp-item tool-card glow-card reveal" data-cat="studio">
-          <span class="n">11</span>
+        <a href="/template/" class="corp-item tool-card glow-card reveal reveal-d1" data-cat="studio">
           <div class="tool-card-head">
             <span class="tool-emoji">🃏</span>
             <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
           </div>
-          <h3 class="tool-name" data-i18n="toolTemplateName">YA DA Şablonu</h3>
-          <p class="tool-desc" data-i18n="toolTemplate">İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.</p>
-          <div class="tool-foot">
-            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
-            <span class="tool-url">/template</span>
-          </div>
+          <div class="tool-name" data-i18n="toolTemplateName">YA DA Şablonu</div>
+          <div class="tool-desc" data-i18n="toolTemplate">İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.</div>
+          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
+          <div class="tool-url">/template</div>
         </a>
       </div>
     </div>
@@ -1909,7 +1587,7 @@
   <!-- YOUTUBE -->
   <section id="youtube">
     <div class="container">
-      <span class="section-label reveal" data-i18n="ytLabel">watch -n 1 · 06</span>
+      <span class="section-label reveal" data-i18n="ytLabel">watch -n 1</span>
       <h2 class="section-title reveal" data-i18n="ytTitle">YouTube Kanalım</h2>
       <div class="section-divider reveal"></div>
       <div class="yt-card glow-card reveal-scale">
@@ -1930,12 +1608,12 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="cta-sec">
+  <section id="contact">
     <div class="container">
-      <span class="section-label reveal" data-i18n="contactLabel">ssh dogus@ist · 07</span>
-      <h2 class="section-title reveal" style="text-align:center" data-i18n="contactTitle">Birlikte Üretelim</h2>
+      <span class="section-label reveal" data-i18n="contactLabel">ssh dogus@ist</span>
+      <h2 class="section-title reveal" style="text-align:center" data-i18n="contactTitle">Benimle İletişime Geç</h2>
       <div class="section-divider reveal" style="margin:1rem auto 2rem"></div>
-      <p class="section-sub reveal" style="margin:0 auto 2rem;text-align:center" data-i18n="contactSub">Mobil mimari, yeni bir ürün fikri, danışmanlık veya sadece merhaba — gelen kutum her zaman açık.</p>
+      <p class="section-sub reveal" style="margin:0 auto 2rem;text-align:center" data-i18n="contactSub">PR, iş birliği veya sadece merhaba — inbox açık, ping at.</p>
       <div class="contact-inner">
         <a href="mailto:ipeksac.dogus.19@gmail.com" class="contact-email reveal-scale">
           ✉️ ipeksac.dogus.19@gmail.com
@@ -1953,14 +1631,18 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="foot">
-    <div class="foot-glow" aria-hidden="true"></div>
+  <footer>
     <div class="footer-links">
       <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer">YouTube</a>
       <a href="https://linkedin.com/in/dogusipeksac" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a href="https://twitter.com/dogusipeksac" target="_blank" rel="noopener noreferrer">Twitter</a>
+      <a href="/ydskelime/">YDS Kelime KitApp</a>
+      <a href="/mydiary/">My Diary</a>
+      <a href="/kuberush/">Kube Rush</a>
+      <a href="/appplaka/">App Plaka Kontrol</a>
+      <a href="/aniyakala/">Anı Yakala</a>
+      <a href="/suicme/">Su İçme Hatırlatıcısı</a>
       <a href="/aircondition">AirFlow Klima</a>
       <a href="/tamirat">ProFix Tamirat</a>
       <a href="/games">MiniPlay</a>
@@ -1976,12 +1658,8 @@
       <a href="/youtube/">Kare</a>
       <a href="/eticaret/dist/">E-Ticaret Paneli</a>
       <a href="/isletme-bulucu/dist/">Yakınımdaki İşletmeler</a>
-      <a href="/flexcv/">FlexCV</a>
-      <a href="/cv/">CV Oluşturucu</a>
-      <a href="/app-logo-generator/">IconForge</a>
     </div>
-    <div class="foot-mark" aria-hidden="true">DOĞUŞ İPEKSAÇ</div>
-    <p class="footer-copy" data-i18n="footerCopy">© 2026 Doğuş İpeksaç · Senior Android Developer · Tüm hakları saklıdır.</p>
+    <p class="footer-copy" data-i18n="footerCopy">© 2026 Doğuş İpeksaç. Tüm hakları saklıdır.</p>
   </footer>
 
   <button class="to-top" id="toTop" data-i18n-aria="toTop" aria-label="Yukarı çık">↑</button>

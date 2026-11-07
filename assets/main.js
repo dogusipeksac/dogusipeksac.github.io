@@ -79,6 +79,14 @@
 
   /* Reveal on scroll */
   var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur');
+  function revealInViewport() {
+    var vh = window.innerHeight || 900;
+    revealEls.forEach(function (el) {
+      if (el.classList.contains('visible')) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < vh + 140) el.classList.add('visible');
+    });
+  }
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -87,8 +95,11 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.01, rootMargin: '120px 0px 80px 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
+    window.addEventListener('scroll', revealInViewport, { passive: true });
+    window.addEventListener('hashchange', function () { setTimeout(revealInViewport, 60); });
+    setTimeout(revealInViewport, 200);
   } else {
     revealEls.forEach(function (el) { el.classList.add('visible'); });
   }
