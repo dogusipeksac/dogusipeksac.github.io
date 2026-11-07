@@ -233,7 +233,7 @@
         if (p.y < 0 || p.y > H) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(212,136,74,0.45)';
+        ctx.fillStyle = 'rgba(168,85,247,0.5)';
         ctx.fill();
       }
       for (var a = 0; a < particles.length; a++) {
@@ -244,7 +244,7 @@
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.strokeStyle = 'rgba(212,136,74,' + (0.14 * (1 - d / 12000)) + ')';
+            ctx.strokeStyle = 'rgba(168,85,247,' + (0.14 * (1 - d / 12000)) + ')';
             ctx.lineWidth = 1;
             ctx.stroke();
           }

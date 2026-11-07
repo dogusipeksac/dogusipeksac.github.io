@@ -20,8 +20,8 @@
       --ease: cubic-bezier(.22,.61,.36,1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: clip; }
     ::selection { background: rgba(168,85,247,0.35); color: #fff; }
 
     /* ===== Scrollbar ===== */
@@ -136,7 +136,7 @@
     @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 
     /* ===== HERO ===== */
-    #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 7rem 2rem 4rem; width: 100%; }
+    #hero:not(.stage-track) { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 7rem 2rem 4rem; width: 100%; }
     .hero-content { position: relative; z-index: 1; text-align: center; max-width: 820px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(28,28,40,0.6); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; color: var(--text2); margin-bottom: 1.75rem; backdrop-filter: blur(8px); }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; display: inline-block; }

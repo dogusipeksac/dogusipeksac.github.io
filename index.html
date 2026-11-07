@@ -84,28 +84,29 @@
   </div>
 
   <!-- =====================================================================
-       SECTION 01 · NESTED PORTAL STAGE (3D Laptop -> Full Screen Portal -> Falling 3D Phones)
+       SECTION 01 · CREATIVE NESTED MOBILE PORTAL STAGE
+       (3D Flagship Phone -> Dive Inside Mobile Screen -> 4 Nested Mobile Worlds)
        ===================================================================== -->
-  <section id="hero" class="stage-track" aria-label="Doğuş İpeksaç İnteraktif Sahne">
+  <section id="hero" class="stage-track" aria-label="Doğuş İpeksaç Mobil İnteraktif Sahne">
     <div class="stage" id="stage">
       <div class="stage-glow"></div>
-      <div class="bg-word" id="bgWord" aria-hidden="true">ANDROID</div>
+      <div class="bg-word" id="bgWord" aria-hidden="true">COMPOSE</div>
 
       <!-- Stage Phase Bar -->
       <div class="vswitch on" id="stageSwitch">
-        <button type="button" class="vs-btn act" data-stage-p="0.02" data-i18n="stageStep1">01 · Workstation</button>
-        <button type="button" class="vs-btn" data-stage-p="0.36" data-i18n="stageStep2">02 · Portal</button>
-        <button type="button" class="vs-btn" data-stage-p="0.60" data-i18n="stageStep3">03 · Oyun &amp; Compose</button>
-        <button type="button" class="vs-btn" data-stage-p="0.76" data-i18n="stageStep4">04 · AI &amp; Kamera</button>
-        <button type="button" class="vs-btn" data-stage-p="0.92" data-i18n="stageStep5">05 · Fintech &amp; Araçlar</button>
-        <a href="#stats" class="vs-skip" data-i18n="stageSkip">Sahneyi Atla ↓</a>
+        <button type="button" class="vs-btn act" data-stage-p="0.00" data-i18n="stageStep1">01 · Mobil Cihaz</button>
+        <button type="button" class="vs-btn" data-stage-p="0.28" data-i18n="stageStep2">02 · Mobil Mimari</button>
+        <button type="button" class="vs-btn" data-stage-p="0.52" data-i18n="stageStep3">03 · Oyun &amp; Compose</button>
+        <button type="button" class="vs-btn" data-stage-p="0.74" data-i18n="stageStep4">04 · AI &amp; Kamera</button>
+        <button type="button" class="vs-btn" data-stage-p="0.94" data-i18n="stageStep5">05 · Fintech &amp; NFC</button>
+        <a href="#apps" class="vs-skip" data-i18n="stageSkip">Uygulamalara Geç ↓</a>
       </div>
 
       <!-- Hero Copy (Top of Stage) -->
       <div class="hero-copy" id="heroCopy">
         <div class="hero-badge"><span class="dot"></span> <span data-i18n="heroBadge">Senior Android Developer · Veripark</span></div>
         <h1 class="hero-name" id="heroName" data-text="Doğuş İpeksaç">
-          <span class="h1-top" data-i18n="heroTop">BİLGİSAYAR MÜHENDİSİ · İSTANBUL</span>
+          <span class="h1-top" data-i18n="heroTop">MOBİL YAZILIM MÜHENDİSİ · İSTANBUL</span>
           Doğuş <span class="cu">İpeksaç</span>
         </h1>
         <p class="hero-title"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
@@ -121,182 +122,296 @@
         </div>
       </div>
 
-      <!-- ACT 1: 3D Workstation Laptop with Hinged Lid & Homography Screen -->
-      <div class="scene" id="sceneA" aria-hidden="true">
-        <div class="world" id="worldA">
-          <div class="halo"></div>
-          <div class="floor"></div>
-          <img id="macBase" width="2200" height="1774" alt="" decoding="async" />
-          <img id="macLid" width="2200" height="1774" alt="" decoding="async" />
-          <div class="lidshade" id="lidShade"></div>
+      <!-- Floating Mobile Dev Telemetry Wings (Visible at Hero Start) -->
+      <div class="mob-wings" id="mobWings" aria-hidden="true">
+        <div class="mob-wing left">
+          <div class="mw-card">
+            <div class="mw-dots"><i></i><i></i><i></i><span>HomeScreen.kt · Compose</span></div>
+            <pre class="mw-code"><span class="kw">@Composable</span>
+<span class="fn">fun</span> <span class="id">MobileUniverse</span>() {
+  <span class="id">CleanArchitecture</span>(
+    stack = <span class="st">"Kotlin · Flutter · Swift"</span>,
+    fps = <span class="nm">60</span>
+  )
+}</pre>
+          </div>
+          <div class="mw-chips">
+            <span>🟣 Kotlin 2.1</span>
+            <span>🎨 Jetpack Compose</span>
+            <span>💙 Flutter</span>
+          </div>
         </div>
-        <div class="scr" id="scrA"></div>
+        <div class="mob-wing right">
+          <div class="mw-card">
+            <div class="mw-dots"><i></i><i></i><i></i><span>Gradle · Release Pipeline</span></div>
+            <div class="mw-stat-row">
+              <div><strong>6</strong><small>Mağaza App</small></div>
+              <div><strong>5+</strong><small>Yıl Deneyim</small></div>
+              <div><strong>60</strong><small>FPS Native</small></div>
+            </div>
+            <div class="mw-ok">✓ BUILD SUCCESSFUL · PLAY &amp; APP STORE</div>
+          </div>
+          <div class="mw-chips">
+            <span>🍎 SwiftUI / iOS</span>
+            <span>🎮 Unity 3D</span>
+            <span>🛡️ NFC &amp; SSL Pinning</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Full-Viewport Portal Expansion Twin -->
-      <div class="full" id="fullA" aria-hidden="true"></div>
+      <!-- OUTER 3D FLAGSHIP MOBILE PHONE (Centerpiece that zooms open as you scroll) -->
+      <div class="mob-hero-stage" id="mobHeroStage">
+        <div class="mob-orbit-rings" id="mobOrbitRings" aria-hidden="true">
+          <div class="mor r1"><span>A</span><span>K</span></div>
+          <div class="mor r2"><span>F</span><span>S</span><span>U</span></div>
+        </div>
 
-      <!-- ACT 2: Falling 3D Phones into Water Horizon with Splash & Floating Glass Cards -->
-      <div class="scene" id="sceneB" aria-hidden="true">
-        <div class="b-bg"></div>
-        <div class="water" id="water"></div>
-        <div id="bDevs"></div>
-        <div id="rings"><i></i><i></i><i></i></div>
-        <canvas id="drops"></canvas>
-        <div class="bcards" id="bCards"></div>
+        <div class="mob-device-3d" id="mobHeroPhone">
+          <div class="mob-bezel">
+            <div class="mob-island">
+              <span class="mi-cam"></span>
+              <span class="mi-pill">LIVE · 60 FPS</span>
+            </div>
+            <div class="mob-statusbar">
+              <span>9:41</span>
+              <span>5G · ANDROID &amp; iOS</span>
+            </div>
+
+            <div class="mob-os-screen" id="mobOsScreen">
+              <div class="mos-header">
+                <span class="mos-tag">@Composable · Mobile Hub</span>
+                <strong>6 Canlı Mobil Ürün</strong>
+                <small>Tekerleği kaydır — telefonun içine dal ↓</small>
+              </div>
+
+              <div class="mos-app-grid">
+                <a href="/ydskelime/" class="mos-app">
+                  <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
+                  <span>YDS Kelime</span>
+                </a>
+                <a href="/mydiary/" class="mos-app">
+                  <img src="/assets/apps/mydiary.png" alt="My Diary" />
+                  <span>My Diary</span>
+                </a>
+                <a href="/kuberush/" class="mos-app">
+                  <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
+                  <span>Kube Rush</span>
+                </a>
+                <a href="/appplaka/" class="mos-app">
+                  <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
+                  <span>App Plaka</span>
+                </a>
+                <a href="/aniyakala/" class="mos-app">
+                  <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
+                  <span>Anı Yakala</span>
+                </a>
+                <a href="/suicme/" class="mos-app">
+                  <img src="/assets/apps/suicme.png" alt="Su İçme" />
+                  <span>Su İçme</span>
+                </a>
+              </div>
+
+              <!-- Inner Portal Window inside the phone that expands into Layer 1 -->
+              <div class="mos-inner-portal" id="mosInnerPortal">
+                <span class="mip-kicker">İÇ İÇE MOBİL PORTAL · 01</span>
+                <strong>Modern Mobil Mimari</strong>
+                <span>Kaydırdıkça telefonun içinden açılır</span>
+              </div>
+            </div>
+
+            <div class="mob-home-bar"></div>
+          </div>
+        </div>
       </div>
 
-      <div id="portalGlow" aria-hidden="true"></div>
-      <div id="flash" aria-hidden="true"></div>
-      <div id="blackout" aria-hidden="true"></div>
-      <div class="scroll-hint" id="hint"><span data-i18n="heroScroll">KAYDIR · KEŞFET</span></div>
+      <!-- =================================================================
+           NESTED MOBILE WORLDS (Unfolding From Inside The Mobile Phone!)
+           ================================================================= -->
+      <div class="mob-nested-viewport" id="mobNestedViewport" aria-hidden="true">
+
+        <!-- LAYER 1: 02 · MOBİL MİMARİ & 5 EKOSİSTEM -->
+        <div class="mob-layer" id="mobLayer1">
+          <div class="ml-shell">
+            <div class="ml-left">
+              <span class="ml-kicker" data-i18n="scr1Eb">02 · MOBİL MİMARİ · VERIPARK &amp; INDIE</span>
+              <h2 class="ml-title" data-i18n-html="scr1Title">Modern Android mimarisi ile <span class="cu">yüksek performans.</span></h2>
+              <p class="ml-desc" data-i18n="scr1Sub">Kotlin, Jetpack Compose, Coroutines ve Clean Architecture ile milyonlarca kullanıcının dokunduğu güvenli mobil ürünler.</p>
+              <div class="ml-pills">
+                <span class="ml-pill hot">@Composable UI</span>
+                <span class="ml-pill">Kotlin Coroutines &amp; Flow</span>
+                <span class="ml-pill">Multi-Module Clean Arch</span>
+                <span class="ml-pill">Flutter &amp; Swift / iOS</span>
+                <span class="ml-pill">Unity 3D 60 FPS</span>
+              </div>
+              <div class="ml-stats">
+                <div><strong class="cu">5+</strong><small>Yıl Mobil Deneyim</small></div>
+                <div><strong class="cu">6</strong><small>Mağaza Uygulaması</small></div>
+                <div><strong class="cu">5x</strong><small>Mobil Ekosistem</small></div>
+              </div>
+            </div>
+
+            <!-- Nested Phone inside Layer 1 that expands into Layer 2 -->
+            <div class="ml-center-phone" id="nestPhone1">
+              <div class="mcp-frame">
+                <div class="mcp-notch"></div>
+                <div class="mcp-body">
+                  <span class="mcp-tag">SONRAKİ MOBİL KATMAN · 03</span>
+                  <strong>Oyun &amp; Üretkenlik</strong>
+                  <p>Kube Rush · My Diary · YDS Kelime</p>
+                  <div class="mcp-icons">
+                    <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
+                    <img src="/assets/apps/mydiary.png" alt="My Diary" />
+                    <img src="/assets/apps/ydskelime.png" alt="YDS Kelime" />
+                  </div>
+                  <span class="mcp-hint">Kaydırmaya devam et ↓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYER 2: 03 · OYUN, COMPOSE & EĞİTİM UYGULAMALARI -->
+        <div class="mob-layer" id="mobLayer2">
+          <div class="ml-shell">
+            <div class="ml-left">
+              <span class="ml-kicker">03 · GOOGLE PLAY &amp; APP STORE ÜRÜNLERİ</span>
+              <h2 class="ml-title">Kube Rush, My Diary &amp; <span class="cu">YDS Kelime KitApp.</span></h2>
+              <p class="ml-desc">Unity 6 URP ile 60 FPS 3D küp koşusu, Jetpack Compose &amp; iOS’ta 8 temalı kişisel günlük ve Flutter/Drift tabanlı çevrimdışı YDS kelime kitabı.</p>
+              <div class="ml-app-cards">
+                <a href="/kuberush/" class="ml-app-card">
+                  <img src="/assets/apps/kuberush.png" alt="Kube Rush" />
+                  <div>
+                    <strong>Kube Rush · 3D Runner</strong>
+                    <span>Unity 6 · 6 Skin · iOS &amp; Android</span>
+                  </div>
+                </a>
+                <a href="/mydiary/" class="ml-app-card">
+                  <img src="/assets/apps/mydiary.png" alt="My Diary" />
+                  <div>
+                    <strong>My Diary · Kişisel Günlük</strong>
+                    <span>Ses · Fotoğraf · PDF · iOS &amp; Android</span>
+                  </div>
+                </a>
+                <a href="/ydskelime/" class="ml-app-card">
+                  <img src="/assets/apps/ydskelime.png" alt="YDS Kelime KitApp" />
+                  <div>
+                    <strong>YDS Kelime KitApp</strong>
+                    <span>SRS · Quiz · iOS’ta Yayında</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Nested Phone inside Layer 2 that expands into Layer 3 -->
+            <div class="ml-center-phone" id="nestPhone2">
+              <div class="mcp-frame">
+                <div class="mcp-notch"></div>
+                <div class="mcp-body">
+                  <span class="mcp-tag">SONRAKİ MOBİL KATMAN · 04</span>
+                  <strong>AI Vision &amp; GPS Kamera</strong>
+                  <p>App Plaka Kontrol · Anı Yakala</p>
+                  <div class="mcp-icons">
+                    <img src="/assets/apps/appplaka.png" alt="App Plaka" />
+                    <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
+                  </div>
+                  <span class="mcp-hint">İçine dal ↓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYER 3: 04 · AI PLAKA DENETİMİ & KONUM DAMGALI KAMERA -->
+        <div class="mob-layer" id="mobLayer3">
+          <div class="ml-shell">
+            <div class="ml-left">
+              <span class="ml-kicker">04 · CİHAZ İÇİ YAPAY ZEKÂ &amp; KAMERA MİMARİSİ</span>
+              <h2 class="ml-title">App Plaka AI &amp; <span class="cu">Anı Yakala Kamera.</span></h2>
+              <p class="ml-desc">DIN 1451 font, TR hologram, soğuk mühür ve 2024+ QR kod dahil 7 kriterde APP/Standart plaka analizi yapan AI motoru ve canlı GPS/hava durumu filigranlı anı kamerası.</p>
+              <div class="ml-app-cards">
+                <a href="/appplaka/" class="ml-app-card">
+                  <img src="/assets/apps/appplaka.png" alt="App Plaka Kontrol" />
+                  <div>
+                    <strong>App Plaka Kontrol · 7 Kriter AI</strong>
+                    <span>APP mi Standart mı? · iOS &amp; Android</span>
+                  </div>
+                </a>
+                <a href="/aniyakala/" class="ml-app-card">
+                  <img src="/assets/apps/aniyakala.png" alt="Anı Yakala" />
+                  <div>
+                    <strong>Anı Yakala · GPS &amp; Harita</strong>
+                    <span>Koordinat, Hava Durumu &amp; Pinli Harita</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Nested Phone inside Layer 3 that expands into Layer 4 -->
+            <div class="ml-center-phone" id="nestPhone3">
+              <div class="mcp-frame">
+                <div class="mcp-notch"></div>
+                <div class="mcp-body">
+                  <span class="mcp-tag">SONRAKİ MOBİL KATMAN · 05</span>
+                  <strong>Fintech, NFC &amp; Hidrasyon</strong>
+                  <p>Veripark Güvenlik · Su İçme · 11 Araç</p>
+                  <div class="mcp-icons">
+                    <img src="/assets/apps/suicme.png" alt="Su İçme" />
+                  </div>
+                  <span class="mcp-hint">Son katmanı aç ↓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYER 4: 05 · FINTECH GÜVENLİK, SU İÇME & TAM EKOSİSTEM -->
+        <div class="mob-layer" id="mobLayer4">
+          <div class="ml-shell">
+            <div class="ml-left">
+              <span class="ml-kicker">05 · BANKACILIK ÖLÇEĞİNDE GÜVENLİK &amp; ÜRETKENLİK</span>
+              <h2 class="ml-title">NFC / HCE Ödeme, SSL Pinning &amp; <span class="cu">Su İçme Asistanı.</span></h2>
+              <p class="ml-desc">Veripark bünyesinde finansal mobil uygulamalar için temassız NFC/HCE ödeme, Samsung Pay SDK ve SSL Pinning katmanları; yanında Su İçme Hatırlatıcısı ve 11 açık web aracı.</p>
+              <div class="ml-app-cards">
+                <a href="/suicme/" class="ml-app-card">
+                  <img src="/assets/apps/suicme.png" alt="Su İçme Hatırlatıcısı" />
+                  <div>
+                    <strong>Su İçme Hatırlatıcısı</strong>
+                    <span>Ocean/Lagoon Temaları · Widget · Streak</span>
+                  </div>
+                </a>
+                <a href="#apps" class="ml-app-card">
+                  <div class="ml-badge-ic">📱</div>
+                  <div>
+                    <strong>Tüm Mobil Uygulamaları İncele</strong>
+                    <span>6 Özel Uygulama Web Sitesi &amp; QR İndirme ↓</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="ml-center-phone">
+              <div class="mcp-frame final">
+                <div class="mcp-notch"></div>
+                <div class="mcp-body">
+                  <span class="mcp-tag">MOBİL EKOSİSTEM HAZIR</span>
+                  <strong>6 App · 11 Araç · 12 Vitrin</strong>
+                  <p>Aşağı kaydırarak tüm detayları keşfet</p>
+                  <div class="ml-pills" style="justify-content:center; margin-top:0.6rem;">
+                    <span class="ml-pill hot">NFC / HCE</span>
+                    <span class="ml-pill">SSL Pinning</span>
+                    <span class="ml-pill">Samsung Pay</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="scroll-hint" id="hint"><span data-i18n="heroScroll">TEKERLEĞİ KAYDIR · MOBİLİN İÇİNE GİR</span></div>
     </div>
   </section>
-
-  <!-- Templates for Nested Screens (Inside 3D Laptop & 3D Phones) -->
-  <template id="tplA">
-    <div class="sc-in">
-      <section class="pg">
-        <div class="grid"></div>
-        <div class="orbglow"></div>
-        <div class="tx">
-          <p class="eb" data-i18n="scr1Eb">İSTANBUL · VERIPARK · SENIOR ANDROID</p>
-          <p class="pg-h" data-i18n-html="scr1Title">Modern Android mimarisi ile <span class="cu">yüksek performans.</span></p>
-          <p class="ps" data-i18n="scr1Sub">Kotlin, Jetpack Compose, Coroutines ve Clean Architecture ile milyonlarca kullanıcının dokunduğu güvenli mobil ürünler.</p>
-          <div class="row">
-            <b class="pill fill">@Composable UI</b>
-            <b class="pill">Kotlin &amp; Coroutines</b>
-            <b class="pill">Fintech · NFC · SSL Pinning</b>
-            <b class="pill">Multi-Module Clean Arch</b>
-          </div>
-          <div class="stat">
-            <div><span class="cu">5+</span><small>Yıl Profesyonel Deneyim</small></div>
-            <div><span class="cu">12+</span><small>Mağaza &amp; Vitrin Projesi</small></div>
-            <div><span class="cu">11</span><small>Açık Web Aracı</small></div>
-          </div>
-        </div>
-      </section>
-      <section class="pg">
-        <div class="grid"></div>
-        <div class="orbglow l"></div>
-        <div class="tx">
-          <p class="eb" data-i18n="scr2Eb">ÇOKLU PLATFORM · TEK STANDART</p>
-          <p class="pg-h" data-i18n-html="scr2Title">Fikirden mağazaya, <span class="cu">beş ekosistem.</span></p>
-          <p class="ps" data-i18n="scr2Sub">Native Android ve iOS’tan Flutter ve Unity oyun motoruna kadar her platformda üretim kalitesinde kod.</p>
-          <div class="chips">
-            <b>🤖 Android SDK</b>
-            <b>🟣 Kotlin</b>
-            <b>🎨 Jetpack Compose</b>
-            <b>💙 Flutter</b>
-            <b>🍎 Swift / iOS</b>
-            <b>🎮 Unity 3D</b>
-            <b>🔥 Firebase</b>
-            <b>🛡️ NFC &amp; SSL Pinning</b>
-            <b>⚙️ CI/CD · Azure DevOps</b>
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="sc-bar">
-      <div class="sc-brand"><b>Dİ</b><span>Android Studio · HomeScreen.kt — BUILD SUCCESSFUL</span></div>
-      <div><span>Kotlin 2.1</span><span>Compose</span><span>Release</span><span>60 FPS</span></div>
-    </div>
-  </template>
-
-  <template id="tplS1">
-    <div class="sc-in">
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">GOOGLE PLAY &amp; APP STORE</p>
-          <div class="big cu">Kube<br>Rush</div>
-          <p class="ps">Unity 3D Hypercasual Koşu · Şerit değiştir, küpü büyüt/küçült, kristalleri topla</p>
-          <div class="chips"><b>Unity 3D</b><b>60 FPS</b><b>Android &amp; iOS</b></div>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">ANDROID &amp; iOS · GÜNLÜK</p>
-          <div class="big cu">My<br>Diary</div>
-          <p class="ps">Ses kaydı · Fotoğraf · PDF dışa aktarma · Play Store &amp; App Store</p>
-          <div class="kpis">
-            <div><b class="cu">iOS +</b><small>Android Yayında</small></div>
-            <div><b class="cu">PDF</b><small>Anında Çıktı</small></div>
-          </div>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">YDS · YÖKDİL · YDT</p>
-          <p class="pg-h">YDS Kelime<br><span class="cu">KitApp iOS’ta.</span></p>
-          <p class="ps">dogusipeksac.com/ydskelime · /mydiary · /kuberush</p>
-        </div>
-      </section>
-    </div>
-  </template>
-
-  <template id="tplS2">
-    <div class="sc-in">
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">YAPAY ZEKÂ · PLAKA TANIMA</p>
-          <div class="big cu">Plaka<br>Kontrol</div>
-          <p class="ps">Türkiye plakalarını saniyeler içinde okuyan cihaz içi AI OCR motoru</p>
-          <div class="chips"><b>AI OCR</b><b>KameraX / AVFoundation</b><b>Geçmiş Kayıt</b></div>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">KONUM &amp; TARİH DAMGALI KAMERA</p>
-          <div class="big cu">Anı<br>Yakala</div>
-          <p class="ps">Harita görünümü · GPS damgası · Özel filigran şablonları</p>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">ÇAPRAZ PLATFORM</p>
-          <div class="big cu">Hızlı.<br>Net.</div>
-          <p class="ps">Hem Play Store hem App Store’da aktif yayında</p>
-        </div>
-      </section>
-    </div>
-  </template>
-
-  <template id="tplS3a">
-    <div class="sc-in">
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">VERIPARK · ENTERPRISE FINTECH</p>
-          <div class="big cu">NFC<br>Security</div>
-          <p class="ps">Samsung Pay SDK · SSL Pinning · HCE Temassız Ödeme</p>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">MİMARİ HAT</p>
-          <div class="steps"><b>Analiz</b><i>→</i><b>Clean Arch</b><i>→</i><b>SSL/NFC</b><i>→</i><b>Store</b></div>
-        </div>
-      </section>
-    </div>
-  </template>
-
-  <template id="tplS3b">
-    <div class="sc-in">
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">SAĞLIK &amp; ÜRETKENLİK</p>
-          <div class="big cu">Daily<br>Hydrate</div>
-          <p class="ps">Su İçme Hatırlatıcısı · Akıllı bildirimler &amp; istatistik</p>
-        </div>
-      </section>
-      <section class="pg c">
-        <div class="tx">
-          <p class="eb">WEB SUITE · 11 ARAÇ</p>
-          <p class="pg-h">FlexCV’den<br><span class="cu">IconForge’a.</span></p>
-          <p class="ps">Kurulumsuz tarayıcı içi üretkenlik stüdyosu</p>
-        </div>
-      </section>
-    </div>
-  </template>
 
   <!-- TECH MARQUEE -->
   <div class="marquee" aria-hidden="true">
