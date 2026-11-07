@@ -1,16 +1,16 @@
 <!-- dogusipeksac - Ana Portföy Sitesi -->
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doğuş İpeksaç — Senior Android Developer</title>
-  <meta name="description" content="Doğuş İpeksaç — Bilgisayar Mühendisi & Senior Android Developer. Android, Jetpack Compose, Flutter, Swift ve Unity deneyimi; İstanbul." />
+  <title>Doğuş İpeksaç — Senior Android Developer &amp; Bilgisayar Mühendisi</title>
+  <meta name="description" content="Doğuş İpeksaç — Bilgisayar Mühendisi &amp; Senior Android Developer. Android, Jetpack Compose, Flutter, Swift ve Unity deneyimi; İstanbul." />
   <link rel="canonical" href="https://dogusipeksac.com/" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="theme-color" content="#0b0e13" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
   <link rel="stylesheet" href="/assets/dev-fx.css" />
@@ -20,192 +20,283 @@
   <!-- Preloader -->
   <div id="preloader">
     <div class="pre-logo">Dİ</div>
-    <div class="pre-term"><span class="kw">./gradlew</span> :app:assembleRelease · <span class="ok">BUILD</span></div>
+    <div class="pre-term"><span class="kw">./gradlew</span> :app:assembleRelease · <span class="ok">PORTAL READY</span></div>
     <div class="pre-bar"><span></span></div>
   </div>
 
   <!-- Scroll progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Animated background -->
-  <div class="bg-fx">
+  <!-- Ambient background -->
+  <div class="bg-fx" aria-hidden="true">
     <div class="orb o1"></div>
     <div class="orb o2"></div>
     <div class="orb o3"></div>
   </div>
-  <div class="bg-grid"></div>
-  <canvas id="particles"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
   <canvas id="codeRain" aria-hidden="true"></canvas>
-  <div class="dev-circuits" aria-hidden="true">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#7c3aed" />
-          <stop offset="50%" stop-color="#38bdf8" />
-          <stop offset="100%" stop-color="#10b981" />
-        </linearGradient>
-      </defs>
-      <path class="dev-trace" d="M0 180 H220 L280 240 H520 L580 180 H900 L960 260 H1440" />
-      <path class="dev-trace t2" d="M0 720 H180 L240 640 H480 L540 700 H820 L900 620 H1440" />
-      <path class="dev-trace" d="M80 0 V220 L140 280 V520 L80 580 V900" />
-      <path class="dev-trace t2" d="M1360 0 V160 L1280 240 V480 L1360 560 V900" />
-      <circle class="dev-node" cx="280" cy="240" r="3.5" />
-      <circle class="dev-node n2" cx="580" cy="180" r="3.5" />
-      <circle class="dev-node n3" cx="960" cy="260" r="3.5" />
-      <circle class="dev-node n2" cx="240" cy="640" r="3.5" />
-      <circle class="dev-node" cx="140" cy="280" r="3.5" />
-      <circle class="dev-node n3" cx="1280" cy="240" r="3.5" />
-    </svg>
-  </div>
-  <div class="spotlight" id="spotlight"></div>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
   <!-- Custom cursor -->
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
+  <!-- Navigation -->
   <nav id="nav">
-    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">dogusipeksac</div>
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <span class="logo-mark">Dİ</span>
+      <span class="logo-text">dogusipeksac</span>
+    </div>
     <ul class="nav-links">
       <li><a href="#about" data-i18n="navAbout">Hakkımda</a></li>
+      <li><a href="#apps" data-i18n="navApps">Uygulamalar</a></li>
       <li><a href="#skills" data-i18n="navSkills">Yetenekler</a></li>
       <li><a href="#projects" data-i18n="navProjects">Projeler</a></li>
       <li><a href="#tools" data-i18n="navTools">Araçlar</a></li>
       <li><a href="#youtube" data-i18n="navYoutube">YouTube</a></li>
-      <li><a href="#apps" data-i18n="navApps">Uygulamalar</a></li>
       <li><a href="#contact" data-i18n="navContact">İletişim</a></li>
     </ul>
-    <div class="lang-switch" role="group" aria-label="Language">
-      <button type="button" class="lang-btn active" data-lang-btn="tr" aria-pressed="true">TR</button>
-      <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn active" data-lang-btn="tr" aria-pressed="true">TR</button>
+        <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="nav-cta">GitHub →</a>
+      <button class="hamburger" id="menuBtn" data-i18n-aria="menuAria" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <a href="https://github.com/dogusipeksac" target="_blank" class="nav-cta">GitHub →</a>
-    <button class="hamburger" id="menuBtn" data-i18n-aria="menuAria" aria-label="Menü">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
+
   <div class="mobile-menu" id="mobileMenu">
     <div class="lang-switch mobile" role="group" aria-label="Language">
       <button type="button" class="lang-btn active" data-lang-btn="tr" aria-pressed="true">TR</button>
       <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
     </div>
     <a href="#about" onclick="closeMobile()" data-i18n="navAbout">Hakkımda</a>
+    <a href="#apps" onclick="closeMobile()" data-i18n="navApps">Uygulamalar</a>
     <a href="#skills" onclick="closeMobile()" data-i18n="navSkills">Yetenekler</a>
     <a href="#projects" onclick="closeMobile()" data-i18n="navProjects">Projeler</a>
     <a href="#tools" onclick="closeMobile()" data-i18n="navTools">Araçlar</a>
     <a href="#youtube" onclick="closeMobile()" data-i18n="navYoutube">YouTube</a>
-    <a href="#apps" onclick="closeMobile()" data-i18n="navApps">Uygulamalar</a>
     <a href="#contact" onclick="closeMobile()" data-i18n="navContact">İletişim</a>
   </div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="float-chips">
-      <div class="chip c1"><i>🟣</i> Kotlin</div>
-      <div class="chip c2"><i>🎨</i> Compose</div>
-      <div class="chip c3"><i>💙</i> Flutter</div>
-      <div class="chip c4"><i>🍎</i> Swift</div>
-    </div>
-    <span class="code-token t1"><span class="p">@Composable</span></span>
-    <span class="code-token t2"><span class="f">fun</span> HomeScreen()</span>
-    <span class="code-token t3"><span class="s">Modifier</span>.fillMaxSize()</span>
-    <span class="code-token t4"><span class="p">LaunchedEffect</span>(Unit)</span>
-    <span class="code-token t5"><span class="f">StateFlow</span> &lt;UiState&gt;</span>
-    <span class="code-token t6"><span class="s">./gradlew</span> assemble</span>
-    <div class="dev-orbit" aria-hidden="true">
-      <div class="dev-orbit-ring"></div>
-      <div class="dev-orbit-ring inner"></div>
-      <div class="dev-orbit-item a" data-r="250" data-s="0.22" data-a="0">A</div>
-      <div class="dev-orbit-item k" data-r="250" data-s="0.22" data-a="1.26">K</div>
-      <div class="dev-orbit-item f" data-r="250" data-s="0.22" data-a="2.51">F</div>
-      <div class="dev-orbit-item s" data-r="180" data-s="-0.28" data-a="0.6">S</div>
-      <div class="dev-orbit-item u" data-r="180" data-s="-0.28" data-a="3.7">U</div>
-    </div>
-    <div class="hero-stage">
-      <div class="dev-ide hero-anim d2" aria-hidden="true">
-        <div class="dev-ide-bar">
-          <span class="dev-ide-dot r"></span>
-          <span class="dev-ide-dot y"></span>
-          <span class="dev-ide-dot g"></span>
-          <span class="dev-ide-title">HomeScreen.kt — Android Studio</span>
-        </div>
-        <div class="dev-ide-body" id="devIdeBody"></div>
+  <!-- =====================================================================
+       SECTION 01 · NESTED PORTAL STAGE (3D Laptop -> Full Screen Portal -> Falling 3D Phones)
+       ===================================================================== -->
+  <section id="hero" class="stage-track" aria-label="Doğuş İpeksaç İnteraktif Sahne">
+    <div class="stage" id="stage">
+      <div class="stage-glow"></div>
+      <div class="bg-word" id="bgWord" aria-hidden="true">ANDROID</div>
+
+      <!-- Stage Phase Bar -->
+      <div class="vswitch on" id="stageSwitch">
+        <button type="button" class="vs-btn act" data-stage-p="0.02" data-i18n="stageStep1">01 · Workstation</button>
+        <button type="button" class="vs-btn" data-stage-p="0.36" data-i18n="stageStep2">02 · Portal</button>
+        <button type="button" class="vs-btn" data-stage-p="0.60" data-i18n="stageStep3">03 · Oyun &amp; Compose</button>
+        <button type="button" class="vs-btn" data-stage-p="0.76" data-i18n="stageStep4">04 · AI &amp; Kamera</button>
+        <button type="button" class="vs-btn" data-stage-p="0.92" data-i18n="stageStep5">05 · Fintech &amp; Araçlar</button>
+        <a href="#stats" class="vs-skip" data-i18n="stageSkip">Sahneyi Atla ↓</a>
       </div>
-      <div class="hero-content">
-        <div class="hero-badge hero-anim d1"><span class="dot"></span> <span data-i18n="heroBadge">Senior Android Developer · Veripark</span></div>
-        <h1 class="hero-name hero-anim d2" id="heroName" data-text="Doğuş İpeksaç">Doğuş <span>İpeksaç</span></h1>
-        <p class="hero-title hero-anim d3"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
-        <p class="hero-bio hero-anim d4" data-i18n="heroBio">Android, Jetpack Compose, Flutter, Swift ve Unity ile mobil ve oyun geliştirmede deneyimli bilgisayar mühendisi. İstanbul merkezli.</p>
-        <div class="hero-links hero-anim d5">
-          <a href="https://github.com/dogusipeksac" target="_blank" class="hero-link primary magnetic">
+
+      <!-- Hero Copy (Top of Stage) -->
+      <div class="hero-copy" id="heroCopy">
+        <div class="hero-badge"><span class="dot"></span> <span data-i18n="heroBadge">Senior Android Developer · Veripark</span></div>
+        <h1 class="hero-name" id="heroName" data-text="Doğuş İpeksaç">
+          <span class="h1-top" data-i18n="heroTop">BİLGİSAYAR MÜHENDİSİ · İSTANBUL</span>
+          Doğuş <span class="cu">İpeksaç</span>
+        </h1>
+        <p class="hero-title"><span class="type-text" id="typeText"></span><span class="type-caret"></span></p>
+        <p class="lead hero-bio" data-i18n="heroBio">Android, Jetpack Compose, Flutter, Swift ve Unity ile ölçeklenebilir mobil uygulamalar, fintech güvenlik katmanları ve oyunlar geliştiren bilgisayar mühendisi.</p>
+        <div class="hero-links">
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="hero-link primary magnetic">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="#projects" class="hero-link secondary" data-i18n="heroProjects">🚀 Projelerim</a>
           <a href="#apps" class="hero-link secondary" data-i18n="heroApps">📱 Uygulamalarım</a>
+          <a href="#projects" class="hero-link secondary" data-i18n="heroProjects">🚀 Projelerim</a>
           <a href="#contact" class="hero-link secondary" data-i18n="heroContact">✉️ İletişim</a>
         </div>
-        <div class="dev-term hero-anim d5" aria-hidden="true">
-          <div class="dev-term-bar">
-            <span class="dev-ide-dot r"></span>
-            <span class="dev-ide-dot y"></span>
-            <span class="dev-ide-dot g"></span>
-            zsh — gradle
-          </div>
-          <div class="dev-term-body" id="devTermOut"></div>
-        </div>
-        <div class="hero-scroll hero-anim d5">
-          <div class="hero-scroll-line"></div>
-          <span data-i18n="heroScroll">Aşağı kaydır</span>
-        </div>
       </div>
-      <div class="dev-phone-wrap hero-anim d3" aria-hidden="true">
-        <div class="dev-phone">
-          <div class="dev-phone-screen">
-            <div class="dev-phone-scan"></div>
-            <div class="dev-status">
-              <span>9:41</span>
-              <span class="sig"><i></i><i></i><i></i><i></i></span>
-            </div>
-            <div class="dev-screens">
-              <div class="dev-screen">
-                <div class="dev-toast"><b>Compose Preview</b> HomeScreen recomposed</div>
-                <div class="dev-appbar">Compose Preview</div>
-                <div class="dev-chip-row">
-                  <span class="dev-mini-chip">Kotlin</span>
-                  <span class="dev-mini-chip">Hilt</span>
-                  <span class="dev-mini-chip">Room</span>
-                </div>
-                <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
-                <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
-                <div class="dev-card"><div class="h"></div><div class="p"></div><div class="p2"></div></div>
-                <div class="dev-fab"></div>
-                <div class="dev-nav"><span class="on"></span><span></span><span></span></div>
-              </div>
-              <div class="dev-screen">
-                <div class="dev-appbar">HomeScreen.kt</div>
-                <div class="dev-code-line"><span class="an">@Composable</span></div>
-                <div class="dev-code-line"><span class="k">fun</span> <span class="fn">Home</span>() {</div>
-                <div class="dev-code-line">&nbsp;&nbsp;<span class="fn">Column</span> {</div>
-                <div class="dev-code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">TopBar</span>()</div>
-                <div class="dev-code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">AppList</span>()</div>
-                <div class="dev-code-line">&nbsp;&nbsp;}</div>
-                <div class="dev-code-line">}</div>
-              </div>
-              <div class="dev-screen">
-                <div class="dev-appbar">Gradle</div>
-                <div class="dev-build">
-                  <div class="task">&gt; :app:compileKotlin</div>
-                  <div class="dev-build-bar"><span></span></div>
-                  <div class="task">&gt; :app:packageRelease</div>
-                  <div class="ok">BUILD SUCCESSFUL</div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+      <!-- ACT 1: 3D Workstation Laptop with Hinged Lid & Homography Screen -->
+      <div class="scene" id="sceneA" aria-hidden="true">
+        <div class="world" id="worldA">
+          <div class="halo"></div>
+          <div class="floor"></div>
+          <img id="macBase" width="2200" height="1774" alt="" decoding="async" />
+          <img id="macLid" width="2200" height="1774" alt="" decoding="async" />
+          <div class="lidshade" id="lidShade"></div>
         </div>
+        <div class="scr" id="scrA"></div>
       </div>
+
+      <!-- Full-Viewport Portal Expansion Twin -->
+      <div class="full" id="fullA" aria-hidden="true"></div>
+
+      <!-- ACT 2: Falling 3D Phones into Water Horizon with Splash & Floating Glass Cards -->
+      <div class="scene" id="sceneB" aria-hidden="true">
+        <div class="b-bg"></div>
+        <div class="water" id="water"></div>
+        <div id="bDevs"></div>
+        <div id="rings"><i></i><i></i><i></i></div>
+        <canvas id="drops"></canvas>
+        <div class="bcards" id="bCards"></div>
+      </div>
+
+      <div id="portalGlow" aria-hidden="true"></div>
+      <div id="flash" aria-hidden="true"></div>
+      <div id="blackout" aria-hidden="true"></div>
+      <div class="scroll-hint" id="hint"><span data-i18n="heroScroll">KAYDIR · KEŞFET</span></div>
     </div>
   </section>
+
+  <!-- Templates for Nested Screens (Inside 3D Laptop & 3D Phones) -->
+  <template id="tplA">
+    <div class="sc-in">
+      <section class="pg">
+        <div class="grid"></div>
+        <div class="orbglow"></div>
+        <div class="tx">
+          <p class="eb" data-i18n="scr1Eb">İSTANBUL · VERIPARK · SENIOR ANDROID</p>
+          <p class="pg-h" data-i18n-html="scr1Title">Modern Android mimarisi ile <span class="cu">yüksek performans.</span></p>
+          <p class="ps" data-i18n="scr1Sub">Kotlin, Jetpack Compose, Coroutines ve Clean Architecture ile milyonlarca kullanıcının dokunduğu güvenli mobil ürünler.</p>
+          <div class="row">
+            <b class="pill fill">@Composable UI</b>
+            <b class="pill">Kotlin &amp; Coroutines</b>
+            <b class="pill">Fintech · NFC · SSL Pinning</b>
+            <b class="pill">Multi-Module Clean Arch</b>
+          </div>
+          <div class="stat">
+            <div><span class="cu">5+</span><small>Yıl Profesyonel Deneyim</small></div>
+            <div><span class="cu">12+</span><small>Mağaza &amp; Vitrin Projesi</small></div>
+            <div><span class="cu">11</span><small>Açık Web Aracı</small></div>
+          </div>
+        </div>
+      </section>
+      <section class="pg">
+        <div class="grid"></div>
+        <div class="orbglow l"></div>
+        <div class="tx">
+          <p class="eb" data-i18n="scr2Eb">ÇOKLU PLATFORM · TEK STANDART</p>
+          <p class="pg-h" data-i18n-html="scr2Title">Fikirden mağazaya, <span class="cu">beş ekosistem.</span></p>
+          <p class="ps" data-i18n="scr2Sub">Native Android ve iOS’tan Flutter ve Unity oyun motoruna kadar her platformda üretim kalitesinde kod.</p>
+          <div class="chips">
+            <b>🤖 Android SDK</b>
+            <b>🟣 Kotlin</b>
+            <b>🎨 Jetpack Compose</b>
+            <b>💙 Flutter</b>
+            <b>🍎 Swift / iOS</b>
+            <b>🎮 Unity 3D</b>
+            <b>🔥 Firebase</b>
+            <b>🛡️ NFC &amp; SSL Pinning</b>
+            <b>⚙️ CI/CD · Azure DevOps</b>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="sc-bar">
+      <div class="sc-brand"><b>Dİ</b><span>Android Studio · HomeScreen.kt — BUILD SUCCESSFUL</span></div>
+      <div><span>Kotlin 2.1</span><span>Compose</span><span>Release</span><span>60 FPS</span></div>
+    </div>
+  </template>
+
+  <template id="tplS1">
+    <div class="sc-in">
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">GOOGLE PLAY &amp; APP STORE</p>
+          <div class="big cu">Kube<br>Rush</div>
+          <p class="ps">Unity 3D Hypercasual Koşu · Şerit değiştir, küpü büyüt/küçült, kristalleri topla</p>
+          <div class="chips"><b>Unity 3D</b><b>60 FPS</b><b>Android &amp; iOS</b></div>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">JETPACK COMPOSE · GÜNLÜK</p>
+          <div class="big cu">My<br>Diary</div>
+          <p class="ps">Ses kaydı · Fotoğraf · PDF dışa aktarma · Material 3</p>
+          <div class="kpis">
+            <div><b class="cu">100%</b><small>Kotlin &amp; Compose</small></div>
+            <div><b class="cu">PDF</b><small>Anında Çıktı</small></div>
+          </div>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">MAĞAZA EKOSİSTEMİ</p>
+          <p class="pg-h">Tek tıkla QR.<br><span class="cu">Story ile paylaş.</span></p>
+          <p class="ps">dogusipeksac.com/kuberush · /mydiary</p>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="tplS2">
+    <div class="sc-in">
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">YAPAY ZEKÂ · PLAKA TANIMA</p>
+          <div class="big cu">Plaka<br>Kontrol</div>
+          <p class="ps">Türkiye plakalarını saniyeler içinde okuyan cihaz içi AI OCR motoru</p>
+          <div class="chips"><b>AI OCR</b><b>KameraX / AVFoundation</b><b>Geçmiş Kayıt</b></div>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">KONUM &amp; TARİH DAMGALI KAMERA</p>
+          <div class="big cu">Anı<br>Yakala</div>
+          <p class="ps">Harita görünümü · GPS damgası · Özel filigran şablonları</p>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">ÇAPRAZ PLATFORM</p>
+          <div class="big cu">Hızlı.<br>Net.</div>
+          <p class="ps">Hem Play Store hem App Store’da aktif yayında</p>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="tplS3a">
+    <div class="sc-in">
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">VERIPARK · ENTERPRISE FINTECH</p>
+          <div class="big cu">NFC<br>Security</div>
+          <p class="ps">Samsung Pay SDK · SSL Pinning · HCE Temassız Ödeme</p>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">MİMARİ HAT</p>
+          <div class="steps"><b>Analiz</b><i>→</i><b>Clean Arch</b><i>→</i><b>SSL/NFC</b><i>→</i><b>Store</b></div>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="tplS3b">
+    <div class="sc-in">
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">SAĞLIK &amp; ÜRETKENLİK</p>
+          <div class="big cu">Daily<br>Hydrate</div>
+          <p class="ps">Su İçme Hatırlatıcısı · Akıllı bildirimler &amp; istatistik</p>
+        </div>
+      </section>
+      <section class="pg c">
+        <div class="tx">
+          <p class="eb">WEB SUITE · 11 ARAÇ</p>
+          <p class="pg-h">FlexCV’den<br><span class="cu">IconForge’a.</span></p>
+          <p class="ps">Kurulumsuz tarayıcı içi üretkenlik stüdyosu</p>
+        </div>
+      </section>
+    </div>
+  </template>
 
   <!-- TECH MARQUEE -->
   <div class="marquee" aria-hidden="true">
@@ -226,38 +317,26 @@
       <div class="stats-grid">
         <div class="stat reveal glow-card"><div class="stat-num" data-count="5" data-suffix="+">0</div><div class="stat-label" data-i18n="statYears">Yıl Deneyim</div></div>
         <div class="stat reveal reveal-d1 glow-card"><div class="stat-num" data-count="12" data-suffix="+">0</div><div class="stat-label" data-i18n="statApps">Yayınlanan Uygulama</div></div>
-        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="8" data-suffix="">0</div><div class="stat-label" data-i18n="statTools">Web Aracı</div></div>
-        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">0</div><div class="stat-label" data-i18n="statPassion">Tutku & Özen</div></div>
+        <div class="stat reveal reveal-d2 glow-card"><div class="stat-num" data-count="11" data-suffix="">0</div><div class="stat-label" data-i18n="statTools">Açık Web Aracı</div></div>
+        <div class="stat reveal reveal-d3 glow-card"><div class="stat-num" data-count="100" data-suffix="%">0</div><div class="stat-label" data-i18n="statPassion">Tutku &amp; Mühendislik</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="aboutLabel">whoami</span>
-      <h2 class="section-title reveal" data-i18n="aboutTitle">Hakkımda</h2>
-      <div class="section-divider reveal"></div>
-      <div class="about-grid">
-        <div class="about-avatar reveal-left">
-          <div class="about-avatar-inner">
-            <div class="dev-workstation" aria-hidden="true">
-              <div class="dev-laptop">
-                <div class="dev-laptop-code">
-                  <span class="k">@Composable</span><br>
-                  fun App() {<br>
-                  &nbsp;&nbsp;HomeScreen()<br>
-                  }
-                </div>
-              </div>
-              <div class="dev-mini-phone"></div>
-            </div>
+  <!-- =====================================================================
+       SECTION 02 · HAKKIMDA (Pinned 3D Wing Cards Unfolding Around Center)
+       ===================================================================== -->
+  <section class="about-track" id="about" aria-labelledby="h-about">
+    <div class="about-pin" id="aboutPin">
+      <div class="about-grid-3d">
+        <div class="about-center" id="aboutCenter">
+          <span class="section-label" data-i18n="aboutLabel">whoami · 01</span>
+          <h2 id="h-about" data-i18n-html="aboutHeadline">Mühendislik disipliniyle <span class="cu">üretim odaklı</span> geliştirme.</h2>
+          <div class="about-bio-box">
+            <p data-i18n-html="aboutP1"><strong>Doğuş İpeksaç</strong>, bilgisayar mühendisi ve <strong>Veripark</strong>'ta Senior Android Developer. Kotlin, Java ve Jetpack Compose ile kurumsal ve tüketici odaklı native Android uygulamaları geliştiriyor.</p>
+            <p data-i18n-html="aboutP2"><strong>Android</strong>, <strong>Jetpack Compose</strong>, <strong>Flutter</strong>, <strong>Swift / iOS</strong> ve <strong>Unity</strong> üzerinde uçtan uca üretim deneyimine sahip. Fintech dünyasında NFC, Samsung Pay SDK ve SSL Pinning gibi kritik güvenlik entegrasyonlarını yönetiyor.</p>
+            <p class="about-p3" data-i18n-html="aboutP3">İstanbul'da yaşıyor; bağımsız mobil uygulamalar, tarayıcı içi geliştirici araçları ve seyahat/finans/teknoloji üzerine YouTube içerikleri üretiyor.</p>
           </div>
-        </div>
-        <div class="about-text reveal-right">
-          <p data-i18n-html="aboutP1"><strong>Doğuş İpeksaç</strong>, bilgisayar mühendisi ve <strong>Veripark</strong>'ta Senior Android Developer. Kotlin, Java ve Jetpack Compose ile native Android uygulamaları geliştiriyor; ürün mimarisi, performans ve kullanıcı deneyimine odaklanıyor.</p>
-          <p data-i18n-html="aboutP2"><strong>Android</strong>, <strong>Jetpack Compose</strong>, <strong>Flutter</strong>, <strong>Swift / iOS</strong> ve <strong>Unity</strong> üzerinde uygulamalı deneyim sahibi. Cross-platform, native mobil ve oyun projelerinde bu teknolojileri aktif olarak kullanıyor. Fintech alanında NFC, Samsung Pay SDK ve SSL Pinning gibi güvenlik odaklı entegrasyonlarda çalışıyor.</p>
-          <p data-i18n-html="aboutP3">İstanbul'da yaşıyor. Mobil güvenlik ve uygulama güvenliğine ilgi duyuyor; seyahat, kişisel finans ve teknoloji konularında içerik üretiyor.</p>
           <div class="about-tags">
             <span class="about-tag h" data-i18n="tagLocation">📍 İstanbul, Türkiye</span>
             <span class="about-tag h">🏢 Veripark</span>
@@ -270,283 +349,102 @@
             <span class="about-tag">Fintech</span>
           </div>
         </div>
+
+        <article class="ab ab-l1" style="--i:0">
+          <span class="fig" aria-hidden="true" data-i18n="ab1Fig">5+</span>
+          <span class="k" data-i18n="ab1K">01 · DENEYİM</span>
+          <h3 data-i18n="ab1H">Kurumsal &amp; Bağımsız Mobil Mühendislik</h3>
+          <p data-i18n="ab1P">Veripark bünyesinde finans ve bankacılık ölçeğinde Android mimarisi, modüler yapı ve performans optimizasyonu.</p>
+          <ul>
+            <li data-i18n="ab1L1">Kotlin, Java &amp; Jetpack Compose ile modern UI</li>
+            <li data-i18n="ab1L2">Clean Architecture, MVVM/MVI &amp; Multi-Module</li>
+            <li data-i18n="ab1L3">Yüksek trafikli kurumsal uygulama deneyimi</li>
+          </ul>
+        </article>
+
+        <article class="ab ab-r1" style="--i:1">
+          <span class="fig" aria-hidden="true" data-i18n="ab2Fig">5x</span>
+          <span class="k" data-i18n="ab2K">02 · EKOSİSTEM</span>
+          <h3 data-i18n="ab2H">Native, Cross-Platform ve Oyun Motoru</h3>
+          <p data-i18n="ab2P">İhtiyaca en uygun teknolojiyi seçerek hem native hem çapraz platformda mağaza-hazır ürünler çıkarma yetkinliği.</p>
+          <ul>
+            <li data-i18n="ab2L1">Android SDK &amp; Jetpack Compose</li>
+            <li data-i18n="ab2L2">Flutter &amp; Swift / iOS geliştirme</li>
+            <li data-i18n="ab2L3">Unity ile 2D/3D mobil oyun üretimi</li>
+          </ul>
+        </article>
+
+        <article class="ab ab-l2" style="--i:2">
+          <span class="fig" aria-hidden="true" data-i18n="ab3Fig">NFC</span>
+          <span class="k" data-i18n="ab3K">03 · FINTECH &amp; GÜVENLİK</span>
+          <h3 data-i18n="ab3H">Uygulama Güvenliği ve Ödeme Sistemleri</h3>
+          <p data-i18n="ab3P">Finansal uygulamalarda veri bütünlüğü, güvenli iletişim ve temassız ödeme protokollerinde derin uzmanlık.</p>
+          <ul>
+            <li data-i18n="ab3L1">NFC &amp; Host Card Emulation (HCE)</li>
+            <li data-i18n="ab3L2">Samsung Pay SDK entegrasyonları</li>
+            <li data-i18n="ab3L3">SSL Pinning, RASP &amp; Mobil Pentest farkındalığı</li>
+          </ul>
+        </article>
+
+        <article class="ab ab-r2" style="--i:3">
+          <span class="fig" aria-hidden="true" data-i18n="ab4Fig">20+</span>
+          <span class="k" data-i18n="ab4K">04 · ÜRETİM &amp; TOPLULUK</span>
+          <h3 data-i18n="ab4H">Fikirden Mağazaya Bağımsız Ürünler</h3>
+          <p data-i18n="ab4P">Play Store ve App Store’da yayınlanan uygulamalar, açık erişimli 11 web aracı ve YouTube içerik üretimi.</p>
+          <ul>
+            <li data-i18n="ab4L1">5 aktif mağaza uygulaması (Android &amp; iOS)</li>
+            <li data-i18n="ab4L2">11 tarayıcı içi ücretsiz üretkenlik aracı</li>
+            <li data-i18n="ab4L3">12 sektörel canlı web vitrin demosu</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="skillsLabel">cat ./stack</span>
-      <h2 class="section-title reveal" data-i18n="skillsTitle">Yetenekler</h2>
-      <div class="section-divider reveal"></div>
-      <p class="section-sub reveal" data-i18n="skillsSub">Kotlin’den Unity’ye — üretim hattında her gün açtığım silahlar. Native, cross-platform, oyun.</p>
-      <div class="dev-git reveal" aria-hidden="true">
-        <div class="dev-git-line"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-        <div class="dev-commit"></div>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card reveal-scale"><span class="skill-icon">🤖</span><div class="skill-name">Android</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d1"><span class="skill-icon">🟣</span><div class="skill-name">Kotlin</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d2"><span class="skill-icon">🎨</span><div class="skill-name">Jetpack Compose</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d3"><span class="skill-icon">💙</span><div class="skill-name">Flutter</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale"><span class="skill-icon">🍎</span><div class="skill-name">Swift / iOS</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d1"><span class="skill-icon">🎮</span><div class="skill-name">Unity</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d2"><span class="skill-icon">☕</span><div class="skill-name">Java</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale reveal-d3"><span class="skill-icon">🔥</span><div class="skill-name">Firebase</div><div class="skill-level" data-i18n="experienced">Deneyimli</div></div>
-        <div class="skill-card reveal-scale"><span class="skill-icon">🔧</span><div class="skill-name">Git / Azure DevOps</div><div class="skill-level">CI/CD & VCS</div></div>
-        <div class="skill-card reveal-scale reveal-d1"><span class="skill-icon">🛡️</span><div class="skill-name" data-i18n="mobileSec">Mobil Güvenlik</div><div class="skill-level">Pentest & SSL Pinning</div></div>
-      </div>
-    </div>
-  </section>
+  <!-- =====================================================================
+       SECTION 03 · UYGULAMALARIM (Pinned Spark Burst + 3D Stacked Card Deck)
+       ===================================================================== -->
+  <section class="svc-track" id="apps" aria-labelledby="h-apps">
+    <div class="svc-pin" id="svcPin">
+      <div class="spark" id="spark" aria-hidden="true"></div>
+      <div class="burst" id="burst" aria-hidden="true"></div>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="projectsLabel">git checkout web</span>
-      <h2 class="section-title reveal" data-i18n="projectsTitle">Demo Projeler</h2>
-      <div class="section-divider reveal"></div>
-      <p class="section-sub reveal" data-i18n="projectsSub">Müşteri demoları. Canlı, tıklanır, tarayıcıda çalışır — clone gerekmez.</p>
-      <div class="projects-grid">
-        <a href="/aircondition" class="project-card glow-card reveal">
-          <div class="project-emoji">🌬️</div>
-          <div class="project-name">AirFlow Klima</div>
-          <div class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/tamirat" class="project-card glow-card reveal reveal-d1">
-          <div class="project-emoji">🔧</div>
-          <div class="project-name">ProFix Tamirat</div>
-          <div class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/games" class="project-card glow-card reveal reveal-d2">
-          <div class="project-emoji">🎮</div>
-          <div class="project-name">MiniPlay Games</div>
-          <div class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</div>
-          <div class="project-link-label" data-i18n="play">Oyna →</div>
-        </a>
-        <a href="/galatano5/" class="project-card glow-card reveal reveal-d3">
-          <div class="project-emoji">✦</div>
-          <div class="project-name">Galata No5 Beauty</div>
-          <div class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/atelier41/" class="project-card glow-card reveal">
-          <div class="project-emoji">▣</div>
-          <div class="project-name">Atelier 41</div>
-          <div class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/sarnic/" class="project-card glow-card reveal reveal-d1">
-          <div class="project-emoji">🍽</div>
-          <div class="project-name">Sarnıç</div>
-          <div class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/kirik-isik/" class="project-card glow-card reveal reveal-d2">
-          <div class="project-emoji">◎</div>
-          <div class="project-name">Kırık Işık</div>
-          <div class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/pera-house/" class="project-card glow-card reveal reveal-d3">
-          <div class="project-emoji">⌂</div>
-          <div class="project-name">Pera House</div>
-          <div class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/vera/" class="project-card glow-card reveal">
-          <div class="project-emoji">◇</div>
-          <div class="project-name">Vera Klinik</div>
-          <div class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/dem/" class="project-card glow-card reveal reveal-d1">
-          <div class="project-emoji">☕</div>
-          <div class="project-name">Dem</div>
-          <div class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/magaza/" class="project-card glow-card reveal reveal-d3">
-          <div class="project-emoji">🏟️</div>
-          <div class="project-name">Çizgi</div>
-          <div class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
-        <a href="/ocak/" class="project-card glow-card reveal reveal-d2">
-          <div class="project-emoji">🔥</div>
-          <div class="project-name">Ocak</div>
-          <div class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</div>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
+      <div class="svc-head" id="svcHead">
+        <span class="section-label" data-i18n="appsLabel">@Composable · 02</span>
+        <h2 id="h-apps" data-i18n="appsTitle">Mağazadaki Uygulamalarım</h2>
+        <p class="svc-sub" data-i18n-html="appsSub">Kaydırdıkça 3B katmanlar halinde açılan mobil ürünler. <strong>QR Kod</strong> ile indir, story ile paylaş — Android ve iOS.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- TOOLS -->
-  <section id="tools">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="toolsLabel">./tools --free</span>
-      <h2 class="section-title reveal" data-i18n="toolsTitle">Faydalanılabilecek Araçlar</h2>
-      <div class="section-divider reveal"></div>
-      <p class="section-sub reveal" data-i18n="toolsSub">Kayıt yok. Kurulum yok. Aç, kullan, indir — hepsi tarayıcıda.</p>
-      <div class="tools-grid">
-        <a href="/youtube/" class="tool-card glow-card reveal">
-          <div class="tool-card-head">
-            <span class="tool-emoji">▶️</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolYoutubeName">Kare</div>
-          <div class="tool-desc" data-i18n="toolYoutube">YouTube üretim pipeline’ı. Özelleştirilebilir sütunlar, hook/başlık/açıklama, takvim, kontrol listesi — tarayıcıda kalır.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/youtube</div>
-        </a>
-        <a href="/eticaret/dist/" class="tool-card glow-card reveal">
-          <div class="tool-card-head">
-            <span class="tool-emoji">🛒</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolEcomName">E-Ticaret Paneli</div>
-          <div class="tool-desc" data-i18n="toolEcom">Araba aksesuarları girişiminin aşama, görev, ürün ve finans takibi. Veriler tarayıcıda kalır.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/eticaret</div>
-        </a>
-        <a href="/isletme-bulucu/dist/" class="tool-card glow-card reveal">
-          <div class="tool-card-head">
-            <span class="tool-emoji">📍</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolNearbyName">Yakınımdaki İşletmeler</div>
-          <div class="tool-desc" data-i18n="toolNearby">Konumuna yakın işletmeleri OSM ile bul. Web sitesi olmayanları potansiyel müşteri olarak listele, CSV indir.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/isletme-bulucu</div>
-        </a>
-        <a href="/flexcv/" class="tool-card glow-card reveal reveal-d1">
-          <div class="tool-card-head">
-            <span class="tool-emoji">📐</span>
-            <span class="tool-badge" data-i18n="badgeStudio">Stüdyo</span>
-          </div>
-          <div class="tool-name">FlexCV Builder</div>
-          <div class="tool-desc" data-i18n="toolFlex">Sürükle-bırak CV tasarım stüdyosu. 10 şablon, serbest yerleşim, katmanlar, hizalama, PDF/PNG/JPEG çıktı. Canva tarzı editör.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/flexcv</div>
-        </a>
-        <a href="/cv/" class="tool-card glow-card reveal reveal-d1">
-          <div class="tool-card-head">
-            <span class="tool-emoji">📄</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolCvName">CV Oluşturucu</div>
-          <div class="tool-desc" data-i18n="toolCv">Esnek özgeçmiş oluşturucu. Hazır şablonlar, canlı önizleme, PDF ve Word çıktısı. Dosya adı otomatik "Ad Soyad Ay Yıl".</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/cv</div>
-        </a>
-        <a href="/app-logo-generator/" class="tool-card glow-card reveal reveal-d2">
-          <div class="tool-card-head">
-            <span class="tool-emoji">✨</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name">IconForge — App Icon Builder</div>
-          <div class="tool-desc" data-i18n="toolIcon">Play Store ve App Store görselleri, adaptive icon ve mağaza ekran görüntüleri için profesyonel ikon aracı.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/app-logo-generator</div>
-        </a>
-        <a href="/sinavkagidi/" class="tool-card glow-card reveal">
-          <div class="tool-card-head">
-            <span class="tool-emoji">📝</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolExamName">Sınav Kağıdı</div>
-          <div class="tool-desc" data-i18n="toolExam">Soruları yazın; numaralı sınav kağıdını PDF veya Word olarak indirin.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/sinavkagidi</div>
-        </a>
-        <a href="/textdiff/" class="tool-card glow-card reveal reveal-d1">
-          <div class="tool-card-head">
-            <span class="tool-emoji">🔍</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name">Text Diff</div>
-          <div class="tool-desc" data-i18n="toolDiff">İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/textdiff</div>
-        </a>
-        <a href="/logcleaner/" class="tool-card glow-card reveal reveal-d2">
-          <div class="tool-card-head">
-            <span class="tool-emoji">🧹</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name">Logcleaner</div>
-          <div class="tool-desc" data-i18n="toolLog">Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/logcleaner</div>
-        </a>
-        <a href="/txtconverter/" class="tool-card glow-card reveal">
-          <div class="tool-card-head">
-            <span class="tool-emoji">📄</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name">TXT Converter</div>
-          <div class="tool-desc" data-i18n="toolTxt">Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/txtconverter</div>
-        </a>
-        <a href="/template/" class="tool-card glow-card reveal reveal-d1">
-          <div class="tool-card-head">
-            <span class="tool-emoji">🃏</span>
-            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
-          </div>
-          <div class="tool-name" data-i18n="toolTemplateName">YA DA Şablonu</div>
-          <div class="tool-desc" data-i18n="toolTemplate">İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.</div>
-          <div class="tool-link-label" data-i18n="openTool">Aracı Aç →</div>
-          <div class="tool-url">/template</div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- YOUTUBE -->
-  <section id="youtube">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="ytLabel">watch -n 1</span>
-      <h2 class="section-title reveal" data-i18n="ytTitle">YouTube Kanalım</h2>
-      <div class="section-divider reveal"></div>
-      <div class="yt-card glow-card reveal-scale">
-        <div class="yt-icon">▶</div>
-        <div>
-          <div class="yt-handle">@dogusipeksac</div>
-          <h3 class="yt-title" data-i18n="ytHeadline">Seyahat, Finans & Teknoloji</h3>
-          <p class="yt-desc" data-i18n="ytDesc">YouTube kanalımda seyahat vlogları, kişisel finans ipuçları ve teknoloji içerikleri paylaşıyorum. Gerçek deneyimlerden ilham alan, dürüst ve özgün içerikler.</p>
-          <div class="yt-tags">
-            <span class="yt-tag" data-i18n="ytTravel">✈️ Seyahat</span>
-            <span class="yt-tag" data-i18n="ytFinance">💰 Kişisel Finans</span>
-            <span class="yt-tag" data-i18n="ytTech">💻 Teknoloji</span>
-          </div>
-          <a href="https://youtube.com/@dogusipeksac" target="_blank" class="yt-btn" data-i18n="ytBtn">▶ Kanala Git</a>
+      <div class="svc-right-ui">
+        <div class="svc-nav" id="svcNav" role="tablist" aria-label="Uygulama seçici">
+          <button type="button" class="svc-dot active" data-app-idx="0">01 · Kube Rush</button>
+          <button type="button" class="svc-dot" data-app-idx="1">02 · My Diary</button>
+          <button type="button" class="svc-dot" data-app-idx="2">03 · Plaka Kontrol</button>
+          <button type="button" class="svc-dot" data-app-idx="3">04 · Anı Yakala</button>
+          <button type="button" class="svc-dot" data-app-idx="4">05 · Su İçme</button>
         </div>
+        <div class="svc-count" id="svcCount"><b>01</b> / 05</div>
       </div>
-    </div>
-  </section>
 
-  <!-- APPS -->
-  <section id="apps">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="appsLabel">@Composable</span>
-      <h2 class="section-title reveal" data-i18n="appsTitle">Uygulamalarım</h2>
-      <div class="section-divider reveal"></div>
-      <p class="section-sub reveal" data-i18n-html="appsSub">Store’da yayında. <strong>QR Kod</strong> ile indir, story ile paylaş — Android ve iOS.</p>
-      <div class="apps-grid">
-        <div class="app-card glow-card reveal">
-          <div class="app-icon kube has-logo"><img src="/assets/apps/kuberush.png" width="64" height="64" alt="Kube Rush" /></div>
-          <div class="app-content">
-            <div class="app-name">Kube Rush</div>
-            <div class="app-platform">Android · iOS</div>
-            <div class="app-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</div>
+      <ol class="svc-list" id="svcList">
+        <!-- App 01: Kube Rush -->
+        <li class="svc-card app-card">
+          <span class="no" aria-hidden="true">01</span>
+          <div class="tx">
+            <div class="svc-app-head">
+              <div class="app-icon kube has-logo"><img src="/assets/apps/kuberush.png" width="64" height="64" alt="Kube Rush" /></div>
+              <div>
+                <div class="app-platform">ANDROID · iOS · UNITY 3D</div>
+                <h3 class="app-name">Kube Rush</h3>
+              </div>
+            </div>
+            <p class="app-desc" data-i18n="appKube">Hypercasual koşu oyunu. Tek elle oyna: şerit değiştir, küpü büyüt/küçült, engellerden geç. Kristal topla, skin marketi, skor rekoru.</p>
+            <div class="tags">
+              <span>Unity 3D</span>
+              <span>Hypercasual</span>
+              <span>60 FPS</span>
+              <span>Skin Market</span>
+            </div>
             <div class="app-btns">
               <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush" target="_blank" rel="noopener noreferrer" class="app-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -563,13 +461,30 @@
               <a href="/kuberush/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-        </div>
-        <div class="app-card glow-card reveal reveal-d1">
-          <div class="app-icon">📔</div>
-          <div class="app-content">
-            <div class="app-name">My Diary</div>
-            <div class="app-platform">Android</div>
-            <div class="app-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Jetpack Compose ile geliştirildi. Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</div>
+          <div class="viz" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <div class="viz-core"><img src="/assets/apps/kuberush.png" alt="" /></div>
+          </div>
+        </li>
+
+        <!-- App 02: My Diary -->
+        <li class="svc-card app-card">
+          <span class="no" aria-hidden="true">02</span>
+          <div class="tx">
+            <div class="svc-app-head">
+              <div class="app-icon">📔</div>
+              <div>
+                <div class="app-platform">ANDROID · JETPACK COMPOSE</div>
+                <h3 class="app-name">My Diary</h3>
+              </div>
+            </div>
+            <p class="app-desc" data-i18n="appDiary">Kişisel günlük uygulaması. Jetpack Compose ile geliştirildi. Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</p>
+            <div class="tags">
+              <span>Jetpack Compose</span>
+              <span>Room DB</span>
+              <span>Ses Kaydı</span>
+              <span>PDF Export</span>
+            </div>
             <div class="app-btns">
               <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -582,13 +497,29 @@
               <a href="/mydiary/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-        </div>
-        <div class="app-card glow-card reveal reveal-d2">
-          <div class="app-icon plaka">🚗</div>
-          <div class="app-content">
-            <div class="app-name">App Plaka Kontrol</div>
-            <div class="app-platform">Android · iOS</div>
-            <div class="app-desc" data-i18n="appPlaka">Yapay zeka destekli plaka tanıma uygulaması. Türkiye plakalarını saniyeler içinde okur, geçmiş kayıtlarını saklar.</div>
+          <div class="viz" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <div class="viz-core emoji">📔</div>
+          </div>
+        </li>
+
+        <!-- App 03: App Plaka Kontrol -->
+        <li class="svc-card app-card">
+          <span class="no" aria-hidden="true">03</span>
+          <div class="tx">
+            <div class="svc-app-head">
+              <div class="app-icon plaka">🚗</div>
+              <div>
+                <div class="app-platform">ANDROID · iOS · AI VISION</div>
+                <h3 class="app-name">App Plaka Kontrol</h3>
+              </div>
+            </div>
+            <p class="app-desc" data-i18n="appPlaka">Yapay zeka destekli plaka tanıma uygulaması. Türkiye plakalarını saniyeler içinde okur, geçmiş kayıtlarını saklar.</p>
+            <div class="tags">
+              <span>AI OCR</span>
+              <span>Gerçek Zamanlı Kamera</span>
+              <span>TR Plaka Analizi</span>
+            </div>
             <div class="app-btns">
               <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -605,13 +536,29 @@
               <a href="/appplaka/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-        </div>
-        <div class="app-card glow-card reveal reveal-d3">
-          <div class="app-icon moment has-logo"><img src="/assets/apps/aniyakala.png" width="64" height="64" alt="Anı Yakala" /></div>
-          <div class="app-content">
-            <div class="app-name">Anı Yakala / Moment Capture</div>
-            <div class="app-platform">Android · iOS</div>
-            <div class="app-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</div>
+          <div class="viz" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <div class="viz-core emoji">🚗</div>
+          </div>
+        </li>
+
+        <!-- App 04: Anı Yakala -->
+        <li class="svc-card app-card">
+          <span class="no" aria-hidden="true">04</span>
+          <div class="tx">
+            <div class="svc-app-head">
+              <div class="app-icon moment has-logo"><img src="/assets/apps/aniyakala.png" width="64" height="64" alt="Anı Yakala" /></div>
+              <div>
+                <div class="app-platform">ANDROID · iOS · GPS CAMERA</div>
+                <h3 class="app-name">Anı Yakala / Moment Capture</h3>
+              </div>
+            </div>
+            <p class="app-desc" data-i18n="appMoment">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</p>
+            <div class="tags">
+              <span>GPS Damgası</span>
+              <span>Canlı Harita</span>
+              <span>Özel Filigran</span>
+            </div>
             <div class="app-btns">
               <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -628,13 +575,29 @@
               <a href="/aniyakala/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
-        </div>
-        <div class="app-card glow-card reveal">
-          <div class="app-icon hydrate has-logo"><img src="/assets/apps/suicme.png" width="64" height="64" alt="Su İçme Hatırlatıcısı" /></div>
-          <div class="app-content">
-            <div class="app-name" data-i18n="appHydrateName">Su İçme Hatırlatıcısı</div>
-            <div class="app-platform">Android · iOS</div>
-            <div class="app-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</div>
+          <div class="viz" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <div class="viz-core"><img src="/assets/apps/aniyakala.png" alt="" /></div>
+          </div>
+        </li>
+
+        <!-- App 05: Su İçme Hatırlatıcısı -->
+        <li class="svc-card app-card">
+          <span class="no" aria-hidden="true">05</span>
+          <div class="tx">
+            <div class="svc-app-head">
+              <div class="app-icon hydrate has-logo"><img src="/assets/apps/suicme.png" width="64" height="64" alt="Su İçme Hatırlatıcısı" /></div>
+              <div>
+                <div class="app-platform">ANDROID · iOS · HEALTH &amp; HABIT</div>
+                <h3 class="app-name" data-i18n="appHydrateName">Su İçme Hatırlatıcısı</h3>
+              </div>
+            </div>
+            <p class="app-desc" data-i18n="appHydrate">Günlük su tüketimini takip eden akıllı hatırlatıcı. Kişisel hedef, bildirimler, ilerleme istatistikleri ve açık/koyu tema.</p>
+            <div class="tags">
+              <span>Akıllı Bildirim</span>
+              <span>Günlük Hedef</span>
+              <span>İstatistik Grafikleri</span>
+            </div>
             <div class="app-btns">
               <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate" target="_blank" rel="noopener noreferrer" class="app-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -651,41 +614,524 @@
               <a href="/suicme/story/" class="app-btn qr ig-story">📸 Story</a>
             </div>
           </div>
+          <div class="viz" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <div class="viz-core"><img src="/assets/apps/suicme.png" alt="" /></div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="svc-bar" id="svcBar"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 04 · YETENEKLER (Pinned 3D Depth Portal Grid — 2 Z-Space Waves)
+       ===================================================================== -->
+  <section class="pk-track" id="skills" aria-labelledby="h-skills">
+    <div class="pk-pin" id="pkPin">
+      <div class="pk-title">
+        <span class="section-label" data-i18n="skillsLabel">cat ./stack · 03</span>
+        <div class="pk-title-stack">
+          <div class="t" id="pkT1">
+            <h2 id="h-skills" data-i18n="skillsTitle">Teknoloji Cephaneliği</h2>
+            <p class="pk-sub" data-i18n="skillsWave1">01 · Core Mobile &amp; UI Mimarisi</p>
+          </div>
+          <div class="t" id="pkT2">
+            <h2 data-i18n="skillsTitle">Teknoloji Cephaneliği</h2>
+            <p class="pk-sub" data-i18n="skillsWave2">02 · Oyun, Bulut, DevOps &amp; Güvenlik</p>
+          </div>
+        </div>
+        <div class="pk-wave-switch">
+          <button type="button" class="pk-wbtn act" data-wave="0" data-i18n="skillsWaveBtn1">01 · Core Mobile</button>
+          <button type="button" class="pk-wbtn" data-wave="1" data-i18n="skillsWaveBtn2">02 · Oyun &amp; Güvenlik</button>
+        </div>
+      </div>
+
+      <!-- Wave 1: Core Mobile -->
+      <div class="pk-grid g1" id="pkG1">
+        <article class="pk-card hot skill-card">
+          <span class="badge">CORE</span>
+          <span class="skill-icon">🤖</span>
+          <h3 class="skill-name">Android SDK</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescAndroid">Native SDK, Jetpack, WorkManager, Room, Hilt ve derin sistem entegrasyonları.</p>
+          <div class="pk-tags"><span>Jetpack</span><span>Hilt</span><span>Room</span></div>
+        </article>
+        <article class="pk-card hot skill-card">
+          <span class="badge">PRIMARY</span>
+          <span class="skill-icon">🟣</span>
+          <h3 class="skill-name">Kotlin</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescKotlin">Coroutines, Flow, KMP hazırlığı, DSL tasarımı ve fonksiyonel mimari.</p>
+          <div class="pk-tags"><span>Coroutines</span><span>StateFlow</span><span>KMP</span></div>
+        </article>
+        <article class="pk-card hot skill-card">
+          <span class="badge">UI</span>
+          <span class="skill-icon">🎨</span>
+          <h3 class="skill-name">Jetpack Compose</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescCompose">Custom Layout, Canvas/Shader animasyonları, Recomposition optimizasyonu ve Material 3.</p>
+          <div class="pk-tags"><span>Material 3</span><span>Canvas</span><span>60 FPS</span></div>
+        </article>
+        <article class="pk-card skill-card">
+          <span class="skill-icon">💙</span>
+          <h3 class="skill-name">Flutter</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescFlutter">Tek kod tabanıyla iOS ve Android için 60fps akıcı, özel tasarım ürünler.</p>
+          <div class="pk-tags"><span>Dart</span><span>Cross-Platform</span><span>Custom UI</span></div>
+        </article>
+        <article class="pk-card skill-card">
+          <span class="skill-icon">🍎</span>
+          <h3 class="skill-name">Swift / iOS</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescSwift">SwiftUI &amp; UIKit ile App Store yayınına hazır native iOS uygulamaları.</p>
+          <div class="pk-tags"><span>SwiftUI</span><span>Keychain</span><span>App Store</span></div>
+        </article>
+      </div>
+
+      <!-- Wave 2: Game Engine, Cloud, DevOps & Security -->
+      <div class="pk-grid g2" id="pkG2">
+        <article class="pk-card hot skill-card">
+          <span class="badge">ENGINE</span>
+          <span class="skill-icon">🎮</span>
+          <h3 class="skill-name">Unity</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescUnity">C#, fizik mekanikleri, shader, reklam/IAP entegrasyonu ve hypercasual oyun döngüsü.</p>
+          <div class="pk-tags"><span>C#</span><span>3D / 2D</span><span>AdMob</span></div>
+        </article>
+        <article class="pk-card skill-card">
+          <span class="skill-icon">☕</span>
+          <h3 class="skill-name">Java</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescJava">Kurumsal legacy sistemler, JNI köprüleri ve çok katmanlı sağlam backend/mobil kod.</p>
+          <div class="pk-tags"><span>JVM</span><span>Enterprise</span><span>OOP</span></div>
+        </article>
+        <article class="pk-card skill-card">
+          <span class="skill-icon">🔥</span>
+          <h3 class="skill-name">Firebase</h3>
+          <p class="sub" data-i18n="experienced">İleri Seviye</p>
+          <p class="pk-desc" data-i18n="skDescFirebase">Firestore, Auth, Crashlytics, Remote Config, FCM ve gerçek zamanlı analitik.</p>
+          <div class="pk-tags"><span>Crashlytics</span><span>Firestore</span><span>FCM</span></div>
+        </article>
+        <article class="pk-card skill-card">
+          <span class="skill-icon">🔧</span>
+          <h3 class="skill-name">Git / Azure DevOps</h3>
+          <p class="sub">CI/CD &amp; VCS</p>
+          <p class="pk-desc" data-i18n="skDescDevops">Git akışları, Azure DevOps pipeline’ları, Fastlane ve otomatik mağaza dağıtımı.</p>
+          <div class="pk-tags"><span>Pipelines</span><span>Gradle</span><span>Fastlane</span></div>
+        </article>
+        <article class="pk-card hot skill-card">
+          <span class="badge">FINTECH</span>
+          <span class="skill-icon">🛡️</span>
+          <h3 class="skill-name" data-i18n="mobileSec">Mobil Güvenlik</h3>
+          <p class="sub">Pentest &amp; SSL Pinning</p>
+          <p class="pk-desc" data-i18n="skDescSec">SSL Pinning, NFC/HCE, Keystore/Keychain şifreleme ve tersine mühendislik koruması.</p>
+          <div class="pk-tags"><span>NFC / HCE</span><span>SSL Pinning</span><span>Samsung Pay</span></div>
+        </article>
+      </div>
+
+      <p class="pk-note" data-i18n="skillsSub">Kotlin’den Unity’ye — üretim hattında her gün açtığım silahlar. Kaydırdıkça katmanlar açılır.</p>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 05 · DEMO PROJELER (Sticky Split + Orbital + Interactive Filter)
+       ===================================================================== -->
+  <section id="projects" class="corp">
+    <div class="corp-words" id="projWords" aria-hidden="true">WEB SHOWCASE · LIVE DEMOS · ARCHITECTURE</div>
+    <div class="corp-wrap">
+      <div class="corp-sticky">
+        <span class="section-label reveal" data-i18n="projectsLabel">git checkout web · 04</span>
+        <h2 class="section-title reveal" data-i18n="projectsTitle">Canlı Web Demoları</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal" data-i18n="projectsSub">Kurumsal ve sektörel müşteriler için geliştirdiğim canlı, etkileşimli vitrin projeleri — tarayıcıda anında açılır.</p>
+
+        <div class="filter-pills" id="projFilters" role="group" aria-label="Proje filtreleri">
+          <button type="button" class="f-pill active" data-filter="all" data-i18n="projFilterAll">Tümü (12)</button>
+          <button type="button" class="f-pill" data-filter="food" data-i18n="projFilterFood">Restoran &amp; Kafe</button>
+          <button type="button" class="f-pill" data-filter="studio" data-i18n="projFilterStudio">Stüdyo &amp; Butik</button>
+          <button type="button" class="f-pill" data-filter="service" data-i18n="projFilterService">Hizmet &amp; Oyun</button>
+        </div>
+
+        <div class="orbit" aria-hidden="true">
+          <i></i><i></i><i></i><b></b>
+        </div>
+      </div>
+
+      <div class="corp-list projects-grid" id="projectsGrid">
+        <a href="/galatano5/" class="corp-item project-card glow-card reveal" data-cat="studio">
+          <span class="n">01</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">✦</span>
+            <span class="corp-tag">Beauty &amp; Editorial</span>
+          </div>
+          <h3 class="project-name">Galata No5 Beauty</h3>
+          <p class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/atelier41/" class="corp-item project-card glow-card reveal" data-cat="studio">
+          <span class="n">02</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">▣</span>
+            <span class="corp-tag">Architecture</span>
+          </div>
+          <h3 class="project-name">Atelier 41</h3>
+          <p class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/sarnic/" class="corp-item project-card glow-card reveal" data-cat="food">
+          <span class="n">03</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🍽</span>
+            <span class="corp-tag">Fine Dining</span>
+          </div>
+          <h3 class="project-name">Sarnıç</h3>
+          <p class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/kirik-isik/" class="corp-item project-card glow-card reveal" data-cat="studio">
+          <span class="n">04</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">◎</span>
+            <span class="corp-tag">Photography</span>
+          </div>
+          <h3 class="project-name">Kırık Işık</h3>
+          <p class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/pera-house/" class="corp-item project-card glow-card reveal" data-cat="studio">
+          <span class="n">05</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">⌂</span>
+            <span class="corp-tag">Boutique Hotel</span>
+          </div>
+          <h3 class="project-name">Pera House</h3>
+          <p class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/vera/" class="corp-item project-card glow-card reveal" data-cat="service">
+          <span class="n">06</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">◇</span>
+            <span class="corp-tag">Clinic &amp; Health</span>
+          </div>
+          <h3 class="project-name">Vera Klinik</h3>
+          <p class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/dem/" class="corp-item project-card glow-card reveal" data-cat="food">
+          <span class="n">07</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">☕</span>
+            <span class="corp-tag">QR Menu · Cafe</span>
+          </div>
+          <h3 class="project-name">Dem</h3>
+          <p class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/ocak/" class="corp-item project-card glow-card reveal" data-cat="food">
+          <span class="n">08</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🔥</span>
+            <span class="corp-tag">QR Menu · Grill</span>
+          </div>
+          <h3 class="project-name">Ocak</h3>
+          <p class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/magaza/" class="corp-item project-card glow-card reveal" data-cat="studio">
+          <span class="n">09</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🏟️</span>
+            <span class="corp-tag">Dynamic Storefront</span>
+          </div>
+          <h3 class="project-name">Çizgi</h3>
+          <p class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/aircondition" class="corp-item project-card glow-card reveal" data-cat="service">
+          <span class="n">10</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🌬️</span>
+            <span class="corp-tag">Corporate HVAC</span>
+          </div>
+          <h3 class="project-name">AirFlow Klima</h3>
+          <p class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/tamirat" class="corp-item project-card glow-card reveal" data-cat="service">
+          <span class="n">11</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🔧</span>
+            <span class="corp-tag">Home Services</span>
+          </div>
+          <h3 class="project-name">ProFix Tamirat</h3>
+          <p class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</p>
+          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
+        </a>
+
+        <a href="/games" class="corp-item project-card glow-card reveal" data-cat="service">
+          <span class="n">12</span>
+          <div class="corp-item-top">
+            <span class="project-emoji">🎮</span>
+            <span class="corp-tag">Web Arcade</span>
+          </div>
+          <h3 class="project-name">MiniPlay Games</h3>
+          <p class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</p>
+          <div class="project-link-label" data-i18n="play">Oyna →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 06 · FAYDALANILABİLECEK ARAÇLAR (Sticky Split + Orbital + Filter)
+       ===================================================================== -->
+  <section id="tools" class="corp alt">
+    <div class="corp-words" id="toolWords" aria-hidden="true">BROWSER TOOLS · ZERO INSTALL · OPEN SUITE</div>
+    <div class="corp-wrap">
+      <div class="corp-sticky">
+        <span class="section-label reveal" data-i18n="toolsLabel">./tools --free · 05</span>
+        <h2 class="section-title reveal" data-i18n="toolsTitle">Tarayıcı İçi Araçlar</h2>
+        <div class="section-divider reveal"></div>
+        <p class="section-sub reveal" data-i18n="toolsSub">Kayıt yok. Kurulum yok. Aç, kullan, indir — tamamı istemci tarafında çalışan 11 açık araç.</p>
+
+        <div class="filter-pills" id="toolFilters" role="group" aria-label="Araç filtreleri">
+          <button type="button" class="f-pill active" data-filter="all" data-i18n="toolFilterAll">Tümü (11)</button>
+          <button type="button" class="f-pill" data-filter="studio" data-i18n="toolFilterStudio">Stüdyo &amp; Tasarım</button>
+          <button type="button" class="f-pill" data-filter="biz" data-i18n="toolFilterBiz">İş &amp; Üretim</button>
+          <button type="button" class="f-pill" data-filter="dev" data-i18n="toolFilterDev">Metin &amp; Geliştirici</button>
+        </div>
+
+        <div class="orbit" aria-hidden="true">
+          <i></i><i></i><i></i><b></b>
+        </div>
+      </div>
+
+      <div class="corp-list tools-grid" id="toolsGrid">
+        <a href="/flexcv/" class="corp-item tool-card glow-card reveal" data-cat="studio">
+          <span class="n">01</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">📐</span>
+            <span class="tool-badge" data-i18n="badgeStudio">Stüdyo</span>
+          </div>
+          <h3 class="tool-name">FlexCV Builder</h3>
+          <p class="tool-desc" data-i18n="toolFlex">Sürükle-bırak CV tasarım stüdyosu. 10 şablon, serbest yerleşim, katmanlar, hizalama, PDF/PNG/JPEG çıktı. Canva tarzı editör.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/flexcv</span>
+          </div>
+        </a>
+
+        <a href="/app-logo-generator/" class="corp-item tool-card glow-card reveal" data-cat="studio">
+          <span class="n">02</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">✨</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name">IconForge — App Icon Builder</h3>
+          <p class="tool-desc" data-i18n="toolIcon">Play Store ve App Store görselleri, adaptive icon ve mağaza ekran görüntüleri için profesyonel ikon aracı.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/app-logo-generator</span>
+          </div>
+        </a>
+
+        <a href="/youtube/" class="corp-item tool-card glow-card reveal" data-cat="biz">
+          <span class="n">03</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">▶️</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolYoutubeName">Kare</h3>
+          <p class="tool-desc" data-i18n="toolYoutube">YouTube üretim pipeline’ı. Özelleştirilebilir sütunlar, hook/başlık/açıklama, takvim, kontrol listesi — tarayıcıda kalır.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/youtube</span>
+          </div>
+        </a>
+
+        <a href="/eticaret/dist/" class="corp-item tool-card glow-card reveal" data-cat="biz">
+          <span class="n">04</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">🛒</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolEcomName">E-Ticaret Paneli</h3>
+          <p class="tool-desc" data-i18n="toolEcom">Araba aksesuarları girişiminin aşama, görev, ürün ve finans takibi. Veriler tarayıcıda kalır.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/eticaret</span>
+          </div>
+        </a>
+
+        <a href="/isletme-bulucu/dist/" class="corp-item tool-card glow-card reveal" data-cat="biz">
+          <span class="n">05</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">📍</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolNearbyName">Yakınımdaki İşletmeler</h3>
+          <p class="tool-desc" data-i18n="toolNearby">Konumuna yakın işletmeleri OSM ile bul. Web sitesi olmayanları potansiyel müşteri olarak listele, CSV indir.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/isletme-bulucu</span>
+          </div>
+        </a>
+
+        <a href="/cv/" class="corp-item tool-card glow-card reveal" data-cat="studio">
+          <span class="n">06</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">📄</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolCvName">CV Oluşturucu</h3>
+          <p class="tool-desc" data-i18n="toolCv">Esnek özgeçmiş oluşturucu. Hazır şablonlar, canlı önizleme, PDF ve Word çıktısı. Dosya adı otomatik "Ad Soyad Ay Yıl".</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/cv</span>
+          </div>
+        </a>
+
+        <a href="/sinavkagidi/" class="corp-item tool-card glow-card reveal" data-cat="biz">
+          <span class="n">07</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">📝</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolExamName">Sınav Kağıdı</h3>
+          <p class="tool-desc" data-i18n="toolExam">Soruları yazın; numaralı sınav kağıdını PDF veya Word olarak indirin.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/sinavkagidi</span>
+          </div>
+        </a>
+
+        <a href="/textdiff/" class="corp-item tool-card glow-card reveal" data-cat="dev">
+          <span class="n">08</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">🔍</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name">Text Diff</h3>
+          <p class="tool-desc" data-i18n="toolDiff">İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/textdiff</span>
+          </div>
+        </a>
+
+        <a href="/logcleaner/" class="corp-item tool-card glow-card reveal" data-cat="dev">
+          <span class="n">09</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">🧹</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name">Logcleaner</h3>
+          <p class="tool-desc" data-i18n="toolLog">Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/logcleaner</span>
+          </div>
+        </a>
+
+        <a href="/txtconverter/" class="corp-item tool-card glow-card reveal" data-cat="dev">
+          <span class="n">10</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">📄</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name">TXT Converter</h3>
+          <p class="tool-desc" data-i18n="toolTxt">Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/txtconverter</span>
+          </div>
+        </a>
+
+        <a href="/template/" class="corp-item tool-card glow-card reveal" data-cat="studio">
+          <span class="n">11</span>
+          <div class="tool-card-head">
+            <span class="tool-emoji">🃏</span>
+            <span class="tool-badge" data-i18n="badgeLive">Canlı</span>
+          </div>
+          <h3 class="tool-name" data-i18n="toolTemplateName">YA DA Şablonu</h3>
+          <p class="tool-desc" data-i18n="toolTemplate">İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.</p>
+          <div class="tool-foot">
+            <span class="tool-link-label" data-i18n="openTool">Aracı Aç →</span>
+            <span class="tool-url">/template</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="youtube">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="ytLabel">watch -n 1 · 06</span>
+      <h2 class="section-title reveal" data-i18n="ytTitle">YouTube Kanalım</h2>
+      <div class="section-divider reveal"></div>
+      <div class="yt-card glow-card reveal-scale">
+        <div class="yt-icon">▶</div>
+        <div>
+          <div class="yt-handle">@dogusipeksac</div>
+          <h3 class="yt-title" data-i18n="ytHeadline">Seyahat, Finans &amp; Teknoloji</h3>
+          <p class="yt-desc" data-i18n="ytDesc">YouTube kanalımda seyahat vlogları, kişisel finans ipuçları ve teknoloji içerikleri paylaşıyorum. Gerçek deneyimlerden ilham alan, dürüst ve özgün içerikler.</p>
+          <div class="yt-tags">
+            <span class="yt-tag" data-i18n="ytTravel">✈️ Seyahat</span>
+            <span class="yt-tag" data-i18n="ytFinance">💰 Kişisel Finans</span>
+            <span class="yt-tag" data-i18n="ytTech">💻 Teknoloji</span>
+          </div>
+          <a href="https://youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer" class="yt-btn" data-i18n="ytBtn">▶ Kanala Git</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
+  <section id="contact" class="cta-sec">
     <div class="container">
-      <span class="section-label reveal" data-i18n="contactLabel">ssh dogus@ist</span>
-      <h2 class="section-title reveal" style="text-align:center" data-i18n="contactTitle">Benimle İletişime Geç</h2>
+      <span class="section-label reveal" data-i18n="contactLabel">ssh dogus@ist · 07</span>
+      <h2 class="section-title reveal" style="text-align:center" data-i18n="contactTitle">Birlikte Üretelim</h2>
       <div class="section-divider reveal" style="margin:1rem auto 2rem"></div>
-      <p class="section-sub reveal" style="margin:0 auto 2rem;text-align:center" data-i18n="contactSub">PR, iş birliği veya sadece merhaba — inbox açık, ping at.</p>
+      <p class="section-sub reveal" style="margin:0 auto 2rem;text-align:center" data-i18n="contactSub">Mobil mimari, yeni bir ürün fikri, danışmanlık veya sadece merhaba — gelen kutum her zaman açık.</p>
       <div class="contact-inner">
         <a href="mailto:ipeksac.dogus.19@gmail.com" class="contact-email reveal-scale">
           ✉️ ipeksac.dogus.19@gmail.com
         </a>
         <div class="contact-socials reveal">
-          <a href="https://github.com/dogusipeksac" target="_blank" class="contact-social">
+          <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="contact-social">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="https://linkedin.com/in/dogusipeksac" target="_blank" class="contact-social">💼 LinkedIn</a>
-          <a href="https://youtube.com/@dogusipeksac" target="_blank" class="contact-social">▶ YouTube</a>
-          <a href="https://twitter.com/dogusipeksac" target="_blank" class="contact-social">𝕏 Twitter</a>
+          <a href="https://linkedin.com/in/dogusipeksac" target="_blank" rel="noopener noreferrer" class="contact-social">💼 LinkedIn</a>
+          <a href="https://youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer" class="contact-social">▶ YouTube</a>
+          <a href="https://twitter.com/dogusipeksac" target="_blank" rel="noopener noreferrer" class="contact-social">𝕏 Twitter</a>
         </div>
       </div>
     </div>
   </section>
 
-  <footer>
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-glow" aria-hidden="true"></div>
     <div class="footer-links">
-      <a href="https://github.com/dogusipeksac" target="_blank">GitHub</a>
-      <a href="https://youtube.com/@dogusipeksac" target="_blank">YouTube</a>
-      <a href="https://linkedin.com/in/dogusipeksac" target="_blank">LinkedIn</a>
-      <a href="https://twitter.com/dogusipeksac" target="_blank">Twitter</a>
+      <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://youtube.com/@dogusipeksac" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://linkedin.com/in/dogusipeksac" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://twitter.com/dogusipeksac" target="_blank" rel="noopener noreferrer">Twitter</a>
       <a href="/aircondition">AirFlow Klima</a>
       <a href="/tamirat">ProFix Tamirat</a>
       <a href="/games">MiniPlay</a>
@@ -701,8 +1147,12 @@
       <a href="/youtube/">Kare</a>
       <a href="/eticaret/dist/">E-Ticaret Paneli</a>
       <a href="/isletme-bulucu/dist/">Yakınımdaki İşletmeler</a>
+      <a href="/flexcv/">FlexCV</a>
+      <a href="/cv/">CV Oluşturucu</a>
+      <a href="/app-logo-generator/">IconForge</a>
     </div>
-    <p class="footer-copy" data-i18n="footerCopy">© 2026 Doğuş İpeksaç. Tüm hakları saklıdır.</p>
+    <div class="foot-mark" aria-hidden="true">DOĞUŞ İPEKSAÇ</div>
+    <p class="footer-copy" data-i18n="footerCopy">© 2026 Doğuş İpeksaç · Senior Android Developer · Tüm hakları saklıdır.</p>
   </footer>
 
   <button class="to-top" id="toTop" data-i18n-aria="toTop" aria-label="Yukarı çık">↑</button>
