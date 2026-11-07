@@ -1,12 +1,138 @@
 /* ==========================================================================
    MOBILE APP PRODUCT WEBSITE ENGINE (3D Phone Tilt, 4-Screen Switcher,
-   Live Theme Swatches & Per-App Interactive Simulators)
+   3-Phone 3D Perspective Showcase, Live Theme Swatches, Per-App Simulators,
+   Store QR Codes & 6-App Ecosystem Dock)
    ========================================================================== */
 (function () {
   'use strict';
 
+  var APP_META = {
+    ydskelime: {
+      name: 'YDS Kelime KitApp',
+      kicker: 'EDUCATION · YDS · YÖKDİL · YDT',
+      rating: '4.9 ★ · Akademik İngilizce & SRS',
+      icon: '/assets/apps/ydskelime.png',
+      chipL: { ic: '📘', k: '3 ADIMLI DERS', t: 'Kelime · Eşleştir · Quiz' },
+      chipR: { ic: '🧠', k: 'ARALIKLI TEKRAR', t: '3 Modlu Akıllı SRS' },
+      triTitle: 'Kitaptaki Gibi 3 Adımlı Ders & SRS Ekranları',
+      triSub: 'Her günün 20 kelimesini 3 aşamada kalıcı hafızaya taşıyan uygulama içi ekran akışı.',
+      screens: ['1. Ana Ekran & Gün Haritası', '2. Akademik Kelime Kartı', '3. Eşleştirme & Quiz'],
+      iosUrl: 'https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129',
+      androidUrl: ''
+    },
+    mydiary: {
+      name: 'My Diary',
+      kicker: 'LIFESTYLE · JOURNAL · VOICE · PDF',
+      rating: '4.9 ★ · Android & iOS Günlük',
+      icon: '/assets/apps/mydiary.png',
+      chipL: { ic: '🎙️', k: 'ÇOKLU MEDYA', t: 'Ses · Fotoğraf · Checklist' },
+      chipR: { ic: '📄', k: 'KİTAP FORMATI', t: 'Tek Tıkla PDF Çıktısı' },
+      triTitle: 'Zaman Tüneli, Çoklu Medya Editörü & Duygu Analizi',
+      triSub: '8 özel renk teması, sesli notlar ve biyometrik kilit ile korunan kişisel anı defteri.',
+      screens: ['1. Günlük Akışı & Ses', '2. Zengin Medya Editörü', '3. Takvim & Mood Analizi'],
+      iosUrl: 'https://apps.apple.com/us/app/my-diary/id6824458504',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.product.mydiary'
+    },
+    kuberush: {
+      name: 'Kube Rush',
+      kicker: 'ARCADE RUNNER · UNITY 6 URP · 60 FPS',
+      rating: '4.9 ★ · iOS & Android 3D Oyun',
+      icon: '/assets/apps/kuberush.png',
+      chipL: { ic: '⚡', k: '60 FPS URP', t: 'Anlık Küp Ölçekleme' },
+      chipR: { ic: '💎', k: '6 VOLT SKIN', t: 'Prosedürel Sonsuz Pist' },
+      triTitle: 'Kube Rush Oyun İçi 3B Ekran Vitrini',
+      triSub: 'Volt-neon menüden 60 FPS sonsuz koşu pistine ve 6 özel skin marketine kesintisiz geçiş.',
+      screens: ['1. Volt Ana Menü', '2. 60 FPS Canlı Koşu HUD', '3. 6 Volt Skin Market'],
+      iosUrl: 'https://apps.apple.com/tr/app/kube-rush/id6761354945?l=tr',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush'
+    },
+    appplaka: {
+      name: 'App Plaka Kontrol',
+      kicker: 'AI VISION · TRAFİK YÖNETMELİĞİ · 7 KRİTER',
+      rating: '4.9 ★ · Yapay Zeka Plaka Denetimi',
+      icon: '/assets/apps/appplaka.png',
+      chipL: { ic: '🔍', k: '7 KRİTER AI', t: 'DIN 1451 Font & Mühür' },
+      chipR: { ic: '🛡️', k: 'TÜVTÜRK UYUMU', t: '2024+ QR & Hologram' },
+      triTitle: 'Saniyeler İçinde 7 Kriterde AI Plaka Raporu',
+      triSub: 'Kamera veya galeriden plaka seçin; standart DIN 1451 veya APP baskıyı anında tespit edin.',
+      screens: ['1. Kamera & Plaka Tarama', '2. 7 Kriter Detaylı Denetim', '3. Standart / APP Karar Raporu'],
+      iosUrl: 'https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.product.appplakakontrol'
+    },
+    aniyakala: {
+      name: 'Anı Yakala',
+      kicker: 'GPS KAMERA · HAVA DURUMU · PİNLİ HARİTA',
+      rating: '4.9 ★ · Konum Damgalı Anı Kamerası',
+      icon: '/assets/apps/aniyakala.png',
+      chipL: { ic: '📍', k: 'CANLI EXIF & GPS', t: 'Koordinat · Bayrak · °C' },
+      chipR: { ic: '🗺️', k: 'ANI HARİTASI', t: 'Pinli Fotoğraf Galerisi' },
+      triTitle: 'Canlı GPS Vizör, Filigran Stüdyosu & Pinli Harita',
+      triSub: 'Çektiğiniz her kareye konum, ülke bayrağı ve hava durumunu estetik şablonlarla işleyin.',
+      screens: ['1. Canlı GPS Kamera Vizörü', '2. Filigran Şablon Stüdyosu', '3. Pinli Anı Haritası'],
+      iosUrl: 'https://apps.apple.com/tr/app/an%C4%B1-yakala/id6760869606?l=tr',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.aniyakala'
+    },
+    suicme: {
+      name: 'Su İçme Hatırlatıcısı',
+      kicker: 'SAĞLIK & HİDRASYON · WIDGET · STREAK',
+      rating: '4.9 ★ · Akıllı Su Takip Asistanı',
+      icon: '/assets/apps/suicme.png',
+      chipL: { ic: '💧', k: 'DALGALI HALKA', t: 'Kişisel Günlük ml Hedefi' },
+      chipR: { ic: '🔔', k: 'UYKU DUYARLI', t: 'Akıllı Bildirim & Widget' },
+      triTitle: 'Dalgalı Hidrasyon Halkası, Akıllı Bildirim & Seri',
+      triSub: 'Ocean, Lagoon ve Midnight temalarıyla günlük su hedefinizi zahmetsizce tamamlayın.',
+      screens: ['1. Günlük Su Halkası', '2. Uyku Duyarlı Bildirimler', '3. Ateş Serisi & Rozetler'],
+      iosUrl: 'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate'
+    }
+  };
+
+  var slug = document.body.getAttribute('data-app-slug') || 'ydskelime';
+  var meta = APP_META[slug] || APP_META.ydskelime;
+
   var wrap = document.querySelector('.app-phone-3d-wrap');
   var phone = document.querySelector('.app-phone-3d');
+
+  /* 0. Enhance Hero Identity, Phone Tab Placement & Outer Floating Chips */
+  if (document.body.classList.contains('app-site-body')) {
+    var heroCopy = document.querySelector('.app-hero-copy');
+    var heroH1 = heroCopy ? heroCopy.querySelector('h1') : null;
+    if (heroCopy && heroH1 && !heroCopy.querySelector('.app-hero-identity')) {
+      var idRow = document.createElement('div');
+      idRow.className = 'app-hero-identity';
+      idRow.innerHTML =
+        '<div class="app-hero-identity-icon"><img src="' + meta.icon + '" alt="' + meta.name + '" /></div>' +
+        '<div class="app-hero-identity-meta">' +
+          '<span class="app-hero-identity-kicker">' + meta.kicker + '</span>' +
+          '<span class="app-hero-identity-rating"><b>★★★★★</b> ' + meta.rating + '</span>' +
+        '</div>';
+      heroCopy.insertBefore(idRow, heroH1);
+    }
+
+    // Move .phone-tabs below .app-phone-3d so phone is aligned with Hero title
+    var stageTabs = wrap ? wrap.querySelector('.phone-tabs') : null;
+    if (wrap && phone && stageTabs && stageTabs.nextElementSibling === phone) {
+      wrap.appendChild(stageTabs);
+    }
+  }
+
+  // Add sleek outer floating callout chips around the 3D Hero phone
+  if (wrap && phone && !wrap.querySelector('.app-float-chip')) {
+    var chipL = document.createElement('div');
+    chipL.className = 'app-float-chip left';
+    chipL.innerHTML =
+      '<span class="app-float-chip-ic">' + meta.chipL.ic + '</span>' +
+      '<div><small>' + meta.chipL.k + '</small><strong>' + meta.chipL.t + '</strong></div>';
+
+    var chipR = document.createElement('div');
+    chipR.className = 'app-float-chip right';
+    chipR.innerHTML =
+      '<span class="app-float-chip-ic">' + meta.chipR.ic + '</span>' +
+      '<div><small>' + meta.chipR.k + '</small><strong>' + meta.chipR.t + '</strong></div>';
+
+    wrap.insertBefore(chipL, phone);
+    wrap.insertBefore(chipR, phone);
+  }
 
   /* 1. 3D Interactive Phone Tilt */
   if (wrap && phone) {
@@ -27,17 +153,131 @@
 
   /* 2. 4-Screen Phone Tab Switcher */
   var phoneTabs = document.querySelectorAll('[data-phone-tab]');
-  var phonePanes = document.querySelectorAll('[data-phone-pane]');
+  var phonePanes = phone ? phone.querySelectorAll('[data-phone-pane]') : document.querySelectorAll('[data-phone-pane]');
+  function activatePhonePaneByIndex(idx) {
+    if (!phoneTabs.length || !phonePanes.length) return;
+    var btn = phoneTabs[idx % phoneTabs.length];
+    if (!btn) return;
+    var target = btn.getAttribute('data-phone-tab');
+    phoneTabs.forEach(function (b) { b.classList.toggle('active', b === btn); });
+    phonePanes.forEach(function (p) {
+      p.classList.toggle('active', p.getAttribute('data-phone-pane') === target);
+    });
+  }
   if (phoneTabs.length && phonePanes.length) {
-    phoneTabs.forEach(function (btn) {
+    phoneTabs.forEach(function (btn, idx) {
       btn.addEventListener('click', function () {
-        var target = btn.getAttribute('data-phone-tab');
-        phoneTabs.forEach(function (b) { b.classList.toggle('active', b === btn); });
-        phonePanes.forEach(function (p) {
-          p.classList.toggle('active', p.getAttribute('data-phone-pane') === target);
-        });
+        activatePhonePaneByIndex(idx);
       });
     });
+  }
+
+  /* 2B. Build 3-Phone 3D Perspective Fan Showcase inside #ekranlar */
+  var ekranSec = document.getElementById('ekranlar');
+  if (ekranSec && phone && phonePanes.length >= 3 && !document.querySelector('.app-tri-showcase')) {
+    var triBox = document.createElement('div');
+    triBox.className = 'app-tri-showcase';
+    var statusBarEl = phone.querySelector('.aps-status');
+    var statusHtml = statusBarEl ? statusBarEl.outerHTML : '';
+
+    var cardsHtml = '';
+    for (var ti = 0; ti < 3; ti++) {
+      var paneClone = phonePanes[ti].cloneNode(true);
+      paneClone.classList.add('active');
+      paneClone.removeAttribute('data-phone-pane');
+      var capTitle = (meta.screens && meta.screens[ti]) ? meta.screens[ti] : ('Ekran 0' + (ti + 1));
+      cardsHtml +=
+        '<div class="tri-phone-item" data-tri-idx="' + ti + '">' +
+          '<div class="tri-phone-device">' +
+            '<div class="app-phone-screen">' +
+              '<div class="app-phone-island"></div>' +
+              statusHtml +
+              '<div class="aps-body">' + paneClone.outerHTML + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="tri-phone-caption">' +
+            '<small>EKRAN 0' + (ti + 1) + '</small>' +
+            '<strong>' + capTitle + '</strong>' +
+          '</div>' +
+        '</div>';
+    }
+
+    triBox.innerHTML =
+      '<div class="app-tri-head">' +
+        '<span>3B ÜÇLÜ CİHAZ SAHNESİ · CANLI ARAYÜZ VİTRİNİ</span>' +
+        '<h3>' + meta.triTitle + '</h3>' +
+        '<p>' + meta.triSub + '</p>' +
+      '</div>' +
+      '<div class="tri-phone-grid">' + cardsHtml + '</div>';
+
+    var firstGrid = ekranSec.querySelector('.app-screens-grid, .app-flow-strip');
+    if (firstGrid) {
+      ekranSec.insertBefore(triBox, firstGrid);
+    } else {
+      ekranSec.appendChild(triBox);
+    }
+
+    triBox.querySelectorAll('[data-tri-idx]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var idx = parseInt(item.getAttribute('data-tri-idx') || '0', 10);
+        activatePhonePaneByIndex(idx);
+      });
+    });
+  }
+
+  /* 2C. Inject Store QR Codes (#qr) & 6-App Ecosystem Switcher on .app-site-body pages */
+  if (document.body.classList.contains('app-site-body') && !document.getElementById('qr')) {
+    var mainShell = document.querySelector('main.app-shell');
+    var ctaBanner = document.querySelector('.app-cta-banner');
+    if (mainShell) {
+      var qrSec = document.createElement('section');
+      qrSec.className = 'app-qr-showcase';
+      qrSec.id = 'qr';
+      qrSec.innerHTML =
+        '<h2 class="app-qr-showcase-title">QR Kod ile Hemen İndir</h2>' +
+        '<p class="app-qr-showcase-sub">Telefon kameranızla QR kodu okutarak ' + meta.name + ' uygulamasını doğrudan App Store veya Google Play Store’dan indirebilirsiniz.</p>' +
+        '<div class="app-qr-grid">' +
+          '<a href="' + meta.iosUrl + '" class="store-qr-card ios" target="_blank" rel="noopener noreferrer">' +
+            '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>' +
+            '<p class="store-qr-card-store">App Store</p>' +
+            '<div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
+              '<img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&ecc=M&color=000000&bgcolor=ffffff&data=' + encodeURIComponent(meta.iosUrl) + '" width="260" height="260" alt="' + meta.name + ' iOS QR" />' +
+            '</div>' +
+            '<span class="store-qr-card-link">App Store’a git →</span>' +
+          '</a>' +
+          '<a href="' + meta.androidUrl + '" class="store-qr-card android" target="_blank" rel="noopener noreferrer">' +
+            '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>' +
+            '<p class="store-qr-card-store">Google Play</p>' +
+            '<div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
+              '<img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&ecc=M&color=000000&bgcolor=ffffff&data=' + encodeURIComponent(meta.androidUrl) + '" width="260" height="260" alt="' + meta.name + ' Android QR" />' +
+            '</div>' +
+            '<span class="store-qr-card-link">Google Play’e git →</span>' +
+          '</a>' +
+        '</div>';
+
+      var otherSec = document.createElement('section');
+      otherSec.className = 'app-other-sec';
+      otherSec.innerHTML =
+        '<div class="app-sec-head" style="margin-bottom:1rem">' +
+          '<span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>' +
+          '<h2>Diğer Mobil Uygulamalarımız</h2>' +
+        '</div>' +
+        '<div class="app-other-grid">' +
+          '<a href="/ydskelime/" class="app-other-item' + (slug === 'ydskelime' ? ' active' : '') + '"><img src="/assets/apps/ydskelime.png" alt="" /><div>YDS Kelime KitApp<small>Eğitim · YDS &amp; SRS</small></div></a>' +
+          '<a href="/mydiary/" class="app-other-item' + (slug === 'mydiary' ? ' active' : '') + '"><img src="/assets/apps/mydiary.png" alt="" /><div>My Diary<small>Günlük · Ses &amp; PDF</small></div></a>' +
+          '<a href="/kuberush/" class="app-other-item' + (slug === 'kuberush' ? ' active' : '') + '"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>' +
+          '<a href="/appplaka/" class="app-other-item' + (slug === 'appplaka' ? ' active' : '') + '"><img src="/assets/apps/appplaka.png" alt="" /><div>App Plaka Kontrol<small>AI · Plaka Denetimi</small></div></a>' +
+          '<a href="/aniyakala/" class="app-other-item' + (slug === 'aniyakala' ? ' active' : '') + '"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>' +
+          '<a href="/suicme/" class="app-other-item' + (slug === 'suicme' ? ' active' : '') + '"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>' +
+        '</div>';
+
+      if (ctaBanner) {
+        mainShell.insertBefore(qrSec, ctaBanner);
+      } else {
+        mainShell.appendChild(qrSec);
+      }
+      mainShell.appendChild(otherSec);
+    }
   }
 
   /* 3. Dynamic Brand Theme / Skin Swatches */
