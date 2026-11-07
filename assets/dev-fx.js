@@ -35,7 +35,7 @@
 
   var SW = LOW ? 640 : 1280, SH = LOW ? 400 : 800;
   var KA = LOW ? 0.5 : 1;
-  var stageSmoothP = 0, aboutSmoothP = 0, appsSmoothP = 0, skillsSmoothP = 0;
+  var stageSmoothP = 0, aboutSmoothP = 0, appsSmoothP = 0, skillsSmoothP = 0, webSmoothP = 0;
   if (LOW) document.documentElement.classList.add('fx-low');
 
   /* ========================================================================
@@ -1021,16 +1021,111 @@
   });
 
   /* ========================================================================
-     7. UNIFIED SMOOTH SCROLL PROGRESS LOOP FOR ALL PINNED TRACKS
+     6B. PINNED SECTION 05 (#webPin) — 3D Nested Web Showroom & Version Studio
      ======================================================================== */
+  var webTrack = $('#webPin');
+  var webCards = $$('#webStack .web-deck-card');
+  var webIdxEl = $('#webIdx'), webBarEl = $('#webBar');
+  var webVerBtns = $$('#webVerSwitch .wv-btn');
   var projSec = $('#projects'), toolSec = $('#tools');
   var projWords = $('#projWords'), toolWords = $('#toolWords');
   var orbits = $$('.orbit i');
 
+  function renderWeb(p) {
+    if (!webCards.length) return;
+    if (window.innerWidth <= 900) {
+      webCards.forEach(function (card) {
+        st(card, 'transform', 'none');
+        st(card, 'opacity', '1');
+        st(card, 'filter', 'none');
+      });
+      return;
+    }
+
+    var n = webCards.length;
+    var deckP = clamp(p, 0, 1) * (n - 1);
+    var activeIdx = Math.round(deckP);
+
+    if (webIdxEl) {
+      var sIdx = String(activeIdx + 1).padStart(2, '0');
+      if (webIdxEl.textContent !== sIdx) webIdxEl.textContent = sIdx;
+    }
+    if (webBarEl) {
+      st(webBarEl, 'width', ((p * 0.75 + 0.25) * 100).toFixed(1) + '%');
+    }
+
+    webCards.forEach(function (card, idx) {
+      var rel = deckP - idx; // <0: incoming from right; >0: receding behind left
+      var innerScr = $('.wd-inner-scroll', card);
+      if (rel < -1.05) {
+        st(card, 'opacity', '0');
+        st(card, 'pointerEvents', 'none');
+        st(card, 'transform', 'translate3d(68%, 0, -320px) rotateY(-30deg) scale(0.86)');
+      } else if (rel < 0) {
+        var tIn = 1 + rel; // 0 -> 1 as card arrives
+        var eIn = eo3(clamp(tIn, 0, 1));
+        var tx = lerp(64, 0, eIn);
+        var tz = lerp(-260, 0, eIn);
+        var ry = lerp(-28, 0, eIn);
+        var sc = lerp(0.88, 1, eIn);
+        st(card, 'opacity', clamp(tIn * 1.6, 0, 1).toFixed(3));
+        st(card, 'pointerEvents', tIn > 0.7 ? 'auto' : 'none');
+        st(card, 'transform', 'translate3d(' + tx.toFixed(1) + '%, 0, ' + tz.toFixed(0) + 'px) rotateY(' + ry.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')');
+        st(card, 'filter', 'brightness(1)');
+        st(card, 'zIndex', String(10 + idx));
+        if (innerScr) st(innerScr, 'transform', 'translate3d(0, ' + ((1 - eIn) * 26).toFixed(1) + 'px, 0)');
+      } else {
+        var tOut = clamp(rel, 0, 3);
+        var txOut = -tOut * 16;
+        var tzOut = -tOut * 130;
+        var ryOut = Math.min(18, tOut * 11);
+        var scOut = Math.max(0.74, 1 - tOut * 0.09);
+        var brOut = Math.max(0.38, 1 - tOut * 0.26);
+        var opOut = clamp(1 - (tOut - 1.4) * 0.85, 0, 1);
+        st(card, 'opacity', opOut.toFixed(3));
+        st(card, 'pointerEvents', tOut < 0.35 ? 'auto' : 'none');
+        st(card, 'transform', 'translate3d(' + txOut.toFixed(1) + '%, 0, ' + tzOut.toFixed(0) + 'px) rotateY(' + ryOut.toFixed(1) + 'deg) scale(' + scOut.toFixed(3) + ')');
+        st(card, 'filter', 'brightness(' + brOut.toFixed(2) + ')');
+        st(card, 'zIndex', String(10 + idx));
+        if (innerScr) st(innerScr, 'transform', 'translate3d(0, ' + (-Math.min(1, tOut) * 38).toFixed(1) + 'px, 0)');
+      }
+    });
+  }
+
+  /* Live Version Switcher for #projects */
+  if (webVerBtns.length && projSec) {
+    var verBadgeMap = {
+      portal: 'V1 · 3D PORTAL',
+      editorial: 'V2 · EDITORIAL',
+      luxe: 'V3 · LUXE KOYU'
+    };
+    webVerBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var v = btn.getAttribute('data-wver') || 'portal';
+        projSec.setAttribute('data-web-ver', v);
+        webVerBtns.forEach(function (b) { b.classList.toggle('active', b === btn); });
+        $$('.wd-ver-ind', projSec).forEach(function (ind) {
+          ind.textContent = verBadgeMap[v] || 'V1 · 3D PORTAL';
+        });
+        $$('.wd-dyn-link, .wd-vlink', projSec).forEach(function (a) {
+          var base = a.getAttribute('data-base');
+          if (base) a.href = base + '?v=' + v;
+        });
+        $$('.pv-chip', projSec).forEach(function (chip) {
+          chip.classList.toggle('active', chip.getAttribute('data-v') === v);
+        });
+      });
+    });
+  }
+
+  /* ========================================================================
+     7. UNIFIED SMOOTH SCROLL PROGRESS LOOP FOR ALL PINNED TRACKS
+     ======================================================================== */
   if (!reduce) {
     renderAbout(0);
     renderApps(0);
     renderSkills(0);
+    renderWeb(0);
   }
 
   function getTrackProgress(trackEl) {
@@ -1076,6 +1171,13 @@
       skillsSmoothP += (targetSkills - skillsSmoothP) * k;
       if (Math.abs(targetSkills - skillsSmoothP) < 0.0005) skillsSmoothP = targetSkills;
       if (!reduce) renderSkills(skillsSmoothP);
+    }
+
+    if (webTrack) {
+      var targetWeb = getTrackProgress(webTrack);
+      webSmoothP += (targetWeb - webSmoothP) * k;
+      if (Math.abs(targetWeb - webSmoothP) < 0.0005) webSmoothP = targetWeb;
+      if (!reduce) renderWeb(webSmoothP);
     }
 
     /* Outline words scrub & 3D orbit rotation in #projects & #tools */

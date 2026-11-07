@@ -1873,11 +1873,620 @@ body {
   font-weight: 800;
 }
 
+/* ==========================================================================
+   SECTION 05 · SATIŞA HAZIR WEB SİTELERİ & 3D NESTED WEB SHOWROOM (#webPin)
+   ========================================================================== */
+.web-showcase-sec {
+  position: relative;
+  background: var(--bg);
+}
+
+.web-track {
+  position: relative;
+  height: 360vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 15%, rgba(212, 136, 74, 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 80% 75%, rgba(139, 92, 246, 0.1), transparent 70%),
+    var(--bg);
+  border-top: 1px solid var(--line);
+}
+
+.web-pin-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: max(4.4rem, 7.5vh) clamp(1rem, 3.5vw, 3.5rem) max(1.2rem, 2.5vh);
+  max-width: 92rem;
+  margin: 0 auto;
+}
+
+.web-pin-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  z-index: 6;
+}
+
+.web-pin-titles .section-title {
+  font-size: clamp(1.55rem, 2.8vw, 2.5rem);
+  margin: 0.35rem 0 0.25rem;
+}
+
+.web-pin-titles .section-sub {
+  max-width: 54ch;
+  font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+  margin: 0;
+}
+
+.web-ver-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem;
+  border-radius: 999px;
+  background: rgba(20, 26, 33, 0.9);
+  border: 1px solid rgba(212, 136, 74, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.web-ver-lbl {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  padding: 0 0.55rem 0 0.7rem;
+  font-weight: 700;
+}
+
+.wv-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--mute);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+.wv-btn:hover {
+  color: var(--ink);
+}
+.wv-btn.active {
+  background: linear-gradient(135deg, var(--cu-hi), var(--cu));
+  color: #160b02;
+  box-shadow: 0 4px 16px rgba(212, 136, 74, 0.4);
+}
+
+/* 3D Stacking Browser Deck Stage */
+.web-stack {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 0.85rem 0;
+  perspective: 1600px;
+  transform-style: preserve-3d;
+}
+
+.web-deck-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 0.92fr 1.28fr;
+  gap: clamp(1.2rem, 2.5vw, 2.4rem);
+  align-items: center;
+  padding: clamp(1.2rem, 2.4vh, 2rem) clamp(1.3rem, 2.5vw, 2.4rem);
+  border-radius: 1.6rem;
+  background: linear-gradient(155deg, rgba(28, 36, 46, 0.96), rgba(14, 18, 24, 0.97));
+  border: 1px solid rgba(212, 136, 74, 0.32);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  overflow: hidden;
+}
+
+.web-deck-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 82% 22%, rgba(212, 136, 74, 0.16), transparent 55%);
+  pointer-events: none;
+}
+
+.wd-info {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.wd-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.wd-sale {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.26rem 0.68rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cu-hi), var(--cu));
+  color: #160b02;
+}
+
+.wd-tag {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cu-hi);
+}
+
+.wd-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.45rem, 2.4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--ink);
+  margin: 0;
+}
+
+.wd-desc {
+  color: var(--mute);
+  font-size: clamp(0.8rem, 0.95vw, 0.94rem);
+  line-height: 1.58;
+  margin: 0;
+}
+
+.wd-vers-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+.wd-vlink {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cu-hi);
+  text-decoration: none;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(212, 136, 74, 0.1);
+  border: 1px solid rgba(212, 136, 74, 0.28);
+  transition: all 0.2s ease;
+}
+.wd-vlink:hover {
+  background: rgba(212, 136, 74, 0.24);
+  transform: translateY(-1px);
+}
+
+.wd-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+/* 3D Browser + Floating Phone Twin inside each Deck Card */
+.wd-stage {
+  position: relative;
+  height: 100%;
+  min-height: 250px;
+  max-height: 410px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.wd-browser {
+  width: 92%;
+  height: 100%;
+  border-radius: 16px;
+  background: #0b0e13;
+  border: 1px solid rgba(246, 192, 138, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+}
+.web-deck-card:hover .wd-browser {
+  transform: rotateY(-3deg) rotateX(1deg) scale(1.015);
+}
+
+.wd-b-top {
+  height: 32px;
+  background: #131820;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.85rem;
+  font-size: 0.65rem;
+  color: var(--mute);
+}
+
+.wd-dots {
+  display: flex;
+  gap: 5px;
+}
+.wd-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.wd-dots i:nth-child(1) { background: #ff5f57; }
+.wd-dots i:nth-child(2) { background: #febc2e; }
+.wd-dots i:nth-child(3) { background: #28c840; }
+
+.wd-url {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: rgba(244, 239, 232, 0.72);
+}
+.wd-url b {
+  color: var(--cu-hi);
+}
+
+.wd-b-screen {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.wd-inner-scroll {
+  position: absolute;
+  inset: -18% 0 -28% 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+  transition: filter 0.35s ease;
+}
+
+.wd-inner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem 1.4rem 2.8rem;
+  background: linear-gradient(180deg, rgba(8, 10, 14, 0.18) 0%, rgba(8, 10, 14, 0.86) 100%);
+}
+
+.wd-io-k {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--cu-hi);
+  margin-bottom: 0.3rem;
+}
+
+.wd-inner-overlay h4 {
+  font-family: var(--f-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.wd-inner-overlay p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+.wd-phone {
+  position: absolute;
+  right: -0.4rem;
+  bottom: -0.6rem;
+  width: clamp(105px, 11vw, 148px);
+  height: clamp(190px, 21vw, 265px);
+  border-radius: 22px;
+  border: 2px solid rgba(246, 192, 138, 0.55);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.78);
+  transform: translateZ(45px) rotateY(-18deg) rotateX(6deg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.45rem;
+}
+.wd-phone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.82));
+}
+.wd-phone-notch {
+  position: relative;
+  z-index: 2;
+  width: 38%;
+  height: 10px;
+  border-radius: 999px;
+  background: #07090c;
+  margin: 0 auto;
+}
+.wd-phone-cap {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  padding: 0.25rem;
+}
+.wd-phone-cap span {
+  display: block;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  color: var(--cu-hi);
+  font-weight: 700;
+}
+.wd-phone-cap b {
+  font-size: 0.68rem;
+  color: #fff;
+}
+
+/* Version visual mood shifts on #projects[data-web-ver] */
+.web-showcase-sec[data-web-ver="editorial"] .wd-inner-scroll,
+.web-showcase-sec[data-web-ver="editorial"] .pmp-screen {
+  filter: saturate(0.88) contrast(1.04) brightness(1.06);
+}
+.web-showcase-sec[data-web-ver="luxe"] .wd-inner-scroll,
+.web-showcase-sec[data-web-ver="luxe"] .pmp-screen {
+  filter: sepia(0.28) contrast(1.18) brightness(0.88);
+}
+.web-showcase-sec[data-web-ver="luxe"] .wd-browser,
+.web-showcase-sec[data-web-ver="luxe"] .proj-mini-portal {
+  border-color: var(--cu-hi);
+  box-shadow: 0 24px 64px rgba(212, 136, 74, 0.25);
+}
+
+.web-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--cu-hi);
+  z-index: 6;
+}
+.web-bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.web-bar i {
+  display: block;
+  height: 100%;
+  width: 25%;
+  background: linear-gradient(90deg, var(--cu), var(--cu-hi));
+  border-radius: 999px;
+}
+
+/* Commercial Client Sales Pitch Banner */
+.web-sale-banner {
+  max-width: 82rem;
+  margin: 0 auto 2.8rem;
+  padding: clamp(1.35rem, 2.6vw, 2.2rem);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(212, 136, 74, 0.24), transparent 55%),
+    linear-gradient(145deg, rgba(32, 40, 52, 0.95), rgba(16, 21, 28, 0.98));
+  border: 1px solid rgba(212, 136, 74, 0.42);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+.wsb-copy {
+  max-width: 54rem;
+}
+.wsb-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--cu-hi);
+  margin-bottom: 0.45rem;
+}
+.wsb-copy h3 {
+  font-family: var(--f-display);
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  color: var(--ink);
+  margin: 0 0 0.4rem;
+}
+.wsb-copy p {
+  color: var(--mute);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mini 3D Browser Portal inside each of the 12 Project Cards */
+.proj-mini-portal {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 136, 74, 0.28);
+  background: #0b0e13;
+  margin-bottom: 0.95rem;
+  text-decoration: none;
+  transform: perspective(800px) rotateX(4deg);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.38s ease;
+}
+.project-card:hover .proj-mini-portal {
+  transform: perspective(800px) rotateX(0deg) translateY(-3px) scale(1.02);
+  border-color: var(--cu-hi);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.pmp-bar {
+  height: 24px;
+  background: #141922;
+  padding: 0 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--mute);
+}
+.pmp-dots {
+  display: flex;
+  gap: 4px;
+}
+.pmp-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pmp-dots i:nth-child(1) { background: #ff5f57; }
+.pmp-dots i:nth-child(2) { background: #febc2e; }
+.pmp-dots i:nth-child(3) { background: #28c840; }
+
+.pmp-screen {
+  position: relative;
+  height: 138px;
+  background-size: cover;
+  background-position: center top;
+  transition: background-position 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+}
+.project-card:hover .pmp-screen {
+  background-position: center bottom;
+}
+.pmp-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(10, 13, 18, 0.82) 100%);
+}
+.pmp-sale {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.55rem;
+  z-index: 2;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(12, 15, 20, 0.88);
+  border: 1px solid rgba(246, 192, 138, 0.45);
+  color: var(--cu-hi);
+}
+
+.proj-ver-Row {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0 0.85rem;
+}
+.pv-chip {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.26rem 0.58rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--mute);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.pv-chip:hover,
+.pv-chip.active {
+  background: rgba(212, 136, 74, 0.18);
+  border-color: var(--cu-hi);
+  color: var(--cu-hi);
+}
+
+.proj-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.proj-buy-link {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #160b02;
+  background: linear-gradient(135deg, var(--cu-hi), var(--cu));
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.proj-buy-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(212, 136, 74, 0.38);
+}
+
+@media (max-width: 900px) {
+  .web-track {
+    height: auto;
+    padding: 3.5rem 1rem 2rem;
+  }
+  .web-pin-inner {
+    position: relative;
+    height: auto;
+    padding: 0;
+  }
+  .web-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .web-deck-card {
+    position: relative;
+    grid-template-columns: 1fr;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .wd-stage {
+    min-height: 210px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .stage-track, .about-track, .svc-track, .pk-track {
+  .stage-track, .about-track, .svc-track, .pk-track, .web-track {
     height: auto !important;
   }
-  .stage, .about-pin, .svc-pin, .pk-pin {
+  .stage, .about-pin, .svc-pin, .pk-pin, .web-pin-inner {
     position: relative !important;
     height: auto !important;
     min-height: 100vh;

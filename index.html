@@ -738,159 +738,560 @@
   <!-- =====================================================================
        SECTION 05 · DEMO PROJELER (Sticky Split + Orbital + Interactive Filter)
        ===================================================================== -->
-  <section id="projects" class="corp">
-    <div class="corp-words" id="projWords" aria-hidden="true">WEB SHOWCASE · LIVE DEMOS · ARCHITECTURE</div>
-    <div class="corp-wrap">
-      <div class="corp-sticky">
-        <span class="section-label reveal" data-i18n="projectsLabel">git checkout web · 04</span>
-        <h2 class="section-title reveal" data-i18n="projectsTitle">Canlı Web Demoları</h2>
-        <div class="section-divider reveal"></div>
-        <p class="section-sub reveal" data-i18n="projectsSub">Kurumsal ve sektörel müşteriler için geliştirdiğim canlı, etkileşimli vitrin projeleri — tarayıcıda anında açılır.</p>
+  <section id="projects" class="web-showcase-sec" data-web-ver="portal">
+    <!-- PART A: PINNED 3D NESTED WEB SHOWROOM & VERSION STUDIO -->
+    <div class="web-track" id="webPin">
+      <div class="web-pin-inner">
+        <div class="web-pin-head">
+          <div class="web-pin-titles">
+            <span class="section-label" data-i18n="projectsLabel">git checkout web · 04</span>
+            <h2 class="section-title" data-i18n="projectsTitle">Satışa Hazır Web Siteleri &amp; 3D Vitrin</h2>
+            <p class="section-sub" data-i18n-html="projectsSub">İşletmeniz için markanıza özel uyarlanıp teslim edilen, kaydırdıkça <strong>iç içe 3D açılan</strong> ve <strong>3 farklı tasarım versiyonuyla</strong> sunulan canlı müşteri siteleri.</p>
+          </div>
 
-        <div class="filter-pills" id="projFilters" role="group" aria-label="Proje filtreleri">
-          <button type="button" class="f-pill active" data-filter="all" data-i18n="projFilterAll">Tümü (12)</button>
-          <button type="button" class="f-pill" data-filter="food" data-i18n="projFilterFood">Restoran &amp; Kafe</button>
-          <button type="button" class="f-pill" data-filter="studio" data-i18n="projFilterStudio">Stüdyo &amp; Butik</button>
-          <button type="button" class="f-pill" data-filter="service" data-i18n="projFilterService">Hizmet &amp; Oyun</button>
+          <div class="web-ver-bar" id="webVerSwitch" role="group" aria-label="Canlı Versiyon Seçici">
+            <span class="web-ver-lbl" data-i18n="webVerLabel">Canlı Versiyon Seç:</span>
+            <button type="button" class="wv-btn active" data-wver="portal" data-i18n="webVer1">V1 · 3D İnteraktif Portal</button>
+            <button type="button" class="wv-btn" data-wver="editorial" data-i18n="webVer2">V2 · Editorial Klasik</button>
+            <button type="button" class="wv-btn" data-wver="luxe" data-i18n="webVer3">V3 · Bakır &amp; Gece Lüks</button>
+          </div>
         </div>
 
-        <div class="orbit" aria-hidden="true">
-          <i></i><i></i><i></i><b></b>
+        <div class="web-stack" id="webStack">
+          <!-- DECK 01: BEAUTY & CLINIC -->
+          <article class="web-deck-card" data-idx="0">
+            <div class="wd-info">
+              <div class="wd-badges">
+                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+                <span class="wd-tag" data-i18n="webDeck1Tag">PAKET 01 · GÜZELLİK, ESTETİK &amp; KLİNİK</span>
+              </div>
+              <h3 class="wd-title" data-i18n="webDeck1Title">Galata No5 Beauty &amp; Vera Klinik</h3>
+              <p class="wd-desc" data-i18n="webDeck1Desc">Kuaför, güzellik stüdyosu, diş ve estetik klinikleri için randevu, önce/sonra karşılaştırma, uzman vitrini ve doğrudan WhatsApp dönüşüm kurgusu. 3 farklı versiyonla markanıza özel teslim.</p>
+              <div class="wd-vers-preview">
+                <a href="/galatano5/?v=portal" class="wd-vlink" data-base="/galatano5/">✦ Galata No5 (V1/V2/V3) →</a>
+                <a href="/vera/?v=portal" class="wd-vlink" data-base="/vera/">◇ Vera Klinik (V1/V2/V3) →</a>
+              </div>
+              <div class="wd-actions">
+                <a href="/galatano5/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/galatano5/" data-i18n="viewSite">Canlı Vitrin →</a>
+                <a href="mailto:dogusipeksac@gmail.com?subject=G%C3%BCzellik%20%26%20Klinik%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+              </div>
+            </div>
+
+            <div class="wd-stage">
+              <div class="wd-browser">
+                <div class="wd-b-top">
+                  <div class="wd-dots"><i></i><i></i><i></i></div>
+                  <span class="wd-url">https://dogusipeksac.com/galatano5 · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
+                </div>
+                <div class="wd-b-screen">
+                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80')">
+                    <div class="wd-inner-overlay">
+                      <span class="wd-io-k">GALATA NO5 · VERA CLINIC</span>
+                      <h4>Güzelliğinize &amp; Gülüşünüze Yeni Bir Yorum</h4>
+                      <p>Online Randevu · Önce/Sonra · Doktor &amp; Ekip · TR/EN</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80')">
+                <div class="wd-phone-notch"></div>
+                <div class="wd-phone-cap">
+                  <span>VERA KLİNİK</span>
+                  <b>Mobil Randevu</b>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- DECK 02: FINE DINING & QR MENU -->
+          <article class="web-deck-card" data-idx="1">
+            <div class="wd-info">
+              <div class="wd-badges">
+                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+                <span class="wd-tag" data-i18n="webDeck2Tag">PAKET 02 · RESTORAN, FINE DINING &amp; QR MENÜ</span>
+              </div>
+              <h3 class="wd-title" data-i18n="webDeck2Title">Sarnıç · Dem Kafe · Ocak Izgara</h3>
+              <p class="wd-desc" data-i18n="webDeck2Desc">Fine dining masa rezervasyonundan yeni nesil QR menülere: canlı ürün arama, tek tıkla Wi-Fi kopyalama, masadan garson ve hesap çağırma sistemi. 3 farklı versiyonla satışta.</p>
+              <div class="wd-vers-preview">
+                <a href="/sarnic/?v=portal" class="wd-vlink" data-base="/sarnic/">🍽 Sarnıç Fine Dining →</a>
+                <a href="/dem/?v=portal" class="wd-vlink" data-base="/dem/">☕ Dem QR Menü →</a>
+                <a href="/ocak/?v=portal" class="wd-vlink" data-base="/ocak/">🔥 Ocak QR Menü →</a>
+              </div>
+              <div class="wd-actions">
+                <a href="/sarnic/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/sarnic/" data-i18n="viewSite">Canlı Vitrin →</a>
+                <a href="mailto:dogusipeksac@gmail.com?subject=Restoran%20%26%20QR%20Men%C3%BC%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+              </div>
+            </div>
+
+            <div class="wd-stage">
+              <div class="wd-browser">
+                <div class="wd-b-top">
+                  <div class="wd-dots"><i></i><i></i><i></i></div>
+                  <span class="wd-url">https://dogusipeksac.com/sarnic · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
+                </div>
+                <div class="wd-b-screen">
+                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80')">
+                    <div class="wd-inner-overlay">
+                      <span class="wd-io-k">SARNIÇ · DEM · OCAK</span>
+                      <h4>Tek Menü. Tek Oda. Masadaki Akıllı QR.</h4>
+                      <p>Masa Rezervasyonu · Canlı QR Menü · Garson &amp; Hesap Çağır</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80')">
+                <div class="wd-phone-notch"></div>
+                <div class="wd-phone-cap">
+                  <span>DEM &amp; OCAK</span>
+                  <b>Canlı QR Menü</b>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- DECK 03: ARCHITECTURE, BOUTIQUE HOTEL & PHOTOGRAPHY -->
+          <article class="web-deck-card" data-idx="2">
+            <div class="wd-info">
+              <div class="wd-badges">
+                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+                <span class="wd-tag" data-i18n="webDeck3Tag">PAKET 03 · MİMARLIK, BUTİK OTEL &amp; STÜDYO</span>
+              </div>
+              <h3 class="wd-title" data-i18n="webDeck3Title">Atelier 41 · Pera House · Kırık Işık</h3>
+              <p class="wd-desc" data-i18n="webDeck3Desc">Mimarlık ofisleri, %0 komisyonlu butik oteller ve fotoğraf/prodüksiyon stüdyoları için iç içe açılan 3D proje galerisi, oda/tarih seçimi ve keşif talep formları.</p>
+              <div class="wd-vers-preview">
+                <a href="/atelier41/?v=portal" class="wd-vlink" data-base="/atelier41/">▣ Atelier 41 Mimarlık →</a>
+                <a href="/pera-house/?v=portal" class="wd-vlink" data-base="/pera-house/">⌂ Pera House Otel →</a>
+                <a href="/kirik-isik/?v=portal" class="wd-vlink" data-base="/kirik-isik/">◎ Kırık Işık Fotoğraf →</a>
+              </div>
+              <div class="wd-actions">
+                <a href="/atelier41/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/atelier41/" data-i18n="viewSite">Canlı Vitrin →</a>
+                <a href="mailto:dogusipeksac@gmail.com?subject=Mimarlik%20%26%20Butik%20Otel%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+              </div>
+            </div>
+
+            <div class="wd-stage">
+              <div class="wd-browser">
+                <div class="wd-b-top">
+                  <div class="wd-dots"><i></i><i></i><i></i></div>
+                  <span class="wd-url">https://dogusipeksac.com/atelier41 · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
+                </div>
+                <div class="wd-b-screen">
+                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80')">
+                    <div class="wd-inner-overlay">
+                      <span class="wd-io-k">ATELIER 41 · PERA HOUSE · KIRIK IŞIK</span>
+                      <h4>Mekânı Çizen Stüdyo &amp; Şehrin İçinde Bir Ev</h4>
+                      <p>3D Proje Galerisi · Komisyonsuz Oda Rezervasyonu · Lookbook</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80')">
+                <div class="wd-phone-notch"></div>
+                <div class="wd-phone-cap">
+                  <span>PERA HOUSE</span>
+                  <b>Oda &amp; Tarih Seç</b>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- DECK 04: DYNAMIC STOREFRONT & CORPORATE SERVICES -->
+          <article class="web-deck-card" data-idx="3">
+            <div class="wd-info">
+              <div class="wd-badges">
+                <span class="wd-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+                <span class="wd-tag" data-i18n="webDeck4Tag">PAKET 04 · E-TİCARET, MAĞAZA &amp; KURUMSAL SERVİS</span>
+              </div>
+              <h3 class="wd-title" data-i18n="webDeck4Title">Çizgi Spor · AirFlow Klima · ProFix</h3>
+              <p class="wd-desc" data-i18n="webDeck4Desc">Seçilen kategoriye göre tüm teması canlı değişen dinamik mağaza vitrini ve 7/24 teknik servis / tadilat işletmeleri için yüksek dönüşümlü teklif toplama siteleri.</p>
+              <div class="wd-vers-preview">
+                <a href="/magaza/?v=portal" class="wd-vlink" data-base="/magaza/">🏟️ Çizgi Spor Mağaza →</a>
+                <a href="/aircondition/?v=portal" class="wd-vlink" data-base="/aircondition/">🌬️ AirFlow Klima →</a>
+                <a href="/tamirat/?v=portal" class="wd-vlink" data-base="/tamirat/">🔧 ProFix Tamirat →</a>
+              </div>
+              <div class="wd-actions">
+                <a href="/magaza/?v=portal" class="btn btn-primary wd-dyn-link" data-base="/magaza/" data-i18n="viewSite">Canlı Vitrin →</a>
+                <a href="mailto:dogusipeksac@gmail.com?subject=E-Ticaret%20%26%20Kurumsal%20Servis%20Web%20Paketi%20Teklif%20Talebi" class="btn btn-secondary" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+              </div>
+            </div>
+
+            <div class="wd-stage">
+              <div class="wd-browser">
+                <div class="wd-b-top">
+                  <div class="wd-dots"><i></i><i></i><i></i></div>
+                  <span class="wd-url">https://dogusipeksac.com/magaza · <b class="wd-ver-ind">V1 · 3D PORTAL</b></span>
+                </div>
+                <div class="wd-b-screen">
+                  <div class="wd-inner-scroll" style="background-image:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&q=80')">
+                    <div class="wd-inner-overlay">
+                      <span class="wd-io-k">ÇİZGİ SPOR · AIRFLOW · PROFIX</span>
+                      <h4>Branşa Göre Değişen Vitrin &amp; 7/24 Kurumsal Servis</h4>
+                      <p>Dinamik E-Ticaret Sepeti · Ücretsiz Keşif Formu · Acil Hat</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="wd-phone" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80')">
+                <div class="wd-phone-notch"></div>
+                <div class="wd-phone-cap">
+                  <span>PROFIX &amp; AIRFLOW</span>
+                  <b>7/24 Hızlı Teklif</b>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="web-progress">
+          <span id="webIdx">01</span>
+          <div class="web-bar"><i id="webBar"></i></div>
+          <span>04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PART B: COMMERCIAL CLIENT SALES BANNER + 12 MULTI-VERSION BROWSER PORTAL CARDS -->
+    <div class="corp">
+      <div class="corp-words" id="projWords" aria-hidden="true">READY TO SELL · 3 VERSIONS · 3D PORTAL</div>
+
+      <div class="web-sale-banner reveal">
+        <div class="wsb-copy">
+          <span class="wsb-badge" data-i18n="webBannerBadge">💼 MÜŞTERİYE ÖZEL ANAHTAR TESLİM WEB PAKETLERİ</span>
+          <h3 data-i18n="webBannerTitle">Beğendiğiniz Web Sitesini Kendi Markanızla Satın Alın</h3>
+          <p data-i18n="webBannerDesc">Aşağıdaki 12 canlı web projesinin tamamı; logonuz, kurumsal renkleriniz, içerikleriniz ve kendi alan adınızla (.com / .com.tr) işletmenize uyarlanarak teslim edilir. Her projeyi 3 farklı tasarım versiyonuyla (V1: 3D Portal, V2: Editorial, V3: Bakır Lüks) canlı inceleyebilirsiniz.</p>
+        </div>
+        <div class="wsb-cta">
+          <a href="mailto:dogusipeksac@gmail.com?subject=Kurumsal%20Web%20Sitesi%20Sat%C4%B1n%20Alma%20%2F%20Teklif%20Talebi" class="btn btn-primary" data-i18n="webBannerCta">💼 Web Sitesi Fiyat &amp; Teklif Al →</a>
         </div>
       </div>
 
-      <div class="corp-list projects-grid" id="projectsGrid">
-        <a href="/galatano5/" class="corp-item project-card glow-card reveal" data-cat="studio">
-          <span class="n">01</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">✦</span>
-            <span class="corp-tag">Beauty &amp; Editorial</span>
-          </div>
-          <h3 class="project-name">Galata No5 Beauty</h3>
-          <p class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
+      <div class="corp-wrap">
+        <div class="corp-sticky">
+          <span class="section-label reveal" data-i18n="projectsLabel">git checkout web · 04</span>
+          <h2 class="section-title reveal" data-i18n="projectsTitle">Satışa Hazır Web Siteleri &amp; 3D Vitrin</h2>
+          <div class="section-divider reveal"></div>
+          <p class="section-sub reveal" data-i18n-html="projectsSub">İşletmeniz için markanıza özel uyarlanıp teslim edilen, kaydırdıkça <strong>iç içe 3D açılan</strong> ve <strong>3 farklı tasarım versiyonuyla</strong> sunulan canlı müşteri siteleri.</p>
 
-        <a href="/atelier41/" class="corp-item project-card glow-card reveal" data-cat="studio">
-          <span class="n">02</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">▣</span>
-            <span class="corp-tag">Architecture</span>
+          <div class="filter-pills" id="projFilters" role="group" aria-label="Proje filtreleri">
+            <button type="button" class="f-pill active" data-filter="all" data-i18n="projFilterAll">Tümü (12)</button>
+            <button type="button" class="f-pill" data-filter="food" data-i18n="projFilterFood">Restoran &amp; Kafe</button>
+            <button type="button" class="f-pill" data-filter="studio" data-i18n="projFilterStudio">Stüdyo &amp; Butik</button>
+            <button type="button" class="f-pill" data-filter="service" data-i18n="projFilterService">Hizmet &amp; Oyun</button>
           </div>
-          <h3 class="project-name">Atelier 41</h3>
-          <p class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/sarnic/" class="corp-item project-card glow-card reveal" data-cat="food">
-          <span class="n">03</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🍽</span>
-            <span class="corp-tag">Fine Dining</span>
+          <div class="orbit" aria-hidden="true">
+            <i></i><i></i><i></i><b></b>
           </div>
-          <h3 class="project-name">Sarnıç</h3>
-          <p class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
+        </div>
 
-        <a href="/kirik-isik/" class="corp-item project-card glow-card reveal" data-cat="studio">
-          <span class="n">04</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">◎</span>
-            <span class="corp-tag">Photography</span>
+        <div class="corp-list projects-grid" id="projectsGrid">
+          <!-- 01 GALATA NO5 -->
+          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/galatano5/">
+            <span class="n">01</span>
+            <a href="/galatano5/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/galatano5/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/galatano5</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">✦</span>
+              <span class="corp-tag">Beauty &amp; Editorial</span>
+            </div>
+            <h3 class="project-name">Galata No5 Beauty</h3>
+            <p class="project-desc" data-i18n="projGalata">Galata Kulesi yanında premium kuaför &amp; güzellik stüdyosu. Editorial, TR/EN, randevu ve WhatsApp.</p>
+            <div class="proj-ver-Row">
+              <a href="/galatano5/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/galatano5/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/galatano5/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/galatano5/?v=portal" class="project-link-label wd-dyn-link" data-base="/galatano5/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Galata%20No5%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Kırık Işık</h3>
-          <p class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/pera-house/" class="corp-item project-card glow-card reveal" data-cat="studio">
-          <span class="n">05</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">⌂</span>
-            <span class="corp-tag">Boutique Hotel</span>
+          <!-- 02 ATELIER 41 -->
+          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/atelier41/">
+            <span class="n">02</span>
+            <a href="/atelier41/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/atelier41/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/atelier41</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">▣</span>
+              <span class="corp-tag">Architecture</span>
+            </div>
+            <h3 class="project-name">Atelier 41</h3>
+            <p class="project-desc" data-i18n="projAtelier">Mimarlık ve iç mimari stüdyosu. Büyük görsel, seçilmiş işler — portföyün kendisi satış.</p>
+            <div class="proj-ver-Row">
+              <a href="/atelier41/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/atelier41/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/atelier41/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/atelier41/?v=portal" class="project-link-label wd-dyn-link" data-base="/atelier41/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Atelier%2041%20Mimarlik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Pera House</h3>
-          <p class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/vera/" class="corp-item project-card glow-card reveal" data-cat="service">
-          <span class="n">06</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">◇</span>
-            <span class="corp-tag">Clinic &amp; Health</span>
+          <!-- 03 SARNIÇ -->
+          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/sarnic/">
+            <span class="n">03</span>
+            <a href="/sarnic/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/sarnic/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/sarnic</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🍽</span>
+              <span class="corp-tag">Fine Dining</span>
+            </div>
+            <h3 class="project-name">Sarnıç</h3>
+            <p class="project-desc" data-i18n="projSarnic">18 kişilik fine dining. Menü, atmosfer, rezervasyon — restoranda site masayı doldurur.</p>
+            <div class="proj-ver-Row">
+              <a href="/sarnic/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/sarnic/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/sarnic/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/sarnic/?v=portal" class="project-link-label wd-dyn-link" data-base="/sarnic/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Sarnic%20Restoran%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Vera Klinik</h3>
-          <p class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/dem/" class="corp-item project-card glow-card reveal" data-cat="food">
-          <span class="n">07</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">☕</span>
-            <span class="corp-tag">QR Menu · Cafe</span>
+          <!-- 04 KIRIK IŞIK -->
+          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/kirik-isik/">
+            <span class="n">04</span>
+            <a href="/kirik-isik/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/kirik-isik/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/kirik-isik</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">◎</span>
+              <span class="corp-tag">Photography</span>
+            </div>
+            <h3 class="project-name">Kırık Işık</h3>
+            <p class="project-desc" data-i18n="projPhoto">Düğün ve editorial fotoğraf. Yatay film şeridi, az metin — iş kendini satar.</p>
+            <div class="proj-ver-Row">
+              <a href="/kirik-isik/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/kirik-isik/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/kirik-isik/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/kirik-isik/?v=portal" class="project-link-label wd-dyn-link" data-base="/kirik-isik/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Kirik%20Isik%20Fotograf%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Dem</h3>
-          <p class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/ocak/" class="corp-item project-card glow-card reveal" data-cat="food">
-          <span class="n">08</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🔥</span>
-            <span class="corp-tag">QR Menu · Grill</span>
+          <!-- 05 PERA HOUSE -->
+          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/pera-house/">
+            <span class="n">05</span>
+            <a href="/pera-house/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/pera-house/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/pera-house</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">⌂</span>
+              <span class="corp-tag">Boutique Hotel</span>
+            </div>
+            <h3 class="project-name">Pera House</h3>
+            <p class="project-desc" data-i18n="projHotel">11 odalı butik otel. Oda kartları, tarih CTA — otelde site doğrudan rezervasyon demek.</p>
+            <div class="proj-ver-Row">
+              <a href="/pera-house/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/pera-house/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/pera-house/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/pera-house/?v=portal" class="project-link-label wd-dyn-link" data-base="/pera-house/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Pera%20House%20Butik%20Otel%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Ocak</h3>
-          <p class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/magaza/" class="corp-item project-card glow-card reveal" data-cat="studio">
-          <span class="n">09</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🏟️</span>
-            <span class="corp-tag">Dynamic Storefront</span>
+          <!-- 06 VERA KLİNİK -->
+          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/vera/">
+            <span class="n">06</span>
+            <a href="/vera/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/vera/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/vera</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">◇</span>
+              <span class="corp-tag">Clinic &amp; Health</span>
+            </div>
+            <h3 class="project-name">Vera Klinik</h3>
+            <p class="project-desc" data-i18n="projVera">Estetik diş ve yüz kliniği. Güven, randevu, WhatsApp — klinikte site ilk muayene.</p>
+            <div class="proj-ver-Row">
+              <a href="/vera/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/vera/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/vera/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/vera/?v=portal" class="project-link-label wd-dyn-link" data-base="/vera/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Vera%20Klinik%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">Çizgi</h3>
-          <p class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/aircondition" class="corp-item project-card glow-card reveal" data-cat="service">
-          <span class="n">10</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🌬️</span>
-            <span class="corp-tag">Corporate HVAC</span>
+          <!-- 07 DEM QR MENU -->
+          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/dem/">
+            <span class="n">07</span>
+            <a href="/dem/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/dem/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/dem</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">☕</span>
+              <span class="corp-tag">QR Menu · Cafe</span>
+            </div>
+            <h3 class="project-name">Dem</h3>
+            <p class="project-desc" data-i18n="projDem">Cihangir kafe QR menü. Kategori, arama, Wi-Fi, garson — masadaki karekodun açtığı sayfa.</p>
+            <div class="proj-ver-Row">
+              <a href="/dem/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/dem/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/dem/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/dem/?v=portal" class="project-link-label wd-dyn-link" data-base="/dem/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Dem%20Kafe%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">AirFlow Klima</h3>
-          <p class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/tamirat" class="corp-item project-card glow-card reveal" data-cat="service">
-          <span class="n">11</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🔧</span>
-            <span class="corp-tag">Home Services</span>
+          <!-- 08 OCAK QR MENU -->
+          <div class="corp-item project-card glow-card reveal" data-cat="food" data-slug="/ocak/">
+            <span class="n">08</span>
+            <a href="/ocak/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/ocak/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/ocak</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🔥</span>
+              <span class="corp-tag">QR Menu · Grill</span>
+            </div>
+            <h3 class="project-name">Ocak</h3>
+            <p class="project-desc" data-i18n="projOcak">Karaköy ızgara QR menü. Meze, ızgara, deniz — hesap ve garson WhatsApp ile.</p>
+            <div class="proj-ver-Row">
+              <a href="/ocak/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/ocak/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/ocak/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/ocak/?v=portal" class="project-link-label wd-dyn-link" data-base="/ocak/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Ocak%20Restoran%20QR%20Menu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">ProFix Tamirat</h3>
-          <p class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</p>
-          <div class="project-link-label" data-i18n="viewSite">Siteyi Gör →</div>
-        </a>
 
-        <a href="/games" class="corp-item project-card glow-card reveal" data-cat="service">
-          <span class="n">12</span>
-          <div class="corp-item-top">
-            <span class="project-emoji">🎮</span>
-            <span class="corp-tag">Web Arcade</span>
+          <!-- 09 ÇİZGİ SPOR MAĞAZASI -->
+          <div class="corp-item project-card glow-card reveal" data-cat="studio" data-slug="/magaza/">
+            <span class="n">09</span>
+            <a href="/magaza/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/magaza/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/magaza</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🏟️</span>
+              <span class="corp-tag">Dynamic Storefront</span>
+            </div>
+            <h3 class="project-name">Çizgi</h3>
+            <p class="project-desc" data-i18n="projRota">Genel spor mağazası. Tenis, futbol, koşu, basketbol veya fitness seçilince vitrin o sahaya döner.</p>
+            <div class="proj-ver-Row">
+              <a href="/magaza/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/magaza/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/magaza/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/magaza/?v=portal" class="project-link-label wd-dyn-link" data-base="/magaza/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Cizgi%20E-Ticaret%20Magaza%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
           </div>
-          <h3 class="project-name">MiniPlay Games</h3>
-          <p class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</p>
-          <div class="project-link-label" data-i18n="play">Oyna →</div>
-        </a>
+
+          <!-- 10 AIRFLOW KLİMA -->
+          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/aircondition/">
+            <span class="n">10</span>
+            <a href="/aircondition/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/aircondition/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/aircondition</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🌬️</span>
+              <span class="corp-tag">Corporate HVAC</span>
+            </div>
+            <h3 class="project-name">AirFlow Klima</h3>
+            <p class="project-desc" data-i18n="projAir">Profesyonel klima kurulum ve bakım hizmetleri. Kurumsal müşterilere yönelik modern bir demo site.</p>
+            <div class="proj-ver-Row">
+              <a href="/aircondition/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/aircondition/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/aircondition/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/aircondition/?v=portal" class="project-link-label wd-dyn-link" data-base="/aircondition/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=AirFlow%20Kurumsal%20Servis%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
+          </div>
+
+          <!-- 11 PROFIX TAMİRAT -->
+          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/tamirat/">
+            <span class="n">11</span>
+            <a href="/tamirat/?v=portal" class="proj-mini-portal wd-dyn-link" data-base="/tamirat/">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/tamirat</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🔧</span>
+              <span class="corp-tag">Home Services</span>
+            </div>
+            <h3 class="project-name">ProFix Tamirat</h3>
+            <p class="project-desc" data-i18n="projFix">Ev tadilat ve onarım hizmetleri. Dark tema ile güçlü bir kimlik oluşturan sektörel demo.</p>
+            <div class="proj-ver-Row">
+              <a href="/tamirat/?v=portal" class="pv-chip active" data-v="portal" data-i18n="v1Short">V1 · 3D Portal</a>
+              <a href="/tamirat/?v=editorial" class="pv-chip" data-v="editorial" data-i18n="v2Short">V2 · Editorial</a>
+              <a href="/tamirat/?v=luxe" class="pv-chip" data-v="luxe" data-i18n="v3Short">V3 · Lüks Koyu</a>
+            </div>
+            <div class="proj-card-foot">
+              <a href="/tamirat/?v=portal" class="project-link-label wd-dyn-link" data-base="/tamirat/" data-i18n="viewSite">Canlı Vitrin →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=ProFix%20Tadilat%20Web%20Sitesi%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
+          </div>
+
+          <!-- 12 MINIPLAY GAMES -->
+          <div class="corp-item project-card glow-card reveal" data-cat="service" data-slug="/games/">
+            <span class="n">12</span>
+            <a href="/games" class="proj-mini-portal">
+              <div class="pmp-bar"><div class="pmp-dots"><i></i><i></i><i></i></div><span>dogusipeksac.com/games</span></div>
+              <div class="pmp-screen" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=700&q=75')">
+                <span class="pmp-sale" data-i18n="webSalePill">SATIŞA HAZIR · 3 VERSİYON</span>
+              </div>
+            </a>
+            <div class="corp-item-top">
+              <span class="project-emoji">🎮</span>
+              <span class="corp-tag">Web Arcade</span>
+            </div>
+            <h3 class="project-name">MiniPlay Games</h3>
+            <p class="project-desc" data-i18n="projGames">Tarayıcıda oynanabilir 5 mini oyun. Pure JS ile geliştirilmiş, neon efektli oyun platformu.</p>
+            <div class="proj-card-foot">
+              <a href="/games" class="project-link-label" data-i18n="play">Oyna →</a>
+              <a href="mailto:dogusipeksac@gmail.com?subject=Oyun%20Platformu%20Teklif%20Talebi" class="proj-buy-link" data-i18n="webBuyBtn">Teklif Al ✉️</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

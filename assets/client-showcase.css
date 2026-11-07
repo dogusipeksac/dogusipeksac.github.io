@@ -1,0 +1,682 @@
+/* ==========================================================================
+   CLIENT SHOWCASE ENGINE — 3D Nested Scroll Portal + Multi-Version Switcher
+   + Commercial "Ready for Sale" Bar & Quote Modal for Client Demo Websites
+   ========================================================================== */
+
+:root {
+  --cs-cu: #d4884a;
+  --cs-cu-hi: #f6c08a;
+  --cs-cu-lo: #6e3e19;
+  --cs-dark: #07070b;
+  --cs-card: rgba(14, 14, 22, 0.88);
+  --cs-line: rgba(246, 192, 138, 0.24);
+  --cs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hide legacy thin demo bars when our commercial showcase bar is active */
+body.cs-enhanced > .demo-bar,
+body.cs-enhanced > .bar {
+  display: none !important;
+}
+
+/* Top Commercial Showcase & Version Switcher Bar */
+.cs-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 1.15rem;
+  background: rgba(7, 7, 11, 0.92);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid var(--cs-line);
+  color: #f4efe8;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.76rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.cs-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--cs-cu-hi) !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  padding: 0.32rem 0.68rem;
+  border-radius: 999px;
+  background: rgba(212, 136, 74, 0.14);
+  border: 1px solid rgba(246, 192, 138, 0.28);
+  transition: all 0.22s var(--cs-ease);
+  white-space: nowrap;
+}
+.cs-back:hover {
+  background: rgba(212, 136, 74, 0.26);
+  transform: translateX(-2px);
+}
+
+.cs-sale-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e9e2d8;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cs-sale-pill i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #34d399;
+  display: inline-block;
+}
+
+/* Version Switcher Center */
+.cs-versions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.22rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(246, 192, 138, 0.2);
+}
+
+.cs-v-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.58);
+  padding: 0 0.5rem 0 0.6rem;
+  font-weight: 700;
+}
+
+.cs-v-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(244, 239, 232, 0.72);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.34rem 0.78rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s var(--cs-ease);
+  white-space: nowrap;
+}
+.cs-v-btn:hover {
+  color: #fff;
+}
+.cs-v-btn.active {
+  background: linear-gradient(135deg, var(--cs-cu-hi), var(--cs-cu));
+  color: #120902;
+  box-shadow: 0 4px 16px rgba(212, 136, 74, 0.4);
+}
+
+/* Right CTA */
+.cs-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cs-buy-btn {
+  appearance: none;
+  border: 1px solid rgba(246, 192, 138, 0.5);
+  background: linear-gradient(135deg, var(--cs-cu-hi), var(--cs-cu));
+  color: #140a02 !important;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.42rem 0.92rem;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 6px 20px rgba(212, 136, 74, 0.32);
+  transition: all 0.25s var(--cs-ease);
+  white-space: nowrap;
+}
+.cs-buy-btn:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 10px 26px rgba(212, 136, 74, 0.5);
+}
+
+/* ==========================================================================
+   3D NESTED PORTAL STAGE (Injected at top of Demo Site in V1 Portal & V3 Luxe)
+   ========================================================================== */
+.cs-portal-stage {
+  position: relative;
+  height: 210vh;
+  background: radial-gradient(ellipse 80% 55% at 50% 25%, rgba(212, 136, 74, 0.16), transparent 70%),
+              linear-gradient(180deg, #06060a 0%, #0b0b12 75%, #06060a 100%);
+  color: #f5f0e8;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: clip;
+  display: none;
+}
+
+html[data-cs-version="portal"] .cs-portal-stage,
+html[data-cs-version="luxe"] .cs-portal-stage {
+  display: block;
+}
+
+.cs-portal-sticky {
+  position: sticky;
+  top: 44px;
+  height: calc(100vh - 44px);
+  width: 100%;
+  overflow: hidden;
+  perspective: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-portal-Aurora {
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(212, 136, 74, 0.22), transparent 45%),
+    radial-gradient(circle at 78% 68%, rgba(139, 92, 246, 0.16), transparent 48%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cs-portal-head {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  max-width: 780px;
+  padding: 0 1.25rem;
+  margin-bottom: 1.4rem;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
+.cs-portal-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cs-cu-hi);
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(212, 136, 74, 0.12);
+  border: 1px solid rgba(246, 192, 138, 0.28);
+  margin-bottom: 0.75rem;
+}
+
+.cs-portal-title {
+  font-size: clamp(1.85rem, 4.5vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin: 0 0 0.55rem;
+}
+
+.cs-portal-sub {
+  font-size: clamp(0.86rem, 1.4vw, 1.02rem);
+  color: rgba(245, 240, 232, 0.72);
+  max-width: 58ch;
+  margin: 0 auto;
+}
+
+/* 3D Browser Frame that opens into full viewport as you scroll */
+.cs-portal-window {
+  position: relative;
+  z-index: 3;
+  width: min(86vw, 1060px);
+  height: min(58vh, 560px);
+  border-radius: 20px;
+  background: #0d0d15;
+  border: 1px solid rgba(246, 192, 138, 0.35);
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 70px rgba(212, 136, 74, 0.22);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, width, height, border-radius;
+}
+
+.cs-portal-bar {
+  height: 36px;
+  background: rgba(18, 18, 28, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cs-dots {
+  display: flex;
+  gap: 6px;
+}
+.cs-dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.cs-dots i:nth-child(1) { background: #ff5f57; }
+.cs-dots i:nth-child(2) { background: #febc2e; }
+.cs-dots i:nth-child(3) { background: #28c840; }
+
+.cs-portal-url {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.18rem 0.9rem;
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.66rem;
+  color: var(--cs-cu-hi);
+}
+
+.cs-portal-screen {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 36px);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.cs-portal-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 7, 11, 0.25) 0%, rgba(7, 7, 11, 0.78) 100%);
+}
+
+.cs-portal-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 3.2rem);
+  will-change: transform;
+}
+
+.cs-portal-inner-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cs-cu-hi);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.cs-portal-inner-h {
+  font-size: clamp(1.7rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.cs-portal-inner-p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 52ch;
+}
+
+/* Floating 3D Wing Badges on left & right of the Portal Window */
+.cs-wing {
+  position: absolute;
+  z-index: 5;
+  width: 235px;
+  padding: 1rem 1.15rem;
+  border-radius: 16px;
+  background: rgba(14, 14, 22, 0.86);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(246, 192, 138, 0.32);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  color: #f4efe8;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.cs-wing.left {
+  left: max(2vw, calc(50% - 590px));
+  top: 36%;
+}
+.cs-wing.right {
+  right: max(2vw, calc(50% - 590px));
+  bottom: 18%;
+}
+.cs-wing-k {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cs-cu-hi);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.cs-wing-t {
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+.cs-wing-d {
+  font-size: 0.74rem;
+  color: rgba(244, 239, 232, 0.72);
+  line-height: 1.45;
+}
+
+.cs-scroll-cue {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cs-cu-hi);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   SCROLL-DRIVEN 3D STACKING & DEPTH FX ON DEMO SITE SECTIONS (V1 & V3)
+   ========================================================================== */
+html[data-cs-version="portal"] section,
+html[data-cs-version="luxe"] section {
+  perspective: 1300px;
+}
+
+html[data-cs-version="portal"] .cs-3d-card,
+html[data-cs-version="luxe"] .cs-3d-card {
+  transition: transform 0.45s var(--cs-ease), box-shadow 0.45s var(--cs-ease), border-color 0.35s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+html[data-cs-version="portal"] .cs-3d-card:hover,
+html[data-cs-version="luxe"] .cs-3d-card:hover {
+  transform: translateY(-6px) rotateX(4deg) rotateY(-4deg) scale(1.015) !important;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(212, 136, 74, 0.35) !important;
+}
+
+/* ==========================================================================
+   VERSION 3: LUXE COPPER-GOLD DARK THEME OVERRIDE (html[data-cs-version="luxe"])
+   Transforms any demo site into the signature Copper & Obsidian Luxury edition!
+   ========================================================================== */
+html[data-cs-version="luxe"] body {
+  background: #08080d !important;
+  color: #f3ede2 !important;
+}
+
+html[data-cs-version="luxe"] nav,
+html[data-cs-version="luxe"] header.nav,
+html[data-cs-version="luxe"] .chips {
+  background: rgba(10, 10, 16, 0.9) !important;
+  border-color: rgba(246, 192, 138, 0.18) !important;
+  color: #f3ede2 !important;
+}
+
+html[data-cs-version="luxe"] section,
+html[data-cs-version="luxe"] header,
+html[data-cs-version="luxe"] footer,
+html[data-cs-version="luxe"] .hero-copy,
+html[data-cs-version="luxe"] .process,
+html[data-cs-version="luxe"] .book,
+html[data-cs-version="luxe"] .end {
+  background-color: #08080d !important;
+  color: #f3ede2 !important;
+  border-color: rgba(246, 192, 138, 0.16) !important;
+}
+
+html[data-cs-version="luxe"] section:nth-of-type(even) {
+  background-color: #0d0d15 !important;
+}
+
+html[data-cs-version="luxe"] h1,
+html[data-cs-version="luxe"] h2,
+html[data-cs-version="luxe"] h3,
+html[data-cs-version="luxe"] .logo,
+html[data-cs-version="luxe"] .project-name,
+html[data-cs-version="luxe"] .course b {
+  color: #fff8ee !important;
+}
+
+html[data-cs-version="luxe"] p,
+html[data-cs-version="luxe"] li,
+html[data-cs-version="luxe"] .mute,
+html[data-cs-version="luxe"] .lede {
+  color: rgba(243, 237, 226, 0.72) !important;
+}
+
+html[data-cs-version="luxe"] article,
+html[data-cs-version="luxe"] .item,
+html[data-cs-version="luxe"] .course,
+html[data-cs-version="luxe"] .wine,
+html[data-cs-version="luxe"] .master-card,
+html[data-cs-version="luxe"] details {
+  background: rgba(18, 18, 28, 0.88) !important;
+  border: 1px solid rgba(246, 192, 138, 0.22) !important;
+  color: #f3ede2 !important;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-cs-version="luxe"] .k,
+html[data-cs-version="luxe"] .price,
+html[data-cs-version="luxe"] .n,
+html[data-cs-version="luxe"] em {
+  color: var(--cs-cu-hi) !important;
+}
+
+html[data-cs-version="luxe"] .btn,
+html[data-cs-version="luxe"] .cta,
+html[data-cs-version="luxe"] .submit,
+html[data-cs-version="luxe"] .form-submit,
+html[data-cs-version="luxe"] .nav-cta {
+  background: linear-gradient(135deg, var(--cs-cu-hi), var(--cs-cu)) !important;
+  color: #140a02 !important;
+  border-color: transparent !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   CLIENT QUOTE / PURCHASE MODAL
+   ========================================================================== */
+.cs-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5, 5, 9, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.cs-modal-backdrop.open {
+  display: flex;
+}
+
+.cs-modal {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 22px;
+  background: linear-gradient(165deg, #13131f 0%, #090910 100%);
+  border: 1px solid rgba(246, 192, 138, 0.35);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(212, 136, 74, 0.18);
+  padding: 1.75rem;
+  color: #f5f0e8;
+  position: relative;
+}
+
+.cs-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.cs-modal-badge {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cs-cu-hi);
+  margin-bottom: 0.5rem;
+}
+
+.cs-modal h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff !important;
+  margin: 0 0 0.45rem;
+}
+
+.cs-modal p {
+  font-size: 0.86rem;
+  color: rgba(245, 240, 232, 0.74) !important;
+  margin-bottom: 1.1rem;
+  line-height: 1.55;
+}
+
+.cs-modal-vers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.cs-modal-v {
+  padding: 0.65rem 0.55rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cs-modal-v.active {
+  background: rgba(212, 136, 74, 0.18);
+  border-color: var(--cs-cu-hi);
+}
+.cs-modal-v b {
+  display: block;
+  font-size: 0.74rem;
+  color: #fff;
+}
+.cs-modal-v span {
+  font-size: 0.64rem;
+  color: rgba(245, 240, 232, 0.65);
+}
+
+.cs-modal-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  color: rgba(245, 240, 232, 0.85);
+}
+.cs-modal-features li::before {
+  content: '✦ ';
+  color: var(--cs-cu-hi);
+}
+
+.cs-modal-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.cs-modal-actions a {
+  flex: 1;
+  min-width: 170px;
+  text-align: center;
+  padding: 0.78rem 1rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: none !important;
+  transition: transform 0.2s ease;
+}
+.cs-modal-actions a.primary {
+  background: linear-gradient(135deg, var(--cs-cu-hi), var(--cs-cu));
+  color: #140a02 !important;
+}
+.cs-modal-actions a.secondary {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(246, 192, 138, 0.3);
+  color: #fff !important;
+}
+.cs-modal-actions a:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 860px) {
+  .cs-topbar {
+    flex-wrap: wrap;
+    padding: 0.45rem 0.75rem;
+    gap: 0.45rem;
+  }
+  .cs-sale-pill,
+  .cs-v-label,
+  .cs-wing {
+    display: none !important;
+  }
+  .cs-versions {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cs-v-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.32rem 0.4rem;
+    font-size: 0.66rem;
+  }
+}
