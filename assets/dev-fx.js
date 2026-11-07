@@ -951,6 +951,16 @@
     });
   });
 
+  svcCards.forEach(function (card) {
+    var href = card.getAttribute('data-app-href');
+    if (!href) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a, button')) return;
+      window.location.href = href;
+    });
+  });
+
   /* ========================================================================
      6. PINNED SECTION 04 (#pkPin / #skills) — 3D Depth Portal Grid (2 Z-Waves)
      ======================================================================== */

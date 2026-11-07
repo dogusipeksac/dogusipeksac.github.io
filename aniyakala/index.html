@@ -3,29 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anı Yakala / Moment Capture — QR ile İndir</title>
-  <meta name="description" content="Anı Yakala — konum damgalı fotoğraf uygulaması. Android ve iOS." />
+  <title>Anı Yakala / Moment Capture — Konum, Tarih & Harita Damgalı Kamera Uygulaması</title>
+  <meta name="description" content="Anı Yakala (Moment Capture) — fotoğraflarınıza canlı GPS konum, adres, tarih, saat ve özel filigran şablonları ekleyin; anılarınızı harita üzerinde keşfedin. Android ve iOS'ta ücretsiz." />
   <link rel="canonical" href="https://dogusipeksac.com/aniyakala/" />
   <meta name="theme-color" content="#0b1220" />
+  <meta property="og:title" content="Anı Yakala / Moment Capture — Konum & Tarih Damgalı Kamera" />
+  <meta property="og:description" content="Konum, tarih ve özel şablon damgalarıyla fotoğraf çekimi, harita görünümü ve filigran kontrolü." />
+  <meta property="og:url" content="https://dogusipeksac.com/aniyakala/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
 </head>
-<body class="app-landing app-qr-page">
+<body class="app-landing app-qr-page" data-app-slug="aniyakala">
   <div class="app-qr-bg" aria-hidden="true"></div>
-  <header class="app-qr-topbar">
-    <a href="/#apps">← Uygulamalar</a>
-    <a href="/">dogusipeksac.com</a>
+
+  <!-- STICKY PRODUCT NAVBAR -->
+  <header class="app-site-nav">
+    <div class="asn-left">
+      <a href="/#apps" class="asn-back">← Tüm Uygulamalar</a>
+      <a href="/aniyakala/" class="asn-brand">
+        <img src="/assets/apps/aniyakala.png" alt="" />
+        <span>Anı Yakala</span>
+      </a>
+    </div>
+    <nav class="asn-links" aria-label="Sayfa bölümleri">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#ekranlar">Kamera &amp; Harita</a>
+      <a href="#mimari">Mimari &amp; SSS</a>
+      <a href="#qr">QR &amp; İndir</a>
+      <a href="/aniyakala/story/">Instagram Story</a>
+    </nav>
+    <div class="asn-actions">
+      <a href="https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335" target="_blank" rel="noopener noreferrer" class="app-btn ios">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">Google Play</a>
+    </div>
   </header>
+
   <main class="app-qr-page-main">
-    <section class="app-qr-intro">
-      <div class="app-landing-icon moment has-logo" aria-hidden="true"><img src="/assets/apps/aniyakala.png" width="112" height="112" alt="" /></div>
-      <div class="app-qr-intro-body">
-        <p class="app-landing-tag">Photo · Konum</p>
-        <h1>Anı Yakala / Moment Capture</h1>
-        <p class="app-landing-desc">Konum, tarih ve şablon damgalarıyla fotoğraf çekimi. Harita görünümü, filigran kontrolü ve zengin konum bilgisi.</p>
+    <!-- 3D HERO + SMARTPHONE STAGE -->
+    <section class="app-hero-sec">
+      <div class="app-hero-copy">
+        <div class="app-status-row">
+          <span class="app-status-pill live"><i></i> Android · Google Play’de Yayında</span>
+          <span class="app-status-pill live"><i></i> iOS · App Store’da Yayında</span>
+        </div>
+
+        <div class="app-hero-title-row">
+          <div class="app-landing-icon moment has-logo" aria-hidden="true"><img src="/assets/apps/aniyakala.png" width="112" height="112" alt="Anı Yakala İkon" /></div>
+          <div>
+            <div class="app-hero-kicker">Photo · GPS Konum &amp; Zaman Damgası</div>
+            <h1>Anı Yakala / Moment Capture</h1>
+          </div>
+        </div>
+
+        <p class="app-hero-lead">
+          Çektiğiniz her kareye <strong>canlı GPS konumu, şehir/ilçe, tam adres, tarih ve saat</strong> damgalarını estetik şablonlarla işleyin. İster seyahat anılarınızı harita üzerinde biriktirin, ister saha çalışmalarınızı kanıtlı zaman/konum filigranıyla belgeleyin.
+        </p>
+
+        <div class="app-stat-grid">
+          <div class="app-stat-box"><b>Canlı GPS</b><span>Konum &amp; Koordinat</span></div>
+          <div class="app-stat-box"><b>Harita Modu</b><span>Fotoğraflı Pinler</span></div>
+          <div class="app-stat-box"><b>Özel Şablon</b><span>Filigran Tasarımı</span></div>
+          <div class="app-stat-box"><b>Android &amp; iOS</b><span>Native Kamera Hızı</span></div>
+        </div>
+
         <div class="app-landing-btns">
           <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" target="_blank" rel="noopener noreferrer" class="app-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -35,14 +78,193 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             App Store
           </a>
-        </div>
-        <div class="ig-story-btn-on-landing app-landing-btns">
+          <a href="#qr" class="app-btn qr">📱 QR Kod ile İndir</a>
           <a href="/aniyakala/story/" class="app-btn qr">📸 Instagram Story</a>
         </div>
       </div>
+
+      <div class="app-phone-3d-wrap">
+        <div class="app-phone-glow" aria-hidden="true"></div>
+        <div class="app-wing left">
+          <span>CANLI FİLİGRAN</span>
+          <b>Konum + Tarih + Saat</b>
+          <p>Çekim anında vizörde gerçek zamanlı damga önizlemesi.</p>
+        </div>
+        <div class="app-wing right">
+          <span>HARİTA ARŞİVİ</span>
+          <b>Gezdiğin Yerleri Gör</b>
+          <p>Fotoğraflarınız çekildiği koordinatlara göre haritada listelenir.</p>
+        </div>
+        <div class="app-phone-3d">
+          <div class="app-phone-screen">
+            <div class="app-phone-island"></div>
+            <div class="aps-head">
+              <span>ANI YAKALA · GPS CAM</span>
+              <b>📍 41.0256° N</b>
+            </div>
+            <div class="aps-hero-card">
+              <h4>Galata Kulesi · Beyoğlu, İstanbul</h4>
+              <p>📅 07.11.2026 · 18:42 &nbsp;|&nbsp; 🧭 28.9744° E · Rakım 62m<br><em>Şablon: Editorial Seyahat Damgası</em></p>
+            </div>
+            <div class="aps-list">
+              <div class="aps-item">
+                <div><b>🗺️ İnteraktif Harita Görünümü</b><span>48 konumda 190 damgalı fotoğraf</span></div>
+                <i>Harita</i>
+              </div>
+              <div class="aps-item">
+                <div><b>🎨 Şablon &amp; Filigran Editörü</b><span>Minimal, Seyahat, Saha, Retro</span></div>
+                <i>Seçili</i>
+              </div>
+              <div class="aps-item">
+                <div><b>📷 Yüksek Çözünürlük Kayıt</b><span>EXIF + Görsel Damga Bütünlüğü</span></div>
+                <i>HD</i>
+              </div>
+            </div>
+            <div class="aps-bottom-pill">📸 Anı Yakala &amp; Damgala</div>
+          </div>
+        </div>
+      </div>
     </section>
-    <section class="app-qr-showcase" aria-label="QR kodları">
-      <h2 class="app-qr-showcase-title">QR Kod ile İndir</h2>
+
+    <!-- SECTION 1: 6 CORE FEATURES -->
+    <section class="app-sec" id="ozellikler">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">TEMEL ÖZELLİKLER</span>
+        <h2>Her Fotoğrafın Nerede ve Ne Zaman Çekildiğini Unutulmaz Kılın</h2>
+        <p>Seyahat tutkunları, saha mühendisleri, denetim ekipleri ve anı biriktirenler için profesyonel konum damgalı kamera.</p>
+      </div>
+
+      <div class="app-feat-grid">
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">📍</span><span class="afc-num">01</span></div>
+          <h3>Otomatik GPS &amp; Adres Damgası</h3>
+          <p>Ülke, şehir, ilçe, cadde ve tam enlem/boylam koordinatlarını cihazın konum servisinden alarak fotoğrafın üzerine anında işler.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🎨</span><span class="afc-num">02</span></div>
+          <h3>Zengin Şablon &amp; Stil Seçenekleri</h3>
+          <p>Seyahat kartpostalı görünümünden kurumsal saha raporu damgasına kadar farklı yazı tipi, saydamlık ve yerleşim şablonları sunar.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🗺️</span><span class="afc-num">03</span></div>
+          <h3>Harita Üzerinde Fotoğraf Galerisi</h3>
+          <p>Çektiğiniz fotoğrafları dünya ve şehir haritası üzerinde pinlenmiş olarak görün; hangi noktada hangi anıyı yakaladığınızı keşfedin.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">⚙️</span><span class="afc-num">04</span></div>
+          <h3>Tam Filigran Özelleştirme</h3>
+          <p>Tarih formatını, saat görünürlüğünü, özel başlık/not satırını ve koordinat gösterimini kendi tercihinize göre açıp kapatın.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🏗️</span><span class="afc-num">05</span></div>
+          <h3>Saha &amp; İş Doğrulama Desteği</h3>
+          <p>Şantiye, teslimat, gayrimenkul ve saha denetimlerinde zaman ve konum kanıtlı fotoğraf üretimiyle raporlama süreçlerini hızlandırır.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">⚡</span><span class="afc-num">06</span></div>
+          <h3>Canlı Vizör Önizlemesi</h3>
+          <p>Fotoğrafı çekmeden önce damganın kare üzerinde nasıl duracağını canlı kamera ekranında görün; sürpriz olmadan çekim yapın.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 3D MULTI-SCREEN WORKFLOW -->
+    <section class="app-sec" id="ekranlar">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">KAMERA &amp; HARİTA AKIŞI</span>
+        <h2>Şablonu Seç, Çek ve Haritada Keşfet</h2>
+        <p>Android ve iOS cihazlarda kamera sensörüyle tam uyumlu, hızlı ve pratik kullanım.</p>
+      </div>
+
+      <div class="app-screens-grid">
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 01 · CANLI KAMERA</span>
+            <div class="asc-ui-box">
+              <b>Gerçek Zamanlı GPS Katmanı</b>
+              <span>Vizör üzerinde adres, tarih ve koordinat bilgisi anlık güncellenir.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Flaş, Zoom &amp; Oran</b>
+              <span>1:1, 4:3 ve 16:9 çekim modları.</span>
+            </div>
+          </div>
+          <h3>1. Canlı Vizörle Kadrajla</h3>
+          <p>Kameranızı açtığınız anda konumunuz otomatik algılanır ve seçtiğiniz şablon ekranın alt/üst köşesine yerleşir.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 02 · ŞABLON ÖZELLEŞTİR</span>
+            <div class="asc-ui-box">
+              <b>Özel Not &amp; Başlık Ekle</b>
+              <span>Fotoğrafın altına gezi notu veya proje kodu yazabilme.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Bilgi Alanlarını Seç</b>
+              <span>Koordinat, adres, tarih ve saat kutularını dilediğin gibi yönet.</span>
+            </div>
+          </div>
+          <h3>2. Damganı Kişiselleştir</h3>
+          <p>İster minimal bir tarih/şehir imzası, ister tam koordinatlı teknik bilgi kartı kullanın.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 03 · HARİTA GALERİSİ</span>
+            <div class="asc-ui-box">
+              <b>Konum Bazlı Albüm</b>
+              <span>Şehirlere ve gezdiğiniz rotalara göre gruplanmış anılar.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Hızlı Paylaşım</b>
+              <span>Instagram, WhatsApp ve galeriye tam çözünürlüklü aktarım.</span>
+            </div>
+          </div>
+          <h3>3. Haritada Anılarını Gez</h3>
+          <p>Çektiğiniz tüm fotoğrafları harita üzerinde görerek kendi kişisel seyahat atlasınızı oluşturun.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ARCHITECTURE & FAQ -->
+    <section class="app-sec" id="mimari">
+      <div class="app-arch-faq">
+        <div class="app-arch-box">
+          <span class="app-sec-kicker">TEKNOLOJİ &amp; DONANIM UYUMU</span>
+          <h3>Hassas Konum ve Yüksek Çözünürlüklü Görüntü İşleme</h3>
+          <p>
+            Anı Yakala (Moment Capture), cihazın donanımsal kamera hattı ve GPS/Geocoding servisleriyle doğrudan haberleşerek yüksek çözünürlüklü fotoğraflar üzerine vektörel keskinlikte bilgi katmanı işler.
+          </p>
+          <div class="app-arch-tags">
+            <span>Camera API</span>
+            <span>GPS &amp; Reverse Geocoding</span>
+            <span>Interactive Maps</span>
+            <span>EXIF Metadata</span>
+            <span>Android &amp; iOS</span>
+          </div>
+        </div>
+
+        <div class="app-faq-list" id="sss">
+          <details open>
+            <summary>Fotoğraflar nereye kaydediliyor?</summary>
+            <p>Çektiğiniz damgalı fotoğraflar doğrudan telefonunuzun kendi fotoğraf galerisine ve uygulama içi harita arşivine tam çözünürlükle kaydedilir.</p>
+          </details>
+          <details>
+            <summary>Damga üzerindeki bilgileri gizleyebilir miyim?</summary>
+            <p>Evet. Şablon ayarlarından tam adres, koordinat, tarih veya saat alanlarından dilediğinizi tek dokunuşla açıp kapatabilirsiniz.</p>
+          </details>
+          <details>
+            <summary>Hem iOS hem Android’de mevcut mu?</summary>
+            <p>Evet, Anı Yakala hem Google Play Store hem de Apple App Store’da ücretsiz olarak indirilebilir.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: QR CODES -->
+    <section class="app-qr-showcase" id="qr" aria-label="QR kodları">
+      <h2 class="app-qr-showcase-title">QR Kod ile İndir (Android &amp; iOS)</h2>
       <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan mağaza sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
       <div class="app-qr-grid">
         <a href="https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment" class="store-qr-card android" target="_blank" rel="noopener noreferrer" title="Android — Google Play">
@@ -51,7 +273,7 @@
           <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.dogusipeksac.capturethemoment" width="300" height="300" alt="Anı Yakala Android QR" />
           </div>
-          <span class="store-qr-card-link">Mağazaya git →</span>
+          <span class="store-qr-card-link">Google Play’e git →</span>
         </a>
         <a href="https://apps.apple.com/us/app/an%C4%B1-yakala/id6764663335" class="store-qr-card ios" target="_blank" rel="noopener noreferrer" title="iOS — App Store">
           <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>
@@ -59,11 +281,29 @@
           <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fapps.apple.com%2Fus%2Fapp%2Fan%25C4%25B1-yakala%2Fid6764663335" width="300" height="300" alt="Anı Yakala iOS QR" />
           </div>
-          <span class="store-qr-card-link">Mağazaya git →</span>
+          <span class="store-qr-card-link">App Store’a git →</span>
         </a>
       </div>
       <p class="app-qr-hint">QR okunmuyorsa yukarıdaki mağaza butonlarını kullanın.</p>
     </section>
+
+    <!-- SECTION 5: OTHER APPS SWITCHER -->
+    <section class="app-other-sec">
+      <div class="app-sec-head" style="margin-bottom:1rem">
+        <span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>
+        <h2>Diğer Mobil Uygulamalarımız</h2>
+      </div>
+      <div class="app-other-grid">
+        <a href="/ydskelime/" class="app-other-item"><span class="ao-emo">📚</span><div>YDS Kelime KitApp<small>Eğitim · Kelime</small></div></a>
+        <a href="/mydiary/" class="app-other-item"><span class="ao-emo">📔</span><div>My Diary<small>Günlük · Not &amp; PDF</small></div></a>
+        <a href="/aniyakala/" class="app-other-item active"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>
+        <a href="/appplaka/" class="app-other-item"><span class="ao-emo">🚗</span><div>App Plaka Kontrol<small>Yapay Zekâ · OCR</small></div></a>
+        <a href="/kuberush/" class="app-other-item"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>
+        <a href="/suicme/" class="app-other-item"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>
+      </div>
+    </section>
   </main>
+
+  <script src="/assets/app-site.js" defer></script>
 </body>
 </html>

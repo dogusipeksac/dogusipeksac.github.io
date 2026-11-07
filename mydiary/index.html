@@ -3,56 +3,316 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Diary — QR ile İndir</title>
-  <meta name="description" content="My Diary — kişisel günlük uygulaması. Android'de ücretsiz indir." />
+  <title>My Diary — Kişisel Günlük, Sesli Not, Fotoğraf & PDF Uygulaması | Android & iOS</title>
+  <meta name="description" content="My Diary — günlük notlarınızı, ses kayıtlarınızı ve fotoğraflarınızı güvenle saklayan, tek tıkla PDF olarak dışa aktaran kişisel günlük uygulaması. Google Play ve App Store'da ücretsiz indir." />
   <link rel="canonical" href="https://dogusipeksac.com/mydiary/" />
   <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="My Diary — Kişisel Günlük & Anı Defteri (Android & iOS)" />
+  <meta property="og:description" content="Günlük notlar, ses kaydı, fotoğraf albümü ve PDF dışa aktarma — Google Play ve App Store'da." />
+  <meta property="og:url" content="https://dogusipeksac.com/mydiary/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
 </head>
-<body class="app-landing app-qr-page">
+<body class="app-landing app-qr-page" data-app-slug="mydiary">
   <div class="app-qr-bg" aria-hidden="true"></div>
-  <header class="app-qr-topbar">
-    <a href="/#apps">← Uygulamalar</a>
-    <a href="/">dogusipeksac.com</a>
+
+  <!-- STICKY PRODUCT NAVBAR -->
+  <header class="app-site-nav">
+    <div class="asn-left">
+      <a href="/#apps" class="asn-back">← Tüm Uygulamalar</a>
+      <a href="/mydiary/" class="asn-brand">
+        <span class="asn-emo">📔</span>
+        <span>My Diary</span>
+      </a>
+    </div>
+    <nav class="asn-links" aria-label="Sayfa bölümleri">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#ekranlar">Uygulama Deneyimi</a>
+      <a href="#mimari">Gizlilik &amp; SSS</a>
+      <a href="#qr">QR &amp; İndir</a>
+      <a href="/mydiary/story/">Instagram Story</a>
+    </nav>
+    <div class="asn-actions">
+      <a href="https://apps.apple.com/us/app/my-diary/id6824458504" target="_blank" rel="noopener noreferrer" class="app-btn ios">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">Google Play</a>
+    </div>
   </header>
+
   <main class="app-qr-page-main">
-    <section class="app-qr-intro">
-      <div class="app-landing-icon purple" aria-hidden="true">📔</div>
-      <div class="app-qr-intro-body">
-        <p class="app-landing-tag">Productivity · Günlük</p>
-        <h1>My Diary</h1>
-        <p class="app-landing-desc">Kişisel günlük uygulaması. Jetpack Compose ile geliştirildi. Günlük notlar, ses kaydı, fotoğraf ekleme ve PDF dışa aktarma.</p>
+    <!-- 3D HERO + SMARTPHONE STAGE -->
+    <section class="app-hero-sec">
+      <div class="app-hero-copy">
+        <div class="app-status-row">
+          <span class="app-status-pill live"><i></i> Android · Google Play’de Yayında</span>
+          <span class="app-status-pill live"><i></i> iOS · App Store’da Yayında</span>
+        </div>
+
+        <div class="app-hero-title-row">
+          <div class="app-landing-icon purple" aria-hidden="true">📔</div>
+          <div>
+            <div class="app-hero-kicker">Productivity · Kişisel Günlük &amp; Not</div>
+            <h1>My Diary</h1>
+          </div>
+        </div>
+
+        <p class="app-hero-lead">
+          Düşüncelerinizi, günlük anılarınızı, <strong>ses kayıtlarınızı</strong> ve <strong>fotoğraflarınızı</strong> tek bir güvenli alanda birleştirin. Modern arayüzü ve <strong>tek tıkla PDF kitapçık dışa aktarma</strong> özelliğiyle hem Android hem iOS’ta yanınızda.
+        </p>
+
+        <div class="app-stat-grid">
+          <div class="app-stat-box"><b>Ses + Foto</b><span>Zengin Medya Günlüğü</span></div>
+          <div class="app-stat-box"><b>PDF Çıktı</b><span>Tek Tıkla Dışa Aktar</span></div>
+          <div class="app-stat-box"><b>Android &amp; iOS</b><span>Çift Mağaza Yayını</span></div>
+          <div class="app-stat-box"><b>%100 Özel</b><span>Gizlilik Odaklı Mimari</span></div>
+        </div>
+
         <div class="app-landing-btns">
           <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" target="_blank" rel="noopener noreferrer" class="app-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
             Google Play
           </a>
-        </div>
-        <div class="ig-story-btn-on-landing app-landing-btns">
+          <a href="https://apps.apple.com/us/app/my-diary/id6824458504" target="_blank" rel="noopener noreferrer" class="app-btn ios">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
+          </a>
+          <a href="#qr" class="app-btn qr">📱 QR Kod ile İndir</a>
           <a href="/mydiary/story/" class="app-btn qr">📸 Instagram Story</a>
-          <a href="/mydiary/privacy.html" class="app-btn qr">Gizlilik Politikası</a>
+          <a href="/mydiary/privacy.html" class="app-btn qr">🔒 Gizlilik Politikası</a>
+        </div>
+      </div>
+
+      <div class="app-phone-3d-wrap">
+        <div class="app-phone-glow" aria-hidden="true"></div>
+        <div class="app-wing left">
+          <span>ÇOKLU MEDYA</span>
+          <b>Ses Kaydı &amp; Fotoğraf</b>
+          <p>Yazıların yanına sesli notlar ve galeri fotoğrafları ekleyin.</p>
+        </div>
+        <div class="app-wing right">
+          <span>DIŞA AKTARMA</span>
+          <b>Tek Tıkla PDF Kitap</b>
+          <p>Anılarınızı tarih ve fotoğraflarıyla PDF belgesine dönüştürün.</p>
+        </div>
+        <div class="app-phone-3d">
+          <div class="app-phone-screen">
+            <div class="app-phone-island"></div>
+            <div class="aps-head">
+              <span>MY DIARY</span>
+              <b>✨ Bugün</b>
+            </div>
+            <div class="aps-hero-card">
+              <h4>Boğaz’da Akşam Yürüyüşü</h4>
+              <p>Hava hafif serindi ama gün batımı harikaydı. Kahvemi alıp sahil boyunca yürüdüm ve yeni projemin notlarını sesli kaydettim.</p>
+            </div>
+            <div class="aps-list">
+              <div class="aps-item">
+                <div><b>🎙️ Sesli Not Eklendi</b><span>01:42 dk · Yüksek Kalite Ses</span></div>
+                <i>Dinle ▶</i>
+              </div>
+              <div class="aps-item">
+                <div><b>🖼️ 3 Fotoğraf Eklendi</b><span>Galata &amp; Sahil Albümü</span></div>
+                <i>Galeri</i>
+              </div>
+              <div class="aps-item">
+                <div><b>📄 PDF Olarak Dışa Aktar</b><span>Tarih ve medya ile hazırla</span></div>
+                <i>PDF ↓</i>
+              </div>
+            </div>
+            <div class="aps-bottom-pill">+ Yeni Günlük Sayfası Oluştur</div>
+          </div>
         </div>
       </div>
     </section>
-    <section class="app-qr-showcase" aria-label="QR kodları">
-      <h2 class="app-qr-showcase-title">QR Kod ile İndir</h2>
-      <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan mağaza sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
-      <div class="app-qr-grid single">
+
+    <!-- SECTION 1: 6 CORE FEATURES -->
+    <section class="app-sec" id="ozellikler">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">ÖNE ÇIKAN ÖZELLİKLER</span>
+        <h2>Anılarınızı En Doğal Haliyle Saklamanız İçin Tasarlandı</h2>
+        <p>Sadece metin değil; o anki ses tonunuzu, çektiğiniz kareleri ve ruh halinizi bir arada tutan modern dijital günlük.</p>
+      </div>
+
+      <div class="app-feat-grid">
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">✍️</span><span class="afc-num">01</span></div>
+          <h3>Hızlı &amp; Akıcı Günlük Editörü</h3>
+          <p>Dikkat dağıtmayan sade yazım ekranı, tarih/saat damgası ve ruh hali (mood) etiketleriyle her gününüzü keyifle not edin.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🎙️</span><span class="afc-num">02</span></div>
+          <h3>Uygulama İçi Ses Kaydı</h3>
+          <p>Uzun uzun yazmak istemediğiniz anlarda mikrofon simgesine dokunun; düşüncelerinizi doğrudan o günün sayfasına ses kaydı olarak ekleyin.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">📸</span><span class="afc-num">03</span></div>
+          <h3>Fotoğraflı Anı Sayfaları</h3>
+          <p>Günlük girişlerinize kameradan veya galeriden fotoğraflar ekleyerek her sayfayı görsel bir anı defterine dönüştürün.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">📄</span><span class="afc-num">04</span></div>
+          <h3>PDF Dışa Aktarma &amp; Yedekleme</h3>
+          <p>Yazdığınız günlükleri tek tıkla düzenli bir PDF dokümanına dönüştürün; yazdırın, paylaşın veya kendi arşivinizde saklayın.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🗓️</span><span class="afc-num">05</span></div>
+          <h3>Takvim &amp; Anlık Arama</h3>
+          <p>Geçmişte belirli bir günde ne yazdığınızı takvim üzerinden seçin veya anahtar kelime aramasıyla saniyeler içinde bulun.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🔒</span><span class="afc-num">06</span></div>
+          <h3>Gizlilik &amp; Çevrimdışı Güvenlik</h3>
+          <p>Günlükleriniz size özeldir. İnternet bağlantısı gerektirmeden çalışır ve kişisel verileriniz izinsiz üçüncü taraflarla paylaşılmaz.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 3D MULTI-SCREEN WORKFLOW -->
+    <section class="app-sec" id="ekranlar">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">UYGULAMA İÇİ DENEYİM</span>
+        <h2>Yaz, Kaydet ve PDF Olarak Arşivle</h2>
+        <p>Hem Android (Jetpack Compose) hem iOS (App Store) üzerinde 60 FPS akıcılıkta çalışan modern arayüz.</p>
+      </div>
+
+      <div class="app-screens-grid">
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">EKRAN 01 · ZAMAN TÜNELİ</span>
+            <div class="asc-ui-box">
+              <b>Kronolojik Günlük Akışı</b>
+              <span>Ay ve gün bazlı gruplanmış kartlar, fotoğraf önizlemeleri ve ses ikonları.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Anlık Filtreleme</b>
+              <span>Sadece fotoğraflı veya sesli not içeren günleri listele.</span>
+            </div>
+          </div>
+          <h3>1. Zaman Tünelinde Gezin</h3>
+          <p>Tüm anılarınızı temiz kartlar halinde kronolojik sırayla görüntüleyin ve geçmişe tek dokunuşla dönün.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">EKRAN 02 · ZENGİN EDİTÖR</span>
+            <div class="asc-ui-box">
+              <b>Metin + Ses + Fotoğraf</b>
+              <span>Aynı sayfa içinde birden fazla fotoğraf ve ses kaydı desteği.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Otomatik Kayıt</b>
+              <span>Yazarken veri kaybını önleyen anlık yerel kayıt sistemi.</span>
+            </div>
+          </div>
+          <h3>2. Anılarını Zenginleştir</h3>
+          <p>Kelimelerin yetmediği yerde sesinizi ve fotoğraflarınızı ekleyerek o günün atmosferini eksiksiz kaydedin.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">EKRAN 03 · PDF ÇIKTI</span>
+            <div class="asc-ui-box">
+              <b>Kitap Formatında PDF</b>
+              <span>Başlıklar, tarihler ve fotoğraflarla mizanpajlı PDF üretimi.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Paylaş veya Sakla</b>
+              <span>iOS Dosyalar / Android İndirilenler klasörüne anında kaydet.</span>
+            </div>
+          </div>
+          <h3>3. PDF Olarak Ölümsüzleştir</h3>
+          <p>Dijital notlarınızı dilediğiniz zaman basılabilir kalitede PDF dosyasına çevirip istediğiniz yerde saklayın.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ARCHITECTURE & FAQ -->
+    <section class="app-sec" id="mimari">
+      <div class="app-arch-faq">
+        <div class="app-arch-box">
+          <span class="app-sec-kicker">MİMARİ &amp; GİZLİLİK</span>
+          <h3>Android &amp; iOS İçin Native Kalitede Geliştirildi</h3>
+          <p>
+            My Diary; Android tarafında <strong>Kotlin, Jetpack Compose, Coroutines ve Room</strong>; iOS tarafında ise modern native mimariyle geliştirilerek her iki mağazada da yayına alındı.
+          </p>
+          <p>
+            Detaylı veri işleme ve gizlilik ilkelerimizi <a href="/mydiary/privacy.html" style="color:var(--app-accent);font-weight:700">Gizlilik Politikası</a> sayfasından inceleyebilirsiniz.
+          </p>
+          <div class="app-arch-tags">
+            <span>Jetpack Compose</span>
+            <span>iOS &amp; Android</span>
+            <span>Room SQLite</span>
+            <span>Voice Recorder</span>
+            <span>PDF Engine</span>
+          </div>
+        </div>
+
+        <div class="app-faq-list" id="sss">
+          <details open>
+            <summary>My Diary hem iPhone hem Android’de var mı?</summary>
+            <p>Evet! My Diary hem Google Play Store (Android) hem de Apple App Store (iPhone / iPad) üzerinde ücretsiz olarak yayındadır.</p>
+          </details>
+          <details>
+            <summary>Yazdığım günlükler nerede saklanıyor?</summary>
+            <p>Notlarınız, ses kayıtlarınız ve fotoğraflarınız güvenli şekilde cihazınızda saklanır; mahremiyetiniz her zaman ön plandadır.</p>
+          </details>
+          <details>
+            <summary>Günlüklerimi PDF olarak nasıl indirebilirim?</summary>
+            <p>Günlük detay ekranındaki veya menüdeki “PDF Dışa Aktar” seçeneğine dokunarak seçtiğiniz notları saniyeler içinde PDF dosyasına dönüştürebilirsiniz.</p>
+          </details>
+          <details>
+            <summary>İnternet olmadan kullanabilir miyim?</summary>
+            <p>Evet, My Diary tamamen çevrimdışı (offline) olarak çalışır; seyahatte veya uçakta dahi günlük yazabilir ve ses kaydedebilirsiniz.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: QR CODES (ANDROID + IOS) -->
+    <section class="app-qr-showcase" id="qr" aria-label="QR kodları">
+      <h2 class="app-qr-showcase-title">QR Kod ile İndir (Android &amp; iOS)</h2>
+      <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan Google Play veya App Store sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
+      <div class="app-qr-grid">
         <a href="https://play.google.com/store/apps/details?id=com.product.mydiary" class="store-qr-card android" target="_blank" rel="noopener noreferrer" title="Android — Google Play">
           <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>
           <p class="store-qr-card-store">Google Play</p>
           <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.product.mydiary" width="300" height="300" alt="My Diary Android QR" />
           </div>
-          <span class="store-qr-card-link">Mağazaya git →</span>
+          <span class="store-qr-card-link">Google Play’e git →</span>
+        </a>
+
+        <a href="https://apps.apple.com/us/app/my-diary/id6824458504" class="store-qr-card ios" target="_blank" rel="noopener noreferrer" title="iOS — App Store">
+          <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>
+          <p class="store-qr-card-store">App Store</p>
+          <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fapps.apple.com%2Fus%2Fapp%2Fmy-diary%2Fid6824458504" width="300" height="300" alt="My Diary iOS QR" />
+          </div>
+          <span class="store-qr-card-link">App Store’a git →</span>
         </a>
       </div>
       <p class="app-qr-hint">QR okunmuyorsa yukarıdaki mağaza butonlarını kullanın.</p>
     </section>
+
+    <!-- SECTION 5: OTHER APPS SWITCHER -->
+    <section class="app-other-sec">
+      <div class="app-sec-head" style="margin-bottom:1rem">
+        <span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>
+        <h2>Diğer Mobil Uygulamalarımız</h2>
+      </div>
+      <div class="app-other-grid">
+        <a href="/ydskelime/" class="app-other-item"><span class="ao-emo">📚</span><div>YDS Kelime KitApp<small>Eğitim · Kelime</small></div></a>
+        <a href="/mydiary/" class="app-other-item active"><span class="ao-emo">📔</span><div>My Diary<small>Günlük · Not &amp; PDF</small></div></a>
+        <a href="/aniyakala/" class="app-other-item"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>
+        <a href="/appplaka/" class="app-other-item"><span class="ao-emo">🚗</span><div>App Plaka Kontrol<small>Yapay Zekâ · OCR</small></div></a>
+        <a href="/kuberush/" class="app-other-item"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>
+        <a href="/suicme/" class="app-other-item"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>
+      </div>
+    </section>
   </main>
+
+  <script src="/assets/app-site.js" defer></script>
 </body>
 </html>

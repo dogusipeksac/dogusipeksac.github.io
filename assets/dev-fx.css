@@ -1116,7 +1116,7 @@ body {
    ========================================================================== */
 .svc-track {
   position: relative;
-  height: 480vh;
+  height: 540vh;
   padding: 0 !important;
   background: var(--bg);
 }
@@ -1298,6 +1298,25 @@ body {
   margin: 0.15rem 0 0;
   line-height: 1.08;
 }
+.svc-card h3.app-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.svc-card h3.app-name a:hover {
+  color: var(--cu-hi);
+}
+.svc-card a.app-icon {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s;
+}
+.svc-card a.app-icon:hover {
+  transform: scale(1.06);
+}
+.svc-card .app-icon.yds {
+  background: linear-gradient(135deg, #2b6cb0, #f59e0b);
+}
 .svc-card .app-platform {
   color: var(--cu-hi);
   font-family: var(--mono);
@@ -1329,10 +1348,26 @@ body {
   background: linear-gradient(135deg, var(--cu), var(--cu-hi));
   color: #12171c;
 }
+.svc-card .app-btn.site-btn {
+  background: linear-gradient(135deg, #f6c08a, #d4884a);
+  color: #0f1419;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(212, 136, 74, 0.35);
+}
+.svc-card .app-btn.site-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(246, 192, 138, 0.48);
+}
 .svc-card .app-btn.ios {
   background: rgba(28, 35, 45, 0.9);
   color: var(--ink);
   border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.svc-card .app-btn.pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fcd34d;
+  border: 1px dashed rgba(245, 158, 11, 0.5);
+  cursor: default;
 }
 .svc-card .app-btn.qr {
   background: rgba(212, 136, 74, 0.12);
@@ -1346,6 +1381,8 @@ body {
   display: grid;
   place-items: center;
   z-index: 2;
+  text-decoration: none;
+  cursor: pointer;
 }
 .viz i {
   position: absolute;
@@ -1404,6 +1441,167 @@ body {
     margin-top: calc(min(31rem, 66vh) / -2);
   }
   .svc-card .viz { display: none; }
+}
+
+/* ==========================================================================
+   SECTION 03B · UYGULAMA ÖZEL WEB SİTELERİ VİTRİNİ (Direct Portal Grid)
+   ========================================================================== */
+.app-sites-sec {
+  position: relative;
+  padding: 4.5rem 0 5.5rem;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 136, 74, 0.14), transparent 65%), var(--bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.app-sites-head {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto 2.6rem;
+}
+.app-sites-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cu-hi);
+  background: rgba(212, 136, 74, 0.12);
+  border: 1px solid rgba(246, 192, 138, 0.35);
+  margin-bottom: 0.85rem;
+}
+.app-sites-head h3 {
+  font-family: var(--f-display);
+  font-size: clamp(1.65rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.55rem;
+  color: var(--ink);
+}
+.app-sites-head p {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--mute);
+  line-height: 1.6;
+}
+.app-sites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.app-portal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.45rem 1.4rem;
+  border-radius: 1.35rem;
+  background: linear-gradient(155deg, rgba(34, 43, 55, 0.92), rgba(18, 23, 30, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s, box-shadow 0.25s;
+}
+.app-portal-card.is-new {
+  border-color: rgba(246, 192, 138, 0.42);
+  background: linear-gradient(155deg, rgba(44, 52, 66, 0.95), rgba(20, 26, 34, 0.96));
+}
+.app-portal-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--cu-hi);
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.55), 0 0 36px rgba(212, 136, 74, 0.2);
+}
+.apc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.95rem;
+}
+.apc-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  flex-shrink: 0;
+}
+.apc-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.apc-icon.emoji {
+  font-size: 1.7rem;
+}
+.apc-status {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.28rem 0.68rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+}
+.apc-status.pending {
+  background: rgba(245, 158, 11, 0.14);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.app-portal-card h4 {
+  font-family: var(--f-display);
+  font-size: 1.28rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+  color: var(--ink);
+}
+.apc-url {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--cu-hi);
+  margin: 0 0 0.65rem;
+}
+.apc-desc {
+  font-size: 0.86rem;
+  color: var(--mute);
+  line-height: 1.55;
+  margin: 0 0 1.15rem;
+  flex: 1;
+}
+.apc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.78rem;
+  color: #9ba6b2;
+}
+.apc-foot b {
+  color: var(--cu-hi);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.app-portal-card:hover .apc-foot b {
+  transform: translateX(4px);
+}
+@media (max-width: 980px) {
+  .app-sites-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .app-sites-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==========================================================================

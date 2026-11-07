@@ -22,10 +22,23 @@ window.IG_STORY_APPS = {
     emoji: '📔',
     tagline: 'Notlar, ses, fotoğraf ve PDF — kişisel günlüğün.',
     taglineEn: 'Notes, voice, photos & PDF — your journal.',
-    platforms: 'Android',
+    platforms: 'Android · iOS',
     android: 'https://play.google.com/store/apps/details?id=com.product.mydiary',
+    ios: 'https://apps.apple.com/us/app/my-diary/id6824458504',
     colors: ['#7c3aed', '#a855f7', '#0a0a0f'],
     file: 'my-diary-story'
+  },
+  ydskelime: {
+    slug: 'ydskelime',
+    name: 'YDS Kelime KitApp',
+    tag: 'Education · Vocabulary',
+    emoji: '📚',
+    tagline: 'YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar, quiz ve kelime kartları.',
+    taglineEn: 'Smart spaced repetition, quizzes & flashcards for YDS, YÖKDİL & YDT.',
+    platforms: 'iOS · Android (Yakında)',
+    ios: 'https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129',
+    colors: ['#f59e0b', '#d97706', '#0c0a09'],
+    file: 'yds-kelime-kitapp-story'
   },
   appplaka: {
     slug: 'appplaka',

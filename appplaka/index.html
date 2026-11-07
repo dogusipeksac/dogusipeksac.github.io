@@ -3,29 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App Plaka Kontrol — QR ile İndir</title>
-  <meta name="description" content="App Plaka Kontrol — yapay zeka destekli plaka tanıma. Android ve iOS." />
+  <title>App Plaka Kontrol — Yapay Zekâ Destekli Plaka Tanıma & Standart Kontrol Uygulaması</title>
+  <meta name="description" content="App Plaka Kontrol — Türkiye plakalarını kamera ile saniyeler içinde okuyan yapay zekâ (OCR) uygulaması. İl kodu çözümleme, standart denetimi ve tarama geçmişi. Android ve iOS'ta ücretsiz." />
   <link rel="canonical" href="https://dogusipeksac.com/appplaka/" />
   <meta name="theme-color" content="#0891b2" />
+  <meta property="og:title" content="App Plaka Kontrol — AI Plaka Tanıma & Denetim (Android & iOS)" />
+  <meta property="og:description" content="Türkiye plakalarını saniyeler içinde tanıyan yapay zekâ motoru ve geçmiş kayıt arşivi." />
+  <meta property="og:url" content="https://dogusipeksac.com/appplaka/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/app-landing.css" />
 </head>
-<body class="app-landing app-qr-page">
+<body class="app-landing app-qr-page" data-app-slug="appplaka">
   <div class="app-qr-bg" aria-hidden="true"></div>
-  <header class="app-qr-topbar">
-    <a href="/#apps">← Uygulamalar</a>
-    <a href="/">dogusipeksac.com</a>
+
+  <!-- STICKY PRODUCT NAVBAR -->
+  <header class="app-site-nav">
+    <div class="asn-left">
+      <a href="/#apps" class="asn-back">← Tüm Uygulamalar</a>
+      <a href="/appplaka/" class="asn-brand">
+        <span class="asn-emo">🚗</span>
+        <span>App Plaka Kontrol</span>
+      </a>
+    </div>
+    <nav class="asn-links" aria-label="Sayfa bölümleri">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#ekranlar">AI Tarama Akışı</a>
+      <a href="#mimari">Teknoloji &amp; SSS</a>
+      <a href="#qr">QR &amp; İndir</a>
+      <a href="/appplaka/story/">Instagram Story</a>
+    </nav>
+    <div class="asn-actions">
+      <a href="https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433" target="_blank" rel="noopener noreferrer" class="app-btn ios">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">Google Play</a>
+    </div>
   </header>
+
   <main class="app-qr-page-main">
-    <section class="app-qr-intro">
-      <div class="app-landing-icon plaka" aria-hidden="true">🚗</div>
-      <div class="app-qr-intro-body">
-        <p class="app-landing-tag">Utilities · AI</p>
-        <h1>App Plaka Kontrol</h1>
-        <p class="app-landing-desc">Yapay zeka destekli plaka tanıma uygulaması. Türkiye plakalarını saniyeler içinde okur, geçmiş kayıtlarını saklar.</p>
+    <!-- 3D HERO + SMARTPHONE STAGE -->
+    <section class="app-hero-sec">
+      <div class="app-hero-copy">
+        <div class="app-status-row">
+          <span class="app-status-pill live"><i></i> Android · Google Play’de Yayında</span>
+          <span class="app-status-pill live"><i></i> iOS · App Store’da Yayında</span>
+        </div>
+
+        <div class="app-hero-title-row">
+          <div class="app-landing-icon plaka" aria-hidden="true">🚗</div>
+          <div>
+            <div class="app-hero-kicker">Utilities · Cihaz İçi Yapay Zekâ &amp; OCR</div>
+            <h1>App Plaka Kontrol</h1>
+          </div>
+        </div>
+
+        <p class="app-hero-lead">
+          Türkiye standartlarındaki araç plakalarını telefon kamerasıyla <strong>milisaniyeler içinde okuyan</strong> yapay zekâ destekli plaka tanıma ve standart kontrol uygulaması. Okunan plakaların 81 il kodunu çözümler, karakter/standart uyumluluğunu analiz eder ve tarama geçmişinizi cihazınızda saklar.
+        </p>
+
+        <div class="app-stat-grid">
+          <div class="app-stat-box"><b>AI OCR</b><span>Gerçek Zamanlı Okuma</span></div>
+          <div class="app-stat-box"><b>81 İl</b><span>Otomatik Kod Analizi</span></div>
+          <div class="app-stat-box"><b>Geçmiş</b><span>Yerel Kayıt Defteri</span></div>
+          <div class="app-stat-box"><b>Android &amp; iOS</b><span>Çift Mağaza Yayını</span></div>
+        </div>
+
         <div class="app-landing-btns">
           <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" target="_blank" rel="noopener noreferrer" class="app-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg>
@@ -35,14 +78,193 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             App Store
           </a>
-        </div>
-        <div class="ig-story-btn-on-landing app-landing-btns">
+          <a href="#qr" class="app-btn qr">📱 QR Kod ile İndir</a>
           <a href="/appplaka/story/" class="app-btn qr">📸 Instagram Story</a>
         </div>
       </div>
+
+      <div class="app-phone-3d-wrap">
+        <div class="app-phone-glow" aria-hidden="true"></div>
+        <div class="app-wing left">
+          <span>YAPAY ZEKÂ OCR</span>
+          <b>Saniyede Plaka Tanıma</b>
+          <p>Kamera görüntüsünden plaka kutusunu otomatik bulur ve okur.</p>
+        </div>
+        <div class="app-wing right">
+          <span>STANDART KONTROL</span>
+          <b>Font &amp; Format Analizi</b>
+          <p>TR şeridi, karakter dizilimi ve standart plaka kriterlerini inceler.</p>
+        </div>
+        <div class="app-phone-3d">
+          <div class="app-phone-screen">
+            <div class="app-phone-island"></div>
+            <div class="aps-head">
+              <span>APP PLAKA KONTROL</span>
+              <b>🤖 AI Aktif</b>
+            </div>
+            <div class="aps-hero-card">
+              <h4><span style="background:#1d4ed8;color:#fff;padding:2px 6px;border-radius:4px;font-size:0.7rem;margin-right:6px">TR</span> 34 AB 1923</h4>
+              <p><strong>İl:</strong> İstanbul (34) &nbsp;|&nbsp; <strong>Format:</strong> Standart TR Plaka<br><em>Font, karakter aralığı ve blok yapısı uyumlu.</em></p>
+            </div>
+            <div class="aps-list">
+              <div class="aps-item">
+                <div><b>📷 Canlı Kamera Taraması</b><span>Otomatik odaklama &amp; çerçeve tespiti</span></div>
+                <i>%99.2</i>
+              </div>
+              <div class="aps-item">
+                <div><b>🗂️ Son Taranan Plakalar</b><span>06 DNZ 404 · 35 KSK 1912 · 01 ADN 01</span></div>
+                <i>Arşiv</i>
+              </div>
+              <div class="aps-item">
+                <div><b>🔍 Standart &amp; APP Rehberi</b><span>Mühür, vida ve kalın font kontrolü</span></div>
+                <i>Rehber</i>
+              </div>
+            </div>
+            <div class="aps-bottom-pill">📷 Kamerayla Yeni Plaka Tara</div>
+          </div>
+        </div>
+      </div>
     </section>
-    <section class="app-qr-showcase" aria-label="QR kodları">
-      <h2 class="app-qr-showcase-title">QR Kod ile İndir</h2>
+
+    <!-- SECTION 1: 6 CORE FEATURES -->
+    <section class="app-sec" id="ozellikler">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">TEMEL ÖZELLİKLER</span>
+        <h2>Hızlı, Doğru ve Cihaz İçi Yapay Zekâ Destekli Plaka Denetimi</h2>
+        <p>İkinci el araç alım-satımından otopark ve saha yönetimine kadar plaka okuma ve kontrol süreçlerini tek ekranda toplar.</p>
+      </div>
+
+      <div class="app-feat-grid">
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🤖</span><span class="afc-num">01</span></div>
+          <h3>Gerçek Zamanlı AI Plaka Tanıma</h3>
+          <p>Kamerayı araca doğrulttuğunuz anda plaka bölgesini tespit eder ve karakterleri yüksek doğrulukla metne dönüştürür.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🛡️</span><span class="afc-num">02</span></div>
+          <h3>Standart &amp; APP Kriter Kontrolü</h3>
+          <p>Plaka karakterlerinin dizilimi, font kalınlığı, harf/rakam gruplaması ve muayene standartlarına uygunluk kriterlerini kontrol eder.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🗺️</span><span class="afc-num">03</span></div>
+          <h3>81 İl Kodu &amp; Bölge Çözümleme</h3>
+          <p>01’den 81’e tüm Türkiye il kodlarını ve plaka harf serilerini anında tanımlayarak özet bilgi kartı sunar.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🕘</span><span class="afc-num">04</span></div>
+          <h3>Tarama Geçmişi &amp; Kayıt Defteri</h3>
+          <p>Okuttuğunuz tüm plakaları tarih ve saat damgasıyla yerel geçmiş listesinde saklar; dilediğiniz zaman tekrar inceleyebilirsiniz.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">🔦</span><span class="afc-num">05</span></div>
+          <h3>Düşük Işık &amp; Galeriden Okuma</h3>
+          <p>Kapalı otoparklarda flaş desteğiyle canlı tarama yapabilir veya galerinizdeki mevcut bir araç fotoğrafından plaka okuyabilirsiniz.</p>
+        </article>
+        <article class="app-feat-card">
+          <div class="afc-top"><span class="afc-ico">⚡</span><span class="afc-num">06</span></div>
+          <h3>Cihaz İçi (On-Device) Hız</h3>
+          <p>Görüntü işleme doğrudan telefonunuz üzerinde gerçekleşir; saniyeler içinde sonuç verir ve gereksiz veri trafiği oluşturmaz.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 3D MULTI-SCREEN WORKFLOW -->
+    <section class="app-sec" id="ekranlar">
+      <div class="app-sec-head">
+        <span class="app-sec-kicker">KULLANIM AKIŞI</span>
+        <h2>Kamerayı Doğrult, Analiz Et ve Kaydet</h2>
+        <p>Hem Android hem iOS cihazlarda tek elle saniyeler içinde tamamlanan 3 adımlı akış.</p>
+      </div>
+
+      <div class="app-screens-grid">
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 01 · KAMERA VİZÖRÜ</span>
+            <div class="asc-ui-box">
+              <b>Otomatik Plaka Çerçevesi</b>
+              <span>Araç plakasını vizörde yakalar ve perspektif düzeltmesi uygular.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Galeri Seçeneği</b>
+              <span>Çekilmiş fotoğraflardan da tek dokunuşla okuma.</span>
+            </div>
+          </div>
+          <h3>1. Plakayı Tara</h3>
+          <p>Canlı kamera akışıyla veya galeriden fotoğraf seçerek plakayı uygulamaya gösterin.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 02 · AI ÇÖZÜMLEME</span>
+            <div class="asc-ui-box">
+              <b>İl + Harf + Rakam Ayrıştırma</b>
+              <span>TR plaka standartlarına göre yapısal doğrulama.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Görsel Kriter Listesi</b>
+              <span>Karakter aralığı ve standart font kontrol noktaları.</span>
+            </div>
+          </div>
+          <h3>2. Sonucu İncele</h3>
+          <p>Okunan plakanın il bilgisini, format yapısını ve standart kontrol notlarını anında görün.</p>
+        </article>
+
+        <article class="app-screen-card">
+          <div class="asc-mock">
+            <span class="asc-badge">ADIM 03 · GEÇMİŞ ARŞİVİ</span>
+            <div class="asc-ui-box">
+              <b>Tarih &amp; Saat Kaydı</b>
+              <span>Tüm sorgularınız cihaz içi veritabanında düzenli listelenir.</span>
+            </div>
+            <div class="asc-ui-box">
+              <b>Hızlı Kopyala &amp; Paylaş</b>
+              <span>Plaka metnini tek dokunuşla panoya kopyala.</span>
+            </div>
+          </div>
+          <h3>3. Geçmişte Sakla</h3>
+          <p>Daha önce taradığınız plakalara istediğiniz an geçmiş sekmesinden ulaşın.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ARCHITECTURE & FAQ -->
+    <section class="app-sec" id="mimari">
+      <div class="app-arch-faq">
+        <div class="app-arch-box">
+          <span class="app-sec-kicker">TEKNOLOJİ &amp; MİMARİ</span>
+          <h3>Cihaz İçi Makine Öğrenmesi (On-Device ML &amp; OCR)</h3>
+          <p>
+            App Plaka Kontrol, Türkiye plaka dizilim kurallarıyla eğitilmiş optik karakter tanıma (OCR) boru hattı ve yerel depolama mimarisiyle hem Android hem iOS’ta yüksek hız sunar.
+          </p>
+          <div class="app-arch-tags">
+            <span>On-Device AI OCR</span>
+            <span>CameraX / AVFoundation</span>
+            <span>TR Plate Parser</span>
+            <span>Local History DB</span>
+            <span>Android &amp; iOS</span>
+          </div>
+        </div>
+
+        <div class="app-faq-list" id="sss">
+          <details open>
+            <summary>Hangi plakaları okuyabiliyor?</summary>
+            <p>01’den 81’e tüm Türkiye standart sivil, ticari ve resmi araç plaka kombinasyonlarını tanıyacak şekilde optimize edilmiştir.</p>
+          </details>
+          <details>
+            <summary>Galerideki bir fotoğraftan plaka okuyabilir mi?</summary>
+            <p>Evet, canlı kameranın yanı sıra telefon galerinizde kayıtlı bir araç fotoğrafını seçerek de plaka analizi yapabilirsiniz.</p>
+          </details>
+          <details>
+            <summary>Hem iPhone hem Android’de çalışıyor mu?</summary>
+            <p>Evet, App Plaka Kontrol hem Google Play Store hem de Apple App Store’da yayındadır.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: QR CODES -->
+    <section class="app-qr-showcase" id="qr" aria-label="QR kodları">
+      <h2 class="app-qr-showcase-title">QR Kod ile İndir (Android &amp; iOS)</h2>
       <p class="app-qr-showcase-sub">Telefon kamerasıyla okutun — doğrudan mağaza sayfasına gider. Kartın üzerine tıklayarak da açabilirsiniz.</p>
       <div class="app-qr-grid">
         <a href="https://play.google.com/store/apps/details?id=com.product.appplakakontrol" class="store-qr-card android" target="_blank" rel="noopener noreferrer" title="Android — Google Play">
@@ -51,7 +273,7 @@
           <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.product.appplakakontrol" width="300" height="300" alt="App Plaka Android QR" />
           </div>
-          <span class="store-qr-card-link">Mağazaya git →</span>
+          <span class="store-qr-card-link">Google Play’e git →</span>
         </a>
         <a href="https://apps.apple.com/us/app/app-plaka-kontrol/id6760252433" class="store-qr-card ios" target="_blank" rel="noopener noreferrer" title="iOS — App Store">
           <div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>
@@ -59,11 +281,29 @@
           <div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=10&amp;ecc=M&amp;color=000000&amp;bgcolor=ffffff&amp;data=https%3A%2F%2Fapps.apple.com%2Fus%2Fapp%2Fapp-plaka-kontrol%2Fid6760252433" width="300" height="300" alt="App Plaka iOS QR" />
           </div>
-          <span class="store-qr-card-link">Mağazaya git →</span>
+          <span class="store-qr-card-link">App Store’a git →</span>
         </a>
       </div>
       <p class="app-qr-hint">QR okunmuyorsa yukarıdaki mağaza butonlarını kullanın.</p>
     </section>
+
+    <!-- SECTION 5: OTHER APPS SWITCHER -->
+    <section class="app-other-sec">
+      <div class="app-sec-head" style="margin-bottom:1rem">
+        <span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>
+        <h2>Diğer Mobil Uygulamalarımız</h2>
+      </div>
+      <div class="app-other-grid">
+        <a href="/ydskelime/" class="app-other-item"><span class="ao-emo">📚</span><div>YDS Kelime KitApp<small>Eğitim · Kelime</small></div></a>
+        <a href="/mydiary/" class="app-other-item"><span class="ao-emo">📔</span><div>My Diary<small>Günlük · Not &amp; PDF</small></div></a>
+        <a href="/aniyakala/" class="app-other-item"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>
+        <a href="/appplaka/" class="app-other-item active"><span class="ao-emo">🚗</span><div>App Plaka Kontrol<small>Yapay Zekâ · OCR</small></div></a>
+        <a href="/kuberush/" class="app-other-item"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>
+        <a href="/suicme/" class="app-other-item"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>
+      </div>
+    </section>
   </main>
+
+  <script src="/assets/app-site.js" defer></script>
 </body>
 </html>

@@ -15,6 +15,7 @@
 
   var tabs = document.querySelectorAll('[data-story-platform]');
   var tabBoth = document.querySelector('[data-story-platform="both"]');
+  var tabAndroid = document.querySelector('[data-story-platform="android"]');
   var tabIos = document.querySelector('[data-story-platform="ios"]');
 
   if (!app.ios && tabIos) tabIos.hidden = true;
@@ -22,7 +23,11 @@
     tabBoth.hidden = true;
     currentPlatform = 'android';
   }
-  if (!app.android && tabBoth) tabBoth.hidden = true;
+  if (!app.android && tabAndroid) tabAndroid.hidden = true;
+  if (!app.android && tabBoth) {
+    tabBoth.hidden = true;
+    currentPlatform = 'ios';
+  }
 
   function setActiveTab(platform) {
     tabs.forEach(function (btn) {
