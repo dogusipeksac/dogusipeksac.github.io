@@ -172,10 +172,10 @@ window.SITE_I18N = {
     toolDiff: 'İki metin arasındaki farkları satır satır görüntüleyin ve karşılaştırın.',
     toolLog: 'Log metinlerini temizleyin, filtreleyin ve okunabilir hale getirin.',
     toolTxt: 'Metin dönüşümü, biçimlendirme ve farklı formatlara dışa aktarma.',
-    toolTemplate: 'İki seçenekli kart görseli oluşturun; sosyal medya ve içerik üretimi için.',
+    toolTemplate: 'Shorts, Reels ve TikTok için hazır soru havuzlu, anket yüzdeli, 3-2-1 sayaçlı 9:16 "YA DA" kart ve animasyonlu GIF stüdyosu.',
     toolCvName: 'CV Oluşturucu',
     toolExamName: 'Sınav Kağıdı',
-    toolTemplateName: 'YA DA Şablonu',
+    toolTemplateName: 'Dodoyla Eğlence · YA DA Stüdyosu',
 
     /* YouTube */
     ytLabel: 'watch -n 1 · 06',
@@ -387,10 +387,10 @@ window.SITE_I18N = {
     toolDiff: 'Compare two texts line by line and review the differences.',
     toolLog: 'Clean, filter, and make log text easier to read.',
     toolTxt: 'Text conversion, formatting, and export to different formats.',
-    toolTemplate: 'Create two-option card visuals for social media and content.',
+    toolTemplate: '9:16 "Would You Rather / OR" card & animated GIF studio with preset question pool, poll percentages, and 3-2-1 Shorts countdown.',
     toolCvName: 'CV Builder',
     toolExamName: 'Exam Paper',
-    toolTemplateName: 'OR Template',
+    toolTemplateName: 'Dodoyla Eğlence · OR Studio',
 
     /* YouTube */
     ytLabel: 'watch -n 1 · 06',
