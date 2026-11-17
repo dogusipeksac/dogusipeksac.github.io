@@ -1,0 +1,16 @@
+export const sources = [
+  { id: 'nhs', name: 'NHS · Kuvvet ve esneklik', url: 'https://www.nhs.uk/live-well/exercise/how-to-improve-strength-flexibility/', note: 'Genel kuvvet çalışması, kademeli ilerleme ve tekrar yaklaşımı.' },
+  { id: 'home', name: 'NHS · Evde kuvvet hareketleri', url: 'https://www.nhs.uk/live-well/exercise/strength-exercises/', note: 'Duvar şınavı, destekli çömelme, baldır yükseltme ve başlangıç uygulamaları.' },
+  { id: 'pushup', name: 'ACE · Diz destekli şınav', url: 'https://www.acefitness.org/resources/everyone/exercise-library/13/bent-knee-push-up/', note: 'Şınavda gövde kontrolü ve başlangıç uyarlaması.' },
+  { id: 'bench', name: 'ACE · Barbell göğüs presi', url: 'https://www.acefitness.org/resources/everyone/exercise-library/5/chest-press/', note: 'Sehpa, bar ve raf kurulumu; kontrollü pres.' },
+  { id: 'fly', name: 'ACE · Yatarak göğüs açış', url: 'https://www.acefitness.org/resources/everyone/exercise-library/21/lying-chest-fly/', note: 'Dambıl ve sehpayla açışta dirsek ve hareket aralığı.' },
+  { id: 'row', name: 'ACE · Öne eğilerek bar çekiş', url: 'https://www.acefitness.org/resources/everyone/exercise-library/12/bent-over-row/', note: 'Kalçadan eğilme, gövde konumunu koruma ve kontrollü dönüş.' },
+  { id: 'squat', name: 'ACE · Vücut ağırlığıyla çömelme', url: 'https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/', note: 'Ayak basışı ve kişiye uygun çömelme derinliği.' },
+  { id: 'backsquat', name: 'ACE · Sırtta barla çömelme', url: 'https://www.acefitness.org/resources/everyone/exercise-library/11/back-squat/', note: 'Raf kullanımı, bar yerleşimi ve kontrollü çömelme.' },
+  { id: 'rdl', name: 'NASM · Dambılla Romen deadlift', url: 'https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift', note: 'Arka bacak ve kalça; dizleri hafif bükerek kalça menteşesi.' },
+  { id: 'bridge', name: 'ACE · Yükseltilmiş kalça köprüsü', url: 'https://www.acefitness.org/resources/everyone/exercise-library/367/elevated-glute-bridge/', note: 'Sehpa destekli kalça açma; yerde köprüden farklı kurulum.' },
+  { id: 'birddog', name: 'ACE · Karşı kol ve bacak uzatma', url: 'https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/', note: 'Omurga ve leğen kemiği kontrolü.' },
+  { id: 'shoulder', name: 'ACE · Omuz hareketleri incelemesi', url: 'https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/', note: 'Ön, orta ve arka deltoid ayrımı. Küçük bir akut EMG çalışması; uzun vadeli gelişim veya evrensel güvenlik kanıtı değildir.' },
+  { id: 'carry', name: 'ACE · Merkez bölge ve taşıma', url: 'https://www.acefitness.org/resources/everyone/blog/6072/5-exercises-to-challenge-your-core/', note: 'Yüklü taşımada gövde kontrolü. Yazıdaki yüksek yük önerileri başlangıç örneklerine aktarılmadı.' },
+  { id: 'wallwalk', name: 'CrossFit · Duvar yürüyüşü ilerlemeleri', url: 'https://www.crossfit.com/wp-content/uploads/2023/03/02105728/CAP_ClassPlan_Open_23.3_Final_9w8chw9f.0.pdf', note: 'Eğitmen eşliğinde basamaklı ilerleme. Kütüphanedeki ileri seviye etiketi editoryal bir sınıflandırmadır.' },
+] as const
