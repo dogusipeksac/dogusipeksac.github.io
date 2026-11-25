@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doğuş İpeksaç — Oyun, 3D Model &amp; Unity Asset Vitrini</title>
+  <meta name="description" content="Unity paketleri (.unitypackage), optimize 3D low-poly modeller (.fbx / .glb), URP/HDRP shaderlar, UI kitleri ve C# oyun sistemleri." />
+  <link rel="canonical" href="https://dogusipeksac.com/assets/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%237c3aed'/><text x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-family='sans-serif' font-weight='700' font-size='28'>A</text></svg>" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:title" content="Doğuş İpeksaç — Oyun, 3D Model &amp; Unity Asset Vitrini" />
+  <meta property="og:description" content="Unity, URP/HDRP ve Blender (.fbx / .glb) projeleri için modüler 3D assetler, shaderlar, UI kitleri ve araçlar." />
+  <meta property="og:url" content="https://dogusipeksac.com/assets/" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/dev-fx.css" />
+  <link rel="stylesheet" href="/assets/assets-hub.css" />
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <div class="bg-fx" aria-hidden="true">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="/" class="nav-brand-wrap">
+      <span class="nav-logo">dogusipeksac</span>
+      <span class="nav-brand-sep">/</span>
+      <span class="nav-brand-sub">assets</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" data-hub-i18n="navHome">← Ana Sayfa</a></li>
+      <li><a href="#catalog" class="active" data-hub-i18n="navCatalog">Katalog</a></li>
+      <li><a href="#standards" data-hub-i18n="navStandards">Standartlar</a></li>
+      <li><a href="#guide" data-hub-i18n="navGuide">Paket Yapısı</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn active" data-lang-btn="tr" aria-pressed="true">TR</button>
+        <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="/#contact" class="nav-cta" data-hub-i18n="navContact">İletişim</a>
+      <button class="hamburger" id="menuBtn" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="lang-switch mobile" role="group" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang-btn="tr" aria-pressed="true">TR</button>
+      <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="/" onclick="closeMobile()" data-hub-i18n="navHome">← Ana Sayfa</a>
+    <a href="#catalog" onclick="closeMobile()" data-hub-i18n="navCatalog">Katalog</a>
+    <a href="#standards" onclick="closeMobile()" data-hub-i18n="navStandards">Standartlar</a>
+    <a href="#guide" onclick="closeMobile()" data-hub-i18n="navGuide">Paket Yapısı</a>
+    <a href="/#contact" onclick="closeMobile()" data-hub-i18n="navContact">İletişim</a>
+  </div>
+
+  <!-- Hero -->
+  <header class="ah-hero">
+    <div class="ah-hero-inner">
+      <div>
+        <div class="ah-eyebrow">
+          <span class="dot"></span>
+          <span data-hub-i18n="eyebrow">UNITY · 3D · SHADER &amp; TOOLKIT VAULT</span>
+        </div>
+        <h1 class="ah-title" data-hub-html="heroTitle">Oyun, 3D Model &amp; <span class="cu">Unity Asset Vitrini</span></h1>
+        <p class="ah-sub" data-hub-i18n="heroSub">
+          Unity projeleri için üretim-hazır .unitypackage paketleri, optimize low-poly &amp; PBR 3D modeller (.fbx / .glb), shaderlar, oyun UI kitleri ve C# sistem modülleri.
+        </p>
+        <div class="ah-hero-actions">
+          <a href="#catalog" class="ah-btn primary" data-hub-i18n="ctaExplore">Kataloğu İncele ↓</a>
+          <a href="mailto:ipeksac.dogus.19@gmail.com?subject=Unity%20%2F%203D%20Asset%20Talebi" class="ah-btn secondary" data-hub-i18n="ctaContact">Özel Paket Talebi ✉️</a>
+        </div>
+      </div>
+
+      <div class="ah-vault-card">
+        <div class="ah-vault-top">
+          <div class="ah-dots"><span></span><span></span><span></span></div>
+          <span>dogusipeksac.com/assets</span>
+        </div>
+        <div class="ah-tree">
+          <div><span class="ah-tree-dir">/assets/</span></div>
+          <div>├── <span class="ah-tree-accent">index.html</span> <span class="ah-tree-muted"># Asset Vitrin &amp; Katalog</span></div>
+          <div>├── <span class="ah-tree-accent">packs-data.js</span> <span class="ah-tree-muted"># Katalog Manifesti</span></div>
+          <div>├── <span class="ah-tree-dir">packs/</span> <span class="ah-tree-muted"># .unitypackage · .fbx · .glb · .zip</span></div>
+          <div>└── <span class="ah-tree-dir">previews/</span> <span class="ah-tree-muted"># Turntable &amp; Screenshot</span></div>
+        </div>
+        <div class="ah-stat-row">
+          <div class="ah-stat">
+            <div class="ah-stat-val" id="ahHeroPackCount">0</div>
+            <div class="ah-stat-lbl" data-hub-i18n="statPacks">Yayındaki Paket</div>
+          </div>
+          <div class="ah-stat">
+            <div class="ah-stat-val">URP·HDRP</div>
+            <div class="ah-stat-lbl" data-hub-i18n="statPipelines">Render Pipeline</div>
+          </div>
+          <div class="ah-stat">
+            <div class="ah-stat-val">FBX·GLB</div>
+            <div class="ah-stat-lbl" data-hub-i18n="statFormats">Kaynak Format</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Catalog -->
+  <section id="catalog" class="ah-section">
+    <div class="ah-container">
+      <div class="ah-toolbar">
+        <div class="ah-toolbar-top">
+          <div class="ah-search-wrap">
+            <span class="ah-search-icon">🔍</span>
+            <input type="search" id="ahSearch" class="ah-search" placeholder="Paket, etiket veya format ara..." aria-label="Search assets" />
+          </div>
+          <div class="ah-pipelines" id="ahPipelines"></div>
+        </div>
+        <div class="ah-pill-group" id="ahCategories"></div>
+      </div>
+
+      <div class="ah-results-meta">
+        <span id="ahResultCount"></span>
+        <span>https://dogusipeksac.com/assets/</span>
+      </div>
+
+      <div id="ahEmptyWrap" style="display:none;"></div>
+      <div class="ah-grid" id="ahGrid"></div>
+    </div>
+  </section>
+
+  <!-- Production Standards -->
+  <section id="standards" class="ah-section alt">
+    <div class="ah-container">
+      <div class="ah-section-head">
+        <span class="section-label" data-hub-i18n="specsLabel">./pipeline --specs</span>
+        <h2 class="section-title" data-hub-i18n="specsTitle">Üretim Standartları &amp; Uyumluluk</h2>
+        <p class="section-sub" data-hub-i18n="specsSub">
+          Burada yayınlanan tüm 3D model, shader ve Unity paketleri temiz hiyerarşi, mobil performans ve çoklu render pipeline uyumu gözetilerek hazırlanır.
+        </p>
+      </div>
+
+      <div class="ah-specs-grid">
+        <article class="ah-spec-card">
+          <div class="tool-emoji">🎨</div>
+          <h3 data-hub-i18n="spec1Title">URP · HDRP · Built-in</h3>
+          <p data-hub-i18n="spec1Desc">Tüm materyal ve shader paketleri Universal Render Pipeline (URP) öncelikli hazırlanır; HDRP ve Built-in uyumlu materyal varyantları eklenir.</p>
+        </article>
+        <article class="ah-spec-card">
+          <div class="tool-emoji">📐</div>
+          <h3 data-hub-i18n="spec2Title">Temiz Pivot &amp; Ölçek (1u = 1m)</h3>
+          <p data-hub-i18n="spec2Desc">Her .fbx ve .glb model gerçek dünya metre ölçeğinde, sıfırlanmış transform ve doğru alt-merkez pivot noktasıyla export edilir.</p>
+        </article>
+        <article class="ah-spec-card">
+          <div class="tool-emoji">⚡</div>
+          <h3 data-hub-i18n="spec3Title">Mobil Dostu Low-Call</h3>
+          <p data-hub-i18n="spec3Desc">Low-poly modellerde paylaşımlı renk atlası veya paketlenmiş PBR (Albedo, Metallic/Smoothness, Normal) dokularla düşük draw-call.</p>
+        </article>
+        <article class="ah-spec-card">
+          <div class="tool-emoji">🧱</div>
+          <h3 data-hub-i18n="spec4Title">Tak-Çalıştır Prefab &amp; C#</h3>
+          <p data-hub-i18n="spec4Desc">Collider, LOD grubu ve örnek sahneler (Demo Scene) hazır gelir; C# araçları temiz namespace ve XML dokümantasyonu içerir.</p>
+        </article>
+      </div>
+
+      <details class="ah-guide" id="guide">
+        <summary>
+          <span data-hub-i18n="guideTitle">Geliştirici Notu: /assets/packs/ Klasörüne Yeni Paket Ekleme Rehberi</span>
+          <span>▾</span>
+        </summary>
+        <div class="ah-guide-body">
+          <p style="color:var(--text2);font-size:0.88rem;margin-top:0.85rem;" data-hub-i18n="guideLead">
+            Mevcut site dosyalarına dokunmadan doğrudan /assets/packs/&lt;paket-adi&gt;/ ve /assets/previews/&lt;paket-adi&gt;.png içine dosya ekleyip packs-data.js dosyasını güncelleyebilirsin.
+          </p>
+          <pre class="ah-code">/assets/
+├── packs/&lt;slug&gt;/&lt;pack&gt;.unitypackage   # (veya .zip / .glb / .fbx)
+├── previews/&lt;slug&gt;.webp               # 16:10 kapak önizleme görseli
+└── packs-data.js                      # window.ASSET_PACKS.push({ ... })</pre>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="/">Ana Sayfa</a>
+      <a href="/games/">MiniPlay Oyunlar</a>
+      <a href="/kuberush/">Kube Rush</a>
+      <a href="/ydskelime/">YDS Kelime KitApp</a>
+      <a href="/mydiary/">My Diary</a>
+      <a href="https://github.com/dogusipeksac" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+    <p class="footer-copy" data-hub-i18n="footerCopy">© 2026 Doğuş İpeksaç · Unity, 3D &amp; Mobil Asset Vitrini</p>
+  </footer>
+
+  <!-- Detail Modal -->
+  <div class="ah-modal-backdrop" id="ahModalBackdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="ah-modal">
+      <button type="button" class="ah-modal-close" id="ahModalClose" aria-label="Close">×</button>
+      <div id="ahModalBody"></div>
+    </div>
+  </div>
+
+  <div class="ah-toast" id="ahToast" role="status" aria-live="polite"></div>
+
+  <script src="/assets/packs-data.js"></script>
+  <script src="/assets/assets-hub.js"></script>
+</body>
+</html>
