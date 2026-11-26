@@ -423,6 +423,19 @@
   gap: 6px;
   margin-bottom: 8px;
 }
+.dev-phone-appgrid.ten-apps {
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+.dev-phone-appgrid.ten-apps .dpa-item {
+  padding: 4px 2px;
+  font-size: 0.44rem;
+}
+.dev-phone-appgrid.ten-apps .dpa-item img {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
 .dpa-item {
   display: flex;
   flex-direction: column;
@@ -807,6 +820,18 @@
 .ml-app-cards.six-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.65rem;
+}
+.ml-app-cards.ten-grid {
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 0.55rem;
+}
+.ml-app-cards.ten-grid .ml-app-card {
+  padding: 0.58rem 0.72rem;
+}
+.ml-app-cards.ten-grid .ml-app-card img {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
 }
 .ml-app-card {
   display: flex;

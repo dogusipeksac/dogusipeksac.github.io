@@ -37,7 +37,8 @@ window.IG_STORY_APPS = {
     icon: '/assets/apps/ydskelime.png',
     tagline: 'YDS, YÖKDİL ve YDT için akıllı aralıklı tekrar, quiz ve kelime kartları.',
     taglineEn: 'Smart spaced repetition, quizzes & flashcards for YDS, YÖKDİL & YDT.',
-    platforms: 'iOS · Android (Yakında)',
+    platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.ydskelimekitapp',
     ios: 'https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129',
     colors: ['#2F7A72', '#1C2A4E', '#101820'],
     file: 'yds-kelime-kitapp-story'
@@ -83,6 +84,59 @@ window.IG_STORY_APPS = {
     ios: 'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946',
     colors: ['#38bdf8', '#1d4ed8', '#0c1929'],
     file: 'su-icme-story'
+  },
+  lifesimulation: {
+    slug: 'lifesimulation',
+    name: 'Hayat Simülasyonu - Kararlar',
+    tag: 'Simulation · RPG',
+    emoji: '🎲',
+    icon: '/assets/apps/lifesimulation.png',
+    tagline: '10 ülke, 70+ mini oyun anı ve 103 meslekle kendi ömrünü yaz.',
+    taglineEn: '10 countries, 70+ mini-moments, 103 careers — shape a lifetime.',
+    platforms: 'Android · iOS',
+    android: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.lifesimulation',
+    ios: 'https://apps.apple.com/tr/app/hayat-sim%C3%BClasyonu-kararlar/id6830319257',
+    colors: ['#e0b472', '#7c3aed', '#0e0c16'],
+    file: 'hayat-simulasyonu-story'
+  },
+  ourworld: {
+    slug: 'ourworld',
+    name: 'Bizim Dünyamız: Açık Dünya',
+    tag: '3D Open-World · Sandbox',
+    emoji: '🌍',
+    icon: '/assets/apps/ourworld.png',
+    tagline: '8 cadde, çiftlik, oto garaj, balıkçılık ve 5 spor tek 3B açık dünyada!',
+    taglineEn: 'Live, farm, tune cars, fish & play 5 sports in a 3D sandbox city.',
+    platforms: 'iOS · Android (Yakında)',
+    ios: 'https://apps.apple.com/tr/app/our-world-3d-sandbox-city/id6838324963',
+    colors: ['#22c55e', '#0284c7', '#08161a'],
+    file: 'bizim-dunyamiz-story'
+  },
+  passthephone: {
+    slug: 'passthephone',
+    name: 'Telefonu Ver: Gizli Görev',
+    tag: 'Party · 1.000 Görev',
+    emoji: '🕵️',
+    icon: '/assets/apps/passthephone.png',
+    tagline: 'Görevin gizli, kahkaha ortak! 8 mod ve 1.000 görev tek telefonda.',
+    taglineEn: 'One phone, 1,000 secret missions across 8 offline party modes.',
+    platforms: 'iOS · Android (Yakında)',
+    ios: 'https://apps.apple.com/tr/app/telefonu-ver-gizli-g%C3%B6rev/id6836370199',
+    colors: ['#ec4899', '#7c3aed', '#14091f'],
+    file: 'telefonu-ver-story'
+  },
+  hareket: {
+    slug: 'hareket',
+    name: 'Hareket: Egzersiz & Kas',
+    tag: 'Sports · Anatomy Guide',
+    emoji: '💪',
+    icon: '/assets/apps/hareket.png',
+    tagline: '75+ Türkçe egzersiz, ön/arka kas haritası ve kinematik animasyonlar.',
+    taglineEn: '75+ Turkish exercises, interactive muscle map & 5-day splits.',
+    platforms: 'iOS · iPadOS',
+    ios: 'https://apps.apple.com/tr/app/hareket-egzersiz-kas/id6836225456',
+    colors: ['#84cc16', '#22d3ee', '#090b0f'],
+    file: 'hareket-story'
   }
 };
 

@@ -18,7 +18,7 @@
       triSub: 'Her günün 20 kelimesini 3 aşamada kalıcı hafızaya taşıyan uygulama içi ekran akışı.',
       screens: ['1. Ana Ekran & Gün Haritası', '2. Akademik Kelime Kartı', '3. Eşleştirme & Quiz'],
       iosUrl: 'https://apps.apple.com/us/app/yds-kelime-kitapp/id6824856129',
-      androidUrl: ''
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.ydskelimekitapp'
     },
     mydiary: {
       name: 'My Diary',
@@ -43,7 +43,7 @@
       triTitle: 'Kube Rush Oyun İçi 3B Ekran Vitrini',
       triSub: 'Volt-neon menüden 60 FPS sonsuz koşu pistine ve 6 özel skin marketine kesintisiz geçiş.',
       screens: ['1. Volt Ana Menü', '2. 60 FPS Canlı Koşu HUD', '3. 6 Volt Skin Market'],
-      iosUrl: 'https://apps.apple.com/tr/app/kube-rush/id6761354945?l=tr',
+      iosUrl: 'https://apps.apple.com/tr/app/kube-rush-3d-2d-adventure/id6790684293',
       androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.kuberush'
     },
     appplaka: {
@@ -69,8 +69,8 @@
       triTitle: 'Canlı GPS Vizör, Filigran Stüdyosu & Pinli Harita',
       triSub: 'Çektiğiniz her kareye konum, ülke bayrağı ve hava durumunu estetik şablonlarla işleyin.',
       screens: ['1. Canlı GPS Kamera Vizörü', '2. Filigran Şablon Stüdyosu', '3. Pinli Anı Haritası'],
-      iosUrl: 'https://apps.apple.com/tr/app/an%C4%B1-yakala/id6760869606?l=tr',
-      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.aniyakala'
+      iosUrl: 'https://apps.apple.com/tr/app/an%C4%B1-yakala/id6764663335',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.capturethemoment'
     },
     suicme: {
       name: 'Su İçme Hatırlatıcısı',
@@ -84,6 +84,58 @@
       screens: ['1. Günlük Su Halkası', '2. Uyku Duyarlı Bildirimler', '3. Ateş Serisi & Rozetler'],
       iosUrl: 'https://apps.apple.com/us/app/su-i-%C3%A7me-hat%C4%B1rlatmac%C4%B1s%C4%B1/id6764664946',
       androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.dailyhydrate'
+    },
+    lifesimulation: {
+      name: 'Hayat Simülasyonu - Kararlar',
+      kicker: 'SIMULATION · RPG · 10 ÜLKE · 103 MESLEK',
+      rating: '4.9 ★ · Android & iOS Yaşam Simülasyonu',
+      icon: '/assets/apps/lifesimulation.png',
+      chipL: { ic: '🎲', k: '70+ MİNİ AN', t: 'Kriz, Refleks & Mülakat' },
+      chipR: { ic: '⛴️', k: 'SON VAPUR', t: 'Ücretsiz İnteraktif Kitap' },
+      triTitle: 'Kader Ülkesi, 70+ Mini An & 103 Meslek Ekranları',
+      triSub: 'Doğumdan 100 yaşına kadar her kararınla şekillenen dallanan yaşam çizgisi.',
+      screens: ['1. Hayat Akışı & Kararlar', '2. 70+ Etkileşimli Mini An', '3. 103 Meslek & Soy Ağacı'],
+      iosUrl: 'https://apps.apple.com/tr/app/hayat-sim%C3%BClasyonu-kararlar/id6830319257',
+      androidUrl: 'https://play.google.com/store/apps/details?id=com.dogusipeksac.lifesimulation'
+    },
+    ourworld: {
+      name: 'Bizim Dünyamız: Açık Dünya',
+      kicker: '3D OPEN WORLD · FARMING · GARAGE · 5 SPORTS',
+      rating: '4.9 ★ · 3B Açık Dünya Sandbox',
+      icon: '/assets/apps/ourworld.png',
+      chipL: { ic: '🏙️', k: '8 CANLI CADDE', t: 'Aydos Çiftlik · No:73 Garaj' },
+      chipR: { ic: '🏆', k: '5 SPOR + POLİGON', t: 'Reklamsız · %100 Offline' },
+      triTitle: 'Aydos Çiftliği, No:73 Oto Garaj & 5 Spor Sahnesi',
+      triSub: 'Tarımdan hidrolik araç tamirine, göl balıkçılığından spora yaşayan 3B mahalle.',
+      screens: ['1. 8 Cadde Açık Dünya', '2. Çiftlik & Hidrolik Garaj', '3. 5 Spor & Atış Poligonu'],
+      iosUrl: 'https://apps.apple.com/tr/app/our-world-3d-sandbox-city/id6838324963',
+      androidUrl: ''
+    },
+    passthephone: {
+      name: 'Telefonu Ver: Gizli Görev',
+      kicker: 'PARTY GAME · 8 MOD · 1.000 GÖREV',
+      rating: '4.9 ★ · Tek Telefon Sosyal Blöf Oyunu',
+      icon: '/assets/apps/passthephone.png',
+      chipL: { ic: '🕵️', k: 'BASILI TUT', t: 'Gizli Görevini Gör & Gizle' },
+      chipR: { ic: '🎉', k: '8 OYUN MODU', t: '2–10 Oyuncu · Reklamsız' },
+      triTitle: 'Tek Telefonla 2–10 Kişilik Yüz Yüze Parti Akışı',
+      triSub: 'Basılı tutarak gizli görevini öğren, sohbetin akışında çaktırmadan tamamla!',
+      screens: ['1. 8 Mod & 1.000 Görev', '2. Basılı Tut & Gizli Gör', '3. Ortak Sayaç & İtiraflar'],
+      iosUrl: 'https://apps.apple.com/tr/app/telefonu-ver-gizli-g%C3%B6rev/id6836370199',
+      androidUrl: ''
+    },
+    hareket: {
+      name: 'Hareket: Egzersiz & Kas',
+      kicker: 'SPORTS · 75+ EGZERSİZ · ANATOMİK HARİTA',
+      rating: '4.9 ★ · Türkçe Kineziyoloji & Form Rehberi',
+      icon: '/assets/apps/hareket.png',
+      chipL: { ic: '🦴', k: '11 KAS BÖLGESİ', t: 'Ön & Arka Vücut Haritası' },
+      chipR: { ic: '🎯', k: 'KİNEMATİK FORM', t: '75+ Hareket · 5 Gün Program' },
+      triTitle: 'Kinematik Animasyon, Kas Haritası & 5 Günlük Program',
+      triSub: 'Yapılış, Kas & Ekipman, Sık Hatalar ve Alternatifler sekmeleriyle odaklı antrenman.',
+      screens: ['1. 75+ Türkçe Egzersiz', '2. Canlı Kinematik Animasyon', '3. Ön/Arka Kas Haritası'],
+      iosUrl: 'https://apps.apple.com/tr/app/hareket-egzersiz-kas/id6836225456',
+      androidUrl: ''
     }
   };
 
@@ -225,17 +277,60 @@
     });
   }
 
-  /* 2C. Inject Store QR Codes (#qr) & 6-App Ecosystem Switcher on .app-site-body pages */
-  if (document.body.classList.contains('app-site-body') && !document.getElementById('qr')) {
-    var mainShell = document.querySelector('main.app-shell');
+  /* 2C. Inject Store QR Codes (#qr) & 10-App Ecosystem Switcher across all app sites */
+  var ECOSYSTEM_APPS = [
+    { slug: 'ydskelime', href: '/ydskelime/', img: '/assets/apps/ydskelime.png', name: 'YDS Kelime KitApp', sub: 'Eğitim · YDS & SRS' },
+    { slug: 'mydiary', href: '/mydiary/', img: '/assets/apps/mydiary.png', name: 'My Diary', sub: 'Günlük · Ses & PDF' },
+    { slug: 'kuberush', href: '/kuberush/', img: '/assets/apps/kuberush.png', name: 'Kube Rush', sub: '3D Hypercasual Oyun' },
+    { slug: 'appplaka', href: '/appplaka/', img: '/assets/apps/appplaka.png', name: 'App Plaka Kontrol', sub: 'AI · Plaka Denetimi' },
+    { slug: 'aniyakala', href: '/aniyakala/', img: '/assets/apps/aniyakala.png', name: 'Anı Yakala', sub: 'Kamera · GPS Damga' },
+    { slug: 'suicme', href: '/suicme/', img: '/assets/apps/suicme.png', name: 'Su İçme Hatırlatıcısı', sub: 'Sağlık · Su Takibi' },
+    { slug: 'lifesimulation', href: '/lifesimulation/', img: '/assets/apps/lifesimulation.png', name: 'Hayat Simülasyonu', sub: 'Yaşam · 70+ Mini An' },
+    { slug: 'ourworld', href: '/ourworld/', img: '/assets/apps/ourworld.png', name: 'Bizim Dünyamız', sub: '3B Açık Dünya Şehir' },
+    { slug: 'passthephone', href: '/passthephone/', img: '/assets/apps/passthephone.png', name: 'Telefonu Ver', sub: 'Parti · 1.000 Görev' },
+    { slug: 'hareket', href: '/hareket/', img: '/assets/apps/hareket.png', name: 'Hareket', sub: '75+ Egzersiz & Kas' }
+  ];
+
+  function buildEcosystemHtml() {
+    return ECOSYSTEM_APPS.map(function (item) {
+      return '<a href="' + item.href + '" class="app-other-item' + (slug === item.slug ? ' active' : '') + '">' +
+        '<img src="' + item.img + '" alt="" /><div>' + item.name + '<small>' + item.sub + '</small></div></a>';
+    }).join('');
+  }
+
+  var existingOtherGrids = document.querySelectorAll('.app-other-grid');
+  if (existingOtherGrids.length) {
+    existingOtherGrids.forEach(function (grid) {
+      grid.innerHTML = buildEcosystemHtml();
+    });
+  }
+
+  if (!document.getElementById('qr')) {
+    var mainShell = document.querySelector('main.app-shell, main.app-qr-page-main');
     var ctaBanner = document.querySelector('.app-cta-banner');
     if (mainShell) {
       var qrSec = document.createElement('section');
       qrSec.className = 'app-qr-showcase';
       qrSec.id = 'qr';
+      var androidCardHtml = meta.androidUrl
+        ? '<a href="' + meta.androidUrl + '" class="store-qr-card android" target="_blank" rel="noopener noreferrer">' +
+            '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>' +
+            '<p class="store-qr-card-store">Google Play</p>' +
+            '<div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
+              '<img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&ecc=M&color=000000&bgcolor=ffffff&data=' + encodeURIComponent(meta.androidUrl) + '" width="260" height="260" alt="' + meta.name + ' Android QR" />' +
+            '</div>' +
+            '<span class="store-qr-card-link">Google Play’e git →</span>' +
+          '</a>'
+        : '<div class="store-qr-card pending" aria-label="Android Yakında">' +
+            '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>' +
+            '<p class="store-qr-card-store">Google Play · Yakında</p>' +
+            '<div class="pending-box"><span>⏳</span><b>Android Sürümü Yakında</b><p>Google Play mağaza sayfası yayınlandığında indirme bağlantısı ve QR kod burada aktif olacaktır.</p></div>' +
+            '<span class="store-qr-card-link">Çok Yakında Google Play’de</span>' +
+          '</div>';
+
       qrSec.innerHTML =
         '<h2 class="app-qr-showcase-title">QR Kod ile Hemen İndir</h2>' +
-        '<p class="app-qr-showcase-sub">Telefon kameranızla QR kodu okutarak ' + meta.name + ' uygulamasını doğrudan App Store veya Google Play Store’dan indirebilirsiniz.</p>' +
+        '<p class="app-qr-showcase-sub">Telefon kameranızla QR kodu okutarak ' + meta.name + ' uygulamasını doğrudan App Store' + (meta.androidUrl ? ' veya Google Play Store’dan' : '’dan') + ' indirebilirsiniz.</p>' +
         '<div class="app-qr-grid">' +
           '<a href="' + meta.iosUrl + '" class="store-qr-card ios" target="_blank" rel="noopener noreferrer">' +
             '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>iOS</span></div>' +
@@ -245,30 +340,7 @@
             '</div>' +
             '<span class="store-qr-card-link">App Store’a git →</span>' +
           '</a>' +
-          '<a href="' + meta.androidUrl + '" class="store-qr-card android" target="_blank" rel="noopener noreferrer">' +
-            '<div class="store-qr-card-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.21 1.18.01L19.96 12 4.36.23C3.98.03 3.55.03 3.18.24A1.3 1.3 0 0 0 2.5 1.4v21.2c0 .48.26.92.68 1.16z"/></svg><span>Android</span></div>' +
-            '<p class="store-qr-card-store">Google Play</p>' +
-            '<div class="qr-frame"><div class="qr-frame-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
-              '<img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&ecc=M&color=000000&bgcolor=ffffff&data=' + encodeURIComponent(meta.androidUrl) + '" width="260" height="260" alt="' + meta.name + ' Android QR" />' +
-            '</div>' +
-            '<span class="store-qr-card-link">Google Play’e git →</span>' +
-          '</a>' +
-        '</div>';
-
-      var otherSec = document.createElement('section');
-      otherSec.className = 'app-other-sec';
-      otherSec.innerHTML =
-        '<div class="app-sec-head" style="margin-bottom:1rem">' +
-          '<span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>' +
-          '<h2>Diğer Mobil Uygulamalarımız</h2>' +
-        '</div>' +
-        '<div class="app-other-grid">' +
-          '<a href="/ydskelime/" class="app-other-item' + (slug === 'ydskelime' ? ' active' : '') + '"><img src="/assets/apps/ydskelime.png" alt="" /><div>YDS Kelime KitApp<small>Eğitim · YDS &amp; SRS</small></div></a>' +
-          '<a href="/mydiary/" class="app-other-item' + (slug === 'mydiary' ? ' active' : '') + '"><img src="/assets/apps/mydiary.png" alt="" /><div>My Diary<small>Günlük · Ses &amp; PDF</small></div></a>' +
-          '<a href="/kuberush/" class="app-other-item' + (slug === 'kuberush' ? ' active' : '') + '"><img src="/assets/apps/kuberush.png" alt="" /><div>Kube Rush<small>3D Hypercasual Oyun</small></div></a>' +
-          '<a href="/appplaka/" class="app-other-item' + (slug === 'appplaka' ? ' active' : '') + '"><img src="/assets/apps/appplaka.png" alt="" /><div>App Plaka Kontrol<small>AI · Plaka Denetimi</small></div></a>' +
-          '<a href="/aniyakala/" class="app-other-item' + (slug === 'aniyakala' ? ' active' : '') + '"><img src="/assets/apps/aniyakala.png" alt="" /><div>Anı Yakala<small>Kamera · GPS Damga</small></div></a>' +
-          '<a href="/suicme/" class="app-other-item' + (slug === 'suicme' ? ' active' : '') + '"><img src="/assets/apps/suicme.png" alt="" /><div>Su İçme Hatırlatıcısı<small>Sağlık · Su Takibi</small></div></a>' +
+          androidCardHtml +
         '</div>';
 
       if (ctaBanner) {
@@ -276,7 +348,18 @@
       } else {
         mainShell.appendChild(qrSec);
       }
-      mainShell.appendChild(otherSec);
+
+      if (!document.querySelector('.app-other-sec')) {
+        var otherSec = document.createElement('section');
+        otherSec.className = 'app-other-sec';
+        otherSec.innerHTML =
+          '<div class="app-sec-head" style="margin-bottom:1rem">' +
+            '<span class="app-sec-kicker">DOĞUŞ İPEKSAÇ MOBİL EKOSİSTEMİ</span>' +
+            '<h2>Diğer Mobil Uygulamalarımız</h2>' +
+          '</div>' +
+          '<div class="app-other-grid">' + buildEcosystemHtml() + '</div>';
+        mainShell.appendChild(otherSec);
+      }
     }
   }
 
@@ -602,4 +685,168 @@
     });
     renderWater();
   }
+
+  /* 11. HAYAT SİMÜLASYONU — Live Fate & Branching Decision Simulator */
+  var lifeCountryOut = document.getElementById('lifeSimCountryOut');
+  var lifeStatsOut = document.getElementById('lifeSimStatsOut');
+  var lifeLogOut = document.getElementById('lifeSimLog');
+  document.querySelectorAll('[data-life-country]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('[data-life-country]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      if (lifeCountryOut) lifeCountryOut.textContent = btn.getAttribute('data-life-country');
+      if (lifeStatsOut) lifeStatsOut.textContent = btn.getAttribute('data-life-stats');
+    });
+  });
+  document.querySelectorAll('[data-life-choice]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('[data-life-choice]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      if (lifeLogOut) lifeLogOut.textContent = btn.getAttribute('data-life-res');
+    });
+  });
+
+  /* 12. BİZİM DÜNYAMIZ (OUR WORLD) — Live Neighborhood District Switcher */
+  var owZones = {
+    farm: {
+      tag: 'TARIM & HAYVANCILIK', meta: '16 Parsel · 3 Hayvan Türü',
+      title: 'Aydos Yeşil Vadi Çiftliği & Köy Pazarı',
+      desc: '16 verimli tarım parselinde ayçiçeği, domates, biber ve çilek yetiştir; inek sağ, koyun kırk, tavuklardan yumurta topla ve taze ürünleri köy tezgahında sat!',
+      cards: [['🌻 4 Mahsul Türü', 'Ayçiçeği, domates, biber, çilek'], ['🐄 Hayvan Bakımı', 'İnek sağımı, yün kırkma, yumurta']]
+    },
+    garage: {
+      tag: 'NO:73 OTO GARAJ & YIKAMA', meta: 'Hidrolik Lift · Tuning',
+      title: 'No:73 Oto Tamir, Modifiye & Yıkama Tüneli',
+      desc: 'Müşteri arabalarını hidrolik liftle kaldırıp 3 aşamalı tamir yap; aracını metalik boya, jant, GT spoiler, tavan sepeti, turbo ve nitroyla özelleştir.',
+      cards: [['🔧 Hidrolik Lift Tamiri', '3 aşamalı mekanik bakım ödülleri'], ['🏎️ Turbo, Nitro & Spoiler', 'Oto yıkama tüneliyle parlat']]
+    },
+    sports: {
+      tag: '5 OYNANABİLİR SPOR + POLİGON', meta: 'Tenis · Futbol · Atış',
+      title: 'Spor Sahaları & Aydos Atış Poligonu',
+      desc: '1v1 Toprak Kort Tenis, 3v3 Futbol, 2v2 Basketbol, 2v2 Voleybol, 50m Yüzme & Akrobatik Dalış veya 4 silahlı / 4 modlu Aydos Atış Poligonu’na katıl.',
+      cards: [['⚽ 5 Spor Branşı', 'Tenis, futbol, basketbol, voleybol, yüzme'], ['🎯 Aydos Atış Poligonu', '4 farklı silah · 4 oyun modu']]
+    },
+    lake: {
+      tag: 'SULTANBEYLİ GÖLÜ & EV NO:48', meta: '5 Balık Türü · Dekor',
+      title: 'İskele Balıkçılığı, Ev Dekorasyonu & Mangal',
+      desc: 'Sultanbeyli Gölü iskelesinden olta atarak 5 farklı balık yakala; Ev No:48’i lüks mobilyalar ve akvaryumla yenile, arka bahçede mangal yak.',
+      cards: [['🎣 Göl Balıkçılığı', '5 farklı balık türü ve koleksiyon'], ['🏡 Ev No:48 & Çay Bahçesi', 'Lüks dekorasyon, akvaryum & havuz']]
+    },
+    city: {
+      tag: '8 CANLI CADDE & 32 GÖREV', meta: '6 Bölüm · TR/EN Ses',
+      title: 'Saat Kulesi Meydanı, Çoklu Araç & Meslekler',
+      desc: '8 bağlı cadde arasında araç sür; taksi, pizza teslimatı, temizlik ve boyama işleriyle 6 bölümlük 32 görevli hikâyeyi tamamla.',
+      cards: [['🚕 Taksi, Pizza & Boyama', 'Şehir içi aktif meslek görevleri'], ['🗣️ 10 TR + 6 EN Seslendirme', 'Gece yanıp sönen farlar & sokak lambaları']]
+    }
+  };
+  document.querySelectorAll('[data-ow-zone]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var z = owZones[btn.getAttribute('data-ow-zone')];
+      if (!z) return;
+      document.querySelectorAll('[data-ow-zone]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      var tEl = document.getElementById('owZoneTag');
+      var mEl = document.getElementById('owZoneMeta');
+      var hEl = document.getElementById('owZoneTitle');
+      var dEl = document.getElementById('owZoneDesc');
+      var cEl = document.getElementById('owZoneTasks');
+      if (tEl) tEl.textContent = z.tag;
+      if (mEl) mEl.textContent = z.meta;
+      if (hEl) hEl.textContent = z.title;
+      if (dEl) dEl.textContent = z.desc;
+      if (cEl) {
+        cEl.innerHTML = z.cards.map(function (c) {
+          return '<div style="padding:0.75rem 0.85rem;border-radius:14px;background:var(--phone-surface);border:1px solid rgba(255,255,255,0.12)"><b style="display:block;font-size:0.8rem">' + c[0] + '</b><span style="font-size:0.72rem;color:var(--phone-sub)">' + c[1] + '</span></div>';
+        }).join('');
+      }
+    });
+  });
+
+  /* 13. TELEFONU VER — Hold-to-Reveal Secret Mission Simulator */
+  var ptpCard = document.getElementById('ptpSecretCard');
+  var ptpBadge = document.getElementById('ptpModeBadge');
+  var ptpLock = document.getElementById('ptpLockStatus');
+  var ptpHoldBtn = document.getElementById('ptpHoldBtn');
+  var ptpActiveMission = 'Sohbet devam ederken masadaki 2 farklı kişiye son izledikleri diziyi sor ve iki yanıtı birbirine karıştırmış gibi davran.';
+  var ptpHiddenText = '👀 Yalnızca sen bakıyorsan aşağıdaki "Basılı Tut / Göster" butonunu kullan.';
+  document.querySelectorAll('[data-ptp-mode]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('[data-ptp-mode]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      ptpActiveMission = btn.getAttribute('data-ptp-mission') || ptpActiveMission;
+      if (ptpBadge) ptpBadge.textContent = btn.textContent.trim().toUpperCase();
+      if (ptpCard) ptpCard.textContent = ptpHiddenText;
+      if (ptpLock) ptpLock.textContent = '🔒 Görev Gizli';
+    });
+  });
+  if (ptpHoldBtn && ptpCard) {
+    function revealMission() {
+      ptpCard.textContent = '🎯 GİZLİ GÖREVİN: ' + ptpActiveMission;
+      if (ptpLock) ptpLock.textContent = '🔓 Yalnızca Sana Açık';
+    }
+    function hideMission() {
+      ptpCard.textContent = ptpHiddenText;
+      if (ptpLock) ptpLock.textContent = '🔒 Görev Gizli';
+    }
+    ptpHoldBtn.addEventListener('pointerdown', revealMission);
+    ptpHoldBtn.addEventListener('pointerup', hideMission);
+    ptpHoldBtn.addEventListener('pointerleave', hideMission);
+    ptpHoldBtn.addEventListener('pointercancel', hideMission);
+  }
+
+  /* 14. HAREKET — Interactive Muscle Group Quick Inspector */
+  var hrkMuscles = {
+    chest: {
+      tag: 'GÖĞÜS (PECTORALIS) · 9 ANA HAREKET', tempo: 'Tempo: 2-1-1 · 3×12',
+      title: 'Şınav (Push-up) · Dambıl Göğüs Pres',
+      desc: 'Yüksek plank pozisyonunda gövde düz tutulur; dirsekler gövdeyle 30–45° açıda kontrollü indirilip yer güçlüce itilir. Bel çökmesine izin vermeyin.',
+      p1: ['🎯 Birincil: Pectoralis Major', 'Orta & genel göğüs'],
+      p2: ['🤝 İkincil: Ön Omuz & Triceps', 'Core stabilizasyonu aktif']
+    },
+    back: {
+      tag: 'SIRT (LATISSIMUS & RHOMBOID) · 9 ANA HAREKET', tempo: 'Tempo: 2-1-2 · 3×10',
+      title: 'Eğilerek Halter Sırt Çekiş · Barfiks',
+      desc: 'Omurga nötr pozisyondayken barı diz hizasından üst karın bölgesine doğru kürek kemiklerini sıkarak çekin; omuzları kulaklara kaldırmayın.',
+      p1: ['🎯 Birincil: Latissimus & Trapez', 'Genişlik & sırt kalınlığı'],
+      p2: ['🤝 İkincil: Arka Omuz & Biceps', 'Bel & arka zincir desteği']
+    },
+    shoulder: {
+      tag: 'OMUZ (DELTOID) · 15 ANA HAREKET', tempo: 'Tempo: 2-0-1 · 3×12',
+      title: 'Ayakta Dambıl Omuz Pres · Yana Açış',
+      desc: 'Gövde dik ve karın sıkıyken dambılları baş üstüne kontrollü itin; dirsekleri tamamen kilitlemeden ve belden yardım almadan indirin.',
+      p1: ['🎯 Birincil: Ön & Orta Deltoid', 'Omuz başı hacim & kuvvet'],
+      p2: ['🤝 İkincil: Triceps & Üst Göğüs', 'Scapular stabilizasyon']
+    },
+    core: {
+      tag: 'KARIN & CORE · 8 ANA HAREKET', tempo: 'İzometrik · 3×45 sn',
+      title: 'Ön Kol Plank Duruşu · Dead Bug',
+      desc: 'Baştan topuğa düz hat koruyarak karın kaslarını sıkın; kalçanın aşağı sarkmasına veya yukarı kalkmasına izin vermeden ritmik nefes alın.',
+      p1: ['🎯 Birincil: Transversus & Rectus', 'Anti-ekstansiyon core gücü'],
+      p2: ['🤝 İkincil: Kalça & Omuz Stabilizer', 'Omurga koruma hattı']
+    },
+    leg: {
+      tag: 'BACAK & KALÇA (QUAD / HAMSTRING / GLUTE) · 18 HAREKET', tempo: 'Tempo: 3-1-1 · 4×10',
+      title: 'Sırtta Halterle Çömelme (Back Squat) · RDL',
+      desc: 'Ayaklar omuz genişliğinde; kalçayı geriye itip dizleri ayak parmak hizasında bükerek kontrollü alçalın ve topuklardan güç alarak doğrulun.',
+      p1: ['🎯 Birincil: Quadriceps & Gluteus', 'Alt vücut temel kuvveti'],
+      p2: ['🤝 İkincil: Hamstring & Core', 'Tam gövde stabilitesi']
+    }
+  };
+  document.querySelectorAll('[data-hrk-muscle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var m = hrkMuscles[btn.getAttribute('data-hrk-muscle')];
+      if (!m) return;
+      document.querySelectorAll('[data-hrk-muscle]').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      var tEl = document.getElementById('hrkZoneTag');
+      var tpEl = document.getElementById('hrkTempoOut');
+      var hEl = document.getElementById('hrkExTitle');
+      var dEl = document.getElementById('hrkExDesc');
+      var mEl = document.getElementById('hrkMusclesOut');
+      if (tEl) tEl.textContent = m.tag;
+      if (tpEl) tpEl.textContent = m.tempo;
+      if (hEl) hEl.textContent = m.title;
+      if (dEl) dEl.textContent = m.desc;
+      if (mEl) {
+        mEl.innerHTML =
+          '<div style="padding:0.75rem 0.85rem;border-radius:14px;background:var(--phone-surface);border:1px solid rgba(255,255,255,0.12)"><b style="display:block;font-size:0.8rem">' + m.p1[0] + '</b><span style="font-size:0.72rem;color:var(--phone-sub)">' + m.p1[1] + '</span></div>' +
+          '<div style="padding:0.75rem 0.85rem;border-radius:14px;background:var(--phone-surface);border:1px solid rgba(255,255,255,0.12)"><b style="display:block;font-size:0.8rem">' + m.p2[0] + '</b><span style="font-size:0.72rem;color:var(--phone-sub)">' + m.p2[1] + '</span></div>';
+      }
+    });
+  });
 })();
